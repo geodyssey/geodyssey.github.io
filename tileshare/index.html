@@ -1,0 +1,233 @@
+<html><head>
+<title>TileShare - WWW Home Page</title>
+</head>
+
+<body bgcolor="antiquewhite" text="black" link="blue" alink="lime" vlink="teal">
+
+<h2>TileShare System</h2>
+
+<p>
+TileShare is a set of programs and computer file
+specifications for those that need to use
+- and may want to share - large-scale paper
+maps on personal and mobile computers. Once transformed
+from their paper form into data files by scanning and processing,
+such "maps" (called "<b>tilesets</b>") become cross-platform
+entities that can be used (and shared) without change on many
+different computers, in a variety of applications.
+</p>
+
+<p>
+Following is a summary of the most important
+characteristics of the tileset file format:
+</p>
+
+<ul>
+
+<li>
+<p>
+A tileset map can be  used in memory-mapped mode
+on computers having either "little-endian" or "big-endian"
+architectures.
+</p>
+</li>
+
+<li>
+<p>
+The tileset file format accommodates either lossy or lossless
+compression of bitmaps, or a combination of both.
+</p>
+</li>
+
+<li>
+<p>
+Tilesets can be used effectively on systems with very
+little memory. Since the component tile spatial clustering is
+based on the Morton Squares schema, fastest possible navigation
+within large external files is assured.
+</p>
+</li>
+
+<li>
+<p>
+Once a tileset has been assembled, all geopositioning and
+navigational functions use only integer arithmetic.
+Despite this, geometry computations are both global
+in scope and of centimeter-range precision. The tileset file
+format therefore is well suited for use in devices having
+no floating-point hardware.
+</p>
+</li>
+
+</ul>
+
+<p>
+TileShare system was developed by
+<a href="http://www.geodyssey.com" target="geodyssey">
+Geodyssey Limited</a> of Calgary, Alberta, Canada,
+the developer and vendor of a comprehensive library of geographic
+software tools. However, in the hope that it will
+promote and facilitate wider sharing of scanned maps
+between users and geographical computer applications,
+all specifications and full source code presented
+here are free for either personal or commercial use;
+crediting Geodyssey Limited as the source is
+appreciated but is not required.
+</p>
+
+<p>
+TileShare components presented on this web page include:
+</p>
+
+<h4>Documentation</h4>
+
+<p>
+Tileset file format specifications - of interest to the
+application developers - are described in the extensive
+commentary of the C language header file
+<a href="./source/tileset.h">tileset.h</a>.
+</p>
+
+<p>
+The complete TileShare Manual - of interest to both
+tileset creators and users - can be viewed
+<a href="./docs/tileshare.html">here</a>.
+</p>
+
+<p>
+<b>Operation of all the programs listed below is explained</b>
+in the "TileShare Programs"
+<a href="./docs/tileshare.html#progs">
+section</a> of the Manual.
+</p>
+
+<h4>Win32 programs</h4>
+
+<p>
+<b>viewtgxm</b> is a simple <b>Windows application for
+viewing tilesets</b>. It can be used "as is" or as the basis
+for Windows applications with a more comprehensive repertoire
+of geographical functions. Alternatively, it may be used
+as the model to quickly port basic tileset viewing and GPS
+navigation capabilities to other computer hardware and/or
+operating systems. The program can be downloaded
+by following <a href="./win32run/viewtgxm.exe">this link</a>.
+</p>
+
+<p>
+If you have a GPS device connected to your portable computer,
+<b>viewtgxm</b> can center on your location and trace your
+movements. To do so, you first start a program called
+<b>gpsmonitor</b>, which can serve any number of <b>viewtgxm</b>
+display windows with the positional information required to
+center on, and subsequently trace your current position.
+(It can also create a time/position log file). <b>gpsmonitor</b>
+is configured via a simple ASCII text
+<a href="./win32run/gpsmonitor.init">".init" file</a>.
+The <b>gpsmonitor</b> program can be downloaded
+by following <a href="./win32run/gpsmonitor.exe">this link</a>.
+</p>
+
+<p>
+<b>tscomp</b> is a command-line program that "compiles" (assembles)
+one or several scanned map "sections" into a tileset. It can be
+downloaded by following <a href="./win32run/tscomp.exe">
+this link</a>.
+</p>
+
+<p>
+<b>bmpreg</b> is a simple GUI applet that will measure
+pixel coordinates of a raw map scan section. It can be used
+to simplify the preparation of section-definition files
+and can be downloaded by following
+<a href="./win32run/bmpreg.exe"> this link</a>.
+</p>
+
+<p>
+<b>widthcalc</b> is a command-line program that will calculate
+and report desired combinations of tile width in pixels and
+the number of tile columns, based on the pixels per unit of
+longitude of the scanned bitmap and the longitude range of
+the tileset. It can be downloaded by following
+<a href="./win32run/widthcalc.exe"> this link</a>.
+</p>
+
+<p>
+<b>gridder</b> is a command line program that can be used to
+process maps with no latitude/longitude grid, but with four
+points, each in the general vicinity of one map sheet corner,
+for which the latitude and longitude are either known or can
+be measured with a GPS device. It can be downloaded by following
+<a href="./win32run/gridder.exe"> this link</a>.
+</p>
+
+<h4>Mac OS X <b>viewtgxm</b> program</h4>
+A limited functionality tileset viewer for Mac OS X can be downloaded
+by following <a href="./macosxrun/viewtgxm.dmg"> this link</a>.
+
+<h4>A Tileset Building Example</h4>
+
+<p>
+By way of an example, there is a collection of four files.
+<code>louise150_a.bmp</code> and <code>louise150_b.bmp</code>
+are two raw scans of a small part of Canadian 1:50K
+topographic map 82 N/8, covering Lake Louise, Plain of the
+Six Glaciers and Valley of the Ten Peaks in Banff National
+Park, Alberta. <code>louise150.sdef</code> is the textual
+specification file, used - in addition to the two .bmp files -
+to produce <code>lake_louise.tgxm</code>: finished tileset of
+the Bow Range (one of the most outstanding and yet easily
+accessible destinations in the Canadian Rockies). Follow
+<a href="./example/"> this link</a> for their directory.
+</p>
+
+<h4>C language source code</h4>
+
+<p>
+As mentioned in the introduction, an extensive collection
+of source code is provided to those that intend to develop
+TileShare applications. Source code is provided with
+extensive commentary and addresses all of the essential steps
+required to create and use tileset files. It is organized
+in three directories:
+</p>
+
+<p>
+The first directory contains cross-platform fundamentals:
+a header file that defines tileset file structures, their
+order of occurrence and their elements and C language code
+for a library of computational and indexing functions.
+Follow <a href="./source/"> this link</a> for the directory
+listing.
+</p>
+
+<p>
+The second directory contains all of the source-code components
+for (previously introduced) <b>viewtgxm</b> and <b>gpsmonitor</b>
+programs. Follow <a href="./win32source/"> this link</a> for
+its listing.
+</p>
+
+<p>
+The third directory (and its subdirectories) contains the source-code
+components for <b>viewtgxm</b> for Mac OS X. As mentioned above,
+this is only a limited functionality viewer; its main purpose is to provide
+a programming example for tileset dispaly and navigation on Mac OS X
+Carbon graphical API. Follow <a href="./macosxsource/"> this link</a>
+for its listing. </p>
+
+<p>
+All comments, questions and suggestions are welcome. Please
+write to: hrvoje@geodyssey.com .
+</p>
+
+<p>
+<a href="http://www.geodyssey.com" target="geodyssey">
+Visit Geodyssey's home page</a>.
+</p>
+
+<center>
+<h2>...</h2>
+</center>
+
+</body></html>

@@ -1,0 +1,667 @@
+<html><head>
+<title>Geodyssey's Hipparchus Open C/C++ Component Function
+Libraries</title>
+<link rev=made href="mailto:info@geodyssey.com"></head><body>
+<h2>Functions of the Hipparchus Libraries</h2>
+(Corresponds with Release 3.40).<br>
+Last updated 2004/05/04.<p>
+
+<a name="toc">
+Two libraries are supplied with Hipparchus:<ul>
+<li>The <a href="#lib">Hipparchus Library</a> has functions for:<p><ul>
+    <li><a href="#h1">Data Conversion and Cell Lists</a>
+    <li><a href="#h2">Plane Geometry</a>
+    <li><a href="#h3">Spherical Geometry</a>
+    <li><a href="#h4">Ellipsoidal Geometry</a>
+    <li><a href="#h5">Classical Cartographic Projections</a>
+    <li><a href="#h6">Cell Structures and Local Coordinates</a>
+    <li><a href="#h7">Spatial Objects and Operators</a>
+    </ul><p>
+
+<li>The <a href="#aux">Hipparchus Auxiliary Library</a> has functions for:<p><ul>
+    <li><a href="#h8">File Options</a>
+    <li><a href="#h9">Geographics</a>
+    <li><a href="#h0">Utility User Interfaces</a>
+     </ul>
+</ul>
+<p><a href="overview.html">Return to Overview</a>.
+
+<hr><a name="lib"><h2>Hipparchus Library</h2>
+
+The <i>Hipparchus Library</i> consists of a comprehensive set of C language
+object module functions designed to enable application developers to
+incorporate geographical information handling into their own applications.
+Although written in the C language, the functions are equally accessible to
+C++ language developers.<p>
+
+<i>Hipparchus Library</i> functions are 100% re-entrant. This means that
+Hipparchus functionality can be multi-threaded, which in turn means that
+Hipparchus-based server applications are scalable for multi-user access
+without any restrictions imposed by Hipparchus.<p>
+
+<i>Hipparchus Library</i> functions communicate with their host applications
+entirely through C or C++ language memory structures.  These are defined by
+four <i>Hipparchus Library</i> C or C++ includable header files:
+<i>hipparch.h</i>, <i>hippvrsn.h</i>, <i>hipproto.h</i> and <i>hippengn.h</i>.
+These headers also define function prototypes, useful macros and manifest
+constants.<p>
+
+There are no I/O bindings of any kind: console, file or database. This leaves
+the application developer entirely free to combine Hipparchus functionality
+with data from any external source. Having said that, the Hipparchus spatial
+index used internally provides an excellent basis for a spatial index for
+external data.<p>
+
+Similarly, there are no bindings with any graphical user interface (GUI).
+This again leaves the application developer free to set Hipparchus
+functionality into the context of the GUI of his choice.  However,
+<i>Hipparchus Library</i> functions provide the computational means to
+transform efficiently between several geographical coordinate systems and the
+plane of a display (map), in both directions. (Functions of the <i>Hipparchus
+Auxiliary Library</i> further transform these planar coordinates to or from
+pixel coordinates).<p>
+
+<i>Hipparchus Library</i> functions communicate with no operating system
+services other than a heap memory manager. Hipparchus function calls for heap
+memory management are made via two pass-through functions: <i>h1_Malloc</i>
+and <i>h1_Free</i> (see below). These functions in turn call the C or C++
+run-time library functions <i>malloc</i> and <i>free</i>. As a consequence of
+this design, the developer is free to substitute more effective memory
+management functions, if required.<p>
+
+To reduce the possibly deleterious effects of repeated allocation and
+de-allocation of small blocks of memory, some of the <i>Hipparchus
+Library</i> functions allocate and de-allocate from a stack-like structure
+allocated initially from the system heap.  This structure is shareable with
+other functions in the application.<p>
+
+<i>Hipparchus Library</i> functions are divided into seven sections numbered
+1 to 7. The naming convention employs the letter h and one of the numerals 1
+to 7 as the first two characters of each function name.  For historical
+reasons each function has two names: a longer descriptive name and a shorter
+six-character name. Long names are translated to short names by the ANSI C
+pre-compiler, as prescribed in the supplied header files.<p>
+
+Many of the functions that appear in the listings that follow are primitives
+used by higher level functions in the same or different section. Although it
+is unlikely that the developer will need to call any of these primitives
+directly, they are provided for completeness of description and as an aid in
+problem analysis.<p>
+
+<hr><a name="h1"><h3>Data Conversion and Cell Lists</h3>
+
+These functions provide general facilities for the conversion of latitudes,
+longitudes and other angles and dates to and from Hipparchus internal
+formats, for the management of logical bit and byte arrays, and for the
+management of lists of Voronoi cell identifiers.<p><ul>
+<li>h1_AngleAzimuth              Convert direction to angular azimuth
+<li>h1_BitflagInquire            Inquire bit-flag in integer array
+<li>h1_BitflagReset              Reset bit-flag in integer array
+<li>h1_BitflagSet                Set bit-flag in integer array
+<li>h1_CellstringBsearch         Binary search in a compressed list
+<li>h1_CellstringCount           Number of elements in a compressed list
+<li>h1_CellstringUInit           Initialize cellstring union loop
+<li>h1_CellstringUNext           Get next cellstring union element
+<li>h1_CellstringXInit           Initialize cellstring intersection loop
+<li>h1_CellstringXNext           Get next cellstring intersection element
+<li>h1_CellstructBsearch         Binary search in a list of unsigned items
+<li>h1_CompareCellstring         Compare two compressed lists
+<li>h1_CompareInCellstring       Compressed list contained in another
+<li>h1_CompressCellstring        Compress an ordered list
+<li>h1_DateToDaynumber           Encode Gregorian calendar date
+<li>h1_DaynumberToDate           Decode Gregorian calendar date
+<li>h1_Dcos3ToLatLong            Convert normalized vector to Lat/Long
+<li>h1_DecompressCellstring      Decompress a compressed list
+<li>h1_Free                      Free heap memory
+<li>h1_IntPow10                  Evaluate integer power of ten
+<li>h1_LatLongToDcos3            Convert Lat/Long to normalized vector
+<li>h1_Malloc                    Allocate heap memory
+<li>h1_NormalizeDcos2            Normalize two dimensional vector
+<li>h1_NormalizeDcos3            Normalize three dimensional vector
+<li>h1_NormalizeLatLong          Normalize Lat/Long coordinates
+<li>h1_SineCosine                Compute Sine and Cosine
+<li>h1_Sort                      Quick-sort with additional functionality
+<li>h1_SunRightAscension         Right Ascension of Sun at the epoch of UT
+<li>h1_UpgradeXY                 Upgrade XY coordinates
+<li>h1_UpgradeZ                  Upgrade Z coordinate
+
+</ul>
+
+<p><a href="#toc">Return to Library Section Directory</a>.<p>
+
+<hr><a name="h2"><h3>Plane Geometry</h3>
+
+These functions provide for the derivation of planar items such as circles
+and ellipses and for the calculation of planar productions such as the
+intersection of line segments. Included are functions that provide affine
+"rubber-sheet" transforms for planar data and functions that construct
+and reference surface TINs (Triangular Irregular Networks).<p><ul>
+<li>h2_AngleOrder                Angle sort-order value
+<li>h2_AreaArcBoundary           Process area/perimeter arc boundary leg
+<li>h2_AreaInit                  Initialize planar area/perimeter calculator
+<li>h2_AreaLineBoundary          Process next area/perimeter line boundary leg
+<li>h2_AreaPerimeter             Return planar area and perimeter
+<li>h2_DeriveCircle              Circle center and radius from three points
+<li>h2_DeriveEllipse             Coaxial ellipse parameters from four points
+<li>h2_DividedDifferences        Transform a point using DD transformation
+<li>h2_EqualAreaToStereo         Equal area to stereographic transformation
+<li>h2_FindTriangle              Find triangle in a planar TIN
+<li>h2_Hull                      Construct planar convex hull
+<li>h2_Intersection              Intersection of planar end-point segments
+<li>h2_LineDivide                Divide line segment in given ratio
+<li>h2_LineOffset                Planar line offset
+<li>h2_MakeTin                   Construct planar TIN structure
+<li>h2_NadirReceiverAngle        Nadir/Receiver maximum angular distance
+<li>h2_PointLine                 Point position relative to a line
+<li>h2_SetDividedDifferences     Set parameters of a DD transformation
+<li>h2_SetOrthogonal2Point       Set parameters of an orthogonal transformation
+<li>h2_StereoToEqualArea         Stereographic to equal area transformation
+<li>h2_TinZ                      Z value of a planar TIN
+<li>h2_TestIntersect             Test and intersect line segments
+<li>h2_TransformPoint            Orthogonal/affine point transformation
+<li>h2_TriInter2Init             Initialize double triangular interpolation
+<li>h2_TriInter2Next             Next double triangular interpolation value
+<li>h2_TriInterSimple            Simple triangular interpolation
+<li>h2_TriangleArea              Area of planar triangle
+
+</ul>
+
+<p><a href="#toc">Return to Library Section Directory</a>.<p>
+
+<hr><a name="h3"><h3>Spherical Geometry</h3>
+
+These functions provide facilities for the vector algebraic calculation of
+spherical solid geometry productions. Examples include spherical arc, chord,
+line segments and point-line proximity. Functions for simple projective
+mapping and unmapping are included.<p><ul>
+
+<li>h3_ArcToHipparchDist         Convert arc to square chord distance
+<li>h3_ArcToHipparchDistApprox   Approximate arc to square chord distance
+<li>h3_Circumcenter              Spherical circumcenter
+<li>h3_ConvexHull                Find convex hull of a set of spherical points
+<li>h3_CosineDist                Spherical distance, cosine measure
+<li>h3_DirectArc                 Direct problem (sphere), arc distance
+<li>h3_DirectChord               Direct problem (sphere), chord distance
+<li>h3_HboxInit                  Initialize Hbox parameter array
+<li>h3_HboxTestLine              Test line inside Hbox
+<li>h3_HboxTestPoint             Test point inside Hbox
+<li>h3_HipparchDist              Hipparchus spherical distance
+<li>h3_HipparchDistToArc         Square chord to arc distance
+<li>h3_HipparchDistToArcApprox   Approximate square chord to arc distance
+<li>h3_HipparchDistToTangentG    Gnomonic tangent from Hipparchus distance
+<li>h3_HipparchDistToTangentS    Stereographic tangent from Hipparchus distance
+<li>h3_InitConical               Initialize conical projection
+<li>h3_InitEqDistCyl             Initialize equidistant cylindrical projection
+<li>h3_InitGnomonic              Initialize gnomonic projection
+<li>h3_InitMercator              Initialize Mercator projection
+<li>h3_InitOrtho                 Initialize orthographic projection
+<li>h3_InitPerspective           Initialize perspective projection
+<li>h3_InitPlatteCarree          Initialize platte carree projection
+<li>h3_InitStereo                Initialize stereographic projection
+<li>h3_InitWwMercator            Initialize World-window Mercator projection
+<li>h3_InitWwView                Initialize World-window view projection
+<li>h3_Intersection              Intersection of spherical end-point segments
+<li>h3_InverseArc                Inverse problem (sphere), arc distance
+<li>h3_InverseChord              Inverse problem (sphere), square chord distance
+<li>h3_MapConical                Direct conical projection
+<li>h3_MapEqDistCyl              Direct equidistant cylindrical projection
+<li>h3_MapGnomonic               Direct gnomonic projection
+<li>h3_MapIsoLatitude            Direct isometric latitude transformation
+<li>h3_MapMercator               Direct Mercator projection
+<li>h3_MapOrtho                  Direct Orthographic projection
+<li>h3_MapPerspective            Direct perspective projection
+<li>h3_MapPlatteCarree           Direct platte carree projection
+<li>h3_MapStereo                 Direct Stereographic projection
+<li>h3_MapWwMercator             Direct World-window Mercator projection
+<li>h3_MapWwView                 Direct World-window view projection
+<li>h3_MaximumLatitude           Great circle latitude extremes
+<li>h3_MeridianIntersection      Intersection with a meridian
+<li>h3_MidPoint                  Spherical mid-point
+<li>h3_MidplaneIntersection      Intersection with a mid-plane
+<li>h3_OffsetPoint               Spherical point from mid-point and offset
+<li>h3_ParallelIntersection      Intersection with a parallel of latitude
+<li>h3_PointLineProximity        Spherical line segment/point proximity test
+<li>h3_Sector                    Circular sector arc points
+<li>h3_SphereOffset              Spherical axis offset
+<li>h3_SpherePrincipalNormals    Meridian and prime vertical plane normals
+<li>h3_TriangleArea              Area of a spherical triangle
+<li>h3_UnMapConical              Inverse conical projection
+<li>h3_UnMapEqDistCyl            Inverse equidistant cylindrical projection
+<li>h3_UnMapGnomonic             Inverse gnomonic projection
+<li>h3_UnMapIsoLatitude          Inverse isometric latitude transformation
+<li>h3_UnMapMercator             Inverse Mercator projection
+<li>h3_UnMapOrtho                Inverse Orthographic projection
+<li>h3_UnMapPlatteCarree         Inverse platte carree projection
+<li>h3_UnMapStereo               Inverse Stereographic projection
+<li>h3_UnMapWwMercator           Inverse World-window Mercator projection
+<li>h3_UnMapWwView               Inverse World-window view projection
+
+</ul>
+
+<p><a href="#toc">Return to Library Section Directory</a>.<p>
+
+<hr><a name="h4"><h3>Ellipsoidal Geometry</h3>
+
+These functions provide facilities for quadratic ellipsoidal geometry
+calculations including surface distances, azimuths and conversion between a
+specified ellipsoid and other domains. Functions are included that call on
+the satellite orbit modeler and relate orbital positions to points on the
+planetary surface.<p><ul>
+
+<li>h4_AdjustRotationRates       Adjust orbit rotation rates
+<li>h4_DirectChord               Direct problem, square chord distance
+<li>h4_DirectRudoe               Direct problem, Rudoe method
+<li>h4_EllipsoidDcos3ToHpsph     Ellipsoid (vector) to Hipparchus sphere
+<li>h4_EllipsoidToHpsph          Ellipsoid LatLng to Hipparchus sphere
+<li>h4_EllipsoidToRadiusvector   Cartesian coordinates from Ellipsoid
+<li>h4_HpsphRadius               Hipparchus sphere/ellipsoid local radius
+<li>h4_HpsphScale                Hipparchus sphere/ellipsoid local scale
+<li>h4_HpsphToEllipsoid          Hipparchus sphere to ellipsoid
+<li>h4_HpsphToEllipsoidDcos3     Hipparchus sphere to ellipsoid (vector)
+<li>h4_InverseChord              Inverse problem, square chord distance
+<li>h4_InverseRudoe              Inverse problem, Rudoe method
+<li>h4_Kepler2nd                 Ellipsoid focal segment area
+<li>h4_LatLongArea               Latitude/longitude bound ellipsoid area
+<li>h4_MeridianArc               Find meridian arc length
+<li>h4_OrbitDirect               Direct problem of orbit time/geometry
+<li>h4_OrbitPeriod               Find orbit period given semi-major axis
+<li>h4_OrbitPrecession           Orbit precession and rotation of the apsides
+<li>h4_OrbitSemiMajor            Orbit semi-major axis given period
+<li>h4_PolygonArea               Area of ellipsoid polygon
+<li>h4_Radii                     Minimum, mean and maximum ellipsoid curvature
+<li>h4_RadiusPvMrAz              Principal and general ellipsoid curvature
+<li>h4_RadiusvectorToEllipsoid   Ellipsoid coordinates from Cartesians
+<li>h4_RadiusvectorToHpsph       Hipparchus sphere coordinates from Cartesians
+<li>h4_SatelliteDirection        Instantaneous satellite position and direction
+<li>h4_SatelliteLocation         Instantaneous global position of a satellite
+<li>h4_ScanlineLocation          Nadir and swath limits given time in orbit
+<li>h4_ScanlineLocationExplicit  Nadir and swath given explicit location
+<li>h4_SetClassicalOrbit         Set Hipparchus orbit from the "classical set"
+<li>h4_SetEllipsoidParameters    Set ellipsoid parameters
+</ul>
+
+<p><a href="#toc">Return to Library Section Directory</a>.<p>
+
+<hr><a name="h5"><h3>Classical Cartographic Projections</h3>
+
+These functions provide UTM (Gauss-Krueger) and Lambert to ellipsoid and other
+mapping/unmapping operations. (Note that either UTM or Lambert is the basis
+of the "state plane" systems used in the USA).<p><ul>
+
+<li>h5_InitLambert2              Initialize Lambert conical projection
+<li>h5_MapGaussKrueger           Ellipsoid to Gauss-Krueger mapping
+<li>h5_MapIsoLatitude            Ellipsoid to sphere, conformal mapping
+<li>h5_MapLambert2               Ellipsoid to Lambert conical mapping
+<li>h5_MapPolarStereo            Ellipsoid to Polar Stereographic mapping
+<li>h5_UnMapGaussKrueger         Gauss-Krueger to ellipsoid mapping
+<li>h5_UnMapIsoLatitude          Sphere to ellipsoid, conformal mapping
+<li>h5_UnMapLambert2             Lambert conical to ellipsoid mapping
+<li>h5_UnMapPolarStereo          Polar Stereographic to ellipsoid mapping
+<li>h5_UtmCentralMeridian        Central meridian of a UTM zone
+
+</ul>
+
+<p><a href="#toc">Return to Library Section Directory</a>.<p>
+
+<hr><a name="h6"><h3>Cell Structures and Local Coordinates</h3>
+
+These functions provide facilities to construct, verify, maintain and
+navigate Voronoi cell structures.  Other functions provide for conversion
+between global and local differentially-encoded coordinates and for the
+management of stack-like Hipparchus workspaces.<p><ul>
+
+<li>h6_CellArea                  Spherical area of a cell
+<li>h6_CellIndexEdgeDist         Maximum distance of "edge-related" cells
+<li>h6_CellNearFar               Minimum and maximum point to cell distances
+<li>h6_CellSearch                Home cell of an arbitrary point location
+<li>h6_CellSortInsert            Voronoi cell neighbor sort - insert mode
+<li>h6_CellSortWave              Voronoi cell neighbor sort - wavefront mode
+<li>h6_Cellstring                Compressed list of cells with user test
+<li>h6_CellToHpsph               Convert cell to Hipparchus sphere coordinates
+<li>h6_CellVertex                Cell vertex
+<li>h6_CheckCellIndex            Voronoi index analysis, report distances
+<li>h6_CommonPointTriplet        Test three cells for common point
+<li>h6_CoordSeparation           Minimum required coordinate separation
+<li>h6_DegradeDouble             Degrade cell local coordinates from double
+<li>h6_Dist1Cell                 Maximum spherical distance in single cell
+<li>h6_Dist2Cells                Minimum, maximum spherical distance, two cells
+<li>h6_Dist2CellsApprox          Approximate distances, two cells
+<li>h6_DistNeighbors             Maximum spherical distance between neighbors
+<li>h6_GetCoordDatum             Get coordinate datum
+<li>h6_HboxTestCell              Test cell inside Hbox
+<li>h6_HpsphToCell               Convert Hipparchus sphere to cell coordinates
+<li>h6_InitCellAreaArray         Initialize cell area array
+<li>h6_InitIndexDescriptor       Initialize Voronoi index descriptor
+<li>h6_IsInsideCell              Verify distance from point to be inside cell
+<li>h6_NearCellTest              Near cell with user test
+<li>h6_NearCellstring            Near cell list
+<li>h6_NearCenterCellstring      Uncompressed list of proximity cell centers
+<li>h6_TwoNearCellstrings        Complete and partial proximity cell lists
+<li>h6_Upgrade                   Upgrade cell coordinates to double
+<li>h6_WindowCellstring          Compressed list of window cells
+<li>h6_WorkspaceCheck            Check workspace availability
+<li>h6_WorkspaceGet              Get/reserve workspace
+<li>h6_WorkspaceHwmReset         Reset workspace high-water mark
+<li>h6_WorkspaceInit             Initialize workspace
+<li>h6_WorkspaceRelease          Release workspace
+</ul>
+
+<p><a href="#toc">Return to Library Section Directory</a>.<p>
+
+<hr><a name="h7"><h3>Spatial Objects and Operators</h3>
+
+These functions provide facilities to construct, verify, manipulate and
+relate terrestrial objects (point sets, line sets, regions and surfaces). The
+higher-level functions permit new objects to be derived from others as a
+function of their spatial relationships. Other functions set the stage for
+the efficient export and import of objects from external storage.<p><ul>
+
+<li>h7_BoundaryRing              Ring construction
+<li>h7_CellStructLset            Create cell-index table for Lset
+<li>h7_CellStructRset            Create cell-index table for Rset
+<li>h7_ConstructPsetTin          Construct TIN representation of a Pset
+<li>h7_ConvexHull                Convex hull Rset from Pset
+<li>h7_FinalizeLset              Finalize Lset construction
+<li>h7_FinalizePset              Finalize Pset construction
+<li>h7_FinalizeRset              Finalize Rset construction
+<li>h7_FragmentInitLset          Initialize Lset fragment traverse
+<li>h7_FragmentInitRset          Initialize Rset fragment traverse
+<li>h7_FragmentIsLineEnd         Test fragment for line end
+<li>h7_FragmentIsLineStart       Test fragment for line start
+<li>h7_FragmentIsMonocellRing    Test fragment for monocell boundary ring
+<li>h7_FragmentNextLeg           Get next fragment leg
+<li>h7_GlobalToLset              Line object from a global point queue
+<li>h7_GlobalToPset              Point object from a global point stack
+<li>h7_GlobalToRset              Region object from a global point queue
+<li>h7_InteriorCellstring        Interior cell string construction
+<li>h7_LineSegment               Line construction
+<li>h7_LocalToPset               Point object from cellid/local coordinates
+<li>h7_LsetCountMidPoint         Vertex count and mid-point of a line object
+<li>h7_LsetGetInit               Initialize Lset line/vertex retrieval
+<li>h7_LsetGetLineNext           Retrieve next Lset line
+<li>h7_LsetGetVertexNext         Retrieve next Lset vertex
+<li>h7_LsetLength                Total length of a line object
+<li>h7_LsetNearVertices          Point to line set distance
+<li>h7_LsetPxLset                Point set from two line set intersections
+<li>h7_LsetToGlobal              Queue output of a line object
+<li>h7_LsetUxRset                Union/intersection, line and region objects
+<li>h7_NadirTraceToLset          Line object from satellite nadir trace
+<li>h7_OccupiedCellstring        Occupied cell string construction
+<li>h7_Ocix2X                    Cell-index intersection
+<li>h7_OcixCellstringX           Cell-index/cellstring intersection
+<li>h7_OcixSearch                Cell-index search
+<li>h7_PointFragmentDist         Point to fragment distance
+<li>h7_PointInFragmentsInit      Point inside boundary fragments in one cell
+<li>h7_PointInFragmentsNext      Point inside fragments, next fragment
+<li>h7_PointInFragmentsReturn    Point inside fragments, return result
+<li>h7_PointInsideRset           Point inside or outside a region
+<li>h7_PointLsetDist             Point to line set object distance
+<li>h7_PointLsetDistPtr          Near/far line set object element(s)
+<li>h7_PointPsetDist             Point to point object distance
+<li>h7_PointPsetDistPtr          Near/far point object element
+<li>h7_PsetCountMidPoint         Point count and mid-point of a point object
+<li>h7_PsetDuplicates            Copy a point object with duplicates
+<li>h7_PsetExpand                Expand a point object into a region
+<li>h7_PsetNearOrdered           Ordered list of near points
+<li>h7_PsetNearPoints            Point to point set distance
+<li>h7_PsetTinZ                  Z value of a PsetTin
+<li>h7_PsetToGlobal              Queued output of a point object
+<li>h7_PsetUxLset                Union/intersection, point set and line set objects
+<li>h7_PsetUxPset                Union/intersection, two point sets
+<li>h7_PsetUxRset                Union/intersection, point set and region objects
+<li>h7_PTestLsetRset             Test line set and region object for common point
+<li>h7_PTestRsetRset             Test two region objects for common point
+<li>h7_ReleaseHpobj              Release heap storage holding an object
+<li>h7_RsetAreaPerimeter         Area, perimeter of a region object
+<li>h7_RsetCountMidPoint         Vertex count and mid-point of a region object
+<li>h7_RsetGetInit               Initialize Rset ring/vertex retrieval
+<li>h7_RsetGetRingNext           Retrieve next Rset ring
+<li>h7_RsetGetVertexNext         Retrieve next Rset vertex
+<li>h7_RsetGlobalComplement      Create global complement of a region object
+<li>h7_RsetNearVertices          Point to region boundary distance
+<li>h7_RsetToGlobal              Queue output of a region object
+<li>h7_RsetUxRset                Union/intersection, two region objects
+<li>h7_SwathToRset               Region object from time and sensor swath
+<li>h7_TestMonocellRing          Double area of a single-cell ring
+<li>h7_VerifyRsetBoundary        Verify region boundary and vertex proximity
+<li>h7_VerifyRsetTopology        Verify topology of region rings
+</ul>
+
+<p><a href="#toc">Return to Library Section Directory</a>.<p>
+
+<hr><a name="aux"><h2>Hipparchus Auxiliary Library</h2>
+
+<i>Hipparchus Auxiliary Library</i> functions are also 100% re-entrant. This
+means that the <i>Hipparchus Libraries</i> functionality can be
+multi-threaded. This in turn means that Hipparchus-based server applications
+are scalable without any restrictions imposed by their use.<p>
+
+These functions have only descriptive (long) names, prefixed <i>h8</i>,
+<i>h9</i> and <i>h0</i>.<p>
+
+Since these functions are supplied in source, they may be freely modified as
+required to perform satisfactorly in specific graphics or file I/O
+environments other than those demonstrated in <i>Columbus</i>,
+<i>Galileo</i>, <i>Georama</i> and the <i>Hipparchus Utilities</i>.<p>
+
+Function prototypes, structures and manifest constants relevant to the
+<i>Hipparchus Auxiliary Library</i> are defined by the header files
+<i>hippttys.h</i>, <i>hippdbse.h<i>, </i>hippmmpf.h</i>, </i>hippdraw.h</i>,
+<i>hippguis.h</i> and <i>h0cryp.h</i>.<p>
+
+<hr><a name="h8"><h3>File Options</h3>
+
+These functions provide very basic, yet quite possibly adequate, external
+storage access facilities for Hipparchus-related data structures. They may
+apply if one or other of the following conditions exist:<ol>
+
+<li> there is a very high volume of static geographic objects and/or vector
+coordinate data, and:<p><ul>
+
+<li>run-time C/C++ stream I/O and binary search facilities are available and
+
+<li>a formal DBMS has not been mandated.<p>
+</ul>
+
+Several functions provide direct access to stream I/O files constructed
+according to the Hipparchus PLR schema, being collections of points, lines,
+regions or global surfaces (which are normally constructed using an
+appropriate Hipparchus utility).<p>
+
+<li> very large individual objects are to be created and accessed and <p><ul>
+
+<li>run-time memory-mapped file access facilities are available and
+
+<li>an object is to be searched rigorously for proximate elements, or
+
+<li>a large and complex object is to be intersected with a smaller region,
+(such as an "area of interest" polygon).
+
+</ul></ol><p>
+
+Several functions facilitate the run-time setup and closure of memory-mapped
+file access to Hipparchus Binary Objects (HBO's) and other files. This
+permits Hipparchus functions in general to access and manipulate Hipparchus
+binary objects via the facilities of the operating system's virtual memory
+manager, eliminating the overhead of first copying those objects into real
+(or virtual) memory. Hipparchus binary objects may be created on-line by the
+application or off-line via the appropriate Hipparchus utility.<p></ul>
+
+All functions in this section are re-entrant. As such they may be used freely
+in the construction of scalable multi-threaded server applications.<p><ul>
+
+<li>h8_CloseHboMmf               Close memory mapped Hipparchus object
+<li>h8_CloseMmf                  Close file memory mapping
+<li>h8_CloseVixMmf               Close Voronoi index memory mapping
+<li>h8_DbIxExactGet              Find cell index entry for a given cell
+<li>h8_DbIxExactInit             Initialize cell index search
+<li>h8_DbIxExactTest             Test for cell presence in cell index
+<li>h8_DbIxNextGet               File cell index/cellstring merge traverse
+<li>h8_DbIxNextInit              Initialize file cell index merge
+<li>h8_DbLnCloseGet              Find closest line in a given cell
+<li>h8_DbPtCloseGet              Find closest point in a given cell
+<li>h8_NewHboFile                Verify Hipparchus object file name and location
+<li>h8_OldHboFile                Confirm Hipparchus object presence and attributes
+<li>h8_OpenNewHboMmf             Memory map Hipparchus object under construction
+<li>h8_OpenOldHboMmf             Memory map an existing Hipparchus object
+<li>h8_OpenOldMmf                Open existing file memory mapping for reading
+<li>h8_OpenVixMmf                Open Voronoi index memory mapping
+</ul><p>
+
+<p><a href="#toc">Return to Library Section Directory</a>.<p>
+
+<hr><a name="h9"><h3>Geographics</h3>
+
+These functions provide support for the rendering of terrestrial objects,
+surfaces and satellite orbits as well as latitude-longitude reference grids,
+horizons and Voronoi cell structures. Renderings can be displayed or plotted
+in any of the gnonomic, stereographic, orthographic, local or world-wide
+Mercator, Lambert-like or Miller-like projections. These functions are
+designed for cross-platform GUI integration and assume only the availability
+of the minimal primitives: move-to, set-pixel, line-to and
+fill-convex-polygon.<p>
+
+All functions in this section are re-entrant.<p><ul>
+
+<li>h9_CellBoundary              Render cell boundary in window
+<li>h9_CellDual                  Render cell center to neighbor center lines
+<li>h9_CellSpokes                Render cell center to vertex lines
+<li>h9_CloseWindow               Release memory in a window control block
+<li>h9_DisplayCells              Render all window cells
+<li>h9_DisplayLine               Render line in cartographic projection plane
+<li>h9_DisplayLset               Render line set object
+<li>h9_DisplayLsetLine           Render single line of a line set
+<li>h9_DisplayLsetLineEnds       Render line set line ends
+<li>h9_DisplayLsetVertices       Render line set vertices
+<li>h9_DisplayPoint              Render single global point
+<li>h9_DisplayPset               Render point object
+<li>h9_DisplayRing               Render ring boundary
+<li>h9_DisplayRsetBoundary       Render region boundary
+<li>h9_DisplayRsetVertices       Render region boundary vertices
+<li>h9_DisplaySeToPlane          Map-plane/Display inverse, SE pixel corner
+<li>h9_DisplayTinEdges           Render edges of Pset TIN
+<li>h9_DisplayTinSurface         Render surface of Pset TIN
+<li>h9_DisplayTinVertices        Render vertices of Pset TIN
+<li>h9_DisplayToPlane            Map-plane/Display inverse transformation
+<li>h9_DrawSgVxFile              Draw coastline from segment/vertex files
+<li>h9_FillCell                  Cell interior fill
+<li>h9_FillRset                  Simple region interior fill
+<li>h9_GraphOutputAbort          Signal abort of graphical output
+<li>h9_GraphOutputEnd            End graphical primitives
+<li>h9_GraphOutputStart          Start graphical primitives
+<li>h9_HcpyFill                  Produce HPGL (hardcopy) fill
+<li>h9_HcpyLineEnd               End HPGL line buffering
+<li>h9_HcpyLineTo                Produce HPGL pixel line command
+<li>h9_HcpyMoveTo                Produce HPGL pixel move command
+<li>h9_HcpyOutputChar            Format and output HPGL character
+<li>h9_HcpyOutputString          Format and output HPGL string
+<li>h9_HcpySetLine               Set HPGL (hardcopy) line attributes
+<li>h9_HcpySymbols               Produce HPGL symbols
+<li>h9_Horizon                   Globe horizon
+<li>h9_InitWindow                Initialize map window
+<li>h9_LatLongGrid               Map Latitude/Longitude grid
+<li>h9_LineEnd                   Line output end
+<li>h9_LineTo                    Line vertex output end
+<li>h9_MapPoint                  Native projection, sphere to plane
+<li>h9_Marker                    Display a glyph at given pixel location
+<li>h9_MoveTo                    Break line
+<li>h9_NewWindowDisplay          Delineate new/proposed window
+<li>h9_NewWindowStart            Initialize new/proposed window trace
+<li>h9_PlaneToDisplay            Map-plane/Display direct transformation
+<li>h9_PlaneToPlane              Map-plane/Display, double, direct transformation
+<li>h9_PolygonFill               Simple polygon fill
+<li>h9_QuickMap                  Cell to display, "quick-map"
+<li>h9_QuickMapInit              Initialize cell/display "quick-map"
+<li>h9_ScanLineSegment           Set y-line color gradient
+<li>h9_SetPlaneDisplay           Map-plane/Display transformation initialization
+<li>h9_SetPlaneDisplayDirect     Map-plane/Display transformation initialization
+<li>h9_Symbol                    Symbol output
+<li>h9_SymbolEnd                 Symbol output end
+<li>h9_UnMapPoint                Native projection, plane to sphere
+<li>h9_WindowCellstring          Construct window cellstring
+<li>h9_WindowRset                Construct window region
+
+</ul>
+
+<p><a href="#toc">Return to Library Section Directory</a>.<p>
+
+<hr><a name="h0"><h3>Utility User Interfaces</h3>
+
+These functions provide user-oriented data conversion and interface
+facilities. They are supplied in source and may be freely modified as
+required. Note that in addition to platform-specific screen and hardcopy
+graphics, support is provided for hardcopy output on HP-GL/2 capable plotters
+and laser printers. This can be used as a model for other dedicated graphical
+output sub-systems.<p><ul>
+
+<li>h0_AngleToString             Convert radian angle to character string
+<li>h0_CLineFileName             Retrieve command line file name
+<li>h0_CLineOption               Retrieve command line option
+<li>h0_CdcHToDcos3               Vector from concise direction cosines
+<li>h0_ComposeFileName           Compose file name
+<li>h0_CryptInitPad              Initialize Blowfish P and S tables
+<li>h0_CryptTestPad              Test for Blowfish weak key
+<li>h0_CtrlFileClose             Close control file
+<li>h0_CtrlFileCloseSave         Save and close control file
+<li>h0_CtrlFileGetFileName       Get control file name
+<li>h0_CtrlFileGetKeyData        Get control file string data
+<li>h0_CtrlFileGetKeyInt         Get control file integer data
+<li>h0_CtrlFileGetKeyInts        Get control file integer array data
+<li>h0_CtrlFileGetNext           Get control file strings in a loop
+<li>h0_CtrlFileOpen              Open control file
+<li>h0_CtrlFilePutKeyData        Put control file string data
+<li>h0_CtrlFileRemoveKey         Remove control file directive
+<li>h0_CtrlFileVerify            Verify control file syntax
+<li>h0_DateToString              Convert Gregorian date to string
+<li>h0_Dcos3ToCdcH               Concise direction cosines from vector
+<li>h0_DeCrypt                   Decrypt using Blowfish
+<li>h0_DirectoryTraverseInit     Initialize directory traverse
+<li>h0_DirectoryTraverseNext     Get next file name in a directory
+<li>h0_DumpCoordinates           Dump object coordinates
+<li>h0_DumpLset                  Dump line object
+<li>h0_DumpPset                  Dump point object
+<li>h0_DumpPsetTin               Dump point-surface object
+<li>h0_DumpRset                  Dump region object
+<li>h0_EnCrypt                   Encrypt using Blowfish
+<li>h0_ErrorExit                 Print message and abort
+<li>h0_ExtractFileBaseName       Extract file base name
+<li>h0_ExtractFileExtension      Extract file extension
+<li>h0_ExtractFilePath           Extract file path
+<li>h0_FreeVix                   Free Voronoi index memory
+<li>h0_HashBytes                 Cryptographic hash of a character string
+<li>h0_LoadTix                   Load textual Voronoi index file
+<li>h0_LoadVix                   Load binary Voronoi index file
+<li>h0_ParseString               Parse character string
+<li>h0_ProjectionCode            Projection code
+<li>h0_ProjectionName            Projection name
+<li>h0_RemovePath                Remove file path
+<li>h0_ReplaceExtension          Replace file extension
+<li>h0_ResolutionCode            Resolution code
+<li>h0_ResolutionName            Resolution name
+<li>h0_StrAppendStr              Append string
+<li>h0_StrAppendChar             Append character
+<li>h0_StringToAngle             Convert character string to radian angle
+<li>h0_StringToDaynumber         Character string to Gregorian day-number
+<li>h0_VerifyObjectName          Verify object name
+<li>h0_WorkFileSort              Sort workfile
+
+</ul><p>
+
+If you are developing for DOS-level systems, please note that another sub-set
+of <i>h0</i> functions is provided, in source, "as is", in the
+<i>GRAB_BAG</i>.  These are DOS-level console and graphics routines that we
+have used beneficially in the past for applications having limited hardware
+resources.<p>
+
+<p><a href="#toc">Return to Library Section Directory</a>.<p>
+
+<hr><h3>Footnote</h3>
+
+If you have found the foregoing somewhat daunting, you might consider
+browsing the <a href="galileo/galileo.html"> Hipparchus Galileo Guide</a> in
+which the higher-level macros of <i>Galileo</i> suggest the power and
+versatility of the <i>Hipparchus Libraries</i>. <p>
+
+<a href="overview.html">Return to Table of Contents.</a>
+</body></html>
+

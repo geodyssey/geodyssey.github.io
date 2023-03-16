@@ -1,0 +1,38 @@
+; description of input - Lake Louise tileset example
+;
+input.directory=e:\tileshare\cd_webpage\example
+registration.tolerance=20
+registration.y.invert=1
+;
+rp.louise150_a=     112     56  n51:26 w116:23
+rp.louise150_a=    1204     47  n51:26 w116:15
+rp.louise150_a=     120   2040  n51:17 w116:23
+rp.louise150_a=    1215   2031  n51:17 w116:15
+;
+rp.louise150_b=      72     52  n51:26 w116:15
+rp.louise150_b=    1161     56  n51:26 w116:07
+rp.louise150_b=      64   2037  n51:17 w116:15
+rp.louise150_b=    1159   2040  n51:17 w116:07
+;
+add.louise150_a=  -0:0.0070 -0:0.0494
+add.louise150_b=  -0:0.0070 -0:0.0494
+;
+; description of output tileset "Lake Louise"
+output.directory.name=e:\tileshare\cd_webpage\example\lake_louise
+pixel.sampling=1
+pixel.reduction.factor=1
+tileset.columns=8
+tile.width=272
+tile.height=160
+tileset.color.depth=24
+tileset.image.type=lossless
+tileset.projection=rectangular
+;
+tileset.limit.south=n51:17:02
+tileset.limit.north=n51:25:58
+tileset.limit.west=w116:23
+tileset.limit.east=w116:07
+;
+tileset.description.l1=Lake Louise 50k
+tileset.description.l2=(example tileset)
+;

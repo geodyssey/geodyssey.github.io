@@ -1,0 +1,607 @@
+
+<html><head>
+<title>Overview of Geodyysey's Hipparchus Open GIS Software Tools</title>
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta name="description" content="All about Hipparchus">
+<meta name="keywords" content="Hipparchus, Galileo, Georama, open
+ GIS, geographics, mapping, spatial computation, spatial algebra,
+ spatial relationships, what is where, geographic tools, C/C++ libraries,
+ modular components, atlas, GIS programmer's workbench">
+<meta name="author" content="John Russell">
+<meta name="copyright" content="2010, Geodyssey Limited">
+<meta name="robots" content="index">
+
+</head><body>
+
+<h1>Hipparchus Overview</h1>
+
+By John Russell, President<br>
+Geodyssey Limited, Calgary<p>
+Last updated November, 2010.<p>
+
+Information in this document is subject to change without notice.<br>
+Hipparchus&reg; is a registered trademark of Geodyssey Limited.<br>
+&copy; Copyright 1992-2010 by Geodyssey Limited.<br>
+All rights reserved, worldwide.<p>
+
+<a name="toc"> <h3>Table of Contents</h3> </a>
+<ul>
+<li><a href="#hipparchus">About Hipparchus</a>
+<li><a href="#objects">Geographic Objects</a>
+<li><a href="#coordinates">Coordinate System</a>
+<li><a href="#indexing">Spatial Indexing</a>
+<li><a href="#operators">Spatial Relationships</a>
+<li><a href="#orbits">Orbit Modeling</a>
+<li><a href="#rendering">Geographic Rendering</a>
+<li><a href="#structures">Data Structures</a>
+<li><a href="#compiling">Compiling and Linking</a>
+<li><a href="#memory">Memory Management</a>
+<li><a href="#gui">GUI Integration</a>
+<li><a href="#dbms">DBMS Integration</a>
+<li><a href="#data">Geographic Data</a>
+<li><a href="#radtools">RAD Tools</a>
+<li><a href="#galileo">Galileo</a>
+<li><a href="#georama">Georama</a>
+<li><a href="#utilities">Utilities</a>
+<li><a href="#documentation">Documentation</a>
+<li><a href="#platforms">Platforms</a>
+<li><a href="#functions">Function List</a>
+
+<a name="hipparchus"><h3>About Hipparchus</h3> </a>
+
+<b>Hipparchus</b> <i>(pronounced hih-PAR-kuhs)</i> was perhaps the greatest
+of the ancient Greek astronomer mathematicians.  The inventor of latitudes
+and longitudes, he used these angular measurements to calculate distances on
+the surface of the Earth. Thus began an appreciation of the <i>round</i>
+Earth.<p>
+
+<b>Hipparchus<small>&reg;</small></b> <i>(our product)</i> is an
+<b>"open"</b> function library that has provided C/C++ and other application
+developers with the tools to deal with the "where" of things. And, for the
+first time, recognizes the <i>ellipsoidal shape</i> of the Earth.
+<b>Hipparchus</b> is the component that provides seamless, lightning-fast
+access to your geographic databases, "in-the-blink-of-an-eye" rendering of
+geographical scenes, and (possibly more importantly), an incredibly fast, yet
+very precise, geospatial calculus.<b>
+
+Co-existing</b> with your chosen graphical user interface (GUI) and
+database management system (DBMS), Hipparchus communicates with your
+application via C/C++ memory structures.<p>
+
+<b>Scalability</b> is assured because <i>Hipparchus Library</i> functions are
+100% re-entrant! This means that Hipparchus-based geographic applications can
+be multi-threaded. Which, in turn, means that your <b>Internet/Intranet</b>
+server application will be 100% scalable, (so far as our part is
+concerned)!<p>
+
+Hipparchus provides full geographic functionality without forcing a packaged
+approach.  New or existing applications can now deal with the geography of
+things without requiring the use of the monolithic solution.<p>
+
+As never before, Hipparchus can add geography to all kinds of applications:
+be they embedded, mobile, desktop, desktop client, server, scalable
+multi-threaded server mainframe. Read on to see just how we can make this
+claim!<p>
+
+<a href="#toc">Return to Table of Contents</a>
+
+<a name="objects"> <h3>Geographic Objects</h3> </a>
+
+Most people equate geography to maps.  Although maps are interesting to
+study, their images provide no information a computer can use directly.
+Merely manipulating map images is not enough.  You need a tool that puts
+numbers to the location of things.<p>
+
+With Hipparchus, you deal with the "where" attribute by modeling things as
+points, lines or regions on or near the Earth's surface.  The objects you
+model might be permanent geographic features such as oil wells, roads or land
+parcels or they might be more changeable elements such as customer locations,
+flight paths or cloud cover. In the Hipparchus context, an object generally
+represents a <i>set</i> of things, not just a single element.<p>
+
+Within Hipparchus, geographic objects are constructed and manipulated as
+memory-resident structures, their external form being entirely managed by
+you, the developer.  An object is defined by the geographic coordinates of
+its various parts.  Objects may be modeled without geographic restriction.
+They can describe features as small as a bread box or as large as a planet.
+Line sets and the boundaries of regions may be described by any number of
+linear segments of any length.  Region objects may be non-simply connected,
+to any level of topological complexity. For example, a region that models the
+dry land of an island group might define a lake within an island within a
+lake within one of those islands, and so on.<p>
+
+Attribute data can be associated with the point or vertex coordinates
+defining the object.  For example, to model a three dimensional object (such
+as a mountain range), the obvious attribute to associate with all those point
+coordinates would be elevation.<p>
+
+Coordinate-associated attributes may be indirectly referenced by pointers.<p>
+
+<a href="#toc">Return to Table of Contents</a><p>
+
+<a name="coordinates"><h3>Coordinate System</h3></a>
+The internal coordinate system is the very soul of an engine such as this.
+Most systems use a "flat-Earth" or map-sheet paradigm and work with planar
+x-y coordinates.  By contrast, Hipparchus works with a geocentric coordinate
+system based on direction cosines.  Once cast into this form, object point or
+vertex locations are manipulated using a vector algebra that most notably
+<b><i>does not</i></b> include transcendental functions. Besides being much
+faster, calculations are numerically stable anywhere on the planet's surface
+and sub-millimetric precision is easily maintained when required. Locations
+and distances are calculated using a rigorous ellipsoidal geometry founded in
+the science of geodesy.<p>
+
+Provision is made for efficient conversion both from and to conventional
+external coordinate systems such as latitude-longitude, state plane or UTM.
+<p>
+
+<a href="cosines.html">More About Direction Cosines</a><p>
+
+To conserve memory and to speed graphic display functions, object point or
+vertex locations are differentially encoded according to precision
+requirements.  At the developer's discretion, objects can be stored
+externally in their encoded form, thereby significantly reducing external
+storage requirements and access times.<p>
+
+<a href="#toc">Return to Table of Contents</a><p>
+
+<a name="indexing"><h3>Spatial Indexing</h3></a>
+
+A spatial index is a means for addressing spatial data based on its
+geographic coordinates. (Just as a spatial index is normally required to
+retrieve geographically-keyed objects from an external database, an internal
+index is required to relate objects constructed in memory).<p>
+
+Conventional systems use rectangular tiles or quad-trees for their index.
+Given the latitude and longitude of an item, one can determine which tile or
+quad contains the item.<p>
+
+Hipparchus uses an entirely different spatial index. For its internal
+navigation, Hipparchus uses an adaptation of the Voronoi tessellation of the
+plane. Also known as Thiessen polygons, this method of subdivision of a map
+is used routinely by geographers to study the influence of proximity to
+points of interest such as trade centers and the like.  We have redefined the
+Voronoi tessellation so that it subdivides the surface of an ellipsoidal
+planet. See <i>Spatial Data and the Voronoi Tessellation</i>, Hrvoje Lukatela
+and John Russell, Dr. Dobb's Journal, December, 1992.<p>
+
+The Voronoi tessellation is by definition <i>irregular</i>.  The number
+and geographic extent of its cells can be set up for an application such that
+only specified quantities of data will fall into each cell.  And, should the
+spatial concentration of new data suggest the division of a cell,
+restructuring of the tessellation can be limited to that cell's immediate
+neighborhood.<p>
+
+Here's a <img src="cells.gif" align=middle alt="Picture of a ">
+population-related Voronoi tessellation</a>.<p>
+
+To assist in the rapid deployment of your application, Geodyssey offers a
+collection of pre-built Voronoi cell structures for various parts of the
+world at varying densities. These may be viewed and freely downloaded from
+our <a href="voronoi.html">web site repository</a>.<p>
+
+<a href="#toc">Return to Table of Contents</a><p>
+
+<a name="operators"><h3>Spatial Relationships</h3></a>
+
+To determine the where of things with respect to other things, an engine must
+be capable of numerically "overlaying" objects to see where they lie with
+respect to each other.  The results of an overlay must be interpretable as
+another object so that compound relationships can be investigated. Hipparchus
+"overlay" operators can derive:<ul><li>the union or intersection of two point
+sets <li>the subset of a point set that lies inside or outside a region
+<li>the subset of a point set that is or is not in proximity to a line set
+<li>the point set that consists of the intersections of a line set with
+itself or another line set <li>the subset of a line set that lies inside or
+outside a region <li>the region that "buffers" the points of a point set
+<li>the region that is the convex hull of a point set <li>the region that is
+the intersection or union of two other regions, being the common ground or
+the combined ground, respectively. (This is the "polygon overlay" operator).
+</ul><p>
+
+Hipparchus-derived spatial objects take on a life of their own and may freely
+be related to other objects or stored externally for later use.<p>
+
+High-performance spatial query operators can determine:<ul> <li>do two
+regions overlap? <li>does a point lie within a region ("point-in-polygon")?
+<li>where is the nearest/furthest point in a line set (and how far is it)?
+<li>which is the nearest or furthest point of a point set (and how far is
+it)? <li>which are the nearest n points of a set that lie within a specific
+radius (and how far away are they)? </ul>
+
+<p><a href="#toc">Return to Table of Contents</a><p>
+
+<a name="orbits"><h3>Orbit Modeling</h3></a>
+
+Increasingly, application data is acquired remotely from orbiting satellites.
+Reconciliation of this remotely-sensed data with other terrestrial data can
+be important. As a basis for this reconciliation, Hipparchus provides a
+precise third-order satellite orbit modeler.  Using vector algebra, this
+orbit modeler calculates successive orbital positions from the classical
+parameters, accounting for the three most significant motions: elliptical
+eccentricity, precession and the rotation of apsides. Here's the trace of
+several passes of a near-polar orbiting satellite (8k).</a><p>
+
+<img src="orbits.gif"><p>
+
+Orbit modeler functions can create terrestrial objects such as nadir traces
+and sensor swath regions.  These objects may then be displayed or combined
+with other terrestrial objects using the general spatial operators.  Here's
+an example of the combined sensor swaths of four passes of a remote-sensing
+satellite.  The combined swaths have been intersected with the land mass
+region to produce a new region - the land seen by this bird during those four
+sensor swaths.</a><p>
+
+<img src="landseen.gif"><p>
+
+The Hipparchus orbit modeler relates a satellite's position in orbit
+to its defined epoch date and time. The <i>Hipparchus Libraries</i> are
+Year 2000 compliant. Dates used by the orbit modeler are encoded as
+binary values that will endure until the year 2079.<p>
+
+<a href="#toc">Return to Table of Contents</a><p>
+
+<a name="rendering"><h3>Geographic Rendering</h3></a>
+
+The <i>Hipparchus Library</i> provides functions for the cartographic mapping
+and unmapping of data between an ellipsoidal planetary surface and other
+systems such as state plane, UTM or a conformal sphere. In addition, affine
+transforms provide the means to map back and forth between tangential and
+other arbitrary, non-tangential planes, such as those typically encountered
+in aerial or satellite imagery.<p>
+
+The <i>Hipparchus Auxiliary Library</i> provides a rich repertoire of graphic
+rendering functions that include mapping/unmapping to/from a variety of
+common projections such as gnomonic, stereographic, orthographic, local or
+world-wide Mercator, Lambert-like and Miller-like.<p>
+
+Terrestrial features (and orbit positions) may be displayed or plotted in the
+context of latitude-longitude grids or Voronoi tessellations. For
+continental-scale applications, the supplied world coastlines data may be
+used to provide geographic orientation.<p>
+
+Rendering functions can take advantage of the knowledge of your display's
+pixel domain, both in speeding the rendering of "straight" lines and in
+unmapping to surface coordinates the position of a display pixel indicated by
+a mouse. This information is communicated to Hipparchus via Hipparchus
+pseudo-window control structures.<p>
+
+With these and the afine transform ("rubber sheet") functions of the
+<i>Hipparchus Library</i>, you can draw vector data on bit-mapped aerial or
+satellite imagery or, with a mouse, perform heads-up vector data digitizing
+from such imagery.<p>
+
+<i>Hipparchus Auxiliary Library</i> rendering functions do not interface
+directly with the GUI but instead supply to (or obtain from) the application
+the pixel coordinate information that the application must then supply to (or
+which the application has already obtained from) the GUI. In this way,
+Hipparchus remains independent of the GUI. The application is the "glue" that
+binds the two. Only the most primitive display operators are assumed, the
+most complex being a convex polygon fill used in region object fill
+functions. Rendering for hard copy assumes only an HP/GL-2-compatible
+printer/plotter.<p>
+
+Of course, unusual projections can always be handled outside Hipparchus
+using conventional library functions such as those available from the US
+Geological Survey (USGS). Hipparchus's design permits easy integration of
+such computations.<p>
+
+<a href="#toc">Return to Table of Contents</a><p>
+
+<a name="structures"><h3>Data Structures</h3></a>
+
+All data structures referenced by the Hipparchus libraries are defined in
+supplied header files. These #include files provide the required definitions
+for:<p><ul> <li>elementary structures and unions <li>coordinate and vector
+structures <li>terrestrial object descriptive structures <li>Voronoi cell
+index descriptive structures <li>satellite orbit descriptive structures <li>
+pseudo-window control structures <li>Hipparchus-wide control
+structures.</ul><p>
+
+<a href="#toc">Return to Table of Contents</a><p>
+
+<a name="compiling"><h3>Compiling and Linking</h3>
+
+In general, Hipparchus applications can be compiled with any ANSI-compliant C
+compiler that produces object modules compatible with the object modules that
+make up a particular <i>Hipparchus Library</i> binary distribution.<p>
+
+Linking programs with the <i>Hipparchus Library</i> is straight forward.
+<i>Hipparchus Library</i> functions are structured just like any other
+linkable library function. All Hipparchus linkage references are visible to
+your application.<p>
+
+If required, you can link <i>Hipparchus Library</i> functions into DLL's or
+other run-time accessible components.<p>
+
+<a href="#toc">Return to Table of Contents</a><p>
+
+<A NAME="memory"></A><H3>Memory Management</H3>
+
+Depending on the complexity of the application, you will require from 25K to
+150K RAM for residence of the library functions linked with your application.
+The system memory heap is the <I>only</I> run-time resource that the
+Hipparchus engine allocates directly. (And be assured that Hipparchus is a
+careful consumer of this resource). Dynamic memory requirements will depend
+mainly on the size of your Voronoi index structure and on the number and size
+of the objects that you keep in memory simultaneously.<P>
+
+<A HREF="#toc">Return to Table of Contents</A><p>
+
+<A NAME="gui"></A><H3>GUI Integration</H3>
+
+Not everyone uses a graphical user interface (GUI). However, if your
+application needs or is predicated on a particular GUI, Hipparchus enables
+easy integration. The integration is done by your application program which
+controls the interactions between the user, the GUI and Hipparchus.
+Typically, Hipparchus provides the GUI with graphics information by
+projecting selected geographic surface features into the pixel domain of the
+display. Hipparchus can also "unmap" mouse-selected display pixels into
+surface coordinates. (Although there is no direct communication between
+Hipparchus and the GUI, the developer can describe the location, scale and
+pixel extent of Hipparchus pseudo-windows).<P>
+
+If you use the direct Win32 interface, you will find a wealth of relevant
+integration code in the source for <i>Columbus</i>, <i>Galileo</i> and
+<i>Georama</i>.<P>
+
+<A HREF="#toc">Return to Table of Contents</A><p>
+
+<A NAME="dbms"></A><H3>DBMS Integration</H3>
+
+There are no special integration requirements for binding Hipparchus with
+your database management system (DBMS). Hipparchus does not communicate
+directly with any DBMS. Instead, your application manages the storage and
+retrieval of data from the DBMS. Your application extracts location
+attributes from the external database and passes these to Hipparchus via
+internal memory structures. Similarly, geographic results produced by
+Hipparchus are passed back to your application via internal memory
+structures. If results are to be stored externally, your application selects
+them from their memory structures and presents them to the DBMS for external
+storage.<P>
+
+Nevertheless, your application may take significant advantage of the
+Hipparchus internal cell index by using it for the DBMS external geographic
+index. By using the Voronoi cell identifier as an external key (a simple
+integer), you can provide precise navigation instructions to the DBMS.
+A location query put to Hipparchus in any coordinate system can be returned
+to the application in terms of these owner-cell identifiers. In particular,
+whenever the application defines a specific graphical view of the Earth,
+Hipparchus returns a list of identifiers of cells known to contain objects
+in that view. This permits the strategic pre-fetching of in-view object
+coordinate data.<P>
+
+Coordinate data for objects contained in a cell is typically stored and
+retrieved from the DBMS as binary large objects (BLOBs). Combining this
+storage technique with the efficient internal coordinate formats used by
+Hipparchus can lead to exceptionally dense and fast external databases.<p>
+
+Since a large part of your geographic vector data will be either static or
+updated only periodically, you may opt to forgo a DBMS for this data and
+instead provide your own access code. For demonstration purposes (and maximum
+portability), we have implemented one such schema using only the standard C
+run time stream I/O and binary search facilities. We call this the Hipparchus
+PLR file schema. Currently, the schema supports access to static collections
+of points, lines and regions. Several <i>Hipparchus Auxiliary Library</i>
+functions (among those prefixed <i>h8</i>) support access to files
+constructed according to the schema. Supplied <a href="#utilities">utility
+programs</a> may be used to construct (load) the files in the context of
+specific Voronoi index structures. The schema may be seen (and felt) in both
+<a href="#galileo">Galileo</a> and <a href="#georama">Georama</a>.<P>
+
+Multiple Voronoi cell structures may be active in a single application. This
+enables an application to retrieve and process spatial data from local
+databases or remote server databases that are indexed using different Voronoi
+tessellations.<p>
+
+Note that if your operating system supports memory-mapped files, you may
+choose to save and access Hipparchus objects directly, thus bypassing the
+need for a DBMS. If you use the direct Win32 interface, you will find a
+wealth of useful memory-mapped file access code in the source code for
+<i>Galileo</i> and <i>Georama</i>.<P>
+
+<A HREF="#toc">Return to Table of Contents</A><p>
+
+<A NAME="data"></A><H3>Geographic Data</H3>
+
+A study of your application data is your quintessential first step in the
+creation of any Hipparchus-based application. You will need to define the
+sources, volumes and precision requirements of your data, as well as what you
+intend to do with it. Once familiar with the spatial operators available with
+Hipparchus, you may consider different application approaches requiring
+entirely different sources of data.<P>
+
+After your main application-related data has been defined, you may then be
+looking for background data. This is available from a large number of
+sources, many of them public. And many of them downloadable from the
+Internet.<P>
+
+An outstanding example of public-domain vector data is the CD-ROM offering of
+the US Dept of Transportation's National Highway Planning division. This free
+CD-ROM includes not only the geographical coordinates defining the shape of
+every state or inter-state highway in the US but the description and logic of
+the nodes and links making up the network (all good to about 80m on the
+ground!). For good measure, they have thrown in a whole lot of other data
+such as state and county borders, coastlines, rivers and lakes, municipal
+boundaries, municipal transit routes, national railways, ports, airports,
+Amtrak stations, highway/rail transfer facilities and major city place
+names.<P>
+
+Another example is the Digital Chart of the World (DCW) published jointly by
+the Defense Mapping Agencies of the USA, UK, Australia and Canada. Point,
+line and region objects describe seventeen themes such as spot elevations,
+coastlines, rivers, roads, railways and populated places. Digitized primarily
+from 1:1,000,000 Operational Navigational Chart (ONC) cartography used by
+flyers the world over, the coordinate data extracted from this source might
+not be precise enough for operational use in your application. However, it
+might well be used to add graphic orientation for your users.<P>
+
+Last, an increasingly relevant source of raw coordinate data is the Global
+Positioning System (GPS) radio receiver. Now priced as a consumer item, these
+satellite signal receivers can locate themselves to within meters on the
+ground with a sampling rate of about once per second, ideal for recording the
+path of moving vehicles. To demonstrate the practicality of this approach to
+vector data acquisition, we have provided the GPS-ready Hipparchus Atlas
+application called <a href="#georama">Georama</a>. Just fire up your lap-top
+with <I>Georama</I>, plug in your GPS and go for a drive. Besides recording
+your route for future use, <I>Georama</I> provides instant moving map
+displays of your current position! For orientation purposes, we have
+reprocessed the key theme data of the USA and World CD-ROM's mentioned above
+to provide in one <I>Georama</I> CD-ROM not one but two GPS-ready Atlases.<p>
+
+Here's a comprehensive guide to US and World data sources available on the <a
+href="http://www.cast.uark.edu/local/hunt/">Internet</a>.<P>
+
+From whatever source, you will in all probability need to massage your vector
+data somewhat to fit into your database. This is generally not too difficult
+a task, often only a few hours or days of elementary programming. You will
+generally be wanting to present your application with coordinate data
+expressed in terms of latitudes and longitudes, but often you may settle for
+inputs in other systems such as state plane or UTM.<P>
+
+<A HREF="#toc">Return to Table of Contents</A><p>
+
+<P><A NAME="radtools"></A><H3>Rapid Application Development Tools</H3>
+
+To provide additional insight into the power of Hipparchus, several
+interactive programs are provided that showcase nearly all of its functions.
+For maximum clarity, these programs use simple stream I/O files for external
+object storage and the Win32 API. The programs are called <i>Columbus</i>,
+<I>Galileo</I> and <I>Georama.</I><p>
+
+<a name="columbus"><B><i>Columbus</i></b> is a very basic geographic viewer
+application that could be considered as the Hipparchus equivalent of the
+timeless "Hello World" program. (You could call this one "Hello <i>ROUND</i>
+World"). Its purpose is to demonstrate elementary techniques for displaying
+geographic data. Columbus is currently provided in source for a number of
+graphics platforms: Win32, WinCE, Motif/XWindows, OpenGL and GTK+.<p>
+
+<a name="galileo"><B><i>Galileo for Windows</i></b> is the
+Hipparchus Programmer's Workbench (replacing the <I>Hipparchus Application
+Prototyper</I> suite of prior releases). <I>Galileo</I> is a scriptable,
+interactive GIS programmer's workbench that permits direct manipulation of
+application data demonstrating most of the functionality of the <I>Hipparchus
+Libraries</I>. <I>Galileo</I> provides the developer with a wealth of source
+code examples of how best to interface an application with the <I>Hipparchus
+Libraries</I>. Scripts supplied with <I>Galileo</I> provide interesting
+on-line introductions to the power of Hipparchus, suitable for presentation
+to prospective clients. Using the comprehensive <a
+href="../galileo/galileo.html" target="aside">Galileo User's Guide</a>, the
+developer can easily modify existing scripts or author new ones more closely
+matching the requirements of the client. You can freely <a
+href="../downloads/downloads.html" target="aside">download</a> a
+full-function copy of the <I>Galileo</I> Win32 executables and demo
+data</a>.<p>
+
+<a name="georama"><b><I>Georama for Windows</I></b> is a CD-ROM based
+end-user Atlas viewer that permits seamless browsing of World or USA Atlas
+material. Besides its seamless zoom and pan viewing of the various themes
+(layers) of the Atlases, Georama offers mouse inspection of feature
+attributes and scene centering by place-name or real-time GPS input. Outputs
+include full color screen shots and cartographic quality laser plots.
+Although directly executable from the CD-ROM, Georama may be set up for
+partial or exclusive operation from the hard disk. Georama is extensible
+without programming. Using a simple ASCII file control mechanism, the
+developer/user can change the content and style of scenes and/or add new
+client-specific data to the scenes. There is an extensive on-line <a
+href="../georama/georama.html">Georama User's Guide</a>. (You can freely <a
+href="../downloads/downloads.html" target="aside">download ...</a> <i>Georama
+for New Zealand</i>, a Georama mini-atlas of downloadable size).<P>
+
+Although <i>Galileo</i> and <i>Georama</i> are written explicitly to the
+Win32 interface standard, their supplied application source code demonstrates
+the clean separation of interfaces between the GUI, the application, the
+<I>Hipparchus Auxilary Library</I> and the <I>Hipparchus Library</I> proper.
+(Developers for any of the Win32 platforms may find that their application
+can be fully deployed by simply modifying one or other of the above source
+suites).<P>
+
+<A HREF="#toc">Return to Table of Contents</A><p>
+
+<A NAME="utilities"><H3>Utilities</H3>
+
+As an aid to data preparation for the Hipparchus-based application, a suite
+of Hipparchus-based utility programs is provided. These are command-line
+batch programs written in ASCII C for maximum portability. They divide into
+five categories:<ul>
+
+<li> build and modify Voronoi cell structures
+<li> convert lat/long coordinates between ASCII and binary formats
+<li> convert lat/long data to Hipparchus Binary Object files
+<li> construct static data collections in PLR file format.
+<li> convert or simulate GPS NMEA sentences
+</ul>
+
+The <i>Hipparchus Utilities</i> are distributed in source and are largely self
+documented, both in the source code and at run time.<p>
+
+Here is the <a href="utilities.html" target="aside">Utilities Guide</a>.<P>
+
+<A HREF="#toc">Return to Table of Contents</A><p>
+
+<A NAME="documentation"></A><H3>Documentation</H3>
+
+Hipparchus documentation is now 100% machine readable as HTML documents. The
+following publications accompany Hipparchus:<UL><p>
+
+<LI>The <i>Hipparchus Library Reference Manual</i> formally documents each
+function in the <i>Hipparchus Library</i> and many of the functions in the
+<i>Hipparchus Auxiliary Library</i>.<p>
+
+<LI><i>The Hipparchus Overview</i> (this document) provides a summary of the
+features of Hipparchus.<p>
+
+<LI>The <i>Hipparchus Tutorial and Programmer's Guide</i> takes you one step
+at a time through the concepts and facilities of Hipparchus.<p>
+
+<LI>The <i>Galileo User's Guide</i> documents the interactive commands and
+operation of the <i>Galileo</i> GIS programmers's workbench.<p>
+
+<LI>The <i>Georama User's Guide</i> documents the setup, operation and
+modification of the <i>Georama</i> Digital Atlases of the World and the
+USA.<p>
+
+<li> The <i>Hipparchus Utilities Guide</i>  provides general information
+about the use and application of the <i>Hipparchus Utilities</i>.<p>
+
+<li>The <i>Georama Atlas Author's Guide</i> provides the non-programmer with
+instructions for extending Georama's Digital Atlases.<p>
+
+<li>Miscellaneous <i>README.TXT</i> files accompanying various components of
+the distribution detail any setup suggestions, known bugs or documentation
+errata.<p>
+
+</UL><p>
+
+In addition, several ASCII text files list library functions by their long
+names, link names and descriptive keywords-in-context. An ASCII HP-GL/2-
+compatible file provides diagrams for the more complicated Hipparchus
+structures in a form that can be printed on most popular laser printers
+(using the PC-8 symbol set).<P>
+
+<A HREF="#toc">Return to Table of Contents</A><p>
+
+<A NAME="platforms"></A><H3>Platforms</H3>
+
+The <i>Hipparchus Library</i> was available for:<UL> <LI>most Intel 32-bit
+platforms: DOS, Win32, Windows CE, OS/2, Linux and OpenBSD <LI>UNIX Risc
+platforms: HP UX, IBM AIX, Sun Solaris, and Silicon Graphics IRIX. </ul>
+<p>
+<A HREF="#toc">Return to Table of Contents</A><p>
+
+<A NAME="functions"></A><H3>Function Lists</H3>
+
+Hipparchus functions were distributed in two collections: the core
+<i>Hipparchus Library</i> (binaries only) and the <i>Hipparchus Auxiliary
+Library</i> (source only). Hipparchus functions are fully re-entrant, ready
+for incorporation into either client or server applications, single- or
+multi-threaded. <i>All Hipparchus Library</i> and most <i>Hipparchus
+Auxiliary Library</i> functions were formally documented by the <i>Hipparchus
+Library Reference Manual</i>, which was shipped with the product.<p>
+
+Here are the <a href="functions.html">function lists</a>.<p>
+
+<A HREF="#toc">Return to Table of Contents</A><p>
+
+</BODY></HTML>

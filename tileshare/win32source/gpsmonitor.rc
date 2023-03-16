@@ -1,0 +1,15 @@
+#include <windows.h>
+#include "gpsmonitor.h"
+
+gpsMonitor ICON gpsmonitor.ico
+
+gpsMonitor DIALOG 32768, 0, 118, 50
+     STYLE WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX
+     CLASS GPS_MONITOR_CLASS
+     CAPTION "GPS_Monitor" {
+     CTEXT "Location",   IDC_LOCATION,    8,  6, 102, 10
+     CTEXT "Timestamp",  IDC_TIMESTAMP,   8, 20,  48, 10
+     CTEXT " ",          IDC_ROTOR,      62, 20,   8, 10
+     CTEXT "Elevation",  IDC_ELEVATION,  76, 20,  34, 10
+     CTEXT "Log file",   IDC_LOGFILE,     8, 34, 102, 10
+     }

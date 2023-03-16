@@ -1,0 +1,29 @@
+; This is an initialization file, to be placed in the same
+; directory as gpsMonitor.exe program. File format is simple
+; but unforgiving: it consists only of comment lines (starting with ';'),
+; and of lines in the form: 'keyword=data'. Keywords can be given in any
+; order. See a copy of the file in the original distribution for the list
+; of kewords, their explanation and default values.
+;
+;GPS com port communication parameters. Only the 'com.port' is likely
+; to require change, depending on the com port thru which the device
+; is connected to the computer.
+; port is number between 1 and 8, default is 1.
+; baud rate is a number 110, 300, 600, 1200, 2400, 4800, 9600, 14400, 19200
+;  38400, 56000, 57600, 115200, 128000 or 256000. default is 4800.
+; data bits is a number between 4 and 8, default is 8.
+; parity is 0:none, 1:odd, 2:even: 3:"mark" 4:"space", default is 0.
+; stop bits is number of stop bits, 1, 2, or 3 ("one and a half"), default is 1.
+com.port=1
+baud.rate=4800
+data.bits=8
+parity=0
+stop.bits=1
+;
+; Next is a fully qualified file name (no space characters!) where a log will
+; be written. If given, this file will be appended in each invocatioan of the
+; GPS monitor program. The format of the file is text, with 4 items per line:
+; latitude (degrees:decimal minutes), longitude, elevation (in meters) and
+; time (as day_since2000,jan.01:second UTC). To create a log, modify and
+; uncomment the following line:
+; log.file=c:\mylogs\meanderings_2004.glg

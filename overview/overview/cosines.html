@@ -1,0 +1,123 @@
+<html><head>
+<title>Direction Cosines</title>
+</head><body>
+<img src="cosines.jpg"><h2>Direction Cosines</h2>
+The illustration contrasts conventional latitude-longitude coordinates
+with direction cosine coordinates.<p>
+
+A point object is pictured on the surface of the Earth at North 30 degrees
+latitude and East 75 degrees longitude. This point is shown as the red head
+of a green <i>vector</i>. This vector is called the <i>normal</i> to the
+surface at N30 E75. <p> Three orthogonal <i>reference axes</i> are depicted
+in yellow together with the Equator, Prime Meridian and East 90 degree
+meridian. <p> The conventional latitude and longitude angles are depicted in
+bright red. (Surveyors always quote these angles relative to a specific
+reference ellipsoidal model of the Earth).<p>
+
+In contrast, three <i>direction angles</i> are depicted in bright magenta.
+These direction angles are the angles between the normal vector (green) and
+the reference axes. <i>Direction cosines</i> are simply the trigonometric
+cosines of the direction angles. (Like latitudes and longitudes, direction
+angles and their cosines are relative to a specific reference ellipsoid).<p>
+
+As the basis for calculating the geographic relationship between surface
+objects, latitude-longitude coordinates present several problems. First, one
+is forced to use conventional ellipsoidal trigonometry involving the
+transcendental functions such as sine, cosine, and arc tangent. This can
+adversely affect performance. Second, (and sometimes more important), the
+formulas are typically unstable at high latitudes or the dateline.<p>
+
+By contrast, once the direction cosines for an object are computed,
+subsequent calculations of spatial relationships <b>DO NOT</b> require use of
+transcendental functions. Instead, these calculations are carried out
+using a vector algebra requiring only floating add, subtract, multiply,
+divide and an occasional square root. Not only are these calculations much
+faster, they are numerically stable everywhere on the Earth's surface. <p>
+
+Another interesting property of direction cosines is that they readily may be
+compressed for storage efficiency without significant impact on their
+inherent computational efficiency.<p>
+
+"Concise Direction Cosines" (CDC) is a global coordinate format which
+retains only two out of the three (normalized) direction cosines.
+This is possible because the third cosine can always be recomputed from
+the other two since the sum of squares of all three always equals 1.<p>
+
+In this implementation, the two retained direction cosines are scaled
+to two 4-byte integers, the least significant two bits of which
+identify which of the three cosines has been dropped, and its sign.
+In this format, global geographic positions can be specified with a
+ground resolution of about one centimeter, anywhere, equivalent to
+that obtainable using similar encoding for latitude and longitude.<p>
+
+In keeping with the philosophy of the Hipparchus Library, CDC coordinates are
+specified in a form of a structure {u,v}, analogous to {x,y} or {lat,long}.
+An application may however consider them to be an array of two elements of
+integer type.<p>
+
+This form of geographic coordinate encoding is particularly useful in
+instances where computational efficiency is important. The advantage
+lies in the computational simplicity of the vector algebra required to
+determine relationships such as distance or direction, as compared to
+similar use of angular specifiers (lat/long) requiring calls to the
+trancendental functions such as sine, cosine, arc tangent, etc.<p>
+
+To demonstrate this fact, we offer for download a simple free demo program
+suite that compares the performance of a specific coordinate compression
+format with that of equivalently compressed lat/long angles.<p>
+
+</i>bombay2la</i> is a program demonstrating the convenience and speed of a
+concise direction cosine (CDC) form of global geographic coordinates. This
+code is offered as an illustration of a mathematical concept. It is supplied
+without warranty and presented without any restrictions on its use.<p>
+
+The scenario used to demonstrate the speed advantage of CDC's is
+straightforward.  While it might lack realism, it is both simple to describe
+and results in code that does not cloud the central proposition: for spatial
+applications that are continental or global in scope, it is advantageous if
+the coordinates are recorded not as angular latitudes and longitudes, but in
+vector form, as direction cosines.<p>
+
+We assume a static database of point locations (airports of the world) and
+a transient, application-oriented, set of way-points on a flight path between
+two cities, Bombay and Los Angeles. The flight path is illustrated by the
+file bombay2la.png, which once unzipped may be viewed by any current net
+browser.<p>
+
+For each way-point on the flight path (representing, say, flight positions at
+successive five minute intervals during the flight), we want to find the
+nearest airport.<p>
+
+In order to eliminate the influence of external storage access,
+the application data is first loaded into memory arrays.<p>
+
+For each set, point coordinates are read and loaded in vector (CDC) form,
+then converted and loaded in an alternate compact (lat/long) form,
+both forms retaining a ground resolution of about one centimeter.<p>
+
+Two sets of nested loops are performed and timed:<p>
+
+In the first set of loops the proximities are determined using coordinates in
+CDC format and vector algebra, while in the second, proximities are
+determined using coordinates in lat/long form and conventional spherical
+trigonometry.<p>
+
+For each set of loops, a record is kept of the nearest airport along the
+flight line, and subsequently listed as a time-ordered set of airports.<p>
+
+Finally, the computation times for each approach are compared and
+reported.<p>
+
+Notes:<p>
+
+The great circle is computed using the cosine of the angle; this
+lacks the precision in the case of small distances; it is however
+simpler and faster than the sine computation based on Gauss-Delambre's
+equations.<p>
+
+The airport location file is used for illustrative purposes only without any
+suggestion that it is either correct or complete.<p>
+
+<a href="labombay.zip">Download labombay.zip (295kb) now</a>?<p>
+
+</body></html>
