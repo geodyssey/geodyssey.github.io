@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /adhoc
+Disallow: /_vti*
+Disallow: /_private
