@@ -1,0 +1,523 @@
+<html><head><title>Geodyssey's Hipparchus Voronoi Tessellation
+Generation and File Utilities Guide</title>
+
+<link rev=made href="mailto:info@geodyssey.com">
+<meta name="description" content="Hipparchus cross-platform utilities guide">
+<meta name="keywords" content="Hipparchus, cross-platform, stand-alone,
+ command-line, utilities, spatial data preparation, spatial data conversion,
+ Voronoi tessellation preparation and modification">
+
+</head><body> <h2>Hipparchus Utilities Guide</h2>
+
+By John Russell, President<br>
+Geodyssey Limited, Calgary<p>
+
+Version 3.40, May, 2004.<br>
+As may be seen within <a href="http://www.geodyssey.com" target="aside">
+www.geodyssey.com</a>.<p>
+
+Tested with Internet Explorer 5, Opera 4 and Mozilla 1.4.<br>
+Last updated 2004/05/05.<p>
+
+Information in this document is subject to change without notice.<br>
+Hipparchus&reg; is a registered trademark of Geodyssey Limited.<br>
+&copy; Copyright 1992-2004 by Geodyssey Limited.<br>
+All rights reserved, worldwide.<p>
+
+<hr><a name="toc"><h3>Table of Contents</h3>
+
+As an aid to the preparation of data for a Hipparchus-based application, a
+suite of Hipparchus-based cross-platform command-line utility programs is
+provided.<p>
+
+Here are some <a href="#general">general comments</a>.<p>
+
+The <i>Utilities</i> divide into six categories:<ol>
+
+<li><a href="#voronoi">generate and modify Voronoi cell index
+structures</a><p>
+
+<li><a href="#transcribe">transcribe lat/long or concise direction cosine
+coordinates between ASCII text and packed binary formats</a><p>
+
+<li><a href="#modify">modify and/or check data structures</a><p>
+
+<li><a href="#buildhbo">construct Hipparchus Binary Object (HBO) files</a><p>
+
+<li><a href="#buildplr">construct static point. line or region data
+collections (PLR) files</a><p>
+
+<li><a href="#gps">transcribe or generate GPS NMEA sentences.</a><p>
+
+</ol><p>
+
+Here's an <a href="#index">alphabetic index of the <i>Utilities</i></a>.<p>
+
+
+<hr><a name="general"><h3>General</h3>
+
+<p>The <i>Hipparchus Utilities</i> are batch programs written in ANSI C and
+distributed in source.  For maximum portability, they employ a simple console
+interface implemented using only the <i>stdin</i>, <i>stdout</i> and
+<i>stderr</i> facilities of the C language run-time library.
+Run-time file I/O is restricted to the stream I/O facilities of C/C++.
+
+<p>Because many of the <i>Utilities</i> write or read binary data elements or
+structures, it is essential that the <i>Utilities</i> be compiled and run in
+the target computing environment of the application they support.  Otherwise,
+differences in machine architecture and compiled structures may render the
+results unuseable.
+
+<p>Most of the <i>Utilities</i> call functions of the <i>Hipparchus Auxiliary
+Library</i> and the <i>Hipparchus Library</i> proper.  Before attempting to
+compile the <i>Utilities</i>, the developer should first compile and build a
+local <i>Hipparchus Auxiliary Library</i> for the target application platform
+and verify the availability of the <i>Hipparchus Library</i> binaries for
+that platform.<p>
+
+Executable copies of the utilities will normally be invoked from a system
+console, but note that they may also be invoked from <i>Galileo</i> via the
+<i>Shell</i> command.<p>
+
+<hr><a name="interface"><h3>Command-line Interface</h3>
+
+<p>The <i>Utilities</i> share a common command-line interface. Their command
+line takes this form:<pre>
+
+  <b>utility-name [options] in-file-name [out-file-name] [options]</b></pre>
+
+<p> where:<ul>
+
+<li><i>in-file-name</i> is the file name of an input stream file, qualified
+and/or extended as required<p>
+
+<li><i>out-file-name</i> is an optional file name of an output stream file,
+qualified and/or extended as required<p>
+
+<li><i>options</i> are switches used (optionally) to control the
+utility process. Options are identified in the command line by a forward
+slash ('/') followed by a case-sensitive option code, which in turn may be
+followed by additional qualifying information (such as another code or an
+auxiliary file name). An equal sign ('=') may optionally separate an option
+code from its qualifying information (if any). Options may be given either
+before or after the principal input and output file names.<p> </ul>
+
+<p>At run time, <i>Utilities</i> report their usage in response to a command
+line specifying no parameters or one specifying the help option ("/h" or
+"/?").<p>
+
+<hr><a name="voronoi"><h3>Voronoi Cell Index Generation and Modification</h3>
+
+<p>These <i>Utilities</i> all have to do with the generation and modification
+of Voronoi cell structures for use as spatial indexes within the
+Hipparchus-based application. Although the application can construct such an
+index on the fly, most will employ an index built off-line, using one or more
+of these utilies:<ul>
+
+<li><a name="cellwvs"><a name="cellins"><b>cellwvs</b></a> or
+<b>cellins</b></a> may be used to create a Voronoi index file from ASCII cell
+centerpoints. The binary file produced (commonly identified with the filename
+extension .vix) is in a format suitable for reading into an application using
+the <i>Hipparchus Auxiliary Library</i> function <i>h0_LoadVix</i>.
+(<i>cellwvs</i> is faster than <i>cellins</i> but uses more memory).<p>
+
+<li><a name="cellpts"><b>cellpts</b></a> may be used to extract from a vix
+file its cell centerpoints in ASCII format, possibly for cross-platform
+conversion. Optionally, these cell centerpoints can be adjusted to define an
+index structure in which the cells are somewhat "rounder".  (Rounding can
+improve the uniformity of coordinate resolution in some circumstances, and is
+therefore generally recommended). Also, cell corner points can be extracted
+as additional centerpoints for a new index structure that will include the
+original (or adjusted) centerpoints, resulting in a "harmonic" sub-division
+having an approximately threefold increase in cell density.<p>
+
+<li><a name="celldns"><b>celldns</b></a> can be used to influence the
+sub-division of a Voronoi cell structure using application-related data. The
+"densification" is such that the resulting cell structure reflects the
+spatial dispersion of the influencing data.  Within practical limits, the
+cells of the resulting structure can be densified to accommodate specified
+maximum numbers of data elements. An example of such a densified cell
+structure is the index for the <i>Georama for Windows</i> USA Atlas
+(<i>usaw32.vix</i>). This was densified from the basic <i>isotype.vix</i>
+using US county seats as the influencing file.<p>
+
+<li><a name="cluster"><b>cluster</b></a> can be used to construct clusters of
+new cell centerpoints at specified locations. These cell clusters may be of
+specified territorial extent having cells of a specified approximate radius.
+Output is an ASCII file of new cell centerpoints selected in the context of
+an existing cell structure and suitable for concatenation with that
+structure. (See <i>cellcat</i>, following).<p>
+
+<li><a name="cellcat"><b>cellcat</b></a> is used to concatenate new cell
+centerpoints (such as clusters obtained with <i>cluster</i>) with existing
+centerpoints. The concatenation (merge) is such that new and existing
+centerpoints lying in close proximity are consolidated.<p>
+
+<li><a name="cellord"><b>cellord</b></a> may be used to re-number the cells
+of a Voronoi cell structure, beginning with some specified geographical
+position and spiralling outward from that location. (Re-ordering can improve
+the performance of a Hipparchus-based application and is therefore
+recommended following any form of densification).<p>
+
+<li><a name="vix2tix"><b>vix2tix</b></a> may be used to convert a Voronoi cell
+structure file from binary to ASCII text format.  The ASCII file produced
+(commonly identified with the filename extension .tix) is in a format
+suitable for reading into an application using the <i>Hipparchus Auxiliary
+Library</i> function <i>h0_LoadTix</i>.  An advantage of the ASCII format for
+such files is that they are portable across platforms having dissimilar
+machine architectures.<p>
+
+<li><a name="vixcrpt"><b>vixcrpt</b></a> may be used to encrypt a Voronoi cell
+structure using public-domain Blowfish software modified for thread-safe
+applications in the <i>h0</i> section of the <i>Hipparchus Axiliary
+Library</i>. This program can also be used to decrypt previously encrypted
+.vix files. The <i>Galileo</i> command <i>ReadDecryptVix</i> permits routine
+use of .vix files encrypted using <i>vixcrpt</i>. Encrypted .vix files offer
+an efficient and moderately secure encryption scheme suitable for high volume
+location data.  Since Hipparchus .hbo and .plr location data formats
+differentially encode location coordinates within a Voronoi cell structure,
+encryption of that component alone offers substantial security.<p>
+
+<li><a name="cellbld"><b>cellbld</b> is a new "smart" custom Voronoi cell
+index builder. It provides the application developer with an easy way to
+construct application-specific Voronoi indexes.<p>
+
+Before reading this text you should be familiar with Chapter 6 of the
+Hipparchus tutorial: <i>Working With Voronoi Cells</i>.<p>
+
+This example assumes that an application has a set of points that
+reasonably well mimics the density of all the data in a system.<p>
+
+The process begins by selecting a "starter" set of cell centerpoints
+(in this case <i>dodeca04.pts</i>), and a set of points representing the
+density of the data (in this case <i>wells.ptz</i>). Note that the density
+point coordinate file is expressed in binary concise direction cosines. As it
+is read and converted to cell coordinates many times during the execution of
+the program, this format makes the process considerably faster.<p>
+
+In a preliminary step, a Voronoi index consisting of about 800 cells
+is constructed from a starter index (<i>isotype</i>) - to be used as the
+first in a series of gradually densified indexes.<p>
+
+What follows is a number of "densification steps", carried out until
+the population of points in any cell is within a given target.
+First, the densification file is read and points are deposited in
+the cells they belong to. The count of points in each cell is recorded,
+as well as the mid-point of all the densification points in that cell.
+Each cell with a population above the target is then "split" into two
+cells by replacing its center with two new centers, strategically
+positioned so that the new cells tend to remain "round", and that the new
+cell centers are placed closest to the highest density of the points in
+the new cells.<p>
+
+In each of these steps, a check is made for a zero-length edge.
+If this condition is discovered, two of the closest diagonally
+opposite points (among the four that form a "corner") are "nudged"
+closer together. The process is repeated as necessary.<p>
+
+Once the sufficient number of cells is added to reduce the population
+in any cell below the target, a number of "final" cell geometry
+adjustments are carried out:<p>
+
+First, the cell centers are moved toward the gravity center of the
+cell. The purpose of this is to increase the "roundness" of the cells.<p>
+
+Next, cells are checked for a below-minimum edge length, and if such
+is found, participating centers are moved closer to each other. This
+is done to improve the computational properties of the structure.<p>
+
+Last, the cells are reordered, also in order to improve the computational
+properties of the structure.<p>
+
+After a final consistency check, the structure is written to a file.<p>
+
+To learn more, please inspect the source of the cellbld.c source program and
+its included components.<p>
+
+To see the program in action, please download the console program
+<i>cellbld.exe</i> for Win32 and its two related data files:
+<i>dodeca04.pts</i> and <i>wells.ptz</i> (3 MB), then start the program from
+a command console with the program and its two data files in your "current
+directory". The download is available at <a
+href="http://www.geodyssey.com">www.geodyssey.com</a>.<p>
+
+ </ul>
+
+<hr><a name="transcribe"><h3>Coordinate Transcription</h3>
+
+<p>This <i>Utility</i> provide for the transcription of point or vertex
+latitude-longitude coordinates between ASCII and packed binary formats.
+Although most coordinate data will originate in the ASCII format, high volume
+vector coordinates often can be more efficiently archived or reprocessed in
+packed binary format. Many of the other <i>Hipparchus Utilities</i> accept
+coordinates in either format.<p><ul>
+
+<li><a name="convert"><b>convert</b> provides for the conversion of
+coordinate data between ascii and binary formats of latitude/longitude and
+concise direction cosine formats. Coordinate associated data is preserved and
+may optionally be converted between intenger and float formats.<p>
+</ul>
+
+<hr><a name="modify"><h3>Modify and/or Check Data Structures</h3>
+
+These <i>Utilities</i> provide for the elimination of duplicate or
+otherwise unneccessary coordinates within data structures.<ul><p>
+
+<li><a name="duplpts"><b>duplpts</b> is used to eliminate consecutive
+duplicate points or vertices from within data objects. Optionally, a
+proximity criterion may be specified.<p>
+
+<li><a name="gnrlize"><b>gnrlize</b></a> is used to reduce the number of
+vertices in a line set according to the criterion of "corridor width". This
+is sometimes called "generalization".  Although the process can be applied to
+the boundary rings of regions, its use for this purpose must be tempered by
+the possibility that the generalized rings may touch or overlap, producing a
+new region that is topologically flawed.<p>
+
+<li><a name="ringchk"><b>ringchk</b> may be used to verify the topological
+validity of the individual rings within a region object. This program may be
+used to advantage when preparing very large and complex region objects such
+as a world coastline object. Following the ring check, the object will still
+need to be validated for inter-ring interference or sense violations using
+the <i>h7_VerifyRsetBoundary</i> and <i>h7_VerifyRsetTopology</i> functions
+of the <i>Hipparchus Library</i> or their manifestations as the
+<i>Galileo</i> commands <i>VerifyRsetBoundary</i> and
+<i>VerifyRsetTopology</i>.<p>
+
+</ul>
+
+<hr><a name="buildhbo"><h3>Convert Coordinate Data To Hipparchus Binary
+Objects</h3>
+
+<p>Objects constructed in the context of a particular Voronoi cell structure
+have a precise canonical form in memory, which form is defined by the
+constructor functions of the <i>Hipparchus Library</i>, namely
+<i>h7_GlobalToPset</i>, <i>h7_GlobalToLset</i> and <i>h7_GlobalToRset</i>.
+All elements of an object's canonical form are binary values of type integer,
+float or double. Owing to differing machine architectures, such internal
+objects clearly are not directly cross-platform portable.<p>
+
+Some operating systems (such as Windows 95/98/2000/XP/NT and many Unix
+systems) support memory-mapped file access via their virtual memory manager.
+Within such systems an external file that represents a Hipparchus internal
+object is known as a Hipparchus Binary Object (HBO). Such objects may be
+opened and closed using functions of section <i>h8</i> of the <i>Hipparchus
+Auxiliary Library</i>. Once open, an HBO may be accessed by a program just as
+if it were memory resident. Any operation permissible in Hipparchus for a
+memory object may be carried out on an HBO, via buffers managed by the
+operating systems's virtual memory manager. It is not required that such
+objects first be fetched into real memory. Therefore, operations on
+Hipparchus Binary Objects are not restricted by real memory constraints, and
+otherwise complex operations such as region intersections may be carried out
+very efficiently.<p>
+
+An application can generate HBO's on the fly (see <i>Galileo</i>).  Another
+alternative is to generate them off-line using <i>Hipparchus Utilities</i>.
+Three programs are provided for this purpose:<p><ul>
+
+<li><a name="pts2hbo"><a name="lns2hbo"><a name="rgn2hbo"><b>pts2hbo</b></a>,
+<b>lns2hbo</b></a> or <b>rgn2hbo</b> may be used to create machine-dependent
+Hipparchus Binary Object (HBO) files representing point set, line set or
+region objects, respectively.<p>
+
+These programs accept coordinate inputs in either ASCII or packed binary
+format, generating HBO files accessible via memory-mapped file facilities of
+the operating system (if available). Construction of the HBO file is
+always carried out in the context of an application-specific Voronoi
+index.<p>
+
+<li>A fourth program, <a name="bldptin"><b>bldptin</b></a> may be used to
+construct a global Triangular Irregular Network (TIN) surface from an
+existing 3D point set HBO. The point set HBO must be globally distributed
+such that all cells contain a modicum of points. A rule of thumb is that the
+number of points in the point set be at least an order of magnitude greater
+than the number of cells in the associated Voronoi structure. The point TIN
+is constructed using point-associated float Z data, such as elevation or
+depth. In order to permit efficient cell-by-cell processing or rendering,
+artifact points are created along cell boundaries and Z values interpolated
+for those artifacts, such that all new resultant triangles adjacent along
+cell boundaries are coplanar. This assures that when rendered
+hypsographically, or otherwise processed on a cell_by_cell basis, the cell
+boundaries disappear (invisibly mended!). Z values may of course represent
+attributes other than elevations or depths, for example temperatures,
+pressures, electromagnetic field intensities or product sales.<p>
+
+<li>Since not all 3D data sources provide global coverage, and since
+the TIN generation process is necessarily global, another program is
+provided, <a name="randpts"><b>randpts</b></a>, which may be used in
+conjunction with <i>rgnfltr</i> (see below) to supply random geographic
+coordinates and arbitrary Z values for otherwise unoccupied cells.
+<i>randpts</i> writes a specified number of points to a .pts file, each with
+Z values of zero, or some constant integer (with optional fractional part)
+and/or the integer point counter and/or a quoted text string. Since the
+geographic distribution of such points is more or less evenly globally
+distributed, the next step in preparing the TIN is to filter out those random
+points that lie within some defining region, retain ("filter in") those
+points condidered valid for the TIN, then merge the two filtered files for
+presentation to the <i>bldptin</i> process. Filtering out or in can be
+accomplished using the <i>rgnfltr</i> utility.<p>
+
+<li><a name="rgnfltr"><b>rgnfltr</b></a> accepts arbitrary point sets in
+ASCII .pts format, a filtering region in ASCII .rgn format and control codes
+for retaining points that lie either inside the region or outside the region.
+(If points are found to be exactly coincident with region boundary ring
+vertices, then there is provision to either retain or reject such points).
+In any case, points retained by the program are written to an output ASCII
+.pts file, together with any point-associated data present in the input point
+set. Of course it is imperative that the filter region be previously proven
+to be topologically consistent.<p>
+
+<li><a name="hbo2cdc"></a>HBO files may be "unloaded" into ASCII files of
+concise direction cosine (CDC) coordinates by use of the <i>hbo2cdc</i>
+utility program. CDC coordinate files may optionally be converted to
+latitude/longitude formated and carried cross-platform to rebuild an HBO.<p>
+
+<li><a name="dumphbo"></a>HBO files carried across platforms thought
+to be compatible may be inspected and tested for usability by use of the
+<i>dumphbo</i> utility program, which must of course first be compiled for
+the target platform.<p>
+
+</ul>
+
+<hr><a name="buildplr"><h3>Convert Coordinate Data To Hipparchus PLR
+Collection Files</h3>
+
+While an HBO is an external file representation of a single Hipparchus
+internal object, there exists a demonstrated need for an external
+<i>collection</i> of such objects. Such collections may be managed by an
+application using the facilities of a formal database manager (DBMS).<p>
+
+Recognizing that the preponderance of such data is unchanging (static), and
+to demonstrate the value of the Voronoi tessellation as an efficient spatial
+index, a simple yet effective file system is provided via functions of the
+<i>Hipparchus Auxiliary Library</i> and certain <i>Hipparchus
+Utilities</i>.<p>
+
+Known as Hipparchus Point-Line-Region collection files (PLR's), simple stream
+I/O files constructed according to the Hipparchus PLR schema may be accessed
+efficiently by the Hipparchus-based application to retrieve application
+coordinate data in a form immediately useable by the application.  PLR
+collections are indexed primarily by the identifiers of the Voronoi cells
+that contain (own) the collection's member points or vertices. For line or
+region collections, secondary indexing is provided by line or region
+identifier. Construction of a PLR collection is always carried out in the
+context of an application-specific Voronoi index.<p>
+
+A PLR collection is created using one of these <i>Hipparchus
+Utilities</i>:<p><ul>
+
+<li><a name="pts2plr"><b>pts2plr</b> creates a collection of points from
+ASCII (or packed binary) latitude-longitude point coordinates. Coordinates
+are classified as to their containing (owner) cell, sorted and written as
+binary rows of cell local (differential) coordinates. An ordered cell index
+provides direct access to those point coordinates owned by each cell. An
+arbitrary datum may be associated with each point. This may be an integer, a
+float or a file pointer. If text (e.g., a place name) is found to be
+associated with a point on input, it can be appended to an associated file
+(.dat) and a file pointer to that particular string in the .dat file is
+associated directly with the point's coordinates in the PLR itself.<p>
+
+<li><a name="plrdat2"><b>plrdat2</b></a> provides an alternate way to
+construct a .dat file to be associated with a point collection PLR.<p>
+
+<li><a name="namendx"><b>namendx</b></a> constructs an alphabetically ordered
+index file of text associated with a point collection, each entry of which
+provides location coordinates of the item. Examples of these files may be
+found in <i>Georama</i>, in which these index files are used to implement the
+<i>Gazetteer</i> facility.<p>
+
+<li><a name="lns2plr"><b>lns2plr</b></a> creates a collection of lines from
+ASCII (or packed binary) latitude-longitude line vertex coordinates.
+Coordinates are converted to cell local (differential) format. An arbitrary
+datum (integer, float or file pointer) may be associated with each vertex.
+Lines that traverse more than one cell are divided into fragments. Cell
+boundary crossings are added as artifact vertices. File pointers to line
+coordinates (or line fragment coordinates) are collected and ordered by cell.
+Multi-cell line fragments are doubly linked with file pointers.  Access to
+lines (or fragments) may be direct by cell or indirect by line, depending on
+the application requirements. Lines selected into memory may be converted
+into a Hipparchus canonical line set object.<p>
+
+<li><a name="rgn2plr"><b>rgn2plr</b></a> creates a collection of regions from
+ASCII (or packed binary) latitude-longitude region boundary ring vertex
+coordinates. Coordinates are converted to cell local (differential) format.
+An arbitrary datum (integer, float or file pointer) may be associated with
+each ring vertex. Rings that traverse more than one cell are divided into
+fragments. Cell boundary crossings are added as artifact vertices. Rings (or
+ring fragments) are collected and are accessible by cell and by region and
+ring identifier.  Access may be by cell or by region, depending on the
+application requirements. Individual region components are organized such
+that on retrieval into memory they easily can be re-constructed as a
+Hipparchus canonical region object. (If the PLR file is also opened for
+memory mapping, this can be achieved merely by populating an object header
+with the appropriate pointers).<p>
+
+<li><a name="rptarea"><b>rptarea</b></a> reports the area of each region in a
+PLR collection of regions.<p>
+
+<li><a name="dumpplr"><b>dumpplr</b></a> permits PLR files carried across
+platforms that are thought to be compatible to be inspected and tested for
+usability. The <i>dumpplr</i> utility program must of course first be
+compiled for the target platform.<p>
+
+</ul>
+
+<hr><a name="gps"><h3>GPS Support</h3>
+
+<p>Several <i>Utilities</i> support the capture or real-time simulation of
+GPS receiver interface message traffic. GPS ASCII interface messages (known
+as Natianal Marine Electronics Association (NMEA) sentences) may be captured
+and converted to ASCII lat/long line sets or may be generated for subsequent
+transmission between computers, simulating real-time GPS reception.<p>
+
+Two utilities are provided. They are:<p><ul>
+
+<li><a name="gtr2lns"><b>gtr2lns</b></a> is used to convert ASCII NMEA
+sentences captured in a GPS session into an external line set defined by a
+set of ASCII lat/long coordinates.<p>
+
+<li><a name="nmeagen"><b>nmeagen</b></a> is used to transmit ASCII NMEA
+sentences captured in a GPS session(s) from one machine to another using a
+serial I/O adapter, thus simulating the real-time transmission.<p> </ul>
+
+<hr><a name="summary"><h3>Summary</h3>
+Hipparchus provides a portable set of batch programs for off-line application
+support.  These are supplied in ANSI C language source and are largely
+self-documented. They employ a simple console user interface and stream I/O
+only. They easily may be modified to pre-process application data existing in
+proprietary formats.<p>
+
+<hr><a name="index"><h3>Index</h3>
+
+<a href="#bldptin">bldptin</a> |
+<a href="#cellbld">cellbld</a> |
+<a href="#cellcat">cellcat</a> |
+<a href="#celldns">celldns</a> |
+<a href="#cellins">cellins</a> |
+<a href="#cellord">cellord</a> |
+<a href="#cellpts">cellpts</a> |
+<a href="#cellwvs">cellwvs</a> |
+<a href="#cluster">cluster</a> |
+<a href="#convert">convert</a> |
+<a href="#dumphbo">dumphbo</a> |
+<a href="#dumpplr">dumpplr</a> |
+<a href="#duplpts">duplpts</a> |
+<a href="#gnrlize">gnrlize</a> |
+<a href="#gtr2lns">gtr2lns</a> |
+<a href="#hbo2cdc">hbo2cdc</a> |
+<a href="#lns2hbo">lns2hbo</a> |
+<a href="#lns2plr">lns2plr</a> |
+<a href="#namendx">namendx</a> |
+<a href="#nmeagen">nmeagen</a> |
+<a href="#plrdat2">plrdat2</a> |
+<a href="#pts2hbo">pts2hbo</a> |
+<a href="#pts2plr">pts2plr</a> |
+<a href="#rptarea">rptarea</a> |
+<a href="#rgn2hbo">rgn2hbo</a> |
+<a href="#rgn2plr">rgn2plr</a> |
+<a href="#ringchk">ringchk</a> |
+<a href="#vix2tix">vix2tix</a> |
+<a href="#vixcrpt">vixcrpt</a>.<p>
+
+</body></html>
+
