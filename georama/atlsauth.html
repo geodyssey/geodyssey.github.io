@@ -1,0 +1,474 @@
+<html><head>
+<title>Hipparchus Georama Digital Atlas Author's Guide</title>
+<link rev=made href="mailto:info@geodyssey.com"
+</head><body>
+
+<a name="cover">
+<h2>Georama Atlas Author's Guide</h2>
+
+Corresponding to Hipparchus Release 3.2<br>
+Internet Edition, November 2001.<br>
+
+by John Russell, President<br>
+Geodyssey Limited, Calgary<p>
+
+Formatted for and reviewed using Netscape 4.7.<br>
+Last updated 2001/11/11.<p>
+
+Information in this document is subject to change without notice.
+The software and data described in this publication are provided
+under the terms of a license agreement with Geodyssey Limited.<p>
+
+<small>Hipparchus&reg; is a registered trademark of Geodyssey Limited.<br>
+&copy; Copyright 1992, 2002 by John Russell and Geodyssey Limited.
+All rights reserved.</small><p>
+
+<hr><a name="toc">
+<h3>Table of Contents</h3>
+<ul>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#start">Getting Started</a></li>
+<li><a href="#change">Changing Existing Scenes</a></li>
+<li><a href="#addgps">Adding GPS Data to Scenes</a></li>
+<li><a href="#adddat">Adding Other Data Features</a></li>
+<li><a href="#addatl">Adding a New Atlas</a></li>
+<li><a href="#addvix">Adding a New Voronoi Index</a></li>
+<li><a href="#licensing">Licensing for Distribution</a></li>
+<li><a href="#advanced">Advanced Requirements</a></li>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#geodyssey">About Geodyssey</a></li>
+</ul>
+
+<hr>
+<a name="intro">
+<h3>Introduction</h3></a><p>
+
+This publication describes how you can use the <i>Georama Atlas Author's
+Kit</i> to customize <i>Georama</i>.<p>
+
+The <i>Georama Atlas Author's Kit (AAK)</i> is a complementary companion to
+the <i>Georama for Windows 95</i> CD-ROM and is designed for use by
+non-programmers.<p>
+
+It's purpose is to enable the extension of both the form and content of
+Georama.<p>
+
+Although not requiring programming skills, some familiarity with the
+operation of personal computers in the Windows 95, Windows 98 or NT
+operating environments is required.<p>
+
+The topics covered by this manual are introduced in their order of
+complexity. This is so that the easier Atlas authoring tasks may be
+accomplished without having to read and understand how to do the harder
+tasks.<p>
+
+<p>Go to <a href="#toc">Table of Contents</a>.<p>
+
+
+<hr><a name="start"> <h3>Getting Started</h3>
+
+To extend Georama, you must first insert your Georama CD-ROM and review the
+extensive on-line Help topics. If you wish, you can print them in two sets:
+the main explanation and the reference material.  This on-line Help
+document will be your principal reference.<p>
+
+Specifically, you must review and understand the sub-topic "Making
+Modifications", which may be found under the general Help topic
+"Customizing". Here you will find instructions regarding options for the
+rendering of features, many of which you may require for your custom-authored
+Atlas. In particular, you should note the referenced Help topics that define
+the specifications for the various control files.<p>
+
+Assuming that you have set up Georama for at least partial hard disk
+operation, your next step should be to unzip to hard disk the
+<i>georama.zip</i> file contained on the
+distribution diskette "Hipparchus Development Tools Release 3.1 Georama for
+Windows 95". You may safely unzip this file into whatever directory was
+chosen for the original Georama (for example, C:\GEORAMA). Be sure to unzip
+this file with its directory sub-structure preserved (the -d option if
+unzipping using the command-line version of PKUNZIP supplied).<p>
+
+Since several components of the <i>georama.zip</i> file are updates to
+similarily-named components copied from the CD-ROM, you will need to
+authorize their substitution for their predecessors. The updates to the
+Georama program suite are relatively minor.  Features added or changed are
+described in this manual in the context of specific topics.<p>
+
+The essential new elements supplied by the <i>georama.zip</i> file are the
+<i>Hipparchus Utilities</i> compiled for Win32 console platforms, namely
+Windows 95, 98 and NT4+. These executables together with the updated HTML
+publication <i>Hipparchus Utilities Guide</i> (and this publication) will be
+found in the RUNW32 sub-directory of your Georama directory. Since the
+<i>Georama Atlas Author's Kit</i> is designed for use by non-programmers,
+no source programs are supplied.<p>
+
+<p>Go to <a href="#toc">Table of Contents</a>.<p>
+
+
+<hr><a name="change">
+<h3>Changing Existing Scenes</h3>
+
+Many simple changes may be made to Scenes without any of the tools or
+techniques described subsequently in this <i>Guide</i>. To change the look
+of an existing feature, you need only read and apply the instructions
+contained in the <i>Georama for Windows 95</i> on-line Help.  Look for the
+sub-topic "Making Modifications" (found under "Customizing"). Here you
+will find out how to change style items such as line widths, point marker
+symbols or color. You will also find out how to change the map scales at
+which features appear or disappear.<p>
+
+Using these instructions and a simple editor such as NotePad you can
+construct new Scenes combining feature content of existing Scenes. To
+do this you start by making a copy of one of the existing Scenes,
+co-locating it in the same Atlas directory and giving it a new Scene-name
+(ending of course with the .scn extension). Next, using the cut, copy and
+paste facilities of your editor, you build and save the new Scene. The
+next time you open the Atlas in Georama, you will be presented with the
+new Scene as an option to open.<p>
+
+<p>Go to <a href="#toc">Table of Contents</a>.<p>
+
+
+<hr><a name="addgps">
+<h3>Adding GPS Data to Scenes</h3></a><p>
+
+If you own a GPS receiver, you will have by now discovered how to hook it
+up to your laptop computer and use the two together to record GPS map
+traces of your travels. In this section, we describe how you can edit such
+traces and add them permanently to the Scenes of any Atlas.<p>
+
+When you began each GPS trace session, you specified the name of a file to
+receive the GPS coordinates. (With the updated Georama, you can ask that
+the coordinates to be <i>appended</i> to a previous trace session file).
+GPS trace files are usually located in one of your private working
+directories, or, by default, in the Windows temp directory. They are
+usually identified by the filename extension <i>.gtr</i>.<p>
+
+GPS trace files contain the raw ASCII records passed to the laptop by the
+GPS receiver. These records are in a specific NMEA format. They are
+retained in this format by Georama so that they can be used later to drive
+a home base computer with simulated GPS input, replaying a trip just
+taken.<p>
+
+Before these GPS trace files can be set up for permanent display in
+Georama, they must first be processed through a supplied filter program
+called <i>gtr2lns.exe</i>. This program may be found in the RUNW32
+sub-directory of your hard disk GEORAMA directory.  It is a simple Win32
+command line program that should be run from a Windows MS-DOS box
+(window).<p>
+
+To run <i>gtr2lns</i>, open the MS-DOS box and change
+directories to the hard disk directory containing Georama, like
+this:<b><pre>
+C:
+\GEORAMA </b></pre><p>
+
+Next run the <i>gtr2lns</i> program, like this:<b><pre>
+runw32\gtr2lns  \Mystuff\mytrip.gtr  \Mystuff\mytrip.lns
+</b></pre>
+
+Note: For a list of the command line options, enter:<b><pre>
+runw32\gtr2lns /h
+</b></pre><p>
+
+You now have a formal Hipparchus line set object, suitable for further
+processing for inclusion into one of the Georama Atlases, like this:<b><pre>
+runw32\lns2plr \Mystuff\mytrip.lns  World\mytrip.plr /v=World\worldw32.vix
+</b></pre>
+
+Note: For a list of the command line options, enter:<b><pre>
+runw32\lns2plr /h
+</b></pre><p>
+
+Next, you must make this file known to Georama by entering a line into
+the Atlas control file for the Atlas you are modifying. Edit the file named
+<i>atlas-name.atl</i> (e.g., <i>World.atl</i>). Locate the section
+heading:<b><pre>
+[themes]
+</b></pre>
+and add a line, like this:<b><pre>
+mytrip=lines,mytrip.plr
+</b></pre>
+then save the Atlas control file.<p>
+
+Now you can modify one or more Scenes of the Atlas to display
+<i>mytrip</i>. Edit each <i>scene-name.scn</i> file, locate the section
+heading:<b><pre>
+[content]
+</b></pre>
+enter a line similar to this:<b><pre>
+mytrip=c17w2
+</b></pre>
+and save the file. Note that this control file may have been copied to your
+hard disk as a "read-only" file, and will first need to be enabled for
+modification.<p>
+
+The net effect of all of the above is that <i>mytrip</i> will now appear in
+any of the modified Scenes as a magenta line of width 2, at all scales.  Of
+course, you can easily choose other rendering options.<p>
+
+Be aware that the <i>.lns</i> file is simply an ordered collection of ASCII
+latitude-longitude coordinates that may be freely modified using any text
+editor. The file is also importable into the <i>Galileo for Windows 95</i>
+GIS developer's workbench program.<p>
+
+<p>Go to <a href="#toc">Table of Contents</a>.<p>
+
+
+<hr><a name="adddat"> <h3>Adding Data for New Features</h3></a><p>
+
+Georama features data consists of vector coordinate elements and associated
+data (if any) such as place names, elevations, earthquake magnitudes or
+whatever.<p>
+
+In order to achieve the required storage densities, access speeds and
+rendering efficiencies, this data must first be processed into one or
+more files of proprietary format. The <i>Georama Atlas Author's Kit</i>
+supplies Win32 console utilities for this purpose.<p>
+
+These programs will be found in the RUNW32 sub-directory of your hard disk
+GEORAMA directory.  They are simple Win32 command line programs that should
+be run from a Windows MS-DOS box (window).<p>
+
+For instance, to run <i>pts2plr</i>, open the MS-DOS box and change
+directories to the hard disk directory containing Georama, like
+this:<b><pre>
+C:
+\GEORAMA </b></pre><p>
+
+Next run the <i>pts2plr</i> program, like this:<b><pre>
+runw32\pts2plr  \Mystuff\mypts.pts  World\mypts.plr /v=World\Worldw32.vix
+</b></pre>
+
+Note: For a list of command line options, enter:<b><pre>
+runw32\pts2plr /h
+</b></pre><p>
+
+Once processed and placed in an Atlas directory, new feature data may be
+referenced in a Scene control file (<i>scene-name.scn</i>) via specifications
+in an Atlas control file (<i>atlas-name.atl</i>). (This process will be
+described momentarily).<p>
+
+Access to feature data is read-only via C run-time library stream I/O
+facilities. No other file access facilities are used.<p>
+
+Spatial coordinate data for use in Georama may be represented in any of six
+basic formats, depending on its dimensionality and semantics of use.<p>
+
+Spatial coordinate files may represent collections of independent objects or
+canonical Hipparchus objects, being single sets of related elements.
+Coordinate data collections are known as <b>plr</b> files (for points, lines
+or regions) while coordinate set objects are known as <b>hbo</b> files (for
+Hipparchus binary object).<p>
+
+Points collections are created using the <i>pts2plr</i> utility.<br>
+Lines collections are created using the <i>lns2plr</i> utility.<br>
+Regions collections are created using the <i>rgn2plr</i> utility.<p>
+
+Point set objects are created using the <i>pts2hbo</i> utility.<br>
+Line set objects are created using the <i>lns2hbo</i> utility.<br>
+Region objects are created using the <i>rgn2hbo</i> utility.<p>
+
+Point or vertex coordinates are converted from geographical (ellipsoidal
+latitude longitude) form to a proprietary internal form, differentially
+related to the cells of a specific Voronoi cell structure.  Each Atlas has
+its own Voronoi index structure.<p>
+
+In any of the above file types, numerical data associated directly with the
+coordinates of each point or vertex may optionally be carried forward into
+the file. However, in all but the points collection, such numeric data is
+not accessible by Georama.  For points collections, numeric data may be
+interpreted by algorithms built in for the purpose, but currently limited
+to an interpreter of coded earthquake data.<p>
+
+Any textual data associated with the individual points of a points collection
+may be disassociated from the coordinates and stored in a related text file.
+Pointers into that file are then directly associated with the point
+coordinates.  Optionally, an alphabetically ordered index file may be created
+for use by Georama's gazetteer facilities.<p>
+
+Input to the conversion utilities is in the form of files of related point
+or vertex latitude longitude pairs expressed as ASCII text lines.  The
+format for latitudes and longitudes is flexible with respect to form and
+precision. For a list of sample acceptable coordinate pairs, see the
+"geometry" sidebar in Georama's on-line Help.<p>
+
+Marker records containing an asterisk in column one set off the individual
+lines of lines collections or sets or the individual rings of regions.
+Asterisk markers back to back mark the end of a lines collection or region
+or the individual regions of a regions collection.<p>
+
+Operation of these data conversion utilities is detailed in the supplied
+publication, <a href="utility.htm"><i>Hipparchus Utilities Guide</i></a>.
+
+To use the converted files in Georama, you must make them known to Georama by
+entering a line into the Atlas control file for the Atlas you are modifying.
+Edit the file named <i>atlas-name.atl</i> (e.g., <i>World.atl</i>). Locate
+the section heading:<b><pre> [themes] </b></pre> and add a line, like
+this:<b><pre> mypts=points,mypts.plr </b></pre> then save the Atlas control
+file.  Note that these control files may have been copied to your hard disk
+as "read-only" files, and will first need to be enabled for modification.<p>
+
+Now you can modify one or more Scenes of the Atlas to display
+<i>mypts</i>. Edit each <i>scene-name.scn</i> file, locate the section
+heading:<b><pre>
+[content]
+</b></pre>
+enter a line similar to this:<b><pre>
+mypts=c13m11
+</b></pre>
+and save the file.<p>
+
+The net effect of all of the above is that <i>mypts</i> will now appear in
+any of the modified Scenes as a bright red house symbol, at all scales.  Of
+course, you can easily choose other rendering options.<p>
+
+Inspection of the existing Atlas and Scene files will reveal useful
+techniques for rendering different density material at differing scales.<p>
+
+Note also the entries in the supplied Atlas and Scene control files that
+pertain to the Georama Inspect and Gazetteer menu options.  You may wish to
+provide similar functionality for your own data.<p>
+
+<p>Go to <a href="#toc">Table of Contents</a>.<p>
+
+
+<hr><a name="addatl"> <h3>Adding a New Atlas</h3></a><p>
+
+Adding a new Atlas is very simple.<p>
+
+First you must establish a subdirectory for the Atlas, on the same
+directory level as other Atlas directories. This will be the container for
+an Atlas control file, Scene control files, the Voronoi index and other
+control files. These may best be set up by using as templates existing
+control files.<p>
+
+Finally, you must list the new Atlas by name in the overall Georama control
+file, <i>georama.gin</i>.  Note that this control file may have been copied
+to your hard disk as a "read-only" file, and will first need to be enabled
+for modification.<p>
+
+<p>Go to <a href="#toc">Table of Contents</a>.<p>
+
+
+<hr><a name="addvix"> <h3>Adding a New Voronoi Index</h3></a><p>
+
+If the main body of data for a new Atlas is geographically distributed
+similarly to the data for the supplied World or USA Atlases, you can simply
+copy one of the existing Voronoi indexes into the new Atlas directory.<p>
+
+However, if the main body of data for the new Atlas is regional, or
+distributed significantly differently from the existing indexes, you should
+consider creating a new Voronoi index for its data.  When preparing your new
+data collections (<i>plr</i>'s) or Hipparchus binary objects (<i>hbo</i>'s)
+for use with Georama, you will create them in the context of the new index,
+(see <a href="#adddat">Adding Other Data Features</a>, above).<p>
+
+There are a number of Hipparchus utility programs supplied for this purpose.
+These are described in detail in the supplied publication, <a
+href="utility.htm">Hipparchus Utilities Guide</a>.  In addition, Geodyssey
+offers a number of prebuilt Voronoi indexes that provide coverage at
+different densities and for other parts of the world. These may be reviewed
+and freely downloaded from <a
+href="http://www.geodyssey.com/cells/voronoi.htm">our web repository</a>.<p>
+
+Note that in addition to the Voronoi index files supplied with Georama and
+through the catalog, several are supplied with Galileo, including
+<i>ISOTYPE.VIX</i>, which you may safely use as a starting index. You can
+freely download Galileo (and these files) from
+<b>http://www.geodyssey.com</b>.
+
+Another alternative to creating a custom Voronoi index yourself is to let
+Geodyssey do it for you!  We can also assist with the building of your new
+PLR data collections or Hipparchus Binary Objects.  In cases where you are
+unsure of the format of your source data, this might be the most
+cost-effective route. Just call or e-mail us for a quotation.<p>
+
+<p>Go to <a href="#toc">Table of Contents</a>.<p>
+
+
+<hr><a name="licensing">
+<h3>Licensing for Distribution</h3>
+
+You will have noted from the face of the distribution envelope that the
+Atlas Author's Kit carries with it an assignable single-chair
+developer/user license.  This means that one copy of the Atlas Author's Kit
+may be made for backup and retained on hard disk for ease of access,
+including access over a network.
+
+If on completion of your Atlas authoring tasks you wish to undertake a
+multi-user physical distribution of our combined works, you should consider
+these alternatives:<p> <ol> <li>distribution of your work as a separate
+add-in to our Georama for Windows CD-ROM product, which your customers may
+acquire directly from Geodyssey Limited or from yourself or others under a
+discounted reseller agreement with Geodyssey.<p> <li>distribution of your
+work and Georama as an integrated new CD-ROM product, with a modest royalty
+payable to Geodyssey on the basis of the volume of distribution.<p> </ol>
+
+In either case, Geodyssey will be happy to negotiate a fair agreement.<p>
+
+<p>Go to <a href="#toc">Table of Contents</a>.<p>
+
+
+<hr><a name="advanced"> <h3>Advanced Requirements</h3></a><p>
+
+Your functional requirements for the customization of Georama may not be
+entirely satisfied by application of the procedures described so far.<p>
+
+If that is the case, you should consider several additional alternatives
+that can quickly yield the desired results.<p>
+
+First, if you have C/C++ Windows programming skills, you can acquire our
+standard Hipparchus Software Developer's Kit (SDK) and proceed to modify
+the supplied Georama source code, linking with the supplied <i>Hipparchus
+Library</i> (binaries). Georama is written in ANSI C and communicates with
+Windows 95 using the standard native Win32 Aplication Programmer's
+Interface(API). No tools other than the C compiler are required to
+regenerate and modify Georama.<p>
+
+Alternatively, if you lack access to the required programming skills, you
+might contract with Geodyssey Limited to prepare the required version of
+Georama. Owing to our in-depth familiarity with the code, this process may
+well be the most cost effective.<p>
+
+In either case, any multi-user distribution of the resulting product will
+be subject to a one-time Hipparchus Technology Distribution License. See
+<href="http://www.geodyssey.com/licenses.htm">Hipparchus Technology
+Licensing Policies and Prices</a>.<p>
+
+<p>Go to <a href="#toc">Table of Contents</a>.<p>
+
+
+<hr><a name="summary"> <h3>Summary</h3></a><p>
+
+This publication has provided a series of procedures by which one can
+author new features for existing Georama Atlases or add new Atlases to the
+Georama product.<p>
+
+<p>Go to <a href="#toc">Table of Contents</a>.<p>
+
+
+<hr><a name="geodyssey"></a> <h3>About Geodyssey</h3>
+
+<p>Georama and Hipparchus are exclusively owned and distributed by
+Geodyssey Limited of Calgary, Alberta, Canada.  Geodyssey is a privately
+owned company of software professionals who are dedicated to the promotion
+and support of these remarkable products.  Geodyssey makes this technology
+available under simple development and end-use licensing agreements,
+usually free of on-going royalties.
+
+<p>Geodyssey's general licensing policy provides the developer with
+affordable access to this remarkable technology while deferring payment of
+any additional licensing fees until the resulting end-use application has
+demonstrated the benefits of the technology.
+
+<p>Geodyssey also offers extensive training, consulting and application
+development services.
+
+<p>For additional information, please visit our extensive web site at <a
+href="http://www.geodyssey.com">http://www.geodyssey.com</a> or call, fax
+or write to Geodyssey.
+
+<p>Go to <a href="#toc">Table of Contents</a>.<p>
+
+</body></html>

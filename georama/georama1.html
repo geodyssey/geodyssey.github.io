@@ -1,0 +1,1881 @@
+<html><head>
+<title>Geodyssey's Hipparchus-based Georama for Windows</title>
+</head>
+<body><a name="top">
+
+<map name="tools">
+<area shape="rect" coords="1,1,23,25" href="#previous">
+<area shape="rect" coords="24,1,47,25" href="#zoomout">
+<area shape="rect" coords="48,1,70,25" href="#zoomin">
+<area shape="rect" coords="71,1,93,25" href="#step">
+<area shape="rect" coords="94,1,116,25" href="#recenter">
+<area shape="rect" coords="117,1,139,25" href="#slide">
+<area shape="rect" coords="140,1,164,25" href="#reframe">
+</map>
+
+<h2>Georama for Windows</h2>
+
+<b>Internet Edition</b><br>
+(Corresponding to Hipparchus Release 3.4)<p>
+
+by John Russell, President,<br>
+Geodyssey Limited<br>
+Calgary, Alberta, Canada<p>
+
+Last updated 2004/06/19.<p>
+
+<small>&#169; 2004 John Russell and Geodyssey Limited.
+All rights reserved, worldwide.</small><p>
+
+<b>License</b><p>
+
+This software product is owned exclusively by Geodyssey Limited of
+Calgary, Alberta, Canada.  It is licensed for your personal use under the
+terms and conditions of a purchase agreement with Geodyssey Limited.<p>
+
+<hr><a name="toc">
+<h3>Table of Contents</h3>
+<a href="#intro">Introduction</a><br>
+<a href="#qtour">Quick Tour</a><br>
+<a href="#overview">Overview</a><br>
+<a href="#anatomy">Anatomy</a><br>
+<a href="#dual">Dual Residency</a><br>
+<a href="#basicops">Basic Operations</a><br>
+<a href="#starting">Starting Georama</a><br>
+<a href="#initialization">Initialization</a><br>
+<a href="#coordinates">Finding Coordinates</a><br>
+<a href="#distances">Finding Distances</a><br>
+<a href="#navigation">Navigating Maps</a><br>
+<a href="#toolnav">Navigating by Tool</a><br>
+<a href="#menunav">Navigating by Menu</a><br>
+<a href="#gaznav">Navigating by Gazetteer</a><br>
+<a href="#gpsnav">Navigating by GPS</a><br>
+<a href="#inspect">Inspecting a Scene</a><br>
+<a href="#reporter">Recording Events</a><br>
+<a href="#bitmaps">Outputting Bitmaps</a><br>
+<a href="#hardcopy">Outputting Hard Copy Maps</a><br>
+<a href="#trouble">Troubleshooting</a><br>
+<a href="#mods">Making Modifications</a><br>
+<a href="#hipparchus">About Hipparchus</a><br>
+<a href="#geodyssey">About Geodyssey</a><br>
+<a href="#reference">Reference Material</a><br>
+
+<hr><a name="intro">
+<p><h3>Introduction</h3>
+
+<p>These HTML pages will be your window into the world of Georama!  Here
+you'll learn all about running Georama and exploring the highways and byways
+of our world. Soon you'll be able to zoom and pan effortlessly around the
+globe.
+
+<p>Consider a shelf in your library containing several Atlases.  Each Atlas
+is a collection of geographical knowledge that has been designed and
+published with some idea about its intended audience, and their information
+needs.  When you take down and open an Atlas, you see in its pages individual
+scenes, frozen in scale, style and content at the time of printing.
+
+<p>Unlike the Atlas in your library, however, Georama's scenes may center on
+any part of the Earth, at any scale and in a variety of projections.  Instead
+of referencing just one area of the Earth, they focus instead on the Atlas's
+different themes of knowledge.  Yes, when you first open one of Georama's map
+windows (Scenes), it will be centered <i>somewhere</i>.  But soon, with use,
+your Atlas will become a very personalized collection of Scenes, custom
+centered and scaled to meet your individual needs. So, when you set out to
+use Georama, expect to work with Atlases and their Scenes.
+
+<p>This document is intended to be browsed simultaneously with a live Georama
+session. Georama menus and dialog panels described in this document may be
+viewed in the live Georama session.  Therefore, our first task will be to get
+you started with that live Georama session.
+
+<p>For the main thread of the story, just browse this document sequentially.
+You can get an idea of what lies ahead by consulting the <a href="#toc">Table
+of Contents</a>.  If you should link to any one of the many cross-references,
+remember that you can always take your browser's <b>Back</b> option to return
+to the main story. For cross-referential convenience, please note the
+navigation bar across the bottom of the page.
+
+<p>Have a good read!
+
+<p><hr><a name="qtour">
+<h3>A Quick Tour of Georama</h3>
+
+<p>If you are reading these help pages via Georama's Help linkage, you
+already know at least one way to get Georama up and running!  But if you are
+reading this in printed form, or perhaps you have accessed this document
+on the Internet, then you should scan <a href="#starting">Starting
+Georama</a>.
+
+<p>With Georama now up and running, you will see the Georama "Index" map
+window, titled "<i>GEORAMA</i>". <p>The Index map window initially shows a
+Miller-like projection of the coastlines and major lakes of Planet Earth.
+The Index window is purposefully small.  (If you wish, you can move and/or
+re-size it using standard Windows methods).
+
+<p>Now note the Menu bar.  There are four top-level choices: <b>Atlas</b> and
+<b>Scene</b> on the left, <b>Setup</b> and <b>Help</b> on the right.
+
+<p>Obviously, <b>Help</b> leads you hereabouts!  It also provides product
+information, a description of any open Atlas and a link to our web site on
+the Internet. <b>Setup</b> will be explained later in a separate topic. You
+won't need to know about it for this quick tour!
+
+<p><b>Atlas</b> and <b>Scene</b> are the main choices, to be explained
+momentarily.
+
+<p>Before we go into the menu items, note the toolbar at the bottom of
+the Index window.  This houses the <b>Navigation Tools</b>.  Look, but
+don't touch - just yet!  Clicking on the individual tools will be used later
+to "navigate" the Index map.  By navigate, we mean that you will be able to
+change what is displayed in the window.  If you place your mouse cursor on a
+tool, you'll see (briefly) a Windows "ToolTip" for that tool.
+
+<p>Now back to the menu bar.
+
+<p>Click <b>Atlas</b> to see its drop-down option list.  At the top of the
+list is <b>Open Atlas...</b>  Click it.  You should now see a dialog box
+titled "<i>Select Atlas to Open</i>".  Now is the time to open up one of
+Georama's available Atlases.  Select <i>world</i>.  (If you're viewing a
+downloaded Georama sampler, you'll see only the name of the sample Atlas, for
+example, <i>new_zealand</i>). The Index map is now replaced with another
+Index map, specifically suited to the particular Atlas you selected.  In the
+case of the world Atlas, it's another Miller-like map of the world, just
+colored differently and titled "Orbis terrarum descriptio" (how's your
+Latin?). Now if you select <b>Help | Atlas Description</b> you'll see a
+dialog box describing this Atlas. When you've read it, click <b>OK</b> to
+continue.
+
+<p>Now is the time to open one of the "Scenes" available for the
+selected Atlas. (A Scene is a specific view of some part of an Atlas,
+in which specific themes such as coastlines, rivers, lakes, place names,
+etcetera are displayed). So select the <b>Scene</b> menu item and double
+click on <i>oceanview</i>.
+
+<p>Behold a second map window!  This is a Scene window.
+
+<p>It carries the name of the Atlas Scene selected, in this case, "<i>World
+Atlas - World Bathymetry</i>".  The scene you opened is that of a specific
+part of the world, showing coastlines, land masses, oceans and ocean
+depths (bathymetry) displayed in varying hues of blue, according to the
+depth. The scene is drawn to a specific scale in a specific projection.
+
+<p>With the Scene in focus, if you next select <b>Help | Scene
+Description</b>, you'll see a dialog box with a description of what's in this
+scene.  As before, click <b>OK</b> when you're done. The other menu items in
+the Scene window will be explained shortly.
+
+<p>Note that the Scene window also has a set of <b>Navigation Tools</b> in
+its lower left corner. Let's use a few of these to change what we see in the
+Scene's map field.
+
+<p>First try <b>Zoom In</b> (by clicking the button with the <b>+</b> icon).
+You should see the Scene re-drawn at twice its previous scale. Since the
+window size remains unchanged, you're displaying less data.
+
+<p>Next, return to the previous map. Click the button labeled <b>P</b>. This
+takes you back to where you were previously.
+
+<p>Finally, let's center this scene elsewhere.  Click the <b>Re-center</b>
+tool (the bullet icon).  Then point and click in <i>either</i> the Scene or
+Index window, anywhere in the world, at some place interesting! The Scene
+map window will now be re-centered and re-drawn at the new location. And note
+the change to the Index window!
+
+<p>There's lots more you can do with navigation tools, but you'll learn about
+all that later.
+
+<p>Do you want to get the <b>coordinates</b> of a point location?  Position
+your mouse on the location and "right-click" it.  You'll see that location
+temporarily illuminated with a colored marker, its latitude and longitude
+appearing in the message area at the bottom of the window.
+
+<p>Do you want to measure distances between locations? In a Scene window
+select <b>Tools | Traverse</b>. You'll see cross-hairs where the mouse
+pointer was before. Position the cross-hairs on the first point and "left
+click" the mouse. Move to a second location and left-click again. Now you'll
+see a line joining the two locations. The distance from the first point to
+the second will appear in the message area. This first line is
+considered to be "Leg 1" of a multi-leg route. You can continue clicking
+on additional locations to get the cumulative distance for all the legs of a
+route. To end the traverse, select <b>Tools | End Traverse</b> or press the
+<b>&lt;Esc&gt;</b> key. There's more going on here than meets the eye! But
+you've probably seen enough for now.
+
+<p>If you wish, you can move or re-size a Scene window using standard Windows
+methods. But if re-sized, the map will be re-drawn to fill the map field of
+the re-sized window.  The scene center point and scale will not change, but
+the projection might!
+
+<p>Returning to the Index window, try opening one of the other Scenes, such
+as <i>earthquakes</i>.  Does this scene look familiar? Of course, it's the
+San Francisco bay area. Try <b>Zoom Out</b> (by clicking the <b>-</b> icon in
+the navigation toolbar). See the cloud of red dots defining the San Andreas
+Fault!
+
+<p>Ok, let's investigate another method of centering a Scene.  Go back to the
+Index menu and select <b>Atlas</b>, then <b>Gazetteers...</b>  Up pops a
+dialog box titled "<i>Select Gazetteer</i>" listing the gazetteers available
+for this Atlas.  Scroll down and select the one named
+"<i>populated_place</i>". Click <b>Open</b> (or double-click
+"<i>populated_place</i>").
+
+<p>Up pops yet another dialog box titled "<i>Select Name in populated_place
+Gazetteer</i>".  Let's try "Auckland" (as we're interested in earthquakes in
+and around Auckland, New Zealand).  As you enter the first few letters of
+"Auckland" you'll see <i>Auckland</i> selected in the list of populated
+places. Click <b>Re-center Scene</b> (or double-click the selected entry).
+Yet another dialog box asks which scene to re-center. Select
+<i>earthquakes</i>. (You can if you like close the <i>Select Name</i> dialog
+box now by clicking <b>End/Cancel</b>).
+
+<p>Re-selecting the earthquakes window, we see some tiny red dots representing
+earthquake epicenters around Auckland.  Lets zoom out a couple of times by
+clicking the <b>-</b> navigation tool.  Now let's inspect those earthquake
+epicenters more closely.  On the Scene menu select <b>Tools | Inspect...</b>.
+Up pops a dialog box called <i>Select Object Locator</i> that lists the
+various things we might "inspect" in this scene. Select "<i>epicenter</i>"
+and click on <b>Open</b> (or simply double-click <i>epicenter</i>). Now
+when you move your cursor around in the scene, the nearest earthquake
+epicenter is highlighted and its attributes appear in the message area to the
+right of the toolbar.  The attributes are: date and time of the 'quake plus
+its magnitude on the Richter scale. You can safely <b>Zoom In</b>, <b>Zoom
+Out</b> or go back to a <b>Previous</b> view without interrupting the search.
+To end the inspection, you can select <b>Tools | Close Inspect</b> or press
+the <b>&lt;Esc&gt;</b> key.
+
+<p>If you've finished investigating the <i>world</i> Atlas, try opening one
+of the others, if available.
+
+<p>If you're finished with Georama altogether, just return to the
+Index's <b>Atlas</b> menu and select <b>Exit</b>.
+
+<p>Ok, you've seen some quick results with Georama. Now learn all about it.
+
+<p><hr><a name="overview"><h3>Georama Overview</h3>
+
+<p>Have you taken the <a href="#qtour">Quick Tour?</a>  If not, it might help
+set the stage for a better understanding of the overview.
+
+<p><b>What is Georama?</b>
+
+<p>Georama is an <b>end-user application</b> that runs on Intel 486
+or faster microprocessors under the Windows 95, 98, 2000 or Windows NT (4+)
+operating systems.  It is distributed on an industry-standard CD-ROM.  It can
+be run exclusively from your CD-ROM drive.  It may also be copied to, and run,
+in part or in whole, from a hard disk.  Your highest resolution video color
+mode is supported.  A geographically-restricted version may be downloaded
+from the Internet and run from hard disk.
+
+<p>Georama is a world-class <b>Geographic Atlas Viewer</b>.  It provides an
+Atlas of the <b>World</b>. Map navigation is <b>seamless</b>.  Map features
+may be <b>points</b> or point sets, <b>lines</b> or line sets, <b>regions</b>
+(areas) or collections of regions, or <b>surfaces</b>.  Regions may be simple
+polygons or complex structures such as island groups having islands within
+lakes within the islands, and so on.  Surfaces may be global in scope and may
+be used to hypsographically depict feature elevations (or depths) or other
+non-spatial data such as temperature, pressure or product sales. Feature
+<b>labeling</b> is supported. Both feature and label presentation is <b>scale
+dependent</b>.
+
+<p><b>Gazetteers</b> permit map centering by place name as well as attribute
+display.
+
+<p>An <b>Inspect</b> mode permits the graphical inspection of the name or
+other attributes associated with displayed locator features.
+
+<p>Georama accepts <b>real-time</b> or pre-recorded input from a <b>GPS</b>
+receiver. Moving vehicle location is tracked for later re-use and real-time
+map displays are automatically updated en route. Perfect for use with
+notebook computers!
+
+<p>Map <b>raster images</b> may be configured and output for downstream
+publication. Alternatively, maps may be output in <b>HPGL vector format</b>
+for precision plotting.
+
+<p>Georama is <b>user-extensible</b>.  Existing Atlas maps may be modified or
+new maps specified.  Users have direct control over map location, scale,
+projection, content and graphical presentation (style).  Atlas users can even
+locate maps by reference to a user-defined <b>"Points of Interest"</b> file,
+in effect a personal gazetteer.
+
+<p>Georama can accommodate <b>additional Atlases</b>, without
+formal programming. An Atlas designer creates the relevant databases and
+defines their mapping options using instructions and utilities provided by
+Geodyssey.
+
+<p>Component updates and add-ons for Georama are available for download at no
+charge from Geodyssey's website.
+
+<hr><a name="anatomy"><h3>Anatomy of Georama</h3>
+
+<p>There's several anatomical components to Georama.  All are contained
+within a single directory (folder) named <i>georama</i>.
+
+<p>First, of course, there's the Win32 executable program <i>georama.exe</i>.
+It is contained within the sub-directory <i>runw32</i>.  There's several
+associated files:<ul>
+
+<li><i>georama.gin</i> (Georama's basic configuration parameters)
+
+<li><i>coast.sgm</i> and <i>coast.vtx</i> (very rough Earth coastlines
+intended mainly for Index map orientation)
+
+<li><i>georama.html</i>, <i>georama0.html</i> and <i>georama1.html</i>,
+<i>webcolors.html</i> (the html components of this document)
+
+<li><i>gestart.exe</i> (for CD-ROM AutoPlay)
+
+<li><i>georama.dtp</i> (desktop-persistence parameters, hard disk only)
+
+<li><i>geplout.exe</i> and <i>gehpgl.mrk</i> (Hard copy production
+components)
+
+<li><i>feedback.txt</i> (NotePad log file for logging your comments and
+questions). </ul>
+
+<p>Next, there's the Atlases.  Each has its own sub-directory within
+the <i>georama</i> directory.  Following is an anatomical description of an
+Atlas:
+
+<p>An Atlas directory contains control files and data.
+
+<p>Atlas control files include:<ul>
+<li><i>atlas-name.atl</i> (the Atlas definition file)
+<li><i>vix-name.vix</i>   (one or more Atlas-specific Voronoi cell indexes)
+<li><i>atlas-name.con</i> (the Atlas Index map definition file)
+<li><i>atlas-name.poi</i> (an optional Atlas-wide "points-of-interest" file)
+<li><i>scene-name.scn</i> (specific Scene definition files)
+</ul>
+
+<p>Atlas data files include:<ul>
+<li>Hipparchus Binary Objects (*.hbo)
+<li>point,  line or region collections (.plr)
+<li>associated attributes (*.dat)
+<li>gazetteer name indexes (*.nmx)
+<li>Miscellaneous files include:
+
+<li><i>...\temp\bitmap-name.png</i>
+<li><i>...\temp\hpglplot-name.hpg</i>
+<li><i>...\temp\gpstrace-name.lns.</i>
+<li><i>...\temp\grprtr.txt</i>
+</ul>
+
+<hr><a name="dual"><h3>Dual Residency</h3>
+
+<p>Georama is a "dual resident" application.  It may be run exclusively from
+your CD reader, or exclusively from your hard disk drive, or a
+combination of the two!
+
+<p>If you opt to run exclusively from a CD reader (either local or
+networked), then you can expect somewhat slower performance and you will not
+be able to change the content or presentation of the Atlases and Scenes
+provided.
+
+<p>If you opt to run exclusively from a hard disk, you will need to have
+upwards of 600MB of disk space available.  Performance will be maximized and
+you'll be able to make unlimited modifications or additions to the Atlases
+and Scenes provided.  To effect such an installation, you merely copy the
+<i>georama</i> directory and its contents from the CD-ROM onto one of your
+hard disks, either into its root or any other directory.
+
+<p>The middle ground is to run Georama with only the modifiable or
+performance-sensitive components copied to your hard disk. Anticipating that
+this will be your configuration of choice, we have implemented a partial copy
+operation under the Index window menu item <A href="#setup">Setup</a>.  This
+procedure constructs on one of your hard disks a <i>georama</i> root
+directory, a copy of the entire <i>runw32</i> sub-directory, the Atlas
+sub-directory <i>world</i> together with its control files and selected
+<b>*.dat</b> and <b>*.nmx</b> databases.  This procedure requires about 10MB
+of disk space.  The <b>Setup | Copy from CD-ROM</b> operation does not
+overwrite files of the same name already resident in a hard disk root
+directory <i>georama</i>. Therefore, if it is your intent to replace
+disk-resident files with those on the CD-ROM, you must first delete them from
+your hard disk.
+
+<p>If you suspect that performance would improve substantially by copying
+other critical files to hard disk, you are free to experiment by manually
+copying these files to their appropriate hard drive residence.  (You can
+learn the names and paths of these files on the CD-ROM by consulting the
+appropriate <i>atlas-name.atl</i> control file).  Knowing that there exists a
+hard drive option, Georama always checks file references for the existence of
+files in the faster (hard drive) medium.
+
+<p>Be assured that if you opt for either a partial or complete copy of the
+CD-ROM to your hard disk, <i>NO MODIFICATIONS WILL BE MADE TO ANY OF YOUR
+SYSTEM FILES.</i>  All material copied from the CD-ROM is contained within a
+single directory structure named <i>georama,</i> easily removable at any
+time.
+
+<p>When you insert the Georama CD-ROM into a reader, it will normally
+<b>Autoplay.</b>  Unless this Windows feature has been disabled (or
+temporarily suppressed by holding down the <b>&lt;Shift&gt;</b> key while
+inserting the CD-ROM), the autorun.inf script, located in the root directory
+of the Georama CD-ROM, passes control to the <i>gestart.exe</i> program
+located in the <i>georama\runw32</i> subdirectory.  Once in control, this
+program looks in the root directories of all of your hard drives for a
+directory named <i>georama.</i>  If it finds one, it offers the option of
+either running from hard disk, running from the CD-ROM  or quitting.  Opting
+for CD-ROM operation in this configuration simply substitutes the CD-ROM
+versions of <i>georama.exe</i> and <i>georama.gin</i> for their hard disk
+twins, all other files being sought first from the hard disk.  If no
+<i>georama</i> directory is found on a hard disk, <i>gestart.exe</i> offers
+the choices of running from CD-ROM, or quitting.  Opting for CD-ROM operation
+in this configuration results in operation entirely from the CD-ROM.
+
+<p>(Although the Georama CD-ROM's <i>gestart</i> program will detect
+<i>georama</i> in hard disk root directories only, you can still import and
+run Georama in dual-residency mode as a sub-directory structure under
+directories other than the root, but you will need to start the hard-disk
+version of georama.exe via methods other than <b>Autoplay</b>).
+
+<hr><a name="basicops"><h3>Basic Operations</h3>
+
+<p>If you are reading these pages via Georama's <b>Help</b> linkage, you
+already know at least one way to get Georama up and running! So you might
+want to just skip ahead to <a href="#initialization">Initialization</a>.
+Otherwise, you should continue.
+
+<hr><a name="starting"><h3>Starting Georama</h3>
+
+<p>This topic details several methods for initiating a Georama session. Even
+if you already know one method, you might find one of the other methods
+easier in your environment.
+
+<p><b>CD-ROM Autoplay Method</b>
+
+<p>This is the simplest method.   The Georama CD-ROM has an
+<i>autorun.inf</i> script in its root directory.  When you insert the CD-ROM
+into your CD-ROM drive, and if <b>AutoPlay</b> has not been disabled, this
+script invokes the <i>gestart.exe</i> program in the <i>runw32</i>
+sub-directory of the <i>georama</i> directory.  This in turn pops up a dialog
+box inviting you to either "Run" or "Quit".  If you have previously copied
+the executable parts of Georama to a directory named <i>georama</i> in the
+root of one of your hard disks, <i>gestart.exe</i> will detect it and invite
+you to run from there, instead of from the CD-ROM, accessing the CD-ROM only
+for data items not found on the hard disk.  If you already have a copy of
+Georama running, the CD-ROM makes its presence (and data) known to the
+running copy via <i>gestart.exe</i>.
+
+<p><b>Start Run Method</b>
+
+<p>You click on Windows <b>Start</b>, then <b>Run</b>,
+then enter <i>x:\georama\runw32\georama.exe</i> (substituting your
+CD-ROM drive letter for <i>x</i>).  The drive could be a network
+drive.  If you have previously copied the contents of the CD-ROM directory
+<i>\georama\runw32</i> to a hard disk, then you would enter
+<i>y:\[path\]georama\runw32\georama.exe</i>, (where
+<i>y</i> is the hard drive letter and <i>[path]\</i> is
+an optional intermediate directory structure).
+
+<p><b>Shortcut Method</b>
+
+<p>To use this method, you must first create a Windows <b>shortcut</b> to
+<i>x:\georama\runw32\georama.exe</i> or
+<i>y:\[path\]georama\runw32\georama.exe</i> (as described above for the
+<b>Start Run Method</b>).  You can place this shortcut on your desktop or in
+one of your application folders.  Thereafter, to start Georama, you merely
+double-click the shortcut icon on your desktop.
+
+<p>If you will often be referencing a particular Atlas and one of its Scenes,
+you can add the Atlas and Scene names as parameters to the shortcut's command
+line (e.g., <i>x:\georama\runw32\georama.exe world earthquakes</i>).  Then
+when you click on the shortcut's icon, you'll open Georama straightaway at
+the "earthquakes" Scene of the "world" Atlas.
+
+<p><b>Note:</b> Since Georama does not use or permit references to a "current
+directory", it is immaterial from where you initiate its execution.
+
+<hr><a name="initialization"><h3>Initialization</h3>
+
+<p>Ok, you now have Georama up and running.  You should know that the program
+is initialized by reading a control file named <i>georama.gin</i>.  This is
+located in the same directory as <i>georama.exe</i>  As an end-user of
+Georama, you may never need to know what's in this file, (but it doesn't
+hurt to know that it exists).  It was created by the Georama Atlas designer.
+
+<p>Once you've started up, (and seen our product splash panel), you will see
+a small window called <i>"GEORAMA"</i>.  This is the "Index" map window, or
+simply the "Index" (also sometimes referred to as the "Console"). It features
+a <b>menu bar</b>, a <b>map field</b>, a toolbar containing <b>navigation
+tools</b> and a <b>message area</b> to the right of the toolbar.  Initially,
+the map field contains a world-wide Miller-like map of the world.  (The
+contents of this map field are specified (initially) by the
+<i>georama.gin</i> control file).
+
+<p>The <b>menu bar</b> has just four top-level menu options: <b>Atlas</b>
+and <b>Scene</b> on the left, <b>Setup</b> and <b>Help</b> on the right.
+
+<p>The <b>Help</b> menu item has four drop-down options: <b>About
+Georama...</b> which identifies this product, <b>Georama Help...</b> which
+leads you into this HTML document set, <b>Atlas Description</b> (initially
+greyed) and <b>Geodyssey on the Web</b> which provides a link to Geodyssey's
+Internet website.
+
+<p>The <b>Setup</b> menu item provides setup information and (in some Georama
+distributions) "wizards" to set up or clear Georama from your hard disk. It
+is explained later in a separate topic.
+
+<p><b>Atlas</b> and <b>Scene</b> are the operative menu items. You use the
+<b>Atlas</b> drop-down menu to select an Atlas and to work with Atlas-wide
+features.  You use the <b>Scene</b> drop-down menu to select and work with
+the specific scenes of an Atlas.
+
+<p>The <b>navigation tools</b> can be used to change the center, scale and
+projection of the map that appears in the field of the initial Index window.
+(Although you are free to "navigate" this map, it may not be obvious why you
+would want to, so navigation is better explained later on in the context of
+Atlas Scene maps).
+
+<p>At any time, you can find the <b>geographical coordinates</b> of specific
+locations in the Index map field.  Just position your mouse over the location
+in question and click the <i>right</i> button.  You will receive a message
+giving the latitude and longitude of that location.
+
+<p>Georama is an Atlas viewer, so let's view an Atlas! Select the
+<b>Atlas</b> drop-down menu item.  At this point many of the drop-down
+options are greyed (inactive).
+
+<p>If you select <b>Open Atlas...</b>, a dialog box titled <i>"Select Atlas
+to Open"</i> appears, offering a selection of Atlases you can open.  You
+select one of the Atlas names, then click the <b>Open</b> button.
+Alternatively, you can simply double-click on the name. If you do not want to
+make a selection at this time, you click the <b>Cancel</b> button or press
+the <b>&lt;Esc&gt;</b> key. (If you opted to open an Atlas and there is
+already an Atlas open, you are first presented with a dialog box requesting
+permission to close the open Atlas). If you are operating in dual residency
+mode and the Georama CD-ROM is not present, you will receive error messages
+referencing theme data files that cannot be found on the hard disk.  If you
+then insert the CD-ROM, and <b>AutoPlay</b> is enabled, you will be able to
+re-initiate the <b>Open Atlas...</b> operation and continue. Otherwise, you
+will need to <b>Exit</b> Georama and restart it (see next paragraph).
+
+<p>If you select <b>Exit</b>, Georama ends (after presentation of a
+confirmation dialog). Any open windows are closed. (The only way to close an
+open Atlas <i>without</i> exiting Georama is to open another Atlas).
+
+<p>When you open an Atlas, you may notice some changes to the Index window.
+First, its title has been changed.</i>  Second, its map field may have
+changed, perhaps only subtly.  Third, if you select the <b>Help</b> drop-down
+menu you will see that the <b>Atlas Description</b> option is now active.  If
+you select it you will see a dialog box titled <i>"Atlas Description"</i>.
+These are the Atlas Author's notes. Once you've read it, click <b>OK</b> to
+continue. Fourth, if you re-select the <b>Atlas</b> drop-down menu you will
+see that many of the previously greyed (inactive) options are now active.
+
+<p>If the <b>Open Data Server...</b> is <i>NOT</i> greyed, then you are using
+a copy of Georama that for some portion of its data needs is linked to an SQL
+server. If this is the case, then you must now select this option and follow
+your specific SQL server access procedure.
+
+<p>The background color and content of the Atlas Index map field is
+defined by a control file associated with the Atlas. This is originally
+specified by the Atlas Author, but you may want eventually to change it.  For
+more about this control file, see <a
+href="#atlas-name.con">atlas-name.con</a>.
+
+<p>Now that you have opened an Atlas, its time to open a Scene within the
+Atlas.
+
+<p>From the main menu bar, select the <b>Scene</b> drop-down menu. The
+<b>Open Scene...</b> option is at the top. When you select it a dialog box
+titled <i>"Select Scene to Open"</i> pops up offering a selection of scenes
+you can open. You may select a scene by clicking it, then clicking the
+<b>Open</b> button. Alternatively, you can just double-click the scene name.
+(If you are operating in "dual resident" mode, the selection of scenes may be
+drawn from both hard disk and CD-ROM, with the hard disk source taking
+precedence). If you do not want to make a selection at this time, you can
+click the <b>Cancel</b> button or press the <b>&lt;Esc&gt;</b> key.
+
+<p><b>Note:</b> Many of the names you will see in Georama's dialog boxes are
+extracted directly from Georama's sub-directories and/or file names. To ensure
+future cross-platform portability, we have restricted all such names to lower
+case letters, underscores and numerals (numerals following only).
+
+<p>Having selected a Scene, a second map window appears beside (or perhaps
+partially overlapping) the Index map window.  This is a Scene map window,
+or simply, a <i>Scene</i>. Multiple Scenes may be open simultaneously.  At any
+time, you can circulate the focus between the Index and any open Scene
+windows by pressing the <b>&lt;Tab&gt;</b> key.  You can close a scene by
+bringing it into focus and selecting <b>Tools | Close Scene</b> or by
+clicking on the window delete button in its upper right-hand corner, then
+responding positively to the resulting permission dialog.
+
+<p>A Scene window carries a title prescribed by a scene control file. It
+has a <b>menu bar</b>, a <b>map field</b>, <b>navigation tools</b> and a
+<b>message area</b>, to the right of the navigation tools. If you select
+<b>Help | Scene Description</b> you will see a dialog box containing a
+description of the scene and its contents. This text was drawn from the
+<i>scene-name.scn</i> control file. Once you've read it, click <b>OK</b> to
+continue.
+
+<p>The map field background color, content and initial geometry are also set
+by the scene control file, <i>scene-name.scn</i>, which is associated with
+the Atlas.  This file is normally supplied by the Atlas Author, but may be
+created or modified by the user.  (If you are considering making
+modifications, you will need eventually to inspect the supplied control files
+and study the specifications for a generic <i>scene-name.scn</i> file,
+described in detail later).  When a scene is being rendered, the message area
+names the themes currently being drawn. (If you find the drawing time for a
+particular theme overly lengthy, you can press the <b>&lt;Esc&gt;</b> key to
+interrupt that part of the presentation).
+
+<p>The initial desktop position and size of the Georama Index and Scene
+windows are set by parameters contained in the <i>georama.gin</i> control
+file.  Using standard Windows procedures, you are free to move these windows
+and/or change their size (within reasonable limits).  Whatever changes you
+make to a window will persist for that specific window.  If you are running
+from CD-ROM alone, these persistent desktop settings are lost at the end of a
+session.  If, however, you are running from hard disk, the persistence
+settings are retained across sessions, indefinitely.  Moreover, they are
+retained independently for <i>named</i> windows: the initial Index window,
+each Atlas-specific Index window and each Atlas/Scene-specific Scene window.
+(For the general method of resetting the persistence settings, see <a
+href="#reset">Reset</a>.  For the complete story about Georama's desktop
+windows persistence, see <a href="#persist">Desktop Persistence</a>).
+
+<p>When you change the size of one of the windows, it is re-drawn from
+scratch, using the background and content definitions contained in its
+control file (either <i>atlas-name.con</i> or <i>scene-name.scn</i>).  The
+center point and scale of the map are NOT changed.  Therefore, the new map
+field will contain less or more information than before, depending on the new
+size.  The projection may change. (In some instances, the resultant map field
+may not be feasible for the particular projection and an error message may be
+generated. In such cases, you simply re-size repeatedly until the size once
+again becomes workable).
+
+<hr><a name="coordinates"><h3>Finding Coordinates</h3>
+
+<p>At any time, you can learn the geographic coordinates of specific
+locations within a scene's map field.  Simply position your mouse over the
+location and click its <i>right</i> button. Its position is temporarily
+illuminated with a colored marker and its latitude and longitude are returned
+in the message area. Markers are eliminated from the scene the next time it
+is re-drawn. You can capture such locations coordinates for study or
+subsequent use (see <a href="#reporter">Reporter</a>).
+
+<hr><a name="distances"><h3>Finding Distances</h3>
+
+<p>You can easily find the distance between points. You can also find the
+cumulative distance for a multi-point route (a "traverse"). To do either,
+with a Scene in focus, select <b>Tools | Traverse</b>. The message area
+advises you to "Click on traverse start point". You will see that you are in
+"traverse" mode because the mouse pointer in now replaced by a cross-hairs
+symbol. So you point and <i>left</i>-click on a first point. Its position is
+illuminated by a colored marker and the message area announces that a
+traverse has been started. Now point and left-click a second location. Again
+a colored marker illuminates the current position and a colored line joins
+this and the previous position. (This line is not necessarily "straight" in
+your display). In the message area you will see the distance between these
+two points. This is the "leg" distance. Also reported is the cumulative
+distance for the traverse. Distances are expressed in units defined in the
+<i>scene-name.scn</i> scene control file. Options are <i>mi</i> (miles),
+<i>nm</i> (nautical miles) and <i>km</i> (kilometers, the default). You may
+continue indefinately marking waypoints. To end a traverse, simply select
+<b>Tools | End Traverse</b> or press the <b>&lt;Esc&gt;</b> key.
+
+<p>So long as the scene is open, distances are calculated between successive
+waypoints, even if the scene is re-configured.  (See the navigation topics
+following).  This means that you can get the distance between features that
+are not neccessarily visible at the same time. You can capture the waypoints
+and distances for study or subsequent use (see <a
+href="#reporter">Reporter</a>).
+
+<p><b>Note:</b> Distances between successive points (legs) are true
+<i>geodesic</i> distances, a <i>geodesic</i> being the shortest distance along
+the surface of the ellipsoidal Earth, NOT the distances measured in the
+current projection! To visually sense the distance distortions inherent in
+any of the "flat-Earth" projections, you might try selecting <b>Tools | Show
+Map Distortion</b>. Now the cursor is replaced by cross-hairs surrounded by a
+distortion ring, the <i>Indicatrix</i>. In large-scale displays, this ring
+may appear nearly circular, indicating nearly equal distortion in all
+directions. In smaller-scale displays, notably those in the <b>wwview</b>,
+<b>wwmerc</b> and <b>ortho</b> projections, the Indicatrix reveals much
+greater distortion in specific directions. For comparison purposes,
+left-clicking the mouse leaves behind a copy of the Indicatrix. Numeric
+records of distortion values can be recorded for subsequent inspection or
+analysis (see <a href="#reporter">Reporter</a>). To end this distortion
+display mode select <b>Tools | Quit Distortion Display</b>.
+
+<hr><a name="navigation"><h3>Navigating Maps</h3>
+
+<p>The Georama Index and Scene maps may be local, regional, continental or
+world-wide in scope.  Since we don't yet have holographic 3D displays, we are
+forced to display "round-world" features using "flat-Earth" cartographic
+techniques.  Depending on the projection used, the display is necessarily
+constrained as to how much geography can be viewed at any one time.
+
+<p>Our solution is to define maps in such a way that you can at any time
+change the center (focus), scale and/or projection of the map so that you
+view the features that you want to see, at the scale you want to see them,
+regardless of where in the world they might be.  Georama lets you <b>zoom</b>
+or <b>pan</b> any of its map databases, <b>anywhere</b> on Earth,
+<b>seamlessly.</b>
+
+<p>We call this process of zooming or panning maps <b>"navigation"</b>.
+
+<p>Navigation is quite distinct from window size manipulation.  Navigation
+affects the "geometry" of a map (center, scale and projection), while window
+sizing affects only the field of view available for display. Changes in Index
+or Scene geometry are reported in the message area. Changes may also be
+recorded for subsequent study or analysis (see <a
+href="#reporter">Reporter</a>).
+
+<p>Georama provides several methods of navigation:
+
+<p><a name="toolnav"><b>Navigating by Tool</b>
+
+<p>The <b>navigation tools</b> method is the easiest to use and works almost
+exactly the same way for both Index and Scene maps.
+
+<p>Here's a fake copy of the Navigation Tools. The real one sports active
+Windows ToolTips. This one links to names and descriptions of the action for
+each button. Here's the definitive reference on how to navigate using the <a
+href="#navtools">Navigation Tools</a>.
+
+
+<p><img src="toolbar.gif" width=165 height=26 align="left" align="bottom"
+usemap="#tools"><br> Navigation Tools<p>
+
+
+<p>Now is the time to mention that you can at any time use the navigation
+tools to navigate the Index map in much the same way you use it to navigate
+a Scene map.  Why would you want to?  Because it permits you to re-center and
+re-scale the Index map to a particular region of the Earth and perhaps
+allowing more precision when re-centering a Scene window!
+
+<p><a name="menunav"><b>Navigating by Menu</b>
+
+<p>You can navigate an Index map from the Index menu bar by selecting
+<b>Atlas | Index map Geometry | Change...</b>. The current projection,
+scale and center are displayed in a pop-up dialog box named "Scene:
+atlas-name". You may then select a different projection, scale and/or
+center point and then click on <b>Change Scene</b> to see the effect in the
+Index map field. Values may be expressed in any of the formats generally
+supported for the specification of <a href="#geometry">geometry</a>.
+The dialog stays on screen so that you may experiment with different values.
+To end the process click on <b>End/Cancel</b>. To merely see the current
+geometry, select <b>Atlas | Index map Geometry | Report</b>. The current
+geometry is reported in the message area.
+
+<p>You can navigate a Scene map from the Scene menu bar by selecting
+<b>Geometry | Change...</b>. The current projection, scale and center are
+displayed in a pop-up dialog box named "Scene: scene-name". You may then
+select a different projection, scale and/or center point and then click on
+<b>Change Scene</b> to see the effect in the Scene map field. Values may be
+expressed in any of the formats generally supported for the specification of
+<a href="#geometry">geometry</a>. The dialog stays on screen so that you may
+experiment with different values. To end the process click on
+<b>End/Cancel</b>. To merely see the current geometry, select <b>Geometry |
+Report</b>. The scene's current geometry is reported in the message area.
+
+<p>Two other navigation options for Scenes are <b>Geometry | Center
+on POI...</b> (Point of Interest)</b> and <b>Geometry | Center on Survey
+System Graticule</b>. In this version of Georama both are greyed
+(inactive).
+
+<p><b>Center on POI...</b> is presents a dialog box titled
+<i>"Select Point of Interest"</i> listing the names of available "Points of
+Interest" for this Atlas.  To re-center the current scene to focus on one of
+these points, select a "Point of Interest" entry and click the
+<b>Re-center</b> button.  Alternatively, you can simply double-click the
+"Point of Interest" entry.  Either way, the scene will then shift to focus on
+this point.  If you don't want to change the focus at this time, click
+<b>Cancel</b>.  Re-centering a scene by reference to an Atlas's "Points of
+Interest" control file provides a convenient mechanism for focusing several
+scenes on the same spot. The "Points of Interest" for an Atlas are contained
+in an ASCII file that associates geographical coordinates (latitudes and
+longitudes) with place names.  This file has the generic name <a
+href="#atlas-name.poi">atlas-name.poi</a>. It is optional for an Atlas.  As
+described in a later section, this file can be created, modified or extended
+by use of any text editor, providing only that the file is (or will be) disk
+resident.
+
+<p><b>Center on Survey System Graticule</b> supports map centering by legal
+land description, necessarily applicable only for specific regional Atlases.
+A prototype of this method of centering Scenes is operational for an Atlas of
+the Province of Alberta, Canada.
+
+<p><a name="gaznav"><b>Navigating by Gazetteer</b>
+
+<p>You can navigate any scene by reference to objects named in one or more of
+Georama's <b>gazetteers</b>.  (<i>Gazetteer</i> being just another word for
+"dictionary of geographic names").
+
+<p>From the Index menu, you select <b>Atlas | Gazetteers...</b> This brings
+up a dialog box titled <i>"Select Gazetteer".</i> Listed are the names of the
+Georama gazetteers available for this Atlas.  The names are suggestive of the
+types of objects featured by the gazetteer.  To work with a specific
+gazetteer, you select and click the <b>Open</b> button. Alternatively, you
+can simply double-click your selection. (Otherwise click the
+<b>Cancel</b> button).
+
+<p>Next you are presented with another dialog box named <i>"Select Name in
+gazetteer-name Gazetteer"</i>. This box contains a text entry field and lists
+up to four columns of names arranged alphabetically. You can designate a
+selection by either of two methods: type the place name you want into the
+text entry field or scroll through the list and click on a displayed entry.
+
+<p>To enter a place name directly, you may only need to type the first few
+letters to narrow the range of place names on file in this gazetteer. As you
+type the name, the list is changed dynamically to select (at the top of the
+second column) the first name on file that matches the letters typed thus
+far. If none match at this point, then the first name following
+alphabetically is selected. If you have typed the complete name and there are
+multiple matches, then the first on file is selected.
+
+<p>To scroll through the name list, you use the scroll buttons below the name
+list. <b>|&lt;</b> changes the displayed list to the beginning while
+<b>&gt;|</b> changes it to the end, <b>&lt;</b> moves the displayed list back
+three columns while <b>&gt;</b> moves it forward three columns. When you see
+the entry you want, just click it or use the <b>arrow</b> keys to select it.
+
+<p>By whichever means you use to select an entry, you will see its name and
+coordinates in bold beneath the scroll buttons. If there are multiple
+entries with the same name you may be able to select the entry you want by
+selecting them in turn and comparing coordinates. Some of the gazetteers may
+contain additional textual information associated with objects.  When
+available, you may view this information by clicking the <b>Display Text</b>
+button.  (If additional text is unavailable, this button is greyed).  You can
+use this feature without having to open a scene. If you don't see the name
+you want, click <b>End/Cancel</b>. If you do, click <b>Re-center Scene</b>.
+
+<p>If you currently have more than one scene open, yet another dialog box
+will appear named "Select Scene to Re-center". Just select the name of the
+scene you want re-centered and click <b>Re-center</b>. Otherwise click
+<b>Cancel</b>.
+
+<p>When a scene is re-centered using a gazetteer, the name selection box
+remains on screen, just in case you might want to re-center a scene on
+another place. To clear it, click <b>End/Cancel</b>.
+
+<p>When the scene is re-centered it may not neccessarily be in focus (or
+visible). If totally hidden, you can bring it into focus by clicking in the
+Index or any other Scene and hitting the <b>Tab</b> key one or more times.
+
+<p><a name="gpsnav"><b>Navigating by GPS</b>
+
+<p>When installed in a suitably configured portable computer, Georama
+supports the real-time integration of GPS receiver inputs. The GPS receiver
+must first be connected to the notebook computer via one of its serial ports
+and have its GPS output function activated appropriately. Alternatively, you
+can simulate the real-time inputs using a pre-recorded ASCII text file of
+locations. (Real time or simulated input is specified by the
+<i>georama.gin</i> control file).
+
+<p>With both an Atlas and Scene already open, you activate Georama's GPS
+navigation and position tracing by selecting the Index menu option <b>Atlas |
+GPS Input</b>.  You are then presented with the GPS monitor dialog box. Its
+name will be either "GPS input from <i>COMx</i> (yyyy,8,N,1)" (where COMx is
+a serial com port and yyyy is a baud rate) or "GPS input from
+<i>source-name</i> (where source-name file containing pre-recorded simulated
+GPS locations). These values are set by the <i>georama.gin</i> control file.
+
+<p>You use this dialog initially to open a GPS trace file. Click on
+<b>Open</b>. You will be requested to supply the name of a trace file,
+located in a directory set by the <i>georama.gin</i> control file. An
+extension will be supplied by Georama. Click <b>Save</b>. If you name an
+existing file, you will be asked whether to open it in "write" or "append"
+mode. (In this way you can go for a drive with your GPS running, stop for
+lunch and shut down, then pick up the trace again when you get back on the
+road).
+
+<p>Assuming that you have connected your GPS correctly (or specified a
+simulation file), you will now be in a position to start GPS navigation and
+tracing in a specific Scene. In the GPS Input dialog box (the GPS
+Monitor) click <b>Start</b>. Now select an appropriate scene, then, in the
+Scene window, toggle the drop-down menu item <b>Tools | GPS Trace ON</b>.
+
+<p>On first receipt of a location from the GPS receiver, Georama logs the
+location to the trace file, re-centers the scene to that location and draws a
+track start marker.  On receipt of subsequent locations (typically, one per
+second), the location is logged and the progress traced in the scene.  If the
+track approaches an edge of the map field, the scene is re-centered, re-drawn
+and overlaid with the entire track up to that point in time. Because the
+stereographic projection is always renderable, anywhere, we recommend that
+wherever possible the <b>stereo</b> projection be specified for the scene.
+
+<p>If you reselect the GPS Input dialog box you will see displayed the
+messages as they arrive (or are simulated). Also displayed are calculated
+horizontal and vertical speeds. Note that you can
+<b>Pause</b> the recording, enter a description for the last point displayed,
+then <b>Resume</b> recording. (In this way, if out bird-watching, you might
+stop to view the rarely-seen Left-Handed Jibber-Jay, record that fact, then
+continue.
+
+<p>You discontinue real-time GPS operation via selection of the menu option
+<b>Scene | GPS Trace OFF</b> toggle.  Of course, the GPS temporary
+trace file remains available for post-processing.
+
+<p>If you are operating Georama in an environment where mouse management is
+impractical, be aware that once a scene window is selected, several keyboard
+keys become equivalent to mouse click operations. Here are the keys that
+become active:
+
+<p>The <b>&lt;PageUp&gt;</b> and <b>&lt;PageDown&gt;</b> keys are equivalent
+to the Scene's <b>ZoomOut</b> and <b>ZoomIn</b> navigation tools.
+<b>&lt;Arrow&gt;</b> keys are equivalent to the Scene's
+<b>East-West-North-South Step</b> navigation tool options.  The
+<b>&lt;Backspace&gt;</b> key is equivalent to the Scene's <b>Previous</b>
+navigation tool.  The <b>&lt;Tab&gt;</b> key toggles between Scene and Index
+windows. (When either type of window is active, its menu options become
+accessible from the keyboard using the normal Windows <b>&lt;Alt&gt;</b> key
+shortcuts).
+
+<p> Georama is programmed to process GPS <b>NMEA</b> "sentences"
+output from the receiver in any of three formats: $GPGGA, $GPGLL and $GPGSA.
+<b>$GPGGA</b> sentences provide time-stamped latitude, longitude
+and elevation while <b>$GPGLL</b> sentences provide time-stamped
+latitude and longitude without elevation.  <b>$GPGSA</b> sentences
+identify the satellites used by the receiver. Either $GPGGA or $GPGLL
+sentences must be present while $GPGSA sentences are optional.  Although only
+the latitude and longitude data are used by Georama to plot the current
+position, all received data is logged to an output file for possible
+post-processing.  NMEA sentences are assumed to be coded in ASCII as 8 data
+bits, no parity and one stop bit.
+
+<hr><a name="inspect"><h3>Inspecting a Scene</h3>
+
+<p>A Scene may contain point object locators that can be sought out and
+inspected using the mouse.  This action is called <i>"inspecting"</i> and is
+initiated from the Scene menu by toggling the <b>Tools |
+Inspect...</b> option. (If greyed, then the scene has no "inspectable"
+locators). You are presented with a dialog window titled
+<i>"Select Object Locator"</i> listing the "inspectable" objects defined for
+this scene. You can select and <b>Open</b> the object you wish in the usual
+manner. Otherwise, you can just <b>Cancel</b> the inspection.
+
+<p>Now when you move the mouse into the map field of the Scene, the cursor is
+replaced with a "magnifying glass" icon.  As you move around in the map
+field, the nearest instance of the selected object type is highlighted by a
+marker of some type and text describing attributes of that instance is
+displayed in the message area to the right of the toolbar.
+
+<p>You can <b>Zoom Out</b>, <b>Zoom In</b>, <b>Step</b>, or
+go back to the <b>Previous</b> scene without interrupting the inspection
+mode.  However, any navigation operation that would (or could) re-center the
+scene will terminate the current inspection.  (Of course, it can easily be
+re-initiated from the menu).
+
+<p>You can deliberately end the inspect process by selecting the <b>Tools |
+Close Inspect</b> toggle or by pressing the <b>&lt;Esc&gt;</b> key.
+
+<hr><a name="reporter"><h3>Recording Events</h3>
+
+<p>You can record for subsequent inspection and analysis a number of
+interactive events. To initiate recording mode, while in the Index window
+select <b>Atlas | Reporter...</b>. This brings up a dialog box named "GEORAMA
+Reporter".  This dialog features check-boxes for several interactive events:
+Scene Geometry, Traverse Detail, Distortion and Locations. You activate or
+deactivate the reporting/recording of an event type by checking or
+un-checking the appropriate box. After making your selection, you may
+<b>Close</b> the dialog box. The current selection remains in effect.
+
+<p>The action of the Reporter is to record in a simple text file ASCII
+messages describing the event. This file is named in the <i>georama.gin</i>
+control file (defaulting to <i>\windows\temp\grprtr.txt</i>). At the
+conclusion of a session, this file can be inspected by any simple text
+editor, such as Windows <i>NotePad</i>). Another interesting presentation is
+in an independent window via the supplied program <i>grtail.exe</i>. This
+program displays the last few lines of the recorded events as they happen. A
+supplied batch procedure <i>reporter.bat</i> can be used in a DOS box to
+initiate <i>grtail.exe</i> and point it to the Reporter file.
+
+<hr><a name="bitmaps"><h3>Outputting Bitmaps</h3>
+
+<p>Here's where you get to keep your most beautiful scenes for posterity!
+You can save a scene's map field as a bitmap, then reprocess it for use in
+publications or on the Internet! (Note that this feature may not be available
+in all distributions of Georama).
+
+<p>You access Georama's Scene bitmap output functions via the <b>Output |
+Bitmap ></b> menu option.  This leads to an additional list of options:
+<b>Size...</b>, <b>Save to Clipboard</b> and <b>Save to File ...</b>
+
+<p><b>Size...</b> optionally may be used to set the scene map field
+to a specific pixel size.  A dialog box titled <i>"Set Scene Field Size in
+Pixels"</i> provides areas for the entry of field width and height in terms
+of absolute display pixels.  These entry areas have as default values the
+current field size width and height.  You may override either or both of
+these values by direct entry of an integer, or by clicking the
+increase/decrease spin buttons.
+
+<p>When ready, click the <b>Re-size</b> button to re-size and
+re-draw the map field to the dimensions specified.  Otherwise, click
+<b>End/Cancel</b>. The dialog box remains on-screen, anticipating
+further use in fine tuning the map field dimensions.  When done, click the
+<b>End/Cancel</b> button.  The <b>Size...</b> operation
+is equivalent to re-sizing the scene window with the mouse, but much more
+precise.  (Typically, you will use this option if you are publishing to a
+specific pixel dimension standard and you want to avoid image re-sampling in
+your downstream application).
+
+<p><b>Note</b> that you specify the size of the scene's map field;
+therefore the scene's window will be somewhat larger to accommodate its
+borders, title and toolbar, etc.
+
+<p><b>Save to Clipboard</b> or <b>Save to File...</b> is
+used to output the scene's map field as a bitmap in standard
+<b>png</b> format. Choosing the <b>Save to Clipboard</b>
+option pastes the bitmap to the Windows Clipboard, overwriting anything else
+that might be there.
+
+<p>Choosing the <b>Save to File...</b> option brings up a file
+selection dialog. This dialog offers a list of files currently in a selected
+temporary directory that have the <b>png</b> extension.  You can
+select one of these to be overwritten or you can enter a new filename.  In
+either case, you click the <b>Enter</b> button to write to the
+named file.  If you change your mind, click <b>Cancel</b> to
+terminate the output operation altogether.
+
+<p><b>Note</b> that bitmaps are prepared using the prevailing
+Win32 color depth (8-, 16-, 24- or 32 bit).  If in doubt about a bitmap's
+parentage, you can determine its color depth by viewing it with any browser
+that supports <b>png</b> and inspecting its image attributes.</b>  If you
+need more or less color depth, you may be able to change the prevailing
+setting using the Windows <b>Start | Settings | Control Panel | Display |
+Settings</b> options.
+
+<hr><a name="hardcopy"><h3>Outputting Hard Copy Maps</h3>
+
+<p>Here's where you get to produce high-quality plotted hard copy of selected
+Scenes!.  You can save a scene's map field as an HP-GL/2 plotter command
+stream.  Then you can direct it to an HPGL-aware printer/plotter for immediate
+plotting, or save it in a file for later publication.
+
+<p>You access Georama's hard copy output functions via the <b>Atlas |
+Hard Copy...</b> menu option.  This leads to an additional dialog box
+titled <i>"Georama Hard Copy Output"</i>.  This dialog is used to specify a
+Scene and its geometry for rendering as an HP-GL/2 plotter command stream,
+and to then direct that stream to an attached HP-GL/2 compatible
+printer/plotter (such as most HP LaserJets), or to a file for later plot
+processing.
+
+<p>The <i>"Georama Hard Copy Output"</i> dialog box has four entry areas
+and two main action buttons.
+
+<p>The <b>Scene</b> entry area lists all of the Scenes of the
+selected Atlas.  If a Scene is currently open, then its name is highlighted
+in the list.  You may select some other Scene for output by clicking on its
+name.
+
+<p>The <b>Geometry</b> entry area has two radio buttons.  Unless no
+Scene is currently open, <b>Current Window</b> is the default.
+Selecting it sets the geometry for the plotted output scene to that of the
+currently open scene.  On the other hand, selecting <b>Scene
+File</b> sets the geometry for the plotted output scene to that
+specified in the Scene control file.  <b>Note</b> that the
+dimensions of the map field of the plotted Scene will generally differ from
+those of the map field of the displayed scene, revealing less or more data
+(see next paragraph).
+
+<p>The <b>Format</b> entry area lists (by name) all available plot
+output formats.  These are the section names of hard copy generation
+parameters in the <i>georama.gin</i> control file.  These generally
+control the orientation and map field dimensions of the plotted hard copy.
+Several formats are supplied with the Georama CD-ROM.  They can be modified or
+others added by judicious editing of the disk-resident copy of the
+<i>georama.gin</i> control file.  You select one of the available formats
+by clicking on it.
+
+<p>The <b>Output</b> entry area specifies whether the plot stream
+is to be directed to a printer/plotter or to a file for later processing.
+Radio button selection of output mode defaults to <b>Device</b> at
+port <b>PRN</b> (other on-line devices can be selected).  The
+alternate selection <b>(File)</b> leads (via  the
+<b>Change</b> button) to an output file selection dialog. This
+dialog offers a list of files currently in a selected temporary directory
+that have the <b>hpg</b> extension.  You can select one of these to
+be overwritten or you can enter a new filename. In either case, you click the
+<b>Enter</b> button to write to the named file.  If repeatedly
+outputting to the same file, no <b>Change</b> will be necessary
+(but you will be required to confirm the overwrite).
+
+<p>When all four entry areas of the dialog have been completed, you may
+commence plot stream generation by clicking the <b>Generate Plot
+Output</b> button.  Otherwise, you may cancel the dialog without
+plotting by clicking the <b>End/Cancel</b> button.
+
+<p>Once initiated, plotter stream generation takes place in the
+background.  Although you are free to continue with other operations in
+Georama, you must be careful to avoid making changes to the Scene control
+file selected for plotting, until you are sure that the plot stream
+generation activity has terminated.
+
+<p>Your printer/plotter may have limitations with respect to its capability
+to draw complex scenes.  These may be a function of its memory and/or
+sophistication of raster generation.  If you suspect that your printer
+limitations have been exceeded, you should first direct the plot stream to a
+file where you can inspect it with a text editor such as <i>WordPad</i>.
+The simplest way to get around printer/plotter limitations is to reduce the
+scale factor and/or map field.  If this is not practicable, then you should
+consider dropping themes or labels from the scene.  Look also to restrict the
+use of point markers having circular components.  (See <a href="#mods">Making
+Modifications</a> and <a href="#trouble">Troubleshooting</a>).
+
+<p>If you wish, you can run the plot generation program
+<i>(geplout.exe</i>, in the <i>runw32</i> sub-directory) from the
+command line, independently of Georama.  <i>Geplout</i> takes
+<i>twelve</i> positional parameters (so be careful!):<ol>
+
+<li>georama.gin path\filename
+<li>plot format section name [format-name]
+<li>CD-ROM Atlas path (or null string "")
+<li>hard disk Atlas path (or null string "")
+<li>atlas-name.atl path\filename
+<li>scene-name.scn path\filename
+<li>map center latitude (angle string, see <a href="#geometry">Geometry</a>)
+<li>map center longitude (angle string, see <a href="#geometry">Geometry</a>)
+<li>map scale (scale factor, see <a href="#geometry">Geometry</a>)
+<li>map projection (see <a href="#geometry">Geometry</a>)
+<li>rotation indicator (numeric: 0 = North is top)
+<li>plot stream output device or path\filename.
+</ol>
+
+<p>For example, to plot the hydrography in and around New Zealand:
+
+<p>c:\georama\runw32\<b>geplout</b>  c:\georama\runw32\georama.gin
+Letter.portrait  e:\georama\world
+c:\georama\world  c:\georama\world\world.atl  c:\georama\world\oceanview.scn
+s41  e173  1e6 stereo 0 PRN
+
+<hr><a name="trouble"><h3>Troubleshooting</h3>
+
+<p>If you are encountering difficulties in getting started, either from
+CD-ROM or from your hard disk, then you will not likely be reading these
+words on-line.  Perhaps the best remedial action you can take is to review
+the instructions on the jacket of the CD-ROM and be sure you are attempting
+to run in either a PC Windows 95, Windows 98, Windows 2000 or Windows NT(4+)
+environment. Remember also that you can view these pages directly with your
+browser pointed at <i>\georama\runw32\georama.html)</i>.
+
+<p>If your intent is to run Georama exclusively from CD-ROM, then be sure
+that none of your hard drives have a root directory named <i>georama</i>.
+If this is the case, delete or rename such directories and try again.  If
+your intent is to run in dual-residency (or exclusively hard disk) mode, then
+you should delete all existing (and possibly corrupted) Georama components
+from your hard disk(s) and then re-copy Georama from the CD-ROM to a selected
+hard disk using the <b>Setup | Copy Georama to Hard Drive...</b>
+menu options.
+
+<p>If you have successfully started Georama, and can read these Help notes
+on-line via Georama, but are encountering difficulties, then the first thing
+you must do is review your operating environment by activating the
+<b>Setup | Information</b> menu option.  There you will see a
+report giving the release date of the software and the operating
+environmental parameters that the software has assumed.  Inspection of this
+information may reveal if you have incorrectly set up Georama for
+dual-residency operation.
+
+<p>If this information does not provide an answer to your challenge, you
+should  use the <i>feedback.txt</i> file that may be found in the
+<i>runw32</i> sub-directory of the <i>georama</i> directory on the
+CD-ROM.  This file is set up as a <i>NotePad</i> <b>.LOG</b>
+file.  As such, you will be able periodically to append your notes, questions
+and suggestions to the disk copy of this file, then e-mail or fax it to
+Geodyssey.  You should be especially aware that you can freely copy
+and paste the contents of the Index window <b>Setup | Information</b>
+panel into the <i>feedback.txt</i> file.  We stronglyly recommend
+that this information accompany any trouble reports to Geodyssey.
+
+<p>On receipt of your notes, suggestions or trouble reports, we will try to
+determine if corrective action can be taken.  Our findings will be aggregated
+periodically and published on our web site at
+<b>http://www.geodyssey.com</b>.
+
+<hr><a name="mods"><h3>Making Modifications</h3>
+
+<p>Providing you have established a modicum of hard disk residency, you are
+free to make modifications.  (If you are serious about making modifications
+and have not already established some hard disk residency, now would be a
+good time to review the <a href="#setup">Setup</a> and <a href="#dual">Dual
+Residency</a> topics).
+
+<p><b>Modifying Scenes</b>
+
+<p>The mechanism is simple.  While the Scene is open, select the
+<b>Tools | Edit Scene...</b> menu option.  This action opens the
+scene control file <i>(scene-name.scn)</i> within the Win32
+<i>NotePad</i> editor.  Here you are free to make whatever changes you
+wish. To see their effect, you will need to save the <i>NotePad</i> file
+and re-open the Georama Scene.  If it's not quite right, you can make more
+modifications and repeat the test cycle.
+
+<p>When you've got it right, just <b>Exit</b> <i>NotePad</i>.  Be
+aware that the effect of any intervening geometry change actions could be
+lost. If you mess up beyond repair, you can always restore the scene control
+file from its twin on the distribution CD-ROM.  And of course, you can easily
+create a new scene based on an existing one by use of <i>NotePad</i>'s
+<b>Save As</b> operation. The new scene will be included automatically in the
+Index window's <b>Scene | Open Scene...</b> selection list.
+
+<p>That's the easy part!  The harder part is knowing what to modify.
+
+<p>You must begin with an understanding of the general purpose and form of
+Georama <a href="#controlfiles">control files</a>. Then you should move on to
+review the more specific purpose and form of
+<a href="#scene-name.scn">scene control files</a>. In particular, you should
+then view a specific scene control file, the <i>world</i> Atlas Scene
+template <i>template.scn</i>.
+
+<p>As you will note, the Template Scene is intended to provide examples of
+all the possibilities example of each type of possibility for this Atlas. You
+could simply activate one or more of these possibilities and use the Template
+directly, perhaps renaming the file and assigning a new title and description.
+need. The <b>scene.title</b> keyword defines a title that will display in the
+open scene window and on any hard copy output that you might produce from the
+scene. The <b>scene.description</b> keyword provides the text that is
+displayed in response to selecting the Scene's <b>Help | Scene
+Description</b>.  You might want to change some of this information. Note the
+use of "newline" line endings "\n", the "to be continued" line ending "\" and
+the single column indentation of continuation statements.
+
+<p>The chances are you'll want to change the color, marker size, line width
+or something. These attributes (and others that control the rendering) are
+collectively called a style. Here's a browse sequence that tells the whole
+story about <a href="#styles">styles</a>.
+
+<p>The <b>geometry.</b> keywords define a scene's opening
+<a href="#geometry">geometry</a>.  You might want to set the geometry
+section to center the scene every time on your home town! Remember that these
+statements will be adjusted automatically whenever the Scene is used and the
+geometry changed through use.
+
+<p><b>Modifying Atlas Index Maps</b>
+
+<p>You can also modify an Atlas Index map.  Using an editor such as
+<i>NotePad</i>, simply edit the <b>atlas-name.con</b> control file, located
+in the <i>atlas-name</i> subdirectory of the <i>georama</i> directory.
+
+<p>As you can see, this file has many statements in common with
+the scene control file.  You can make similar modifications.
+Note that you will have to save the modified <b>atlas-name.con</b> file and
+re-open the Atlas to see the effect of your modifications.  As in modifying a
+scene control file, if you mess up beyond repair, you can restore this file
+from its twin on the CD-ROM.
+
+<p><b>Adding New Feature Data to an Existing Atlas and Adding Additional
+Atlases</b>
+
+<p>If you know how, you can extend an Atlas to include your own feature data
+and/or gazetteers.  You can also add entirely new Atlases.  You will require
+no programming skills as such, but you may need to massage your data somewhat
+and run some Georama-related stand-alone data preparation utilities.  To
+learn how to do all this you will need to review another document called the
+<i>"Georama Atlas Author's Guide".</i>  This HTML document is available at
+Geodyssey website <b>http://www.geodyssey.com</b>.
+
+<p>If you see an opportunity to redistribute your augmented version of
+Georama, be sure to contact Geodyssey Limited for details regarding our
+generous quantity discounts and alternate Georama licensing arrangements.
+
+<p><b>Adapting Georama for Use in Other Applications</b>
+
+<p>If you are a C or C++ programmer and you guess that you might adapt
+Georama to fit your specific application, consider acquiring the
+<i>Hipparchus Development Tools</i> for Intel platforms.  Besides providing
+the essential <i>Hipparchus Library</i> that lies at the heart of Georama,
+this SDK provides you with the complete and recyclable C language source
+programs and data for Georama (including any updates released subsequent to
+publication of these pages). These programs exploit the native Win32 API. No
+additional tools or proprietary products are required. You can read all about
+it at the Geodyssey website <b>http://www.geodyssey.com</b>.
+
+<hr><a name="hipparchus"><h3>About Hipparchus</h3>
+
+<p><b>Hipparchus</b> <i>(pronounced hih-PAR-kuhs)</i> was perhaps
+the greatest of the ancient Greek astronomer mathematicians.  The inventor of
+latitudes and longitudes, he used these measurements to calculate distances
+on the surface of the Earth.  As you read on you will see why we named our
+product as we did.
+
+<p><b>Hipparchus</b> <i>(our product)</i> is a C/C++ language
+function library that provides application developers with the geographic
+tools to deal with the "where" of an application.  Hipparchus is the engine
+that calculates the spatial relationships between objects on or near the
+Earth's surface.  Hipparchus also provides efficient indexing for your
+location-specific external data.  Coexisting with your chosen database
+management system (DBMS) and graphical user interface (GUI), Hipparchus
+communicates with your application via C/C++ language memory structures.
+
+<p>For an extensive overview of Hipparchus, please see our Georama website
+<b>http://www.geodyssey.com</b>.  Alternatively, you might browse
+the HTML documents <b>overview.html</b>, which may be collocated
+with this HTML document.
+
+<hr><a name="geodyssey"><h3>About Geodyssey </h3>
+
+<p><i>Georama</i> and <i>Hipparchus</i> are exclusively owned and
+distributed by <b>Geodyssey Limited</b> of Calgary, Alberta,
+Canada. Geodyssey is a privately owned company of software professionals who
+are dedicated to the promotion and support of these remarkable products.
+Geodyssey makes this technology available under simple development and
+end-use licensing agreements, usually free of on-going royalties.
+
+<p>Geodyssey's general licensing policy provides the developer with
+affordable access to this remarkable technology while deferring payment of
+any additional licensing fees until the resulting end-use application has
+demonstrated to customers the benefits of the technology.
+
+<p>Geodyssey also offers extensive training, consulting and application
+development services.
+
+<p>For additional information, please visit our extensive web site at
+<b>http://www.geodyssey.com</b> or call, fax or write to Geodyssey.
+
+<hr><a name="reference"><h3>Reference Material</h3>
+
+<p>You have come to the end of the main thread of the Georama story.
+What follows are Reference topics, which are accessed either directly via the
+<a href="#toc">Table of Contents</a> or links embedded in the main topics or
+other reference topics.
+
+<p><hr><a name="setup"><h3>Setup</h3>
+
+<p>To establish the minimum dual residency for Georama, you will need to
+create a <i>georama</i> directory in the root of one of your hard disk
+drives and then copy strategic sub-directories and files into this directory.
+To remove Georama from your hard disk, you can simply delete the entire
+<i>georama</i> directory structure.
+
+<p>To make it easy, these processes are provided through the Index window
+menu option <b>Setup</b> and its drop-down option list:
+<b>Information...</b>, <b>Copy Georama to Hard Drive...</b> and <b>Remove
+from Hard Drive...</b>
+
+<p>Select <b>Setup | Information...</b> to view an information panel
+addressing version information and the current state of dual residency.
+
+<p>To establish our recommended minimal dual residency, you will require
+about 10 megabytes of hard disk space. Select <b>Copy Georama to Hard
+Drive...</b> You are presented with a list of hard drives on your system and
+the amount of free space on each. Select one of the drives and click
+<b>Copy</b>.  (Otherwise, click the <b>Cancel</b> button).  A directory
+<i>georama</i> is created in the root of the selected hard disk and the
+recommended minimal sub-directory structure and content is copied from the
+CD-ROM.  <b>Dual Resident</b> mode commences immediately, without need for a
+system re-start.  If Georama is already established on hard disk, this option
+is greyed.
+
+<p>Depending on your performance requirements, you are free to add or delete
+data files from your hard disk.  To learn the names and paths of these files,
+consult the <i>atlas-name.atl</i>, <i>atlas-name.con</i> and
+<i>scene-name.scn</i> control files.
+
+<p>To remove all traces of Georama from the hard disk, select <b>Remove
+from Hard Disk...</b>  Here you will receive instructions concerning the
+removal of Georama from your system.
+
+<hr><a name="reset"><h3>Reset</h3>
+
+<p>If you have opted for at least partial hard disk residency, you may reset
+persistence settings such as Georama's windows desktop positions and sizes.
+You do this by exiting Georama and deleting the persistence settings file
+named <i>georama.dtp</i> (which resides in the <i>georama\runw32</i>
+directory on the hard disk). Otherwise, if running from CD-ROM, you need only
+re-initiate Georama.  You may also reset persistence settings for specific
+windows.  For the complete story see <a href="#persist">Desktop
+Persistence</a>.
+
+<hr><a name="persist"><h3>Desktop Persistence</h3>
+
+<p>When you start Georama for the first time "out of the box", its windows
+are positioned and sized on your desktop according to specifications
+contained in its associated control file <i>georama.gin</i>.  If you
+subsequently opt for at least partial hard disk residency (using the
+<b>Setup</b> option, for example), then you are free to edit the hard disk
+version of <i>georama.gin</i> and change these settings.
+
+<p>However, regardless of whether you are running from CD-ROM or from hard
+disk, you can manually change the position and size of Georama's windows and
+have those changes persist.  If running from the CD-ROM, any changes you make
+will persist for the session only.  If running from a hard disk, any changes
+you make will persist across multiple sessions, indefinitely.
+
+<p>When running from hard disk, changes are recorded in an ASCII file called
+<i>georama.dtp</i>, which is created afresh in the
+<i>georama\runw32</i> directory any time you start Georama from hard disk
+without <i>georama.dtp</i> present.
+
+<p>For operation from hard disk, desktop window persistence is separately
+defined for three categories of Georama's windows: the initial index/console
+window, Atlas-specific Index windows and Atlas/Scene-specific Scene windows.
+Moreover, changes are associated with specific instances of windows in each
+of these three categories.
+
+<p>Any changes you make to the console/index window before opening an Atlas
+are recorded as parameters of an entry in <i>georama.dtp</i> having the
+keyword <i>georama</i> (there can be only one of these).  Any subsequent
+session will position and size the initial console/index window according to
+these parameters.  In the absence of  this entry, Georama positions and sizes
+the window according to the generic specifications contained in
+<i>georama.gin</i>.
+
+<p>When you open an Atlas, Georama checks for an Atlas-specific entry having
+the keyword <i>atlas-name</i>.  If found, Georama opens the Atlas Index
+window using position and size parameters saved previously.  In the absence
+of a matching entry, the Index window for this Atlas inherits the position
+and size of its immediately preceding instance (either the initial
+console/index or another Atlas Index).  Georama then manufactures an entry
+for this <i>atlas-name</i>.  If, subsequently, you manually change this
+window, its old settings will be replaced with the new (unless maximized or
+iconized). Any subsequent opening of this Atlas will position and size its
+Index window according to its recorded parameters.
+
+<p>Similarly, when you open a Scene, Georama  checks for an
+Atlas/Scene-specific entry having the keyword <i>atlas-name.scene-name</i>.
+If found, Georama opens the Scene window using position and size parameters
+saved previously.  In the absence of a matching entry, however, the Scene
+window for this Scene inherits the position and size of its immediately
+preceding instance (either the initial settings or those of another Scene).
+Georama then manufactures an entry for this <i>atlas-name.scene-name</i>. If,
+subsequently, you manually change this window, its old settings will be
+replaced with the new (unless maximized or iconized). Any subsequent opening
+of this Scene will position and size its Scene window according to its
+recorded parameters.
+
+<p>Scene window size changes made using the <b>Output | Bitmap > |
+Size...</b> menu option are recorded just as if made manually.  If you are
+building a folio of Scenes for output, all requiring the same pixel
+dimensions, you will need to <b>Size...</b> only the first. The others will
+inherit the same size and position, if not already specified in the
+<i>georama.dtp</i> file.
+
+<p>The control file <i>georama.dtp</i> is freely accessible. You can reset
+desktop persistence altogether by simply deleting or renaming the file.  Or
+you can reset persistence for specific windows by editing the file and either
+deleting or "commenting-out" specific entries. (You comment-out an entry by
+inserting a semi-colon (";") in column 1).
+
+<hr><a name="navtools"></a><h3>Navigation Tools</h3>
+
+<p>Map navigation may be performed by clicking on buttons in the
+<b>Navigation Tools</b> toolbar, which is available in the Index window and
+all Scene windows.  Using these tools, you can change the map center point,
+scale and, indirectly, projection.
+
+<p>Here's a fake copy of the Navigation Tools. The real one sports Windows
+ToolTips. This one links you to definitions for each button.
+
+<p><img src="toolbar.gif" width=165 height=26 align="left" align="bottom"
+usemap="#tools"><br> Navigation Tools<p>
+
+<hr><a name="previous"><p><b>Previous</b> restores a prior configuration of
+the current index or scene.  When the geometry of an index map or scene is
+altered, (for example by re-centering), the specifications for the existing
+index map or scene are saved on a stack for possible re-use. If requested (by
+use of the <b>Previous</b> button), the immediately preceding index or scene
+map is re-drawn.  <b>Previous</b> takes you successively backwards through
+previously-stacked specifications.  (There is no provision to re-navigate
+forwards through the stack).  A scene stack is cleared whenever a Scene is
+opened.  All stacks are cleared when an <b>Atlas</b> is opened. Pressing the
+<b>&lt;Backspace&gt;</b> key is equivalent to clicking on the <b>Previous</b>
+button. <b>NOTE:</b> If the window has been re-sized, then previously-stacked
+views are re-drawn in the re-sized window, with less or more data displayed
+in the map field than was displayed in the preceeding views.
+
+<hr><a name="zoomout">
+<p><b>Zoom Out</b> by a scale factor of two.  The map center point
+remains the same but the scale denominator is doubled.  The index or scene
+map is re-drawn.  In some situations, such as a high-latitude local mercator
+map, the resulting map may be unworkable and an error message raised.  In
+such cases, the operation is suppressed.  Pressing the <b>&lt;PageUp&gt;</b>
+key is equivalent to clicking the <b>ZoomOut</b> button.
+
+<hr><a name="zoomin">
+<p><b>Zoom In</b> by a scale factor of two.  The map center point
+remains unchanged but the scale denominator is halved.  The index or scene
+map is re-drawn.  The position and size of the window remains unchanged.
+Pressing the <b>&lt;PageDown&gt;</b> key is equivalent to clicking
+the <b>ZoomIn</b> button.
+
+<hr><a name="step">
+<p><b>Step [EWNS]</b> one-half field-width <b>East, West, North or
+South</b> by clicking on the appropriate arrowhead.  In the world-wide
+Mercator <b>(wwmerc)</b> and Miller-like <b>wwview</b> projections, stepping
+East or West changes the central meridian by 90 degrees while stepping North
+or South results in a stereographic view of a Pole.  Pressing a keyboard
+<b>&lt;Arrow&gt;</b> key is equivalent to clicking one of the
+<b>East-West-North-South Step</b> arrowheads.
+
+<hr><a name="recenter">
+<p><b>Re-center</b> the current map field at a location designated
+by left-clicking the mouse.  (You may determine the current geographical
+coordinates of the mouse at any time by right-clicking it; the coordinates
+appear in the message area to the right of the toolbar). Scale and projection
+remain unchanged.  The position and size of the window on the desktop remains
+unchanged also. <b>Note:</b> if you are currently navigating a scene window,
+you can select a new center from within <i>either</i> that scene's map field
+or the Index map field. To re-center the scene to the same point as some
+other scene, click in that other scene's title bar.
+
+<hr><a name="slide">
+<p><b>Slide</b> the current map field. Click on a point in the
+scene you would like to relocate, then point to a new location and click
+again.  The map is re-drawn.  While re-positioning, a "rubber band" shows
+you where you're coming from). Scale and projection remain unchanged.  The
+position and size of the window on the desktop remains unchanged also.
+
+<hr><a name="reframe">
+<p><b>Re-frame</b> the current map field. Click on a new center point
+for the map, then move your mouse away to define an edge of the new map
+field. Depending on the current scale and projection, the edge outline in the
+current map may not appear rectangular!  Left-click the mouse again to set
+the field edges (and new scale factor) and to re-draw the map.  The position
+and size of the window on the desktop remains unchanged.
+
+<hr><a name="controlfiles">
+<h3>Control Files</h3>
+
+<p>Control files are simple ASCII text files that provide Georama with
+initialization and other information.  Unless specifically marked for
+"read-only" access, these files may be edited using any simple text editor,
+such as Windows <i>NotePad</i>.
+
+<p>Control files have a format somewhat similar to Windows .ini files. Empty
+lines or lines beginning with a semi-colon (";") are treated as commentary.
+Unlike Windows' .ini files, Georama's control statements are NOT accessed via
+the Win32 API. Instead, they are accessed via the cross-platform facilities
+of the Hipparchus Auxiliary Library, which do not depend on "[sections]".
+Nevertheless, for typographic effect, lines beginning with "[" may be used to
+set off related groups of control statements in the familiar way.
+
+<p>Control statements have the general form:
+
+<p><b>keyword[.keyword[....]] = value1[, value2[, value3[,...]]]</b>
+
+<p>where:<ul>
+<li><i>keywords</i> are case-sensitive simple words or compound words
+separated by periods and <li><i>values</i> may be character strings, integers
+or real numbers. </ul>
+
+<p>Active statements begin in column 1. Statements may be continued from line
+to line. A statement line to be continued ends with a backslash character
+"\". A statement continuation line begins in column 2.
+
+<p>A character string value extends from the first non-space character
+following the = sign to the (possibly continued) statement end (excluding line
+ending codes and any continuation backslashes).
+
+<p>An integer or real value is parsed from immediately following the = sign to
+the first non-numeric, non-sign, non-decimal following. When an array of
+numbers is accessed, parsing continues to the end of the (possibly continued)
+statement.
+
+<p>Hipparchus Auxiliary Library access facilities provide for access to
+control statements explicitly by case-sensitive keyword or compound keyword,
+or to statements that are members of groups having some leftmost keyword
+characters in common. Access to any control statement may be to read or write
+a character string value (which may span several continuations), a
+numeric value or an array of numeric values (which may span several
+continuations).
+
+<p>The rules of composition for these control files and control statements
+will be readily apparent by inspection of the various control files using any
+simple text editor.
+
+<hr><a name="georama.gin"><b>georama.gin</b>
+
+<p>This is the control file used by Georama to supply program initialization
+parameters.  It is required and MUST be collocated with the running copy of
+<i>georama.exe</i>. Therefore, if <i>georama.exe</i> is copied from CD to
+hard disk, then a copy of <i>georama.gin</i> must accompany it. If on disk,
+it is user modifiable.
+
+<hr><a name="georama.dtp"><b>georama.dtp</b>
+
+<p>This desktop windows persistence control file can exist only on a hard
+disk drive.  If running from hard disk, this control file is generated and
+maintained automatically by Georama. It will be collocated with
+<i>georama.exe</i> in the hard disk directory <i>georama\runw32</i>.
+
+<p>Entries are generated automatically the first time a particular window is
+opened.  Subsequent changes to that window generate new parameters that
+overwrite previous parameters. It is user modifiable.
+
+<hr><a name="atlas-name.atl">
+<b>atlas-name.atl</b>
+
+<p>Atlas control files define the basic components of an Atlas. They are
+located in their respective <i>atlas-name</i> sub-directories of the
+<i>georama</i> directory located on a hard drive and/or a CD. If on disk, it
+is user modifiable.
+
+<hr><a name="atlas-name.con">
+<b>atlas-name.con</b>
+
+<p>This is a required control file that specifies the form and content of an
+Atlas's Index window (aka "console").  It is located in the <i>atlas-name</i>
+sub-directory of the <i>georama</i> directory. If on disk, it is user
+modifiable. (It is a subset of the more general <i>scene-name.scn</i> control
+file, described next).
+
+<hr><a name="scene-name.scn">
+<b>scene-name.scn</b>
+
+<p>This is the control file that specifies the basic styles,
+linework, theme content, labels, search locators and initial map geometry of
+each Scene within an Atlas. <i>scene-name.scn</i> files are located within
+an <i>atlas-name</i> sub-directory of the <i>georama</i> directory located on
+a hard drive and/or a CD.
+
+<hr><a name="atlas-name.poi">
+<b>atlas-name.poi</b>
+
+<p>The optional <b>Points of Interest</b> control file is collocated with the
+<i>atlas-name.atl</i> control file in the <i>atlas-name</i> sub-directory of
+the <i>georama</i> directory. It contains only comments and lines containing
+the latitude, longitude and the name of a "point of interest".  Latitude and
+longitude may be expressed in the same way as for the geometry.center
+statement of the scene-name.scr file (see <a href="#geometry">Geometry</a>).
+If the name of a point of interest contains spaces or other punctuation, the
+name should be enclosed in matching single or double quotes.  Here's an
+example:<pre>
+; World Points of Interest
+  N48:52      E2:20     Paris
+  n90         e0        "North Pole"
+  S90        w00        "South Pole"
+  n47/34     w52/44     "St. John's"
+  +41:31:23  -70:40:11  "Woods Hole"
+  n51:03:08 w114:04:42  "My Place"
+; end
+</pre>
+
+<hr><a name="geometry"><h3>Geometry</h3>
+
+<p><b>Geometry</b> defines the center point <i>latitude, longitude</i>,
+<i>scale</i> and <i>projection</i> for an Atlas index or scene map.
+
+<p><a name="projection"><b>Projection</b> is the cartographic technique used
+to map the round Earth onto the flat display (and vice versa for mouse
+input). Several projections are supported.  They are specifiable by keyword
+(lower-case):<ul>
+
+<li><b>stereo</b> (stereographic) is the most robust of the
+conformal projections
+
+<li><b>ortho</b> (orthographic) is a view of the Planet from space
+
+<li><b>wwmerc</b> (world-wide Mercator) is the familiar view of the
+planet that excludes the polar regions
+
+<li><b>wwview</b> (Miller-like) is world wide including the poles,
+suitable for satellite tracking
+
+<li><b>gnomonic</b> is similar to stereographic but faster and
+better suited to very large scale displays
+
+<li><b>conical</b> (Lambert-like) is widely used for regional and
+continental aviation and weather maps
+
+<li><b>mercator</b> (local Mercator) is widely used for marine
+charts.
+</ul>
+
+<p><a name="scale"><b>Scale</b>, in the cartographic sense, means the ratio
+of the size of the display to the size of the map area depicted.  For
+example, a map's scale might be expressed as the ratio 1:500,000.  The map is
+said to be of scale "one to five hundred thousand", wherein one inch of the
+map display represents 500,000 inches of <i>terra firma</i> (nearly eight
+miles).  A large-scale map is one in which individual features are depicted
+as large objects while a small-scale map depicts the same features as smaller
+objects.
+
+<p>In Georama's geometry specifications, <b>scale</b> stands for
+<i>"scale factor"</i> or<i>"scale denominator"</i>.  Large-scale maps
+have small denominators while small-scale maps have large denominators!
+Typical values of Georama scales (ranging from large to small) are, (somewhat
+paradoxically): 2500, 2.5e6, 25e6, 250e6.
+
+<p>In Georama, navigational re-scaling is bounded by a
+<b>large.scale.limit</b> and a <b>small.scale.limit</b>, which are set by
+entries in the Atlas control file <i>atlas-name.atl</i>.
+
+<p><a name="latlong"><b>Latitude-Longitude</b> pairs can be specified in a
+wide variety of precisions and formats.
+
+<p>Examples of acceptable latitude-longitude pairs are:<pre>
+ 51,-114    n51.,w114.   N51:00,W114:00   n51/00 w114/00
+ 0,0        n0, w0       S0 E180          s0 w180
+ -90,+180   s90 e180     s90 w180         s90 w0
+ 0 7/7/57   0 E7.132436  0 e7:07.94616    0 e7/7/56.77
+ </pre>
+
+
+<hr><a name="style"><a name="styles">
+<h3>Style</h3> is a specification for the method of rendering thematic
+features such as points, lines, regions, surfaces, grids, labels, etc.
+
+<p>A <b>style</b> is a string (aka "stylestring") consisting of one or more
+pairs of letter codes and numeric values.  Optionally, these pairs may be
+separated within the stylestring by a colon (":") or slash ("/") character.
+Unspecified codes have a value of zero.  Examples of valid styles are:<pre>
+ c215
+ c198w2
+ r155:g175:b0/w2/p1
+</pre>
+
+<p><h4>Style codes</h4> are the lower-case letters:<pre>
+ c, r, g, b, m, w, d, p, q, n, f, h, v.
+</pre>
+
+<p>Style codes may be combined depending on the feature being rendered:<ul>
+<li>map field - color, pattern (c, r, g, b, p, q)
+<li>points - color, marker (c, r, g, b, m)
+<li>lines - color, width, dot/dash, pattern (c, r, g, b, w, d, p, q)
+<li>areas - color, pattern (c, r, g, b, p, q)
+<li>surfaces - color-gradient, generalization-level (r, g, b, n)
+<li>labels - color font-size horizontal/vertical offsets (c, r, g, b, f, h,
+v)
+
+<p><a name="color">
+<b>color:</b></a><dl>
+<dt><b>c</b> - "Websafe" color index
+<dd>"Websafe" color indices are RGB combinations unlikely to be dithered by
+specific web browsers, such as Internet Explorer, Netscape or Opera. They are
+defined in Georama as integers in the range 0-215. For convenience, we have
+listed here a small subset of these colors. (To view the complete palette, see
+<a href="webcolors.html">webcolors</a>).<pre>
+000 Black      098 Dark Grey       196 Grey          117 Light Grey
+102 Russet     150 Bright Red      186 Orange        167 Magenta
+066 Green      204 Bright Green    039 Turquoise     210 Yellow
+089 Blue       137 Bright Blue     137 Cyan          215 White
+</pre>
+<p>or
+<p>
+<dt><b>r</b> - red
+<dt><b>g</b> - green
+<dt><b>b</b> - blue
+<dd>intensity: nnn, (an integer, 0-255) or<p>
+    intensity gradient: nnn.mmm (a real number)<br>
+    where nnn and mmm are the lower and upper limits of a color gradient.
+
+</dl>
+
+Note that the <b>c</b> and <b>rgb</b> letter codes are mutually exclusive.<p>
+
+<p><a name="marker"><a name="markers">
+<h4>Point Markers</h4>
+(style code m):<pre>
+00 single pixel   04 small square    08 medium bullet   12 airplane
+01 fat dot        05 medium square   09 medium pillow   13 ship
+02 small circle   06 large square    10 X               14 star
+03 large circle   07 triangle        11 house           15 reserved
+</pre>
+
+<p><a name="line"><a name="lines">
+<h4>Line</h4> style (codes w, d, p)
+
+<p><b>width</b> (code w): values 0 to 5 (thinnest to thickest)
+
+<p><b>dot/dash</b> (code d): 0 - continuous, 1 - dotted, 2 -
+dashed, 3 - dot/dashed
+
+<a name="pattern">
+<h4>Fill pattern</h4>
+(style codes p and q)<dl compact>
+
+<dt><b>p</b> regular fill pattern:
+<dd><pre>
+0= 100% fill
+05= 50% crse A  06= 50% crse B
+03= 50% medm A  04= 50% medm B
+01= 50% fine A  02= 50% fine B
+07= 25% fine A  08= 25% fine B
+09= 12% fine A  10= 12% fine B  11= 12% fine C  12= 12% fine D
+13=  6% fine A  14=  6% fine B  15=  6% fine C  16=  6% fine D
+</pre>
+Note fill patterns A, B, C and D occupy separate pixel space
+and are therefore mutually transparent.<p>
+<dt>or
+<dt><b>q</b> random fill pattern:
+<dd><pre>
+0= 100% fill
+01= 50% rndm A  02= 50% rndm B
+03= 25% rndm A  04= 25% rndm B
+05= 12% rndm A  06= 12% rndm B
+07=  6% rndm A  08=  6% rndm B
+</pre>
+Note fill patterns A and B occupy separate pixel space
+and are therefore mutually transparent.
+</dl><p>
+
+Note that the letter codes p and q are mutually exclusive
+in any one style string.<p>
+
+<p><h4>Label</h4> style (codes f, p, q, h, v)
+
+<p><b>Font size</b> (code f): values 0 to 5, smallest to largest.
+
+<p><b>Pattern</b> (codes p, q): see Patterns above.
+
+<p><b>Horizontal/vertical offset</b> (codes h, v):  number of
+pixels to offset the center of a label box from the geographical position of
+the labeled point.  With h=v=0, the label box is centered with its "center of
+lettering density" on the labeled point.  Positive horizontal offsets place
+the label to the right of the point while negative offsets place it to the
+left. Positive vertical offsets place it above the center while negative
+offsets place it below the center.  <b>Note:</b> non-zero offsets
+commence from the label's bounding box perimeter, NOT its center of lettering
+density.
+
+<hr><a name="menus">
+<b>Index Menu Options</b>:<ul>
+
+<li><a href="#initialization">Atlas | Open Atlas...</a>
+<li><a href="#menunav">Atlas | Index map Geometry >| Report</a>
+<li><a href="#menunav">Atlas | Index map Geometry >| Change...</a>
+<li><a href="#gaznav">Atlas | Gazetteers...</a>
+<li><a href="#gpsnav">Atlas | GPS Input</a>
+<li><a href="#initialization">Atlas | Open Data Server...</a>
+<li><a href="#reporter">Atlas | Reporter...</a>
+<li><a href="#initialization">Atlas | Exit</a>
+
+<li><a href="#initialization">Scene | Open Scene...</a>
+<li><a href="#mods">Scene | Create Scene...</a>
+
+<li><a href="#trouble">Setup | Information...</a>
+<li><a href="#setup">Setup | Copy Georama to Hard Drive...</a>
+<li><a href="#setup">Setup | Remove from Hard Drive...</a>
+
+<li><a href="#initialization">Help | About Georama...</a>
+<li><a href="#initialization">Help | Georama Help...</a>
+<li><a href="#initialization">Help | Atlas Description</a>
+<li><a href="#initialization">Help | Geodyssey on the Web</a>
+</ul>
+
+<hr><b>Scene Menu Options</b>:<ul>
+
+<li><a href="#inspect">Tools | Inspect...</a>
+<li><a href="#inspect">Tools | Close Inspect</a>
+<li><a href="#distances">Tools | Traverse</a>
+<li><a href="#distances">Tools | End Traverse</a>
+<li><a href="#distances">Tools | Show Map Distortion</a>
+<li><a href="#distances">Tools | Quit Distortion Display</a>
+<li><a href="#ytbi">Tools | Digitize</a>
+<li><a href="#ytbi">Tools | Object Creation...</a>
+<li><a href="#gpsnav">Tools | GPS Trace ON</a>
+<li><a href="#gpsnav">Tools | GPS Trace OFF</a>
+<li><a href="#mods">Tools | Edit Scene</a>
+<li><a href="#initialization">Tools | Close Scene</a>
+
+<li><a href="#menunav">Geometry | Report</a>
+<li><a href="#menunav">Geometry | Change...</a>
+<li><a href="#menunav">Geometry | Center on POI...</a>
+<li><a href="#menunav">Geometry | Center on Survey System Graticule...</a>
+
+<li><a href="#hardcopy">Output | Hard Copy...</a>
+<li><a href="#bitmaps">Output | BitMap > | Size...</a>
+<li><a href="#bitmaps">Output | BitMap > | Save to Clipboard</a>
+<li><a href="#bitmaps">Output | BitMap > | Save to File...</a>
+<li><a href="#ytbi">Output | Metafile...</a>
+
+<li><a href="#initialization">Help | Scene Description
+
+</ul>
+
+<hr><a name="ytbi"><h3>Under Construction</h3>
+
+This is a placeholder for referenced features still under construction.
+
+
+</body></html>
