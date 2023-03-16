@@ -1,0 +1,172 @@
+; galileo.gin
+
+; This file is unconditionally loaded by the galileo.exe program
+; and MUST be resident in the same directory as galileo.exe
+; Its purpose is to set local initialization parameters.
+
+; default paths
+data.directory          = ~\ap_stuff
+script.directory        = ~\ap_scr
+temporary.directory     = ~\temp
+; georama.directory       = d:\georana
+; html.shell.open.command = c:\goodapps\opera\opera.exe /nowin
+
+; initial spatial index
+voronoi.index           = ~\ap_stuff\world64.vix
+
+; ellipsoid specifications
+ellipsoid.number        = 34
+; ellipsoid.semiaxes      = 6378137.0e0, 6356752.3141e0
+
+angle.sexagesimal = 0
+
+; virtual memory space
+work.space.size         = 8000000
+; constructing very large objects?
+; mmf.out.size            = 96000000
+
+; display dimensions (meters)
+; (default values set by Windows)
+display.width           = 0.310
+display.height          = 0.230
+
+; initial window layout
+; console.position        = 10,47,50,10
+; map.position            = 10,02,50,45
+console.position        = 4,1,42,16
+map.position            = 4,17,42,40
+
+; minimum detected mouse motion
+; (for sampled mouse input operations)
+coincident.pixel.count  = 5
+
+; style
+console.background          = c0
+console.font.face           = Terminal
+console.font.size           = 0
+console.text.color.input    = c196
+console.text.color.info     = c65
+console.text.color.warning  = c155
+console.text.color.error    = c150
+console.text.color.abort    = c210
+
+; script parameters
+script.echo         = 1
+script.pace         = 100
+
+; geometry
+center              = n45,w95
+scale               = 50e6
+projection          = stereo
+
+; map field
+background          = c215
+
+; default screen styles
+coastline           = c39
+cell.lines          = c81
+cell.lines.boundary = c81
+cell.lines.interior = c81
+cell.centers        = c81m1
+lat.long.grid       = c3
+object.lines        = c24w1
+object.points       = c3m1
+object.area         = c3p9
+orbit.trace         = c3
+swath.trace         = c3
+time.scale          = 500
+object.highlight    = c150
+
+; hard copy (monochrome) port
+
+; HPGL default styles
+hpgl.mono.frame               = c0w1
+hpgl.mono.coastline           = c0w1p1
+hpgl.mono.lat.long.grid       = c0w0d1
+
+; PCL5 HP-GL/2, monochrome, page: 11x8.5" landscape, frame: 240x178mm
+; single copy, eject page
+letter.landscape.device = 1
+letter.landscape.init.string = "E&l1X&l1O%1B IN;"
+letter.landscape.term.string = "%0AE"
+letter.landscape.width  = 0.240
+letter.landscape.height = 0.178
+letter.landscape.left   = 600
+letter.landscape.bottom = 280
+letter.landscape.right  = 10200
+letter.landscape.top    = 7400
+
+; PCL5 HP-GL/2, monochrome, page: 8.5x11" portrait, frame: 240x178mm
+; single copy, eject page
+letter.portrait.device = 1
+letter.portrait.init.string = "E&l1X&l0O%1B IN;"
+letter.portrait.term.string = "%0AE"
+letter.portrait.width  = 0.178
+letter.portrait.height = 0.240
+letter.portrait.left   = 420
+letter.portrait.bottom = 280
+letter.portrait.right  = 7620
+letter.portrait.top    = 9880
+
+; PCL5 HP-GL/2, monochrome, page: 297x210mm landscape, frame: 260x172mm
+; single copy, eject page
+a4.landscape.device = 1
+a4.landscape.init.string = "E&l1X&l1O%1B IN;"
+a4.landscape.term.string = "%0AE"
+a4.landscape.width  = 0.260
+a4.landscape.height = 0.172
+a4.landscape.left   = 510
+a4.landscape.bottom = 280
+a4.landscape.right  = 10910
+a4.landscape.top    = 7160
+
+;PCL5 HP-GL/2, monochrome, page: 210x297mm portrait, frame: 172x260mm
+;single copy, eject page
+a4.portrait.device = 1
+a4.portrait.device.init.string = "E&l1X&l0O%1B IN;"
+a4.portrait.device.term.string = "%0AE"
+a4.portrait.device.height  = 0.260
+a4.portrait.device.width   = 0.172
+a4.portrait.device.left    = 320
+a4.portrait.device.bottom  = 280
+a4.portrait.device.right   = 7520
+a4.portrait.device.top     = 10520
+
+;PCL5 HP-GL/2, monochrome, page: 8.5x5.5" portrait
+;single copy, eject page
+card.portrait.device = 1
+card.portrait.init.string = "E&l1X&l0O%1B IN;"
+card.portrait.term.string = "%0AE"
+card.portrait.width  = 0.190
+card.portrait.height = 0.118
+card.portrait.left   = 0
+card.portrait.bottom = 5400
+card.portrait.right  = 8000
+card.portrait.top    = 10120
+
+;Small (approx 5x5 cm figures) portrait. Pure HPGL.
+figure.6x6.device = 1
+;figure.6x6.init.string = "E&l1X&l0O%1B IN;"
+;figure.6x6.term.string = "%0AE"
+figure.6x6.init.string = "IN;"
+figure.6x6.term.string = "IN;"
+figure.6x6.width  = 0.067
+figure.6x6.height = 0.065
+figure.6x6.left   = 0
+figure.6x6.right  = 2680
+figure.6x6.bottom = 7568
+figure.6x6.top    = 10168
+
+;PCL5 HP-GL/2, monochrome, page: 8.5x5.5" portrait
+;single copy, eject page
+halfpage.portrait.device = 1
+halfpage.portrait.init.string = "E&l1X&l0O%1B IN;"
+halfpage.portrait.term.string = "%0AE"
+halfpage.portrait.width  = 0.178
+halfpage.portrait.height = 0.240
+halfpage.portrait.left   = 420
+halfpage.portrait.bottom = 280
+halfpage.portrait.right  = 7620
+halfpage.portrait.top    = 4940
+
+;end

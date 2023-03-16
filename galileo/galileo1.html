@@ -1,0 +1,4557 @@
+<html><head>
+<title>Galileo Open GIS Programmer's Workbench Guide</title>
+<meta name="description" content="Galileo Open GIS Programmer's Workbench">
+ <meta name="keywords" content="Galileo, OpenGIS, open GIS, GIS
+ programmer's workbench, spatial indexing, Voronoi tessellation, direction
+ cosines, ellipsoid computations">
+<link rev=made href="mailto:editor@geodyssey.com"></head><body>
+
+<h2>Galileo GIS Programmer's Workbench Guide</h2>
+
+By John Russell, President<br>
+Geodyssey Limited, Calgary<p>
+
+Version 3.40, May, 2004.<br>
+As may be seen within <a href="http://www.geodyssey.com" target="aside">
+www.geodyssey.com</a>.<p>
+
+Tested with Internet Explorer 5, Opera 4 and Mozilla 1.4.<br>
+Last updated 2004/05/04.<p>
+
+Information in this document is subject to change without notice.<br>
+Hipparchus&reg; is a registered trademark of Geodyssey Limited.<br>&copy;
+Copyright 1992-2004 by Geodyssey Limited. All rights reserved, worldwide.<p>
+
+<hr><a name="toc">
+
+<b>Quick index:</b> <a href="#index">commands</a> | <a
+href="#style">styles</a> | <a href="#color">colors</a> | <a
+href="#marker">markers</a> | <a href="#pattern">patterns</a> | <a
+href="#resolution">resolutions</a>
+
+<h3>TABLE OF CONTENTS</h3></a><p> <ul>
+<li><a href="#intro">INTRODUCTION</a>
+<li><a href="#requirements">SYSTEM REQUIREMENTS</a>
+<li><a href="#starting">GETTING STARTED</a>
+<li><a href="#demos">DEMONSTRATION SCRIPTS</a>
+<li><a href="#files">EXTERNAL FILES</a>
+<li><a href="#functions">GALILEO FUNCTIONS:</a><br>
+    <a href="#general">General</a> |
+    <a href="#mouse">Mouse Operation</a> |
+    <a href="#geographics">Geographics</a> |
+    <a href="#customizing">Custom Configurations</a> |
+    <a href="#errors">Error Messages</a><p>
+
+<li>COMMAND STRUCTURE:
+    <a href="#reference">General</a><br>
+    <a href="#syntax">Galileo Command Syntax</a> |
+    <a href="#common">Common Command Parameters</a><p>
+
+<li><a name="#commands">COMMANDS:</a><ul>
+    <li><a href="#graphics">Geographics</a>
+    <li><a href="#objects">Object Management</a>
+    <li><a href="#objectdisplay">Object Display</a>
+    <li><a href="#operators">Spatial Operators and Derived Objects</a>
+    <li><a href="#orbits">Satellite Orbit and Sensor Swath Modeling</a>
+    <li><a href="#voronoi">Voronoi Index Management</a>
+    <li><a href="#scripting">Scripting</a>
+    <li><a href="#miscellany">Miscellany</a>
+    </ul>
+
+<li><a href="#utilities">Stand-alone Utilities</a>
+
+<li><a href="#aboutscripts">About Scripts</a>
+
+<li><a href="#support">Product Support</a>
+
+<li><a href="#geodyssey">About Geodyssey</a>
+
+<li><a href="#summary">Summary</a>
+
+<li><a href="#index">Command Index</a>
+
+<li><a href="license.txt">License</a>
+
+</ul>
+
+<hr> <a name="intro"> <h3>INTRODUCTION</h3></a><p>
+
+This publication describes how you can use the <i>Galileo</i> programs in
+your Windows computing environment.<p>
+
+The <i>Hipparchus Galileo Guide</i> is intended to be a companion to the
+<i>Hipparchus Tutorial</i> publication and is designed for use by computer
+application programmers and architects. It is intended to help such people to
+understand the scope and power of the Hipparchus geographic software
+development tools.  It does not require specific programming skills.
+However, some dexterity with the operation of personal computers in the DOS
+and Windows operating environments is required.<p>
+
+If you are unfamiliar with the concepts and facilities of <b>Hipparchus,</b>
+we recommend that you now invest a few minutes to view the on-line <a
+href="overview.html" target="aside">Hipparchus Overview</a>.<p>
+
+<i>Galileo</i> implements most of the functionality of the <i>Hipparchus
+Libraries</i>. Geographic objects may be entered or imported, manipulated
+using the comprehensive spatial calculus, then displayed, plotted or exported
+for use elsewhere. Application developers, GIS instructors and students will
+find the interactive functionality ideal for the exploration of GIS
+fundamentals.<p>
+
+<i>Galileo</i> can be used to advantage by programmers in developing
+prototypes of end-use applications. Customer-specific spatial data can be
+introduced and manipulated to produce results representative of those planned
+for a finished application.  Occasionally, an end-use application can be
+implemented using components of <i>Galileo</i> alone.<p>
+
+The <i>Hipparchus Galileo Guide</i> and its sister publications, the
+<i>Hipparchus Utilities Guide</i>, the <i>Hipparchus Georama for Windows
+Guide</i> and the <i>Hipparchus Tutorial</i> are components of every
+Hipparchus Software Development Kit (SDK) distribution.<p>
+
+This <i>Hipparchus Galileo Guide</i> is the definitive reference describing
+the operation of the <i>Galileo</i> program.<p>
+
+If you have not alreay done so, you may want now to download the free Galileo
+for Windows executables and data offered at the <a
+href="http://www.geodyssey.com/downloads/downloads.html"
+target="aside">Geodyssey website</a>.<p>
+
+Please scan this <i>Hipparchus Galileo Guide</i> before attempting to use the
+<i>Galileo</i> programs.<p>
+
+<hr><a name="requirements"><h3>SYSTEM REQUIREMENTS</h3></a><p>
+
+To run the supplied <i>Galileo</i> programs in your computing environment,
+you will require:<p><ul> <li>an Intel Pentium or equivalent microprocessor
+<li>any Microsoft Windows operating system from 98 on up.</ul><p>
+
+<hr><a name="starting"> <h3>GETTING STARTED</h3></a><p>
+
+<i>Galileo</i> is normally copied (unzipped) to a fixed disk in your
+computing environment.<p>
+
+If you have downloaded <i>Galileo</i> from the Geodyssey web site, then you
+will have received a file named "galileo_basic.exe", a self-extracting zipped
+archive.  Installation instructions will have been presented in the web pages
+inviting the download.<p>
+
+Following installation, you should see two small text files (readme.txt and
+license.txt) and four sub-directories (runw32, scripts, data and temp).
+<i>runw32</i> contains the executables, closely-coupled configuration files
+and a copy of this <i>Guide</i>. <i>scripts</i> contains the demonstration
+scripts. <i>data</i> contains vector data, supplementary voronoi index files
+and a few bitmaps. <i>temp</i> is merely a place-holder for transient
+objects. You may find it useful to set up desktop shortcuts to
+<i>galileo.exe</i>, <i>galileo.html</i> and the <i>scripts</i> and
+<i>data</i> folders.<p>
+
+Now is a good time to review the supplied <i>readme</i> and <i>licence</i>
+text.<p>
+
+<hr><a name="demos"> <h3>DEMONSTRATION SCRIPTS</h3></a>
+
+For a first test of <i>Galileo</i> in your environment, we suggest that you
+run one or more of the supplied <i>Galileo</i> demonstration scripts. These
+are text files with the extension <b>.gal</b>. We particularly recommend
+running <i>tour.gal</i>, then <i>interact.gal</i>.<p>
+
+You can start <i>Galileo</i> either directly or indirectly by using any of
+the Windows processes available.
+
+If you drag and drop a script file onto a <i>Galileo</i> icon, <i>Galileo</i>
+will start up and commence operation using that script. Alternatively, you may
+find it advantageous to establish <i>Galileo.exe</i> as the opening procedure
+for all files of type *.gal, so that when you double-click the icon for a
+script file, <i>Galileo</i> will start up using that script.<p>
+
+On start up, <i>Galileo</i> references the initialization file
+<b>galileo.gin</b>. This is a simple ASCII text file that you can easily edit
+to suit your local requirements.  (It is described fully in the sub-section
+<b>Custom Configurations</b>).<p>
+
+By default, <i>Galileo</i> uses command scripts and data contained in the
+sub-directory <b>data</b>.
+
+Default path and file addressing is relative to a directory which is the
+parent of the directory from which <i>Galileo.exe</i> is executed. (This will
+usually be a root directory named <i>galileo</i> containing a sub-directory
+named <i>runw32</i>).  However, default path addressing is controlled
+entirely by the <i>galileo.gin</i> file. Galileo contains no file references
+that assume a specific directory to be "current".<p>
+
+<hr><a name="files"></a> <h3>EXTERNAL FILES</h3>
+
+<i>Galileo</i> assumes an external file system that supports simple ASCII and
+binary files accessible using ANSI C/C++ run-time stream I/O facilities.<p>
+
+There are two categories of file types manipulated by <i>Galileo</i>:<ul>
+<li>ASCII files (generally cross-platform portable) <li>binary files
+(generally NOT cross-platform portable).</ul>
+
+<b>ASCII files</b><p>
+
+These are "flat" files such as <b>scripts</b> and other text files.  They are
+generally cross-platform portable, barring only slight differences in line
+endings.<p>
+
+Hipparchus objects have a formal definition as ASCII files.  These
+are point set, line set and region objects, usually identified by use
+of the filename extensions <b>.pts</b>, <b>.lns</b> and <b>.rgn</b>,
+respectively. Their form and content are explained in a subsequent section,
+<a href="#objects">Object Management</a>.<p>
+
+<b>Binary Files</b><p> These are files such as Voronoi index files
+<b>*.vix</b> , Hipparchus binary objects <b>*.hbo</b>, and collections of
+points, lines and regions <b>*.plr</b>.  Due to compiled structure alignment
+and "big-endian" vs "little-endian" differences between platforms, these
+binary files are generally NOT cross-platform portable.  They should be
+accessed only on the same platform on which they were created.  (There are
+however several exceptions to this rule that are noted in subsequent
+sections. For example, the binary bitmap files (<b>*.bmp</b>, <b>*.jpg</b> and
+<b>*.png</b>) are generally cross-platform portable).<p>
+
+Three important binary file types are: <ul> <li>Voronoi index files
+<li>collections of points, lines and regions <li>Hipparchus
+binary objects (memory-mapped). </ul><p>
+
+<u>Voronoi index files</u> are an external form of the binary internal memory
+structures used by Hipparchus for spatial indexing.  They are usually
+identified by the filename extension <b>.vix</b>. They are described in more
+detail in a subsequent section, <a href="#voronoi">Voronoi Index
+Management</a>.<p>
+
+<a name="collections"></a> <u>Collections</u> of points, lines and regions
+are external binary files containing point, line  or region object vector
+data which may be readily accessed for search and/or display purposes. They
+are usually identified by the filename extension <b>.plr</b>.<p>
+
+Collections are created from ASCII point, line or region data using the
+supplied utilities <i>pts2plr</i>, <i>lns2plr</i> or <i>rgn2plr</i>,
+respectively. Collections are created in the context of specific Voronoi
+index files. Their contents are recoverable <b>ONLY</b> in the presence of the
+Voronoi index used for their creation.  Collection files are NOT PROCESSABLE
+in the context of any other Voronoi index.<p>
+
+Collection files have an internal structure that provides primary access to
+coordinate data via a binary search of a cell index for the collection.  Each
+file has a header, a cell-ordered cell-contents index and a vector data
+coordinate pool. In the case of a collection of lines, individual lines are
+identified and their cell-appearance fragments linked back-and-forth in the
+coordinate pool. In the case of a collection of regions, individual regions
+and their boundary rings are identified and indexed. Any line or ring
+crossings of cell boundaries are included as "artifact" vertices, mainly for
+graphical rendering purposes. Internal linkages are implemented using C/C++
+run-time stream I/O file pointer values and integer offsets.<p>
+
+The structures within a collection are defined by the <b>hippdbse.h</b>
+header file supplied with the <i>Hipparchus Release 3.4 Source
+Materials</i>.<p>
+
+As with regular Hipparchus objects, a datum may be associated with each point
+or line or ring vertex coordinate.  This datum may be parsed from the ASCII
+source data file, the <b>.pts</b>, <b>.lns</b> or <b>.rgn</b> files, either
+as a long unsigned integer or a float value.  It is then associated directly
+with the coordinate pair.<p>
+
+Alternatively, coordinate-associated attributes can be separated from the
+<b>.plr</b> collection and deposited in a related file, usually bearing the
+same root filename and the extension <b>.dat</b>. In this case, the datum
+directly associated with each coordinate pair is an offset value for the
+related coordinate attribute (relative to the commencement of the <b>.dat</b>
+associated file). Attribute text separated into a <b>.dat</b> file can be
+further processed by the utility program <i>namendx</i> to produce alphabetic
+index files (usually bearing the extension <b>.ndx</b>). A binary search of
+one of these files can provide direct entry into its associated collection
+file.<p>
+
+Both <i>Galileo</i> and <i>Georama</i> provide access to collections of
+points, lines and regions as a source for the search and display of data.
+<i>Georama</i> also provides access to collection data via name indexes
+("gazetteers") and mouse proximity ("inspectors").<p>
+
+<a name="mmf"></a> <u>Memory-mappable</u> files are used to great advantage
+in the Windows (and other) environments.  Memory-mapped files can be
+addressed as though present in memory, but in reality are stored externally,
+on hard disk. In both <i>Galileo</i> and <i>Georama</i>, they are used to
+represent canonical Hipparchus memory objects.  They are usually identified
+by the filename extension <b>.hbo</b>, (short for <b>"Hipparchus Binary
+Object"</b>).<p>
+
+Hipparchus objects cast as memory-mapped hbo files are limited in size only
+by the declared limit to the virtual memory space in the operating system.
+Spatial operations such as <i>DeriveRsetCommon</i> ("polygon overlay") can
+therefore be carried out on very large objects without regard to real memory
+constraints.<p>
+
+Memory-mapped hbo files are bound to the specific Voronoi index present at
+the time of their creation.  Memory-mapped hbo files are NOT PROCESSABLE in
+the presence of any other Voronoi index.<p>
+
+Memory-mapped hbo files may be created using appropriate <i>Galileo</i>
+<i>Import...</i> or <i>Derive...</i> commands or by execution of one of the
+supplied stand-alone utilities, <i>pts2hbo</i>, <i>lns2hbo</i>,
+<i>rgn2hbo</i> or <i>bldptin</i>.<p>
+
+Memory-mapped HBO files may be converted to ASCII format by use of the
+<i>Galileo</i> command <i>ExportObject</i>.<p>
+
+Memory-mapped HBO files are destroyed using the <i>EraseObject</i> command
+(or any ordinary Windows file deletion procedure).<p>
+
+<hr><a name="functions"> <h3>PROGRAM FUNCTIONS</h3></a><p>
+
+<a name="general"><h4>General</h4></a><p>
+
+This section of the <i>Guide</i> describes the structure and user interface
+of <i>Galileo</i>. It is assumed that you are somewhat familiar with the
+general concepts of Hipparchus, as explained in the <a
+href="overview.html" target="aside">Hipparchus Overview</a>, the <a
+href="tutorial.html" target="aside">Hipparchus Tutorial</a>, or similar
+texts.<p>
+
+The <i>Galileo</i> programs were created specifically to illustrate some of
+the uses of functions available in the <i>Hipparchus Library</i> and the
+<i>Hipparchus Auxiliary Library</i>. They were developed using the
+<i>Hipparchus Release 3.4 Development Tools</i> for Intel microprocessors, an
+SDK available from Geodyssey (see <a href="licenses.html"
+target="aside">Licenses</a>).<p>
+
+<i>Galileo</i> is a programmer's geographic workbench that permits developers
+to enter or import and export vector data defining both surface objects and
+satellite orbits. Using <i>Galileo</i>, you can derive new objects as spatial
+intersections, unions or proximities and prepare screen and hard copy graphic
+displays of these objects in the context of latitude/longitude grids,
+coastlines and Voronoi cell structures.<p>
+
+<i>Galileo</i> offers the developer an interactive command-line environment
+in which various Hipparchus operations can be performed and viewed
+interactively. Graphics are displayed "on the fly", so that you can see how
+they work. Scripts can be prepared that automate specific sequences of these
+commands, as would be required for live or loop demonstrations of the
+prototype of an application.<p>
+
+By contrast, <i>Georama</i> is an interactive end-user viewer application
+that gives life to a set of Atlases, providing scenes of geographic areas of
+interest as well as gazetteers relating place names to maps. In
+<i>Georama</i>, graphics are prepared "behind the scenes" and presented only
+when complete. <i>Georama</i> can be extended by the end user to provide new
+or modified scenes of existing Atlases.  Atlas authors can add new Atlases
+without C or C++ programming.<p>
+
+<i>Galileo</i> and <i>Georama</i> are provided as counterpoint examples of
+methods that can be used to implement Hipparchus-based applications in a
+windowed computing environment. They provide quite different strategies for
+the display of geographics. <i>Galileo</i> draws features directly to the
+display while <i>Georama</i> draws to a bit map, delaying presentation until
+each scene is complete. Also, <i>Georama</i> demonstrates multi-threaded
+commputation, permitting the simultaneous thread-safe operation of Hipparchus
+components.<p>
+
+<h3>Galileo</h3>
+
+Once initiated, <i>Galileo</i> provides just two windows: a "console" window
+and a "map" window. These windows are positioned on your display according to
+instructions contained in the initialization file <b>galileo.gin</b> which is
+co-located with the executable program <b>galileo.exe</b>.  Of course, within
+a session, you can move, re-size or iconize these windows using the regular
+Windows methods.<p>
+
+<i>Galileo</i> commands are entered at the cursor in the console window.
+Previously entered commands are scrolled upwards within the console
+window.<p>
+
+Note: If the console window should be obscured in part or in full by another
+window (such as the map window), then on subsequent restoration of the console
+window it will NOT be refreshed. The obscured portion of previously executed
+(and scrolled) commands may be lost from sight.  This is in contrast to the
+map window, in which any portions obscured by other windows will be preserved
+and restored when the window again comes into focus.<p>
+
+<i>Galileo</i> commands are published as mixed-case codes.  However, the
+command processor also accepts lower-case command codes.  Also, any embedded
+underscores within a command code are removed before interpretation.<p> If
+you are uncertain of the precise code for the command you want, you may enter
+the first few letters of the command, press <b>&lt;Tab&gt;</b> and then the
+<b>&lt;Tab&gt;</b> or <b>&lt;Shift-Tab&gt;</b> keys to scroll through all of
+the commands beginning with the first letters entered.  The cursor is
+positioned to the right of the command, ready for the possible entry of
+additional parameters. (If you repeatedly press the <b>&lt;Tab&gt;</b> key
+with no first letters entered, you will see the entire repertoire of
+commands).<p>
+
+If a command is misspelled or is not yet implemented, a red error message is
+displayed.<p>
+
+Most commands require a list of space- or comma-delimited positional
+parameters; the list is separated from the command by at least one space. A
+question mark ("<b>?</b>") given as the first parameter of a command will
+often produce a short reminder list of the parameters specifiable for that
+command.<p>
+
+Positional parameters can be space or comma delimited. If a comma is to be
+used as a delimiter, it must immediately follow the parameter it delimits,
+without intervening spaces.  However, any number of spaces may precede a
+parameter. If any parameter is to contain delimiters, you must specify the
+parameter as a quoted string (using matched single or double quotes). A null
+parameter can be entered using a comma only for that parameter.<p>
+
+You may scroll backwards and forwards through a history of previously issued
+commands by use of the <b>&lt;UpArrow&gt;</b> and <b>&lt;DownArrow&gt;</b>
+keys.<p>
+
+You may edit any command by use of the <b>&lt;Backspace&gt;</b>,
+<b>&lt;Delete&gt;</b>, <b>&lt;LeftArrow&gt;</b>, <b>&lt;RightArrow&gt;</b>,
+<b>&lt;Home&gt;</b> and <b>&lt;End&gt;</b> keys.  The default entry mode is
+<b>Insert</b>, but <b>Overwrite</b> mode is available. (The
+<b>&lt;Insert&gt;</b> key may be used to toggle between Insert and Overwrite
+modes). You may cancel the entry of a command at any time by pressing
+<b>&lt;Esc&gt;</b>.<p>
+
+File names or icons appearing elsewhere on your desktop may be dragged and
+dropped into a command at the cursor.  This ensures accurate references to
+files (path, name and extension). This feature alone may make it worthwhile
+to open a window displaying the contents of the <b>data</b> directory
+(folder). (We like to display the contents of this folder on the right side
+of of our display, as a narrow list, sorted by extension type).<p>
+
+Rather than taking commands exclusively from the keyboard, <i>Galileo</i> can
+read commands from "script" files. These are simple ASCII text files
+containing <i>Galileo</i> commands, one per line. Reading from a script file
+can be initiated interactively simply by entering the script name as a command
+(without the .gal extension), or explicitly as a parameter of the
+<b>Script</b> command. You can also launch <i>Galileo</i> and initiate script
+reading by "dragging and dropping" the icon of a script file onto the
+<i>Galileo</i> icon (or shortcut).<p>
+
+Empty script lines or script lines beginning with a semi-colon (;) are
+ignored by <i>Galileo</i>.  Such lines may be used as script commentary.<p>
+
+Script files may be created or modified using any elementary text editor.
+They are normally identified as script files by the use of the filename
+extension <b>.gal</b>.
+
+You are encouraged to modify the supplied scripts or create new ones to meet
+your own requirements.<p>
+
+<i>Galileo</i> is terminated by a <b>Quit</b> command. This can be embedded
+in a script file.<p>
+
+<hr><a name="mouse"> <h4>Mouse Operation</h4></a><p>
+
+Some commands require pointer device (mouse) coordinate input. The mouse
+input interface follows these general principles:<p>
+
+Mouse input is acquired via the standard Windows interface. However, for most
+spatial data entry operations, <i>Galileo</i> requires that the mouse be
+moved some minimum number of pixels from its previously recorded position.
+This minimum is defined by the configuration parameter
+<b>coincident.pixel.count</b> in <b>galileo.gin</b>.<p>
+
+The mouse is assumed to be a two-button device. Typically, the (logical)
+<b>left button</b> will activate the recording of a mouse location while the
+(logical) <b>right button</b> reports the current geographical coordinates of
+the mouse.<p>
+
+For example, when entering a new object using one of the <b>Enter...</b>
+commands, you can point the mouse at specific geographic locations by
+"clicking" repeatedly on the right button while positioning the mouse to the
+desired position, guided by the latitude and longitude displayed in the
+console window.  Once positioned as required, you enter the position by
+clicking the left button.<p>
+
+During many mouse data entry operations, two small buttons are displayed in
+the upper corners of the field of the map window. These are the <b>[Esc]</b>
+and <b>[Done]</b> buttons.<p>
+
+When mouse location entry is performed for multiple elements (for instance
+when recording the individual points of a point object), the entry sequence
+is terminated by left-clicking on <b>[Done]</b> or by pressing the
+<b>&lt;Enter&gt;</b> key.<p>
+
+When the entry is two-tiered (for instance, when recording the vertices of
+the lines of a line set or the rings of a region), you signal the end of an
+individual line or ring by left-clicking <b>[Done]</b> or by pressing the
+<b>&lt;Space&gt;</b> bar or the <b>&lt;+&gt;</b> key. When entering the
+ring(s) defining a region, you may alternatively signal the closure of a ring
+by clicking within the small circle defining the first vertex of the ring. In
+any case, you signal the end of the line/ring set by again clicking the
+<b>[Done]</b> or by pressing the <b>&lt;Enter&gt;</b> key.<p>
+
+<b>Note:</b> if you are right-handed, you might be interested in the fact
+that the "<b>&lt;Grey +&gt;</b>" and "<b>&lt;Grey Enter&gt;</b>" keys on the
+right-hand side of the keyboard are equivalent to the regular
+<b>&lt;+&gt;</b> and <b>&lt;Enter&gt;</b> keys.<p>
+
+<a name="drag-drawing"> <b>Note:</b> a simple method of "sampling" points or
+line/ring vertices "on the fly" is to "drag" the mouse along the desired path
+with its (logical) left button depressed.  This is referred to as
+<b>"drag-drawing"</b>.<p>
+
+All of the data acquisition commands allow the user to escape from mouse data
+entry sequences by clicking on the <b>[Esc]</b> button or by pressing the
+<b>&lt;Esc&gt;</b> key.<p>
+
+<a name="rightmousebutton"> <b>Logical right mouse button</b><p>
+
+At any time, clicking the (logical) right button reports the current
+geographical position expressed in latitude and longitude with precision
+appropriate for the current map scale. In addition, this action reports the
+Voronoi cell number containing this position and the leg and cumulative
+distances between successive (logical) right clicks. Distances are reported
+in units appropriate for the current map scale.  The distance accumulator is
+reset at the commencement of a session. It may be cleared at any time by
+double-clicking the (logical) right button.<p>
+
+
+<hr><a name="geographics"> <h4>Geographics</h4></a><p>
+
+This term is used to describe the rich support provided for developers of
+applications involving the geographical presentation of data. It must be
+emphasized that this support is complementary to that provided by your GUI.
+Hipparchus geographic functions mainly provide you with the means to relate
+the "round world" to the "flat screen", and vice versa.<p>
+
+Geographic renderings can be made in any one of several display projections:
+<ul> <li>Stereographic <li>Gnonomic <li>World-wide Mercator <li>Local
+Mercator <li>Conical (Lambert-like) <li>Orthographic <li>World-wide View
+(Miller-like)</ul><p>
+
+<a name="projections">
+
+<dl> <dt>Stereographic (<b>stereo</b>)
+
+<dd> This projection can be centered on any point on the globe, including the
+poles. Normally, you will use this projection to display local geographic
+features.  In practice, the scale can range all the way from very localized
+(say 1:1000) to continental (1:50,000,000).<p>
+
+<dt>Gnonomic (<b>gnonomic</b>)
+
+<dd>While in principle the stereographic projection produces less spatial
+distortion, in some instances the gnomonic projection can be used to produce
+equivalent displays considerably faster. <i>Galileo</i> automatically
+interchanges the Stereographic with Gnonomic projection and vice versa,
+whenever the scale and window field size cross certain thresholds.<p>
+
+<dt>World-wide Mercator (<b>wwmerc</b>)
+
+<dd>This projection provides a view of the entire surface of the Earth
+(excepting the polar regions) using the familiar Mercator projection. The
+view is always Equatorial, centered at some specified central meridian
+longitude. The scale is set automatically to fill the defined display window.
+This program will be of use in any application requiring a single
+presentation of a non-polar world situation.<p>
+
+<dt>Local Mercator (<b>mercator</b>)<dd>
+
+This rotatable display projection provides a local view of an area in the
+Mercator projection, used most frequently in maritime applications.<p>
+
+<dt>Lambert (<b>conical</b>)
+
+<dd>This display projection approximates the Lambert-1 and Lambert-2 conformal
+conic projections, used for example in US NOAA weather charts.<p>
+
+<dt>Orthographic (<b>ortho</b>)
+
+<dd>This is a view of Earth from space, directly above any point on the globe,
+including the poles. The view also takes in the surrounding near space,
+including any defined satellite orbits. Normally you will use this projection
+to provide the "big picture" or to depict satellite orbits in relationship to
+the Earth. Typical scales will range from relatively close-in (1:50,000,000)
+to far out (1:500,000,000).  Orbital motion is animated from a viewpoint that
+is either geo-stationary or inertial.  In the geo-stationary view, the scene
+is depicted from above a specific point on the Earth's surface. In the
+inertial view, the scene is depicted from a "fixed" point in space, with the
+Earth turning beneath.<p>
+
+<dt>World-wide View (<b>wwview</b>)
+
+<dd>This is a world view projection similar to the Miller cylindrical
+projection. In this projection, the Poles are projected at a finite distance
+from the Equator. The projection is most useful for the depiction of the
+paths of satellites in high polar orbits.<p>
+
+</dl><p>
+
+<i>Galileo</i> comes with built-in world coastlines at two levels of detail.
+In response to the <i>DrawCoast</i> command, one or the other is drawn as
+appropriate for the prevailing map scale and projection. This coastline data
+is independent of any Voronoi index. <i>DrawCoast</i> is meant only to be
+used for orientation purposes when displaying large surface objects or
+satellite orbit traces.  Other, more precise coastline data files may be
+imported and are displayable using regular object management
+commands.  Several of these are supplied.<p>
+
+<i>Galileo</i> works with selectable Voronoi cell structures. This permits
+you to associate objects with any Voronoi index and to observe their
+relationship to those indexing cell structures.  For example, <i>Galileo</i>
+lets you find and display the specific Voronoi cells associated with any
+object.<p>
+
+<i>Galileo</i> is capable of producing hard copy graphics on HP-GL/2
+compatible devices (see the <i>Galileo</i> <i>Plot...</i> commands). You can
+plot the drawings on-line or you can direct the plotter command stream to a
+named file for off-line plotting. If you have access to a PCL5-class laser
+printer such as the Hewlett-Packard LaserJet IIIP, you can use the printer as
+a plotter.<p>
+
+<hr><a name="customizing"> <h4>Custom Configurations</h4></a><p>
+
+The <i>Galileo</i> programs require specific parameters describing your
+particular computing environment and preferences.<p>
+
+The stand-alone utility programs require parameters documented as "Usage"
+notes, available on execution of the utility program with the <b>/h</b> or
+<b>/?</b> switch set. For more details concerning the parameters and
+operation of the stand-alone utility programs, you will need to consult the
+<a href="utilities.html" target="aside">Hipparchus Utilities
+Guide</a> and, if you have the SDK, inspect their source.<p>
+
+For initialization purposes, <i>Galileo</i> references an associated file,
+<i>galileo.gin</i>.  This file must be co-located with <b>galileo.exe</b>.
+<i>galileo.gin</i> has the same general form and purpose as Windows
+<b>.ini</b> files, consisting of ASCII text lines that provide initialization
+strings to named parameters.  Empty lines or lines beginning with a
+semi-colon ("<b>;</b>") are ignored.<p>
+
+The general format of a <b>*.gin</b> file is:<br><b><pre>
+; Comments ...
+
+parameter.name = value1 [value2 ... ]
+parameter.name = value1 [value2 ... ]
+ ...
+ ...
+</pre></b>
+where:<p>
+
+<dl>
+<dt>parameter.name<dd>is the name of an overridable configuration
+    parameter (or parameter array)<p>
+<dt>=<dd>is a required token (surrounding spaces are optional)<p>
+<dt>value1 value2 ...<dd>are individual configuration
+    parameter values, space or comma delimited.  If delimiters are to be
+    included in the value, you must specify the value within
+    matched single or double quotes.<p>
+</dl>
+
+You can easily customize the supplied <b>galileo.gin</b> file using a text
+editor. For example, two configuration parameters you may wish to change are
+the default console and map window configurations set by the parameters
+<b>console.position</b> and <b>map.position</b>.
+
+<hr><a name="gin">
+<h3>galileo.gin</h3>
+
+Here are the specific parameters required for <i>Galileo</i>:<p>
+
+<dl>
+
+<dt>data.directory
+<dt>script.directory
+<dt>temporary.directory
+<dt>georama.directory
+<dd>fully qualified path name for data, scripts, temporary and Georama files.<br>
+    Note that if this path name commences with the tilde symbol ("~"),
+    then the galileo.exe program supplies in its place the path name for the
+    "home directory", being the directory that contains the directory
+    containing the program executable file.<br>
+    For example, if <i>galileo</i> is executed from
+    C:\anywhere\runw32\galileo.exe, then the .gin-file path name ~\data\
+    translates as C:\anywhere\data\.<p>
+
+    Any of these parameters may be changed at any time through use of a
+    <a href="#set">Set</a> command.<p>
+
+<dt>ellipsoid.number
+<dd>the integer identifier of a particular ellipsoid<p>
+    Several of the more common ellipsoids are:<p>
+    <ul>
+    <li>07 Bessel, 1841
+    <li>11 Clarke, 1866
+    <li>31 World Geodetic System, 1972
+    <li>33 Geodetic Reference System, 1980 [the default]
+    <li>34 World Geodetic System, 1984 (used by US DOD GPS).
+    </ul><p>
+
+    This parameter may be changed at any time through use of a
+    <a href="#set">Set</a> command.<p>
+
+<dt>ellipsoid.semiaxes
+<dd>ellipsoid major and minor semi-axes, in meters<p>
+    Note: ellipsoid.semiaxes and ellipsoid.number are
+    mutually exclusive parameters.<p>
+
+    This parameter array may be changed at any time through use of a
+    <a href="#set">Set</a> command.<p>
+
+<dt>angle.sexagesimal
+<dd><ul>
+    <li>0 - angles are displayed or output as degrees
+            and decimal fractions of degrees
+    <li>1 - angles are displayed or output as degrees, minutes, seconds
+            and decimal fractions of seconds.
+    </ul><p>
+
+    This parameter may be changed at any time through use of a
+    <a href="#set">Set</a> command.<p>
+
+<dt>work.space.size<dd>Hipparchus workspace size (bytes)<p>
+
+    This parameter may be changed at any time through use of a
+    <a href="#set">Set</a> command.<p>
+
+<dt>mmf.out.size<dd>file size for initialization of memory-mapped files
+(bytes)<p>
+
+<dt>display.width
+<dt>display.height
+<dd>actual display dimensions (meters)<p>
+
+<dt>coincident.pixel.count
+<dd>minimum number of pixels of mouse movement
+    considered as a new position (see <b>mouse operations</b> above).<p>
+
+<dt>console.position
+<dt>map.position
+<dd>Initial position and size of the console and map windows.  Positions and
+    sizes are relative to an arbitrary display size of 80 by 60 pixels,
+    scaled to the actual display dimensions.<p>
+
+    The first two of the four required integer parameters specify the
+    horizontal and vertical coordinates of the upper left corner of the
+    window, having zero-based values ranging 0-79 and 0-59, respectively.<p>
+
+    The last two parameters specify the horizontal and vertical size
+    and have values ranging 1-80 and 1-60, respectively.
+</dl>
+
+<b>[console]</b><dl>
+
+<dt>background<dd>Windows color index (c0-c19) for console window background
+    (see <a href="#color">color</a>).
+<p>
+
+<dt>text.color.input
+<dt>text.color.info
+<dt>text.color.warning
+<dt>text.color.error
+<dt>text.color.abort
+<dd>Windows color indices for console text
+    (see <a href="#color">color</a>)<p>
+
+<dt>font.size
+<dt>font.face
+<dd>Windows size and face indices for console text<p>
+
+<dt>script.echo<dd>script echo switch: 1=on, 0=off<p>
+
+    This parameter may be changed at any time through use of a
+    <a href="#set">Set</a> command.<p>
+
+<dt>script.pace
+<dd>an integer value that will be divided by 100.0 and the
+    reciprocal used to modify script delay parameters supplied in
+    ShowPanel and ShowMap commands.  Values less than 100 result
+    in increased delays while values greater than 100 result
+    in decreased script delays.<p>
+
+    This parameter may be changed at any time through use of a
+    <a href="#set">Set</a> command.<p>
+
+</dl>
+
+<b>[map]</b><dl>
+
+<dt>background<dd>Windows color index for window background (field)<p>
+<dt>projection
+<dd>map projection code:<br>
+    stereo, gnomonic, wwmerc, mercator, conical, ortho or wwview<p>
+<dt>scale<dd>map <a href="#scale">scale</a> denominator<p>
+<dt>center<dd><a href="#latitude">latitude</a> and <a
+    href="#longitude">longitude</a> of map window center<p>
+</dl>
+
+<b>[screen.rendering]</b><dl>
+
+<dt>coastline
+<dt>cell.li*nes
+<dt>cell.centers
+<dt>cell.numbers
+<dt>lat.long.grid
+<dt>object.lines
+<dt>object.points
+<dt>object.area
+<dt>object.surface
+<dt>frame
+<dd>default map rendering <a href="#style">style</a> for
+    various features and objects<p>
+<dt>time.scale
+<dd>real-time scaling denominator for use when rendering dynamic events such as
+    satellite traces and Earth station telemetry reception status.<p>
+
+    This parameter may be changed at any time through use of a
+    <a href="#set">Set</a> command.<p>
+
+</dl>
+
+<b>[hpgl.mono.rendering]</b><dl>
+<dt>coastline
+<dd>default monochrome plot styles<p>
+</dl>
+
+<b>[hpgl.color.rendering]</b><dl>
+<dt>coastline
+<dd>default color plot styles<p>
+</dl>
+
+<hr><a name="errors">
+<h4>Error Messages</h4></a><p>
+
+When running the <i>Galileo</i> programs, you may occasionally encounter
+error messages. For the most part, these error messages will be
+self-explanatory. Some, however, require further explanation.<p>
+
+Error messages of the form "<b>Return Code = x</b>" refer to internal
+conditions that may adversely affect the correct execution of the programs.
+These are generally <i>Hipparchus Library</i> function return codes set by
+the most recent <i>Hipparchus Library</i> function called by the command.<p>
+
+A few of the more common return codes are:<p>
+
+<dl>
+<dt><b>-1</b><dd>An empty set has been created.  This can be legitimate for
+    a particular application but may give rise to subsequent nonsensical
+    results.<p>
+
+<dt><b>+8</b><dd>Out of heap memory.
+    The combined requirements for heap memory have exceeded the total
+    available to the application.  You may wish to alter the Windows virtual
+    memory specification.  If that doesn't work, try next to erase objects on
+    the fly, after their last use (ReleaseHpobj. Next, you might reduce the
+    resolution or complexity of objects that have significant numbers of
+    points or vertices. Next, try using a less complex Voronoi cell
+    structure.<p>
+
+<dt><b>+9</b><dd>The Hipparchus Workspace is exhausted.  An operation has
+    been attempted that requires more than the amount of memory allocated
+    initially from the heap for this use.  This can occur from of an attempt
+    to intersect two nearly identical region objects, giving rise to a very
+    complex temporary structure in the workspace. It may also be caused by an
+    attempt to <i>DisplayArea</i> a complex region. It can also be caused by
+    an attempt to create a satellite nadir trace or sensor swath region with
+    too high a sampling frequency or duration. You can change the size of the
+    Hipparchus Workspace by modifying the <b>work.space.size</b> entry in the
+    in the <b>galileo.gin</b> file.<p>
+
+<dt><b>other</b><dd>You have likely attempted an operation using an
+    inappropriately empty or otherwise degenerate object, such as
+    attempting to intersect an unverified topologically invalid region
+    with some other object.<p>
+
+</dl><p>
+
+<a name="errorvalue"></a>
+<b>Note:</b> All <i>Galileo</i> commands set a <b>command error</b> value,
+which may be interrogated with the <a href="#iferrorlevel">IfErrorlevel</a>
+or <a href="#ifnoterrorlevel">IfNotErrorlevel</a> conditional script branch
+commands.<p> This command error value is distinct from the <i>Hipparchus
+Library</i> function error return codes referenced above.<p> Here are the
+error levels with a few examples: <dl>
+<dt>0<dd>OK
+<dt>1<dd>warning<br>
+        (for example, a derived object is empty)
+<dt>2<dd>misdemeanor<br>
+        (for example, an object could not be located or
+         a region does not pass a topology test)
+<dt>4<dd>felony<br>
+        (for example, the command syntax was in error).
+</dl><p>
+(If you are a programmer with access to Galileo source code, be aware that
+the manifest constants that map specific errors to these general errorlevels
+are specified in <b>galileo.h</b>).<p>
+
+<hr><a name="reference">
+<h3>COMMAND REFERENCE</h3></a><p>
+
+This section describes the detailed operation of each of <i>Galileo's</i>
+commands.  Examples of most of these commands will be found in the
+demonstration scripts supplied. You might find it helpful at this point to
+make hard copies of the supplied scripts for ready reference.<p>
+
+<hr><a name="syntax">
+<h4>Command Syntax</h4></a><p>
+
+In the following descriptions, P1/p1, P2/p2, ... Pn/pn denote the first,
+second, etc. positional parameters that the command accepts or requires.
+Upper case indicates required parameters while lower case indicates optional
+parameters. Bolded parameter values are keywords.<p>
+
+<hr><a name="common">
+<h4>Common Command Parameters</h4></a><p>
+
+A number of command-line parameters are common to multiple commands;
+their descriptions follow:<p>
+
+<hr><a name="object-name"></a>
+<b>object-name</b><p>
+
+This is a user-defined name, starting with a letter or underscore and
+containing only letters, numerals or the underscore ("_").
+An object-name refers to a memory-mapped file having the extension <b>.hbo</b>
+(for Hipparchus Binary Object).<p>
+
+<b>NOTE:</b>If manipulating Hipparchus binary objects, be sure that the
+principal Voronoi index was the one present when the addressed
+<b>object-name</b> was entered, imported or derived</b>. If merely displaying
+such objects, a search for the appropriate index will be initiated (see <a
+href="#objectdisplay">Object Display</a>.<p>
+
+<hr><a name="file-name"></a>
+<b>file-name</b><p>
+
+This is a character string, being the name of an external file, qualified by
+a path and extension as required. File-names may consist of letters, numerals
+or underscores commencing with a letter or underscore ("<b>_</b>") and
+containing <b>NO</b> spaces. Otherwise, file-names may be any that are valid
+for the operating system.<p>
+
+Special treatment is afforded filenames commencing with these path
+qualifiers: <b>data\</b>, <b>scripts\</b>, <b>temp\</b> and <b>georama\</b>.
+For any of these qualifiers, Galileo substitutes the corresponding path
+defined by the <b>.gin</b> file (and possibly modified by a <b>Set</b>
+command).<p>
+
+In the absence of an explicit path specification, <i>Galileo</i> uses one of
+the initialization parameters: <b>script.directory</b>, <b>data.directory</b>
+or <b>temporary.directory</b> depending on the context of use of the
+file-name. These parameters may specify absolute or relative paths.<p>
+
+In the absence of an explicit file-name extension,
+<i>Galileo</i> supplies one of the following extensions,
+again depending on the context of usage:<p>
+<ul>
+<li>.gal script files
+<li>.hbo Hipparchus Binary Objects
+<li>.dmp object dump files (debug)
+<li>.pts external point set objects (ASCII lat/lng)
+<li>.lns external line set objects (ASCII lat/lng)
+<li>.rgn external region objects (ASCII lat/lng)
+<li>.ptc external point set objects (ASCII CDC)
+<li>.lnc external line set objects (ASCII CDC)
+<li>.rgc external region objects (ASCII CDC)
+<li>.sat satellite/sensor specifications
+<li>.rcv Earth telemetry station specifications
+<li>.plr collections of points, lines or regions
+<li>.vix Voronoi index files in binary format
+<li>.tix Voronoi index files in text format
+<li>.cll Voronoi cell lists in text format
+<li>.bmp Windows bit map files
+<li>.jpg jpeg bit map files
+<li>.png png bit map files
+<li>.hpg HPGL plotter command stream files
+<li>.html HTML documentation (such as this)
+</ul>
+
+<hr><a name="collection-name"></a>
+<b>collection</b><p>
+
+This is a reference to a file type supported by certain functions of
+the <i>Hipparchus Auxiliary Library</i>. Files of this type are created and
+accessed using only the stream I/O facilities of the standard C/C++ run-time
+libraries. Such files are designated as "collections" of Hipparchus points,
+lines or regions.  They share the same file extension, <b>plr</b>, but have
+an internal header that differentiates them.<p>
+
+<hr><a name="resolution"></a>
+<b>resolution</b><p>
+
+This refers to the combined coordinate resolution and associated datum
+format indicator, as follows:<p>
+
+<ul>
+<li>f - float resolution [the default]
+<li>h - high resolution
+<li>m - medium resolution
+<li>l - low resolution<p>
+<li>fd - float resolution plus datum
+<li>hd - high resolution plus datum
+<li>md - medium resolution plus datum
+</ul>
+<p>
+
+Resolution affects the maximum precision with which an object can be
+displayed or related to other objects. The resolution selected also affects
+the amount of memory required to model an object. Generally, the higher the
+resolution, the more memory required.<p>
+
+If you are having difficulty fitting your application into memory,
+you could try reducing the resolution of your larger objects.
+If speed is a significant factor, you should specify the float
+or float plus datum resolution.<p>
+
+<b>associated data</b><p>
+
+When objects are <b>exported</b> to external storage, any data
+(or pointers) associated with its points or vertices are appended
+to the coordinate records as ASCII long unsigned integers.<p>
+
+When objects are <b>imported</b> from external storage and associated data
+has been specified for the memory object, then an attempt is made to parse
+each external point or vertex record for an optional third value (following
+its latitude and longitude coordinate values). An integer value found by this
+process is associated with the point or vertex as a long (32-bit) signed
+integer. When no integer value is found, the null datum (zero) is associated
+with the point or vertex. (Note that parsing for this integer will end with
+any character encountered that is other than a sign or digit).<p>
+
+When objects are imported from external storage and associated data has
+<b>NOT</b> been specified for the memory object, then any external data
+items associated with the points or vertices are simply ignored.<p>
+
+When objects are <b>derived</b> from other objects and associated data has
+been specified for the derived object, then each point or vertex of the
+derived object may have associated with it the datum from one or other of the
+parent objects, or the null datum, depending on the operation. For example, a
+point set object derived from a <b>DerivePsetInside</b> operation specifying
+associated data for its points will have copied into its derived points any
+data associated with the parent point set object. On the other hand, a point
+set object derived from the <b>DerivePsetIntersectLines</b> operation
+specifying associated data will have null data only associated with its
+points of intersection.<p>
+
+<hr><a name="latitude"></a><a name="longitude"></a><a name="angle"></a>
+<b>latitude</b>, <b>longitude</b><br>
+<b>and other sexagesimal angles</b><p>
+
+These are character strings representing angles expressed in the
+sexagesimal system.  They may have no embedded spaces.
+Either ":" or "/" may be used as a sub-unit separator.
+Only the higher-order unit(s) need be specified.
+The lowest order unit can include up to 9 decimal fraction digits.
+Positive signed angles are normally prefixed by a space while
+negative signed angles are prefixed by a "-".<p>
+
+Latitudes may be prefixed by an optional "+", "n", "N" or space
+for North values or one of "-", "s" or "S" for South values.
+Longitudes may be prefixed by an optional "+", "e", "E" or space for East
+values or one of "-", "w" or "W" for West values.
+Examples of valid angles are:<p>
+
+<ul><pre>
+<li>n43:59:30.0 w7/29/59.999
+<li>N43:59.5 W7.500
+<li>43 -7.499876543
+<li>-6.123 E115:45.2
+<li>S88/45.678 +115:44:59.12
+</pre></ul>
+
+<hr><a name="scale"></a>
+<b>scale</b><p>
+
+Map <b>scale</b> is always specified as a scale <b>denominator</b>.<p>
+
+For example, to specify a map scale of 1:500,000, you specify the integer
+500000 or an equivalent decimal or exponential value such as 0.5e6.<p>
+
+Scale controls the size of features and objects displayed on your monitor or
+plotter. It is calculated as a function of your monitor's (or plotter's)
+physical display area. It is NOT a function of the size of a map window
+displayed on that monitor. (The size of a map window controls the
+<b>field</b> of the map window, but not the <b>scale</b>).<p>
+
+<b>Note:</b> If you need a precise specification of scale, you will need to
+study this note.  The choice of scale denominator depends on a knowledge of
+the physical dimensions of the display.  You will need to divide one of the
+dimensions of the geographical area you wish to depict by the corresponding
+dimension of the display. For example, if the area you want to depict is 100
+kilometers across (60 miles) and your display is 0.25 meters (10") wide, you
+would divide 100e3 by 0.25 for a scale denominator of 400e3.  However, if the
+map display window is planned to be half the width of the display, you would
+specify a scale denominator of 2 x 400e3 = 800e6.  If you subsequently change
+the size of the map window, you will alter its field but not its scale.
+
+<hr><a name="distance"></a>
+<a name="proximity"></a>
+<b>distance</b><p>
+
+Wherever distance or proximity is required as a parameter, it is to be
+expressed in meters and presented in either integer, decimal or exponential
+format. <b>Note</b> that 1km = 1.0e3 meters, approximately 0.6 miles.<p>
+
+<hr><a name="style"></a>
+<b>style</b><p>
+
+This is a character string specifying rendering attributes.<p>
+
+It is composed of a set of single-letter codes, each followed by a number
+(integer or real), which may be preceded by a hyphen. Letter-number pairs may
+optionally be separated by a colon (":") or a slash ("/"). For example, ...,
+c13/w2/v1, ...<p>
+
+Style letter codes not specified in a style string are assigned a value of
+zero. Most objects or features have a default rendering style specifiable in
+the initialization file.<p>
+
+Style letter codes are: <b>crgb  m  wv  n  pq  fjkl</b><p>
+
+These may be combined as appropriate for the object
+or feature being rendered:<dl>
+
+<a name="field"></a>
+<dt>Map field (background)
+<dd><a href="#color">color</a>: c | rgb | NamedColor<p>
+
+<a name="points"></a>
+<dt>Point sets, line sets, region boundary vertices, cell centers
+<dd><a href="#color">color</a>: c | rgb | NamedColor<br>
+    <a href="#marker">marker</a>: m<p>
+
+<a name="lines"></a>
+<dt>Lines, region boundaries, grids, horizon, cell boundaries, spokes, duals
+<dd><a href="#color">color</a>: c | rgb | NamedColor<br>
+    <a href="#width">width</a>: w<br>
+    <a href="#curvature">curvature</a>: v <p>
+
+<a name="fills"></a>
+<dt>Region fills
+<dd><a href="#color">color</a>: c | rgb | NamedColor<br>
+    <a href="#pattern">pattern</a>: p | q<p>
+
+<a name="surfaces"></a>
+<dt>Surface fills
+<dd><a href="#color">color gradient</a>: rgb (ranges)<br>
+    <a href="#gradient-type">gradient type</a>: n<br>
+    <a href="#smoothing">smoothing</a>: s<br>
+    <a href="#pattern">pattern</a>: p | q<p>
+
+<a name="annotation"></a>
+<dt>Annotation text
+<dd><a href="#color">color</a>: c | rgb | NamedColor<br>
+    <a href="#fontsize">fontsize</a>: f<p>
+
+<a name="panels"></a>
+<dt>Text panels
+<dd><a href="#color">color</a>: c | rgb | NamedColor<br>
+    <a href="#fontsize">fontsize</a>: f<br>
+    <a href="#justification">justification</a>: j<br>
+    <a href="#background">background</a>: k<br>
+    <a href="#location">location</a>: l<p>
+
+<a name="numbers"></a>
+<dt>Cell numbers
+<dd><a href="#color">color</a>: c | rgb | NamedColor<br>
+    <a href="#fontsize">fontsize</a>: f<br>
+    (background is field color)<p>
+
+</dl>
+
+<a name="color">
+<b>color:</b></a><dl>
+
+<dt><b>c</b> - "Websafe" color index<p>
+
+<dd>"Websafe" color indices are RGB combinations unlikely to be dithered by
+specific web browsers, such as Internet Explorer, Netscape or Opera. They
+are defined in Galileo as integers in the range 0-215. For convenience, we
+have listed here a small subset of these colors. To view the complete
+palette, see <a href="webcolors.html">Websafe Colors</a>.
+
+<pre>
+000 Black         098 Dark Grey     117 Grey          196 Light Grey
+102 Russet        150 Bright Red    186 Orange        167 Magenta
+066 Green         204 Bright Green  039 Turquoise     210 Yellow
+089 Blue          053 Bright Blue   137 Cyan          215 White
+</pre><p>
+
+<dt><b>or</b><p>
+
+<dt><b>r</b> - red
+<dt><b>g</b> - green
+<dt><b>b</b> - blue<p>
+<dd>intensity: nnn, (an integer, 0-255) orintensity gradient: nnn.mmm (a
+real number) where nnn and mmm are the lower and upper limits of a color
+gradient.<p>
+
+<dt><b>or</b><p>
+
+<dt><b>NamedColor</b><p>
+
+<dd>One of the approximately 140 colors named by <a
+href="namedcolors.html">Named Colors</a>. If a <b>NamedColor</b> is
+specified in place of the <b>c | rgb</b> letter-number pairs, then that
+<b>NamedColor</b> MUST be the first element of the style string, and if to
+be followed by other style elements, it MUST be followed first by a colon
+or slash separator. Color names are case insensitive, and optionally may be
+enclosed within matching single or double quotes.<p>
+
+</dl>
+
+<b>Note</b> that the <b>c</b>, <b>rgb</b> letter codes and the
+<b>NamedColor</b> are mutually exclusive.<p>
+
+<a name="marker">
+<b>marker:</b></a><dl>
+<dt><b>m</b> - marker id
+<dd><pre>
+00 single pixel   04 small square   08 medium bullet  12 aeroplane
+01 fat dot        05 medium square  09 medium pillow  13 ship
+02 small circle   06 large square   10 X              14 star
+03 large circle   07 triangle       11 house          15 reserved
+</pre><p>
+</dl>
+
+<a name="width"></a>
+<a name="curvature"></a>
+<b>width, curvature</b><dl compact>
+
+<dt><b>w</b> - line width
+<dd>0 - 5 (thin -&gt; thick)<p>
+
+<dt><b>v</b> - line curvature
+<dd>0 - segments are always projected as straight lines<br>
+    1 - segments are projected as curved if required<p>
+    Note that v1 is normally required to render lines in the
+    wwmerc or ortho projections<p>
+</dl>
+
+<a name="gradient-type"></a>
+<b>n - gradient type:</b><ul>
+<li>0 - hypsographic
+<li>1 - shaded.
+</ul><p>
+
+<a name="smoothing"></a>
+<b>s - TIN shading smoothing:</b><ul>
+<li>0 - no
+<li>1 - yes.
+</ul><p>
+
+<a name="pattern">
+<b>fill pattern</b></a><dl compact>
+
+<dt><b>p</b> regular fill pattern:
+<dd><pre>
+0= 100% fill
+03= 50% medm A  04= 50% medm B
+05= 50% crse A  06= 50% crse B
+07= 25% fine A  08= 25% fine B
+09= 12% fine A  10= 12% fine B  11= 12% fine C  12= 12% fine D
+</pre>
+Note fill patterns A, B, C and D occupy separate display space
+and are therefore mutually transparent.<p>
+<dt>or
+<dt><b>q</b> random fill pattern:
+<dd><pre>
+0= 100% fill
+01= 50% rndm A  02= 50% rndm B
+03= 25% rndm A  04= 25% rndm B
+05= 12% rndm A  06= 12% rndm B
+07=  6% rndm A  08=  6% rndm B
+</pre>
+Note fill patterns A and B occupy partially separate display space
+and are therefore partially mutually transparent.<p>
+</dl><p>
+
+Note that the letter codes p and q are mutually exclusive
+in any one style string.<p>
+
+<a name="text"></a>
+<b>Text</b><dl compact>
+
+<a name="fontsize"></a>
+<dt><b>f</b> - font size
+<dd>small 0 &lt;---&gt; 5 large<p>
+
+<a name="justification"></a>
+<dt><b>j</b> - justification
+<dd>-1=left, 0=centered, 1=right<p>
+
+<a name="background"></a>
+<dt><b>k</b> - background
+<dd>-1=transparent, 0-255=<a href="#color">color</a> index
+    as for letter-code <b>c</b> above<p>
+
+<a name="location"></a>
+<dt><b>l</b> - panel location
+<dd>-2=top, -1=left, 0=centered, 1=right, 2=bottom<p>
+
+</dl>
+
+All commands which specify style access default values depending on the
+feature displayed.  These defaults are specified by the initialization file
+(<b>galileo.gin</b>).<p>
+
+When a graphic output command produces hard copy output,
+(i.e., when the command is given between <b>Plot</b> and
+<b>PlotEnd</b> commands), the <b>style</b> value is interpreted for a plotter.<p>
+
+<hr><a name="graphics">
+<h3>Geographics Commands</h3></a><p>
+
+These are the <i>Galileo</i> commands used to define the geometry of the map
+window and to render features and objects within its field.<p>
+
+<hr><a name="geometry">
+<b>Geometry</b></a> [p1 p2] [p3] [p4] [p5]<p>
+
+Define displayed map center point, scale, projection (and orientation).<p>
+
+<dl compact>
+<dt>p1
+<dd><a href="#latitude">latitude</a> of the map center point (tangency point)<p>
+<dt>p2
+<dd><a href="#longitude">longitude</a> of the map center point (tangency point)<p>
+<dt>p3
+<dd>map <a href="#scale">scale</a> denominator (integer, decimal or exponential)<p>
+<dt>p4
+<dd>map <a href="#projections">projection</a>, one of the keywords:<br>
+    <b>stereo</b>, <b>gnomonic</b>, <b>wwmerc</b>, <b>mercator</b>, <b>conical</b>,
+    <b>ortho</b> or <b>wwview</b><p>
+<dt>p5
+<dd>orientation code, one of:<br>
+          0 - North at top<p>
+</dl>
+
+Every parameter of this command is both optional and session persistent.
+Non-null parameters will change the existing geometry with respect to that
+parameter only.<p>
+
+To recenter a map display to a specific location, you could
+specify only the latitude and longitude, e.g.,<pre>
+  geometry n51 w114
+</pre><p>
+
+To rescale a map display to a specific scale, you could specify
+only the new scale, e.g.,<pre>
+  geometry ,,50e6
+</pre><p>
+
+In the case of the world-wide projections (<b>wwmerc</b> and <b>wwview</b>),
+the latitude and scale specified in this command are ignored, as the
+projection will always be equatorial and a scale (and aspect ratio)
+calculated that can best be accommodated by the dimensions of the current map
+field.<p>
+
+The initial map window geometry is set by parameters in the <b>[map]</b>
+section of the <b>galileo.gin</b> initialization file.<p>
+
+<hr><a name="reportmapgeometry">
+<b>ReportMapGeometry</b></a> (no parameters)<p>
+
+Report current map field geometry in the console window.  See also
+<a href="#geometry">Geometry</a>.<p>
+
+<hr><a name="clear">
+<b>Clear</b></a> p1<p>
+
+Clear the map window field to the style defined by p1 or to
+the overridable configuration parameter <b>background</b>.<p>
+
+The current map field geometry is undisturbed.<p>
+
+p1 <a href="#style">style</a> (<a href="#field">field</a>).<p>
+
+<b>Note:</b> If specified, this style will persist as the default
+<b>Clear</b> style for the remainder of the session.<p>
+
+<hr><a name="drawgrid">
+<b>DrawGrid</b></a> p1<p>
+
+Draw the latitude/longitude grid.<p>
+
+p1 <a href="#style">style</a> (for <a href="#lines">lines</a>).<p>
+
+<hr><a name="drawcoast">
+<b>DrawCoast</b></a> p1<p>
+
+Draw the world coastlines.<p>
+
+p1 <a href="#style">style</a> (for <a href="#lines">lines</a>).<p>
+
+<hr><a name="drawhorizon">
+<b>DrawHorizon</b></a> p1<p>
+
+Draw the global horizon.<p>
+
+p1 <a href="#style">style</a> (for <a href="#lines">lines</a>).<p>
+
+<b>Note:</b> This command will have no effect in any of the map projections
+other than orthographic <b>(ortho)</b>.<p>
+
+<hr><a name="drawtext">
+<b>DrawText</b> P1 P2 P3 P4<p>
+
+Insert annotation text within the map field. A supplied text string is drawn
+in the current map field in a specified text style, centered on a specific
+map field location.<p>
+
+P1 and P2 define the map field location for the annotation text.<p>
+
+If P1 and P2 are simple integers, they are interpreted as the absolute pixel
+coodinates of the location in the map field, P1 defining the horizontal pixel
+address, zero-based, counting left to right, and P2 defining the vertical
+pixel address, zero-based, counting from top to bottom.<p>
+
+If however P1 and P2 are supplied in any of the acceptable non-integer
+formats for <a href="#latitude">latitude</a> and <a
+href="#longitude">longitude</a>, then the text will be positioned
+appropriately within the current map field, providing only that the location
+specified lies within the field. If outside the field, or near a field
+border, the text does not display or may only partially display.<p>
+
+P3 <a href="#style">style</a> (for <a href="#annotation">annotation</a>).<p>
+
+P4 text string. If the string is to contain spaces or quotation
+marks, then it should itself be enclosed in matching single or double
+quotes. Note that the annotation text is limited to a single line of text;
+newline characters are not honored.<p>
+
+To learn the exact pixel dimensions of the current map field, see <a
+href="#reportmapfield">ReportMapField</a>.<p>
+
+<hr><a name="recenter">
+<b>ReCenter</b></a><p>
+
+Using the mouse, change the center (tangency point) of the current map window.<p>
+
+(no parameters).<p>
+
+A new map center is taken from the position
+of the mouse when left clicked in the map window.<p>
+
+The current map field scale, projection and orientation are undisturbed.<p>
+
+Clearly, re-centering the map field by this means is limited to re-centering
+to geographic positions that are <i>on-screen</i>.  If you wish to recenter
+to some point that is <i>off-screen</i>, you will need first to zoom out
+(e.g., <b>ReScale 2.0</b>) a number of times.  Otherwise, you can explicitly
+restate the center for the map field using the <b>geometry</b> command.<p>
+
+Re-centering a <b>wwmerc</b> or <b>wwview</b> map field adjusts only the
+central meridian.<p>
+
+<hr><a name="reframe">
+<b>ReFrame</b></a><p>
+
+Using the mouse, change both the center and scale of the current map field.<p>
+
+(no parameters).<p>
+
+The new center is selected with the first left click of the mouse button.
+The second left click sizes the new map field,
+changing both the center and scale of the map field.<p>
+
+If the projection of the current map field is <b>wwview</b>, <b>wwmerc</b> or
+<b>ortho</b>, then the projection of the new map field becomes <b>stereo</b>.
+Otherwise, the projection remains unchanged.<p>
+
+<hr><a name="rescale">
+<b>ReScale</b></a> P1 [p2]<p>
+
+Change the scale of the current map field.<p>
+
+P1  Scale factor (a positive real number), or one of the lower-case letters
+<b>h</b>, <b>v</b> or <b>d</b>.<p>
+
+If P1 is a scale factor, then the scale of the current map field is simply
+multiplied by the scale factor. Values less than 1.0 therefore result in a
+"zoom in" while values greater than 1.0 result in a "zoom out".<p>
+
+Alternatively, if P1 is one of the letters 'h', 'v' or 'd', then a new scale
+is defined for the current map field such that the tangential surface
+distance represented by the map field horizontally, vertically or diagonally
+through the map field center will be p2 meters.<p>
+
+The current map field center, projection and orientation parameters
+are undisturbed.<p>
+
+<hr><a name="centeron">
+<b>CenterOn</b></a> P1 [p2 [p3]]<p>
+
+Center the map window field on an object. Optionally, the field may be
+re-scaled and its projection changed.<p>
+
+P1 <a href="#object-name">object-name</a>.<p>
+
+p2 <a href="#scale">scale</a> (optional).<p>
+
+p3 <a href="#projections">projection</a> (optional).<p>
+
+The center of an object is defined as the vector mean of all of the object's
+defining points or vertices. Note that this point is generally NOT the
+object's geographic centroid.<p>
+
+<hr><a name="mapfieldaspect">
+<b>MapFieldAspect</b></a> [p1 p2]<p>
+
+Set the size of the map window <i>field</i> such that its aspect ratio is p1
+divided by p2 (approximately). The horizontal and vertical pixel dimensions
+of the resulting map field are adjusted to preserve the perimeter pixel count
+of the current map field. (See <a
+href="#reportmapfield">ReportMapField</a>).<p>
+
+p1 aspect ratio numerator (an integer)<p>
+
+p2 aspect ratio denominator (an integer).<p>
+
+For map displays in the world-wide Miller-like projection <b>wwview</b>, best
+results will be seen with an aspect ratio of 1.242 (p1=1242/p2=1000).<p>
+
+For map displays in the world-wide Mercator projection <b>wwmerc</b>, best
+results will be seen with aspect ratios ranging from 1.10 (p1=1100/p2=1000)
+to 1.40 (p1=1400/p2=1000).<p>
+
+For map displays in all other projections, any reasonable aspect ratio will
+do.<p>
+
+If p1 and p2 are omitted, the map window is restored to its original size
+and location as specified by the <b>galileo.gin</b> file.<p>
+
+The resulting map window field is cleared to its current background style.
+The current map window field geometry is undisturbed.<p>
+
+<b>Note</b> that the dimensions of the map window will be somewhat larger
+to accommodate the window title bar and borders.<p>
+
+See also <a href="#mapfieldsize">MapFieldSize</a>.<p>
+
+<hr><a name="reportmapfield">
+<b>ReportMapField</b></a> (no parameters)<p>
+
+Report current map window field size (in horizontal and vertical pixels)
+in the console window.<p>
+
+See also <a href="#mapfieldsize">MapFieldSize</a>
+and <a href="#mapfieldaspect">MapFieldAspect</a>.<p>
+
+<hr><a name="mapfieldsize">
+<b>MapFieldSize</b></a> [p1 p2]<p>
+
+Set the size of the current map window <i>field</i> to a specific number of
+horizontal and vertical pixels.<p>
+
+p1 map window field horizontal pixel count<p>
+
+p2 map window field vertical pixel count.<p>
+
+<b>Note</b> that the dimensions of the map window will be somewhat larger
+to accommodate the window title bar and borders.<p>
+
+If p1 and p2 are omitted, the map window is restored to its original size
+and location as specified by the <b>galileo.gin</b> file.<p>
+
+The resulting map window field is cleared to its current background style.
+The current map field geometry is undisturbed.<p>
+
+<b>Note:</b> This command is intended for use in preparing bitmap displays or
+plots having specific pixel count dimensions.<p>
+
+See also <a href="#mapfieldaspect">MapFieldAspect</a>.<p>
+
+
+<hr><a name="savebitmap">
+<b>SaveBitmap</b></a> P1 [p2]<p>
+
+Save map field bitmap to a <b>bmp</b>, <b>jpg</b> or
+<b>png</b> formatted graphics file.<p>
+
+P1 Bitmap <a href="#file-name">file-name</a>.<p>
+
+p2 Optional modifier(s) <b>w|t|wt</b>.<p>
+
+If a path is not specified in the file-name, then the configuration parameter
+<b>data.directory</b> in the <b>galileo.gin</b> file is supplied.  If a
+file-name extension is not specified, then the extension <b>.bmp</b> is
+automatically supplied.<p>
+
+Note that the bitmap saved is the map field portion of the Windows "shadow"
+of the map window, NOT necessarily the image currently visible in the map
+field of the window. (The shadow is used by Windows to restore a window that
+has been (partially) obscured by some other window). Galileo commands such
+as Draw... and Display... automatically update the shadow. However, other
+Galileo commands such as Trace... that leave behind their visual effect do
+not automatically update the shadow. If their effect is to be recorded in a
+saved bitmap, then they should be followed by the <a
+href="#updatebitmap">UpdateBitmap</a> command.<p>
+
+Map field bitmaps saved in the <b>bmp</b> format are processable by the
+Windows Paint program and most other graphics image editors.  Be aware that
+the <b>bmp</b> file is created using the color depth currently in use by
+Windows. Therefore, if you are currently displaying a 16-bit or 24-bit color
+pixel, the saved file may be very large, and may require post-process
+reduction.<p>
+
+<b>jpg</b> images are processable by most browsers and graphics editors. For
+jpg images, be aware that the compression is "lossy" and therefore suitable
+ONLY for continuous images such as hypsographic surfaces. Images containing
+sharp edges, linework or lettering should never be saved in the jpg
+format.<p>
+
+<b>png</b> images are processable by most browsers and graphics editors.
+For png images, two additional modifiers are optional.<p>
+
+The <b>w</b> modifier specifies that the color pallette of the saved image be
+reduced to the closest colors in the 216 color <a
+href="webcolors.html">"websafe" palette</a>.  Png images created using this
+option will be significantly smaller in size and thus faster to render.<p>
+
+The <b>t</b> modifier specifies that a png transparency is to be prepared.
+The color of the current Galileo background is marked for transparency.<p>
+
+When rendered by an application, pixels having this color are ignored.
+In this way the lines, lettering and area fills of a map may be overlaid on
+a stylized background (such as birch bark) or a road map can be overlaid on
+a hypsographic terrain representation.<p>
+
+See also <a href="#showbitmap">ShowBitmap</a>, <a
+href="#reportmapfield">ReportMapField</a>, <a
+href="#mapfieldsize">MapFieldSize</a> and <a
+href="#mapfieldaspect">MapFieldAspect</a>.<p>
+
+<hr><a name="showbitmap">
+<b>ShowBitmap</b></a> P1<p>
+
+Show a <b>bmp</b>-format bitmap file in the current map field.<p>
+
+P1 <a href="#file-name">file-name</a>.<p>
+
+If a path is not specified in the file-name, then the configuration parameter
+<b>data.directory</b> in the <b>galileo.gin</b> file is supplied.  If a
+file-name extension is not specified, then the extension <b>.bmp</b> is
+supplied.<p>
+
+The current map field dimensions will normally be the same as that of the map
+field from which the bitmap was previously saved (see <a href="#savebitmap">
+SaveBitmap</a>).  Nevertheless, the named bitmap will be centered in the
+current map field, regardless of its dimensions. Providing the named bitmap
+is a <b>.bmp</b> meeting the "Device Independent Bitmap" standard, it can be
+expected to display correctly.<p>
+
+<b>Note</b> that Galileo does not currently show bitmaps of any format other
+than <b>bmp</b>.<p>
+
+See also <a href="#updatebitmap">UpdateBitmap</a>, <a
+href="#reportmapfield">ReportMapField</a>, <a
+href="#mapfieldsize">MapFieldSize</a> and <a
+href="#mapfieldaspect">MapFieldAspect</a>.<p>
+
+
+<hr><a name="updatebitmap">
+<b>UpdateBitmap</b></a> (no operands)<p>
+
+Update the map window "shadow" bitmap to capture transient trace imagery
+such as satellite traces and swaths.<p>
+
+This command, when given immediately after a trace command, ensures that any
+subsequent restoration of a (partially) obscured map window and/or a
+subsequent <a href="#savebitmap">SaveBitmap</a> command will properly
+include the transient trace imagery.<p>
+
+See also <a href="#reportmapfield">ReportMapField</a>, <a
+href="#mapfieldsize">MapFieldSize</a> and <a
+href="#mapfieldaspect">MapFieldAspect</a>.<p>
+
+<hr><a name="plotstart">
+<b>PlotStart</b></a> P1 P2<p>
+
+Initiate HP-GL/2 hard copy graphical output.
+All display commands occurring between the <b>PlotStart</b> and <b>PlotEnd</b>
+commands will produce an HP-GL/2 output stream, which may be directed to a
+hard copy device or to a file for subsequent processing.
+<dl>
+<dt>P1<dd>name of a plot format section in the <b>galileo.gin</b> file.
+<dt>P2<dd>device name or a hard copy plot stream receiving filename.
+</dl>
+
+The hard copy map center, scale, projection and orientation is that of the
+current <b>geometry</b>.  The hard copy device type, map field dimensions and
+HPGL device initialization and termination strings are defined in the named
+format section of the <a href="#gin">galileo.gin</a> file. (Formats are
+supplied for monochrome portrait and landscape plotting on Letter (8.5"x11")
+or A4 (210mmx297mm) paper; other formats may be added as required).<p>
+
+If specified, a plot stream receiving filename must be either fully qualified
+or unqualified (the current directory is not defined).  If unqualified, its
+path is supplied by the <b>temporary.directory</b> entry of the <a
+href="#gin">galileo.gin</a> file.  The default file extension is
+<b>.hpg</b>.<p>
+
+If a device name is specified, a temporary plot stream receiving file is
+opened (<b>_temp.hpg</b> in the <b>temporary.directory</b>).  Valid device
+names are: <b>PRN</b>, <b>LPT1</b>, <b>LPT2</b>, <b>LPT3</b>, <b>COM1</b>,
+<b>COM2</b>, <b>COM3</b> or <b>COM4</b>. (Device names may be specified in
+upper or lower case, with or without a colon suffix).<p>
+
+See also <a href="#plotend">PlotEnd</a>.<p>
+
+<hr><a name="plotframe">
+<b>PlotFrame</b></a> P1<p>
+
+<dl>
+<dt>p1<dd><a href="#style">style</a> (for <a href="#lines">lines</a>).<p>
+</dl>
+
+Causes a frame to be drawn around the perimeter of the plot map field.<p>
+
+<hr><a name="plotstring">
+<b>PlotString</b></a> P1<p>
+Causes a character string to be included in the plot command stream.
+<dl>
+<dt>P1<dd> (quoted) character string.
+</dl>
+
+Strings containing commas, whitespace or other ASCII control codes such as ESC
+should be surrounded by matching single or double quotes.<p>
+
+See also <a href="#plotinclude">PlotInclude.</a><p>
+
+<hr><a name="plotinclude">
+<b>PlotInclude</b></a> P1<p>
+
+Causes a file to be included in the plot command stream.
+
+<dl>
+<dt>P1<dd> filename of the file to be included.
+</dl>
+
+The filename must be either fully qualified or unqualified (the current
+directory is not defined).  If unqualified, its path is supplied by the
+<b>data.directory</b> entry in the  <a href="#gin">galileo.gin</a></b> file.
+The default file extension is <b>.hpg</b>.<p>
+
+See also <a href="#plotstring">PlotString.</a><p>
+
+<hr><a name="plotend">
+<b>PlotEnd</b></a> (no parameters)<p>
+
+Terminates plot stream generation and closes the receiving plot file
+(whether named or temporary).<p>
+
+If the plot stream was directed to a printer/plotter device (e.g., <b>PRN</b>),
+then another program (<i>GLPLOUT</i>, co-located with <i>Galileo</i>)
+is initiated that copies the temporary file to the device (queue) and,
+when complete, deletes the temporary receiving file.<p>
+
+Subsequent <i>Galileo</i> display rendering commands
+are directed to the map window.<p>
+
+See also <a href="#plotstart">PlotStart</a>.<p>
+
+<hr><a name="objects">
+<h3>Object Management</h3></a>
+
+These commands provide for the export, import, direct entry,
+display and destruction of the four principal Hipparchus objects:
+point sets, line sets, regions and surfaces.<p>
+
+<i>Hipparchus Library</i> functions recognize Hipparchus objects only
+in their canonical forms as (virtual) memory-resident structures.<p>
+
+<i>Galileo</i> however extends the definition of these objects to include
+several external forms.<p>
+
+<i>Galileo</i> commands in this section may be used to manage the conversion
+between the Hipparchus internal canonical forms and one or more of the external
+file forms known to <i>Galileo</i>.<p>
+
+<i>Galileo</i> implements Hipparchus canonical internal objects as
+Memory-Mapped Files</b>.  As such, these objects have an equivalent external
+binary file form, which is persistent.  These external file objects are known
+as <b>Hipparchus Binary Objects</b> which are normally identified as files
+having the extension <b>.hbo</b>.<p>
+
+Any reference to one of these objects in a <i>Galileo</i> command via
+an <a href="#object-name">object-name</a> that does not explicitly specify
+the <b>.hbo</b> extension will have this extension added by <i>Galileo</i>.<p>
+
+Also, if the reference lacks a path specification, then <i>Galileo</i>
+supplies the configuration parameter <b>data.directory</b> defined in the
+<b>galileo.gin</b> initialization file.<p>
+
+External <i>Hipparchus Binary Objects</i> are generally NOT portable across
+platforms. Their use should be confined to those platforms on which they were
+created.<p>
+
+Both <i>Galileo</i> and <i>Georama</i> provide access to <b>.hbo</b>
+memory-mapped external data.<p>
+
+<i>Galileo</i> also implements a variety of ASCII text file formats for the
+portable external storage of Hipparchus objects in latitude-longitude
+point/vertex coordinate form. These file formats are identical with those
+used by previous releases of <i>Galileo</i>, and are therefore both forwards
+and backwards compatible with prior releases. In addition, these forms are
+generally cross-platform compatible, barring only minor differences in the
+treatment of line endings, which are easily overcome. These files are usually
+designated by their file-name extensions: <b>.pts</b>, <b>.lns</b> and
+<b>.rgn</b>, for point set, line set and region objects, respectively. (No
+specific external form for a surface object is implemented in this Release.
+However, such an object can be recreated from its source .pts file (cf.
+<a href="#derivepsettin">DerivePsetTin</a>). <b>Note</b> that these
+coordinates are relative to some specific geodetic datum and ellipsoid. It is
+the application architect's responsibility to ensure that inter-system use of
+such coordinates is in the context of equivalent geodetic datums and
+ellipsoids.<p>
+
+<i>Galileo</i> also offers an alternative method of intersystem coordinate
+communication for objects in the form of <b>"concise direction cosines"</b>.
+Like latitude-longitude coordinates, these represent an object's global
+point/vertex locations, but expressed as 3D vectors normal to the Hipparchus
+sphere.  Since the sum of the squares of three (normalized) direction cosines
+equals unity, one can be dropped and recomputed as needed. The remaining two
+cosines are then expressed as signed 32-bit integers of which the two lowest
+order bits are used to encode which of the three cosines was dropped, and its
+sign. This scheme provides an isometric resolution of about 1cm on the
+Earth's surface. Objects exported/imported in this form are normally
+identified by the file extensions: <b>.ptc</b>, <b>.lnc</b> and <b>.rgc</b>,
+for point set, line set and region objects, respectively. <b>Note</b> that
+just as is the case with conventional latitude/longitudes, concise direction
+cosines are relative to some specific geodetic datum and ellipsoid. It is the
+application architect's responsibility to ensure that inter-system use of
+such coordinates is in the context of equivalent geodetic datums and
+ellipsoids.<p>
+
+
+The <i>Hipparchus Utilities</i> include stand-alone, cross-platform console
+programs for the batch conversion of external object files between many of
+their various forms.<p>
+
+<hr><a name="enterpset">
+<b>EnterPset</b></a> P1 p2<p>
+
+Enter a point set object using the <a href="#mouse">mouse</a>.<p>
+
+P1 <a href="#object-name">object-name for the new point set</a><p>
+
+p2 <a href="#resolution">resolution</a>.<p>
+
+If the resolution parameter specifies associated data,
+then the command associates a long integer serial number with each point entered,
+starting with 1.<p>
+
+The default coordinate resolution/datum format is <b>f</b> (float, no datum).<p>
+
+<hr><a name="enterlset">
+<b>EnterLset</b></a> P1 p2<p>
+
+Enter a line set object using the <a href="#mouse">mouse</a>.<p>
+
+P1 <a href="#object-name">object-name for the new line set</a><p>
+
+p2 <a href="#resolution">resolution</a>.<p>
+
+If the resolution parameter specifies associated data, then the command
+associates a long integer serial number with each vertex entered, starting
+with 1.<p>
+
+The default coordinate resolution/datum format is <b>f</b> (float, no datum).<p>
+
+Note that the line set may contain unintended self intersections.
+These can be detected by the subsequent application of the
+<a href="#derivepsetintersectlineself">DerivePsetIntersectLineSelf</a>
+command.<p>
+
+<hr><a name="enterrset">
+<b>EnterRset</b></a> P1 p2<p>
+
+Enter a region (ring set) object using the <a href="#mouse">mouse</a>.<p>
+
+P1 <a href="#object-name">object-name for the new region</a><p>
+
+p2 <a href="#resolution">resolution</a>.<p>
+
+If the resolution parameter specifies associated data, then the command
+associates a long integer serial number with each vertex entered, starting
+with 1.<p>
+
+The default coordinate resolution/datum format is <b>f</b> (float, no datum).<p>
+
+<b>Note</b> that the region is NOT VERIFIED on entry.  This should be done by
+subsequent application of the <a
+href="#verifyrsetboundary">VerifyRsetBoundary</a> and <a
+href="#verifyrsettopology">VerifyRsetTopology</a> comands, in that order.<p>
+
+<hr><a name="enterrsetinsidecircle">
+<b>EnterRsetInsideCircle</b></a> P1 [p2 [p3]]<p>
+
+Enter a quasi-circular container region using the <a href="#mouse">mouse</a>.<p>
+
+P1 <a href="#object-name">object-name for the new region</a><p>
+
+p2 <a href="#resolution">resolution</a><p>
+
+p3 region boundary vertex <a href="#densityfactor">density factor</a> [default is 2].<p>
+
+The first mouse button left-click defines the circle's center, the next
+defines a point on its circumference.  Vertices for an approximating polygon
+are generated at intervals determined by the density factor.<p>
+
+If the resolution parameter specifies associated data,
+then null values are supplied.<p>
+
+The default coordinate resolution/datum format is <b>f</b> (float, no datum).<p>
+
+See also <a href="#deriversetnearpoints">DeriveRsetNearPoints</a>.<p>
+
+<hr><a name="enterrsetinsidesector">
+<b>EnterRsetInsideSector</b></a> P1 [p2 [p3]]<p>
+
+Enter a quasi-spiral sector container region using the <a href="#mouse">mouse</a>.<p>
+
+P1 <a href="#object-name">object-name for the new region</a><p>
+
+p2 <a href="#resolution">resolution</a><p>
+
+p3 region boundary vertex <a href="#densityfactor">density factor</a> [default is 2].<p>
+
+The first mouse button left-click defines the sector region's center and its
+first vertex. The next left-click defines the first vertex on the sector's
+circumference arc while a third left-click defines its last arc vertex.
+Vertices approximating a spiral arc are generated counter-clockwise at
+intervals determined by the density factor, as if the first arc vertex
+defined a circle.<p>
+
+If the resolution parameter specifies associated data,
+then null values are supplied.<p>
+
+The default coordinate resolution/datum format is <b>f</b> (float, no datum).<p>
+
+See also <a href="#deriversetnearpoints">DeriveRsetNearPoints</a>.<p>
+
+<hr><a name="enterrsetoutsidecircle">
+<b>EnterRsetOutsideCircle</b></a> P1 [p2 [p3]]<p>
+
+Enter a quasi-circular exclusion region using the <a href="#mouse">mouse</a>.<p>
+
+P1 <a href="#object-name">object-name for the new region</a><p>
+
+p2 <a href="#resolution">resolution</a><p>
+
+p3 region boundary vertex <a href="#densityfactor">density factor</a> [default is 2].<p>
+
+The first mouse button left-click defines the circle's center, the next
+defines a point on its circumference.  Vertices for an approximating polygon
+are generated at intervals determined by the density factor.<p>
+
+If the resolution parameter specifies associated data,
+then null values are supplied.<p>
+
+The default coordinate resolution/datum format is <b>f</b> (float, no datum).<p>
+
+See also <a href="#deriversetafarpoints">DeriveRsetAfarPoints</a>.<p>
+
+<hr><a name="enterrsetoutsidesector">
+<b>EnterRsetOutsideSector</b></a> P1 [p2 [p3]]<p>
+
+Enter a quasi-spiral sector exclusion region using the <a
+href="#mouse">mouse</a>.<p>
+
+P1 <a href="#object-name">object-name for the new region</a><p>
+
+p2 <a href="#resolution">resolution</a><p>
+
+p3 region boundary vertex <a href="#densityfactor">density factor</a>
+[default is 2].<p>
+
+The first mouse button left-click defines an intermediate sector region's
+center and its first vertex. The next left-click defines the first vertex on
+this sector's circumference arc while a third left-click defines its last arc
+vertex. Vertices approximating a spiral arc are generated counter-clockwise
+at intervals determined by the density factor, as if the first arc vertex
+defined a circle.  Since the requested region is an exclusion region, the
+order of vertices of the intermediate sector is then reversed.<p>
+
+If the resolution parameter specifies associated data,
+then null values are supplied.<p>
+
+The default coordinate resolution/datum format is <b>f</b> (float, no datum).<p>
+
+See also <a href="#deriversetafarpoints">DeriveRsetAfarPoints</a>.<p>
+
+<hr><a name="importpset">
+<b>ImportPset</b></a> P1 [p2 [p3 [p4]]]<p>
+
+Import a point set object from an ASCII <b>.pts</b> or <b>.ptc</b> file.<p>
+
+P1 new point set <a href="#object-name">object-name</a><p>
+
+p2 ASCII <a href="#file-name">file-name</a><p>
+
+p3 <a href="#resolution">resolution</a>.<p>
+
+p4 <b>f</b> if the optional datum is to be stored as a float value.<p>
+
+If the ASCII file-name (p2) is not specified, then an ASCII filename is
+manufactured having the same path and filename as <b>object-name</b> but
+with the extension <b>.pts</b>.<p>
+
+If the ASCII file-name is specified with the extension <b>.ptc</b>, then the
+expected external coordinates will be in the form of "concise direction
+cosines", represented as two ASCII integers.<p>
+
+The default coordinate resolution/datum format is <b>f</b> (float, no datum).<p>
+
+<b>Note:</b> A point set object may also be constructed from the vertices
+of an <b>.lns</b> or <b>.rgn</b> file.
+See also <a href="#exportobject">ExportObject</a>.<p>
+
+<hr><a name="importlset">
+<b>ImportLset</b></a> P1 [p2 [p3 [p4]]]<p>
+
+Import a line set object from an ASCII <b>.lns</b> or <b>.lnc</b> file.<p>
+
+P1 new line set <a href="#object-name">object-name</a><p>
+
+p2 ASCII <a href="#file-name">file-name</a><p>
+
+p3 <a href="#resolution">resolution</a>.<p>
+
+p4 <b>f</b> if the optional datum is to be stored as a float value.<p>
+
+If the ASCII file-name (p2) is not specified, then an ASCII filename is
+manufactured having the same path and filename as <b>object-name</b> but
+with the extension <b>.lns</b>.<p>
+
+If the ASCII file-name is specified with the extension <b>.lnc</b>, then the
+expected external coordinates will be in the form of "concise direction
+cosines", represented as two ASCII integers.<p>
+
+The default coordinate resolution/datum format is <b>f</b> (float, no datum).<p>
+
+<b>Note:</b> A line set object may also be constructed from the boundary rings
+of a <b>.rgn</b> file, which may or may not be closed explicitly.
+See also <a href="#exportobject">ExportObject</a>.<p>
+
+<hr><a name="importrset">
+<b>ImportRset</b></a> P1 [p2 [p3 [p4]]]<p>
+
+Import a region (ring set) object from an ASCII <b>.rgn</b> or <b>.rgc</b>
+file.<p>
+
+P1 new region <a href="#object-name">object-name</a><p>
+
+p2 ASCII <a href="#file-name">file-name</a><p>
+
+p3 <a href="#resolution">resolution</a>.<p>
+
+p4 <b>f</b> if the optional datum is to be stored as a float value.<p>
+
+If the ASCII file-name (p2) is not specified, then an ASCII filename is
+manufactured having the same path and filename as <b>object-name</b> but
+with the extension <b>.rgn</b>.<p>
+
+If the ASCII file-name is specified with the extension <b>.rgc</b>, then the
+expected external coordinates will be in the form of "concise direction
+cosines", represented as two ASCII integers.<p>
+
+The default coordinate resolution/datum format is <b>f</b> (float, no datum).<p>
+
+<hr><a name="verifyrsetboundary">
+<b>VerifyRsetBoundary</b></a> P1<p>
+
+Verify region boundary rings(s).<p>
+
+P1 existing region <a href="#object-name">object-name</a><p>
+
+Ring verification checks that each ring of the set does not
+touch or cross itself or have any embedded duplicate vertices.<p>
+
+If this verification test fails,
+you are notified by an error message
+and the command errorlevel is set to 2.<p>
+
+<hr><a name="verifyrsettopology">
+<b>VerifyRsetTopology</b></a> P1<p>
+
+Verify region topology.<p>
+
+P1 existing region <a href="#object-name">object-name</a><p>
+
+This region verification test assumes that the region has previously
+passed the <b>VerifyRsetBoundary</b> test.
+
+Topology verification checks that there is no point on the Earth's
+surface which is at the same time both inside and outside any two rings
+that can be reached from that point without crossing another ring.
+Stated otherwise, all pairs of nested rings must have opposite direction,
+clockwise vs counterclockwise.
+See also the formal definition of a region in the <i>Hipparchus
+Tutorial</i>.<p>
+
+If this verification test fails,
+you are notified by an error message
+and the command errorlevel is set to 2.<p>
+
+<hr><a name="verifyrsetisnull">
+<b>VerifyRsetIsNull</b></a> P1<p>
+
+Verify that a region is null, i.e., has no extent,
+the complement of a world region.<p>
+
+P1 existing region <a href="#object-name">object-name</a><p>
+
+If this verification test fails,
+you are notified by an error message
+and the command errorlevel is set to 2.<p>
+
+See also <a href="#deriversetcomplement">DeriveRsetComplement</a>,
+<a href="#verifyrsetisworld">VerifyRsetIsWorld</a><p>
+
+<hr><a name="verifyrsetisworld">
+<b>VerifyRsetIsWorld</b></a> P1<p>
+
+Verify that a region is world-wide, i.e., covers the planet,
+the complement of a null region.<p>
+
+P1 existing region <a href="#object-name">object-name</a><p>
+
+If this verification test fails,
+you are notified by an error message
+and the command errorlevel is set to 2.<p>
+
+See also <a href="#deriversetcomplement">DeriveRsetComplement</a>,
+<a href="#verifyrsetisnull">VerifyRsetIsNull</a><p>
+
+<hr><a name="exportobject">
+<b>ExportObject</b></a> P1 [p2] [p3 p4]<p>
+
+Export an object to an ASCII file.<p>
+
+P1 existing <a href="#object-name">object-name</a><p>
+
+p2 <a href="#file-name">file-name</a><p>
+
+p3 format string for latitudes<p>
+
+p4 format string for longitudes.<p>
+
+This command understands the dimensionality of the object specified
+by <b>object-name</b>. If p2 is not specified, then the ASCII output
+will be written to a file of the same name as <b>object-name</b>
+except that the extension <b>.pts</b>, <b>.lns</b> or <b>.rgn</b>
+will be substituted, as appropriate.<p>
+
+ASCII output may consist of lines containing space-delimited latitude,
+longitude and associated datum (if present).  Sets of coordinates are aligned
+with respect to the columnar placement of their components and decimals (if
+any).<p>
+
+If present in the object, the datum associated with each set of coordinates
+is output following the longitude as a space-delimited unsigned long integer.<p>
+
+If p2 is a null entry, or is specified explicitly, then the format of the
+ASCII sexagesimal latitude and longitudes output to the file-name p2
+may optionally be specified by p3 and p4, according to the formatting rules
+defined for the <i>Hipparchus Auxiliary Library</i>
+function <b>h0_AngleToString</b>.<p>
+
+Examples follow:<pre>
+ n51.123456 w114.123456\n
+  s5.123456  e87.654321\n
+ n90.000000   w0.000000 0\n
+ s90.000000 e180.000000 1\n
+  n0.000000 w180.000000 4294967295\n
+</pre><p>
+
+The format strings used to produce the example coordinates above are: "nsd6"
+and "ewd6".  These are the default formats when the <b>angle.sexagesimal</b>
+parameter in the <a href="#gin">galileo.gin</a> file is unspecified or set to
+zero.  If <b>angle.sexagesimal</b> is set to one, the default formats for the
+export of latitude and longitude coordinates are "nss2" and "ews2",
+respectively, giving these angles in degrees, minutes, seconds and hundreths
+of seconds, separated by colons, i.e., ddd:mm:ss.ss.<p>
+
+If p2 is explicitly defined as a file having the extension <b>.ptc</b>,
+<b>.lnc</b> or <b>.rgc</b>, then the object's point/vertex coordinates will
+be output in the form of "concise direction cosines", as pairs of ASCII
+integers.  If specified, p3 and p4 are ignored.<p>
+
+All output files are terminated with a line containing an asterisk marker
+in column 1.  Non-empty line set and region files will also contain an
+asterisk marker line following the last vertex for each line or ring
+of the line set or region object.<p>
+
+On export, objects of reduced dimensionality may be derived from <b>.hbo</b>
+objects of higher dimensionality.  This is signalled by explicit
+specification of an extension in p2. Thus a line set object <b>(.lns)</b> or
+a point set object <b>(.pts)</b> may be exported from a region object or a
+point set object <b>(.pts)</b> may be exported from a line set object.  A
+line set object derived in this way from a region object contains (as lines)
+the boundary rings of the region, <i>each closed explicitly by repetition of
+the first vertex of the ring.</i>  A point set object derived on export from
+a region has (as its points) only the vertices implicitly defining its rings.
+A point set object derived on export from a line set object has (as its
+points) every vertex defining the line set object. <b>Note</b> that such
+objects will be required for computational purposes only.  For example, the
+line set object derived in this manner from a region may be imported and used
+to determine proximity of a point or point set to the boundaries of that
+region.  <b>Note also</b> that such objects are generally <i>NOT</i> required
+to render the boundaries or vertices of regions or the vertices of line sets
+(see next section).<p>
+
+<hr><a name="objectdisplay">
+<h3>Object Display</h3></a>
+
+These commands provide for the display of Hipparchus binary objects (or
+parts thereof), or Hipparchus collections.<p>
+
+Hipparchus binary objects and collections are defined in the context of
+specific Voronoi indexes. When accessing these entities for display purposes,
+Galileo first attempts to match the entity to the principal Voronoi index, as
+defined in the control file <a href="#gin">galileo.gin</a> (and
+possibly redefined by subsequent <a href="#readvix">ReadVix</a>,
+<a href="#readdecryptvix">ReadDecryptVix</a> or <a href="#readtix">ReadTix</a>
+commands). Should that match fail, the display commands initiate a search for
+previously loaded "secondary" Voronoi indexes. Should that search fail, then
+an external search is made of the data subdirectory. If found, that Voronoi
+index file is loaded as a "secondary" index. Should no matching index be
+found, or should there be an insufficient number of slots or memory to
+accommodate it, the user will be advised via an error message.<p>
+
+<hr><a name="displaypoints">
+<b>DisplayPoints</b></a> P1 [p2 [p3]]<p>
+
+Display the points or vertices of a Hipparchus binary object or collection.
+<p>
+
+P1 existing <a href="#object-name">object-name</a> or
+   <a href="#collection-name">collection-name</a><p>
+
+p2 <a href="#style">style</a> (for <a href="#points">points</a>).<p>
+
+p3 Specified-points only indicator: <b>s|e</b> or <b>p|v|b</b>.<p>
+
+If p3 is specified and the object is a Hipparchus binary object line set,
+then only the ending vertices of the line(s) in the set are rendered as
+points. Code <b>s</b> specifies line start points while code <b>e</b>
+specifies line end points. These options are useful in graphically
+depicting the sense of the lines of a line set.<p>
+
+If p3 is specified and the object is a Hipparchus TIN, then subsets of
+triangle vertices may be selected: code <b>p</b> selects the vertices of
+triangles interior to cells, code <b>b</b> selects the vertices of
+triangles along cell boundaries while code <b>v</b> selects cell boundary
+vertices. These codes make possible the graphicical distinction between
+such triangles and their vertices.<p>
+
+<hr><a name="displaylines">
+<b>DisplayLines</b></a> P1 [p2 [p3]]<p>
+
+Display the lines, rings or TIN edges of a Hipparchus binary object
+<b>.hbo</b> line set, region or Pset-TIN, respectively, or the lines or rings
+of a lines or regions collection <b>.plr</b>.<p>
+
+P1 existing <a href="#object-name">object-name</a> or
+   <a href="#collection-name">collection-name</a><p>
+
+p2 <a href="#lines">lines</a> <a href="#style">style</a>.<p>
+
+p3 TIN-edge selection indicator: <b>a</b>, <b>i</b> or <b>b</b>.<p>
+
+If the object is a Pset-TIN surface, then p3 specifies that cell-
+interior (<b>i</b>) or cell-boundary (<b>b</b>) TIN edges only are to be
+displayed. The default, <b>a</b>, displays all edges.<p>
+
+<hr><a name="displayarea">
+<b>DisplayArea</b></a> P1 p2<p>
+
+Display the filled areas of an <b>.hbo</b> region.<p>
+
+P1 existing region <a href="#object-name">object-name</a><p>
+
+p2 <a href="#style">style</a> (for <a href="#fills">fills</a>).<p>
+
+<b>Note</b> that the area fill for complex objects may require a larger-than-
+normal workspace.  This may be remedied by application of the <a
+href="#set">Set</a> command (i.e., set work.space.size = nnnnnn
+(bytes).</a>.<p>
+
+<hr><a name="displaysurfacehypso">
+<b>DisplaySurfaceHypso</b></a> P1 p2<p>
+
+Display a Pset-TIN surface hypsographically, that is using a color gradient to
+represent "elevation", "depth" or other numeric attribute such as
+population or product sales.<p>
+
+P1 existing Pset-TIN <a href="#object-name">object-name</a><p>
+
+p2 <a href="#surface">surface</a> <a href="#style">style</a>.<p>
+
+The color gradient range is specified by means of the extended RGB specifiers
+of the style.<p>
+
+For wide-area displays, a generalized view is available via specification of
+the style item <b>n1</b>.  In this view, cell segments are rendered
+hypsographically rather that individual TIN faces.<p>
+
+<hr><a name="displaysurfaceshade">
+<b>DisplaySurfaceShade</b></a> P1 p2<p>
+
+Display a Pset-TIN surface with "shading", that is using a color gradient to
+represent "elevation" or other numeric attribute, indirectly by
+differentiating between the orientation of TIN triangle faces with respect
+to a reference light-source (namely, the upper right-hand corner of the
+display field).<p>
+
+P1 existing Pset-TIN <a href="#object-name">object-name</a><p>
+
+p2 <a href="#surface">surface</a> <a href="#style">style</a>.<p>
+
+The color gradient range is specified by means of the extended RGB specifiers
+of the style.<p>
+
+For wide-area displays, a generalized view is available via specification of
+the style item <b>n1</b>.  In this view, cell segments are shaded rather
+that individual TIN faces.<p>
+
+<hr><a name="nearestinpset">
+<b>NearestInPset</b></a> P1 p2<p>
+
+Display the distance from a location indicated by the mouse
+to the nearest point of a point set object.<p>
+
+P1 point set <a href="#object-name">object-name</a><p>
+
+p2 <a href="#color">color</a> to temporarily highlight the nearest point.<p>
+
+Left-clicking the mouse reveals the geographic coordinates
+(and any associated datum) of the nearest point plus its distance
+(in kilometers) from the mouse position.<p>
+
+<a href="#rightmousebutton">Right-clicking</a> the mouse
+reveals its current coordinates and the leg and cumulative
+distances between successive right-clicks.<p>
+
+<hr><a name="farthestinpset">
+<b>FarthestInPset</b></a> P1 p2<p>
+
+Display the distance from a location indicated by the mouse
+to the farthest point of a point set object.<p>
+
+P1 point set <a href="#object-name">object-name</a><p>
+
+p2 <a href="#color">color</a> to temporarily highlight the farthest point.<p>
+
+Left-clicking the mouse reveals the geographic coordinates
+(and any associated datum) of the farthest point plus its distance
+(in kilometers) from the mouse position.<p>
+
+<a href="#rightmousebutton">Right-clicking</a> the mouse
+reveals its current coordinates and the leg and cumulative
+distances between successive right-clicks.<p>
+
+<hr><a name="nearestorderedinpset">
+<b>NearestOrderedInPset</b></a> P1 P2 P3 [p4]<p>
+
+In a point set, find the nearest of up to n points within radius r
+of a designated mouse position, ordered by distance.<p>
+
+P1 point set <a href="#object-name">object-name</a><p>
+
+P2 maximum number of points sought (n>1)<p>
+
+P3 maximum radius of search (meters)<p>
+
+p4 <a href="#color">color</a> to temporarily highlight the nearest point.<p>
+
+Left-clicking the mouse lists (in the console) the geographic coordinates
+(and any associated datum) of the nearest points (if any) and their distances
+(in kilometers) from the mouse position, in ascending order, which points are
+temporarily highlighted in the optional style.<p>
+
+<a href="#rightmousebutton">Right-clicking</a> the mouse
+reveals its current coordinates and the leg and cumulative
+distances between successive right-clicks.<p>
+
+<hr><a name="nearpointincollection">
+<b>NearPointInCollection</b></a> P1 p2<p>
+
+Search a collection of points PLR file for a point near the mouse cursor,
+highlight that point in the map window and display in the console window
+any datum associated with that point.<p>
+
+P1 <a href="#collection-name">collection-name</a><p>
+
+p2 <a href="#color">color</a> to temporarily highlight the nearby point.<p>
+
+As the mouse is moved, nearby points in a point collection PLR file P1 are
+sought out and displayed (temporarily) as bullets (of optional color p2). The
+process is terminated by clicking on the Esc button or by pressing the Esc
+key.<p>
+
+Left-clicking the mouse reveals any data associated with a nearby point.<p>
+
+<a href="#rightmousebutton">Right-clicking</a> the mouse
+reveals its current coordinates and the leg and cumulative
+distances between successive right-clicks.<p>
+
+<b>Note:</b> this command will normally follow a <a
+href="#displaypoints">DisplayPoints</a> command so that the user can
+interactively view any data associated with points of interest.<p>
+
+<hr><a name="nearestinlset">
+<b>NearestInLset</b></a> P1 p2<p>
+
+Display the distance from a location indicated by the mouse
+to the nearest point of a line set object.<p>
+
+P1 line set <a href="#object-name">object-name</a><p>
+
+p2 <a href="#color">color</a> to temporarily highlight the nearest point.<p>
+
+Left-clicking the mouse reveals the geographic coordinates of the nearest
+point lying on the object's nearest line segment, plus its distance (in
+kilometers) from the mouse position. <b>Note</b> that this point may
+<b>NOT</b> be a vertex.  Any data associated with the vertex (or two bounding
+vertices) is displayed.<p>
+
+<a href="#rightmousebutton">Right-clicking</a> the mouse
+reveals its current coordinates and the leg and cumulative
+distances between successive right-clicks.<p>
+
+<hr><a name="farthestinlset">
+<b>FarthestInLset</b></a> P1 p2<p>
+
+Display the distance from a location entered by the mouse
+to the farthest vertex of a line set object.<p>
+
+P1 line set <a href="#object-name">object-name</a><p>
+
+p2 <a href="#color">color</a> to temporarily highlight the farthest point.<p>
+
+Left-clicking the mouse reveals the geographic coordinates
+(and any associated datum) of the farthest vertex plus its distance
+(in kilometers) from the mouse position.<p>
+
+<a href="#rightmousebutton">Right-clicking</a> the mouse
+reveals its current coordinates and the leg and cumulative
+distances between successive right-clicks.<p>
+
+<hr><a name="length">
+<b>Length</b></a> P1<p>
+
+Calculate and display in the console the following statistics
+for a line set object:
+the number of vertices for the line set object and
+the length of all of the lines of the set (km).<p>
+
+P1 line <a href="#object-name">object-name</a>.<p>
+
+<hr><a name="nearlineincollection">
+<b>NearLineInCollection</b></a> P1 p2<p>
+
+Search a collection of lines PLR file for a line near the mouse cursor,
+highlight that line in the map window and display in the console window
+any datum associated with that line.<p>
+
+P1 <a href="#collection-name">collection-name</a><p>
+
+p2 <a href="#color">color</a> to temporarily highlight the nearby line.<p>
+
+As the mouse is moved, nearby lines in a line collection PLR file P1 are
+sought out and displayed (temporarily) as lines (of optional color p2). The
+process is terminated by clicking on the Esc button or by pressing the Esc
+key.<p>
+
+Left-clicking the mouse reveals any data associated with a nearby line.<p>
+
+<a href="#rightmousebutton">Right-clicking</a> the mouse
+reveals its current coordinates and the leg and cumulative
+distances between successive right-clicks.<p>
+
+<b>Note:</b> this command will normally follow a <a
+href="#displaylines">DisplayLines</a> command so that the user can
+interactively view any data associated with lines of interest.<p>
+
+<hr><a name="area">
+<b>Area</b></a> P1 p2<p>
+
+Calculate and display in the console the following statistics
+for a region object: the number of vertices, the area (km**2),
+and the perimeter length (km).<p>
+
+P1 region <a href="#object-name">object-name</a>.<p>
+
+p2 optional area calculator controls [<b>s</b>|<b>p</b>|<b>r</b>].<p>
+
+If p2 is <b>s</b>, then the calculator assumes that the region has a limited
+number of rings and is less than a hundred kilometers or so in extent and so
+performs the area calculation with considerably higher precision than in
+the general case, i.e., with p2 unspecified.<p>
+
+If p2 is <b>p</b>, then the calculator assumes that adjacent vertices having
+approximately the same latitude define a parallel of latitude, rather than a
+geodesic. <b>p</b> implies <b>s</b>. Therefore the calculator assumes that
+the object is of approximately the same complexity and extent as assumed
+above and the computation is performed with similar precision.<p>
+
+If p2 is <b>r</b>, then the calculator expects an object having a number of
+rings consisting of exactly four vertices each defining latitude-longitude
+"rectangles" on the ellipsoid. The area of this object is calculated with
+very high precision, which can be used to gauge the relative precision of the
+less stringent computations above. The boundaries of these rings may touch
+without invalidating the area computation, so that adjacent "rectangles" are
+tolerated. <b>r</b> implies <b>p</b> and <b>s</b>.<p>
+
+Note that perimeter lengths reported are cumulative geodesics and are
+unaffected by any of the above options.<p>
+
+<hr><a name="nearestinrset">
+<b>NearestInRset</b></a> P1 p2<p>
+
+Display the distance from a location indicated by the mouse
+to the nearest point of a region object.<p>
+
+P1 region <a href="#object-name">object-name</a><p>
+
+p2 <a href="#color">color</a> to temporarily highlight the nearest point.<p>
+
+Left-clicking the mouse reveals the geographic coordinates of the nearest
+point lying on the object's nearest ring segment, plus its distance (in
+kilometers) from the mouse position. <b>Note</b> that this point may
+<b>NOT</b> be a vertex.  Any data associated with the vertex (or two bounding
+vertices) is displayed.<p>
+
+<hr><a name="overheadrsetincollection">
+<b>OverheadRsetInCollection</b></a> P1 p2<p>
+
+Search a collection of regions PLR file for a region under the mouse cursor,
+fill that region in the map window and display in the console window
+any datum associated with that line.<p>
+
+P1 <a href="#collection-name">collection-name</a><p>
+
+p2 <a href="#color">color</a> to temporarily fill the selected region.<p>
+
+As the mouse is moved, regions in a collection of regions PLR file (P1) are
+sought out and highlighted (temporarily) as filled regions (of optional color
+p2). The process is terminated by clicking on the Esc button or by pressing
+the Esc key.<p>
+
+Left-clicking the mouse reports a region's area, perimeter and number of
+vertices.<p>
+
+<hr><a name="overheadsurface">
+<b>OverheadSurface</b></a> P1<p>
+
+Report in the console window interpolated Z values (such as elevation, depth,
+etc.) for a surface.<p>
+
+P1 <a href="#object-name">surface object name</a><p>
+
+As the mouse is moved, the locally interpolated Z value for the surface is
+reported in the console window.  If the left mouse button is clicked, then
+the lat/long of the position is reported, along with the Voronoi cell number.
+The process is terminated by clicking on the Esc button or by pressing the
+Esc key.<p>
+
+<hr><a name="eraseobject">
+<b>EraseObject</b></a> P1<p>
+
+Erases a file or object.<p>
+
+P1 <a href="#file-name">file-name</a> or
+<a href="#object-name">object-name</a>.<p>
+
+<hr><a name="operators">
+<h3>Spatial Operators and Derived Objects</h3></a>
+
+These commands derive new objects as the result of spatial relationships
+between existing spatial objects.<p>
+
+Derived objects become new <i>Hipparchus Binary Objects</i>, with both internal
+and persistent external representation as <b>object-name</b> <b>.hbo</b> entities.<p>
+
+<hr><a name="derivepsetreduced">
+<b>DerivePsetReduced</b> P1 P2 [p3] [p4]<p>
+
+From an existing point set, derive a new point set in which any points
+sharing the same cell local coordinates are represented by a single point.
+The derived point set <i>includes</i> all other points in the existing point
+set.<p>
+
+P1 <a href="#object-name">object-name</a> of the new (derived) point set<p>
+
+P2 <a href="#object-name">object-name</a> of the existing point set<p>
+
+p3 <a href="#resolution">resolution</a> of the new point set (optional)<p>
+
+p4 <b>datum</b>, an optional keyword.<p>
+
+If the format of the existing object's coordinates includes associated data,
+then the specification of coordinate equivalence may be extended to include
+exact equivalence of the associated data, by use of the <b>datum</b>
+keyword.<p>
+
+If the format of the derived object is to include associated data, and
+associated data is available in the existing object, then that data is copied
+from the existing object.  If the <b>datum</b> option is NOT specified, the
+datum supplied for points representing points sharing the same coordinates is
+taken from one of those points.<p>
+
+If the format of the derived object is to include associated data, and no
+data is associated with the existing object, then null datum values are
+supplied.<p>
+
+Note that if the existing set is empty, the derived point set object will
+also be empty.<p>
+
+<hr><a name="derivepsetduplicates">
+<b>DerivePsetDuplicates</b> P1 P2 [p3] [p4]<p>
+
+From an existing point set, derive a new point set in which any points
+sharing the same cell local coordinates are represented by a single point.
+The derived point set <i>excludes</i> all other points in the existing point
+set.<p>
+
+P1 <a href="#object-name">object-name</a> of the new (derived) point set<p>
+
+P2 <a href="#object-name">object-name</a> of the existing point set<p>
+
+p3 <a href="#resolution">resolution</a> of the new point set (optional)<p>
+
+p4 <b>datum</b>, an optional keyword.<p>
+
+If the format of the existing object's coordinates includes associated data,
+then the specification of coordinate equivalence may be extended to include
+exact equivalence of the associated data, by use of the <b>datum</b>
+keyword.<p>
+
+If the format of the derived object is to include associated data, and
+associated data is available in the existing object, then that data is copied
+from the existing object.  If the <b>datum</b> option is NOT specified, the
+datum supplied for points representing points sharing the same coordinates is
+taken from one of those points.<p>
+
+If the format of the derived object is to include associated data, and no
+data is associated with the existing object, then null datum values are
+supplied.<p>
+
+Note that the derived point set object may be empty.<p>
+
+
+<hr><a name="derivepsetunique">
+<b>DerivePsetUnique</b> P1 P2 [p3] [p4]<p>
+
+From an existing point set, derive a new point set in which any points
+sharing the same cell local coordinates are <i>excluded</i>.  The derived
+point set includes all other points in the existing point set.<p>
+
+P1 <a href="#object-name">object-name</a> of the new (derived) point set<p>
+
+P2 <a href="#object-name">object-name</a> of the existing point set<p>
+
+p3 <a href="#resolution">resolution</a> of the new point set (optional)<p>
+
+p4 <b>datum</b>, an optional keyword.<p>
+
+If the format of the existing object's coordinates includes associated data,
+then the specification of coordinate equivalence may be extended to include
+exact equivalence of the associated data, by use of the <b>datum</b>
+keyword.<p>
+
+If the format of the derived object is to include associated data,
+and associated data is available in the existing object, then that data
+is copied from the existing object.<p>
+
+If the format of the derived object is to include associated data, and no
+data is associated with the existing object, then null datum values are
+supplied.<p>
+
+Note that the derived point set object may be empty.<p>
+
+
+<hr><a name="derivepsetcombinedall">
+<b>DerivePsetCombinedAll</b> P1 P2 P3 [p4] [p5]<p>
+
+Derive a new point set object as the spatial OR of two existing point set objects.<p>
+
+In this spatial OR operation, any points in the first or second existing
+operand objects having no coordinate equivalent counterparts in the other
+object are output to the new derived object, (together with any associated
+datum, if indicated).  Any points found in common between the two objects are
+represented in the derived object as a single point, with any opted datum
+copied preferentially from the first of the two operand objects.<p>
+
+P1 <a href="#object-name">object-name</a> of the new (derived) point set<p>
+
+P2 <a href="#object-name">object-name</a> of the first existing point set<p>
+
+P3 <a href="#object-name">object-name</a> of the second existing point set<p>
+
+p4 <a href="#resolution">resolution</a> of the new point set (optional)<p>
+
+p5 <b>datum</b>, an optional keyword.<p>
+
+The resolutions of the two existing objects must necessarily match with
+respect to their coordinate format, if not the presence of associated
+data.<p>
+
+If the format of both the existing object's coordinates includes associated
+data, then the specification of coordinate equivalence may be extended to
+include exact equivalence of the associated data, by use of the <b>datum</b>
+keyword.<p>
+
+If the format of the derived object is to include associated data,
+and associated data is available in either of the existing objects, then that data
+is copied preferentially from the first of the existing object operands.<p>
+
+If the format of the derived object is to include associated data, and no
+data is associated with either of the existing objects, then null datum
+values are supplied.<p>
+
+Operation of this command is defined for operand point sets having no points
+that share equivalent coordinates (after any extension of equivalency using
+the <b>datum</b> option).  Such point sets may first be reduced to this state
+using <a href="#derivepsetreduced">DerivePsetReduced</a>, <a
+href="#derivepsetunique">DerivePsetUnique</a> or <a
+href="#derivepsetduplicates">DerivePsetDuplicates</a>, as required.<p>
+
+Note that if both of the existing objects are empty, then the derived object
+will be empty.<p>
+
+
+<hr><a name="derivepsetcombinedunique">
+<b>DerivePsetCombinedUnique</b> P1 P2 P3 [p4] [p5]<p>
+
+Derive a new point set object as the spatial XOR of two existing point set objects.<p>
+
+In this spatial XOR operation, any points in the first or second existing
+operand objects having NO equivalent counterparts in the other object are
+output to the new derived object, (together with any associated datum, if
+indicated).  Any points found in common between the two existing objects are
+NOT output to the derived object.<p>
+
+P1 <a href="#object-name">object-name</a> of the new (derived) point set<p>
+
+P2 <a href="#object-name">object-name</a> of the first existing point set<p>
+
+P3 <a href="#object-name">object-name</a> of the second existing point set<p>
+
+p4 <a href="#resolution">resolution</a> of the new point set (optional)<p>
+
+p5 <b>datum</b>, an optional keyword.<p>
+
+The resolutions of the two existing objects must necessarily match with
+respect to their coordinate format, if not the presence of associated
+data.<p>
+
+If the format of both the existing object's coordinates includes associated
+data, then the specification of coordinate equivalence may be extended to
+include exact equivalence of the associated data, by use of the <b>datum</b>
+keyword.<p>
+
+If the format of the derived object is to include associated data, and
+associated data is available in either of the existing objects, then that
+data is copied preferentially from the first of the existing object
+operands.<p>
+
+If the format of the derived object is to include associated data, and no
+data is associated with either of the existing objects, then null datum
+values are supplied.<p>
+
+Operation of this command is defined for operand point sets having no points
+that share equivalent coordinates (after any extension of equivalency using
+the <b>datum</b> option).  Such point sets may first be reduced to this state
+using <a href="#derivepsetreduced">DerivePsetReduced</a>, <a
+href="#derivepsetunique">DerivePsetUnique</a> or <a
+href="#derivepsetduplicates">DerivePsetDuplicates</a>, as required.<p>
+
+Note that the derived point set object may be empty.<p>
+
+<hr><a name="derivepsetcommon">
+<b>DerivePsetCommon</b> P1 P2 P3 [p4] [p5]<p>
+
+Derive a new point set object as the spatial AND of two existing point set
+objects.<p>
+
+In this spatial AND operation, any points in the first or second existing
+operand objects having no coordinate equivalent counterparts in the other
+object are NOT output to the new derived object.  Any points found in common
+between the two objects are represented in the derived object as a single
+point, with any indicated datum copied preferentially from the first of the
+two operand objects.<p>
+
+P1 <a href="#object-name">object-name</a> of the new (derived) point set<p>
+
+P2 <a href="#object-name">object-name</a> of the first existing point set<p>
+
+P3 <a href="#object-name">object-name</a> of the second existing point set<p>
+
+p4 <a href="#resolution">resolution</a> of the new point set (optional)<p>
+
+p5 <b>datum</b>, an optional keyword.<p>
+
+The resolutions of the two existing objects must necessarily match with
+respect to their coordinate format, if not the presence of associated
+data.<p>
+
+If the format of both the existing object's coordinates includes associated
+data, then the specification of coordinate equivalence may be extended to
+include exact equivalence of the associated data, by use of the <b>datum</b>
+keyword.<p>
+
+If the format of the derived object is to include associated data, and
+associated data is available in either of the existing objects, then that
+data is copied preferentially from the first of the existing object
+operands.<p>
+
+If the format of the derived object is to include associated data, and no
+data is associated with either of the existing objects, then null datum
+values are supplied.<p>
+
+Operation of this command is defined for operand point sets having no points
+that share equivalent coordinates (after any extension of equivalency using
+the <b>datum</b> option).  Such point sets may first be reduced to this state
+using <a href="#derivepsetreduced">DerivePsetReduced</a>, <a
+href="#derivepsetunique">DerivePsetUnique</a> or <a
+href="#derivepsetduplicates">DerivePsetDuplicates    </a>, as required.<p>
+
+Note that the derived point set object may be empty.<p>
+
+
+<hr><a name="derivepsetnearlines">
+<b>DerivePsetNearLines</b></a> P1 P2 P3 P4 p5<p>
+
+Derive the subset of a point set that lies in proximity to a line set.<p>
+
+P1 new point set <a href="#object-name">object-name</a><p>
+
+P2 existing point set <a href="#object-name">object-name</a><p>
+
+P3 existing line set <a href="#object-name">object-name</a><p>
+
+P4 proximity distance criterion (meters).<p>
+
+p5 <a href="#resolution">resolution</a><p>
+
+Note that the derived point set object may be empty.<p>
+
+
+<hr><a name="derivepsetafarlines">
+<b>DerivePsetAfarLines</b></a> P1 P2 P3 P4 p5<p>
+
+Derive the subset of a point set that lies NOT in proximity to a line set.<p>
+
+P1 new point set <a href="#object-name">object-name</a><p>
+
+P2 existing point set <a href="#object-name">object-name</a><p>
+
+P3 existing line set <a href="#object-name">object-name</a><p>
+
+P4 proximity distance criterion (meters).<p>
+
+p5 <a href="#resolution">resolution</a><p>
+
+Note that the derived point set object may be empty.<p>
+
+
+<hr><a name="derivepsetinside">
+<b>DerivePsetInside</b></a> P1 P2 P3 p4<p>
+
+Find the subset of a point set that lies inside a region.<p>
+
+P1 new point set <a href="#object-name">object-name</a><p>
+
+P2 existing point set <a href="#object-name">object-name</a><p>
+
+P3 existing region <a href="#object-name">object-name</a>.<p>
+
+p4 <a href="#resolution">resolution</a><p>
+
+Note that the derived point set object may be empty.<p>
+
+
+<hr><a name="derivepsetoutside">
+<b>DerivePsetOutside</b></a> P1 P2 P3 p4<p>
+
+Find the subset of a point set that lies outside a region.<p>
+
+P1 new point set <a href="#object-name">object-name</a><p>
+
+P2 existing point set <a href="#object-name">object-name</a><p>
+
+P3 existing region <a href="#object-name">object-name</a>.<p>
+
+p4 <a href="#resolution">resolution</a><p>
+
+Note that the derived point set object may be empty.<p>
+
+
+<hr><a name="derivepsetintersectlines">
+<b>DerivePsetIntersectLines</b></a> P1 P2 P3 p4<p>
+
+Find the point set that consists of the intersections of
+two line set objects.<p>
+
+P1 new point set <a href="#object-name">object-name</a><p>
+
+P2 first existing line set <a href="#object-name">object-name</a><p>
+
+P3 second existing line set <a href="#object-name">object-name</a>.<p>
+
+p4 <a href="#resolution">resolution</a><p>
+
+If the resolution specifies associated data,
+then the null datum is supplied.<p>
+
+If no intersections are found, then the derived point set will be empty.<p>
+
+
+<hr><a name="derivepsetintersectlineself">
+<b>DerivePsetIntersectLineSelf</b></a> P1 P2 p3<p>
+
+Find the point set that consists of the intersections of
+a line set object with itself.<p>
+
+P1 new point set <a href="#object-name">object-name</a><p>
+
+P2 existing line set <a href="#object-name">object-name</a><p>
+
+p3 <a href="#resolution">resolution</a><p>
+
+If the resolution specifies associated data,
+then the null datum is supplied.<p>
+
+If no intersections are found, then the derived point set will be empty.<p>
+
+Note that self-intersections are duplicated in the derived point set.
+These may be reduced by subsequent application of the
+<a href="#derivepsetreduced">DerivePsetReduced</a> command.<p>
+
+<hr><a name="derivepsettin">
+<b>DerivePsetTin</b></a> P1 P2 p3<p>
+
+Derive a point set triangular irregular network (TIN) surface given a point
+set having associated data in 4-byte float format.<p>
+
+P1 new TIN point set <a href="#object-name">object-name</a><p>
+
+P2 existing point set <a href="#object-name">object-name</a><p>
+
+p3 optionally, the letter "n" to include the triangle neighbor list in the
+TIN, which is required if spot surface Z values are to be "inspected" or
+surface difference volumes calculated.<p>
+
+The data associated with each point may be elevation, depth or any other
+phenomina such as temperature, pressure or sales revenue, in wholly
+arbitrary units of measure. The input point set should contain a reasonably
+dense number of observations covering the area of interest (thirty or so per
+Voronoi cell would be minimal). Empty cells outside an area of interest will
+result an ill-defined edge for the surface.<p>
+
+See also <a href="#overheadsurface">OverheadSurface</a>.<p>
+
+<hr><a name="derivelsetinside">
+<b>DeriveLsetInside</b></a> P1 P2 P3 p4<p>
+
+Find the subset of a line set that lies inside a region.<p>
+
+P1 new line set <a href="#object-name">object-name</a><p>
+
+P2 existing line set <a href="#object-name">object-name</a><p>
+
+P3 existing region <a href="#object-name">object-name</a>.<p>
+
+p4 <a href="#resolution">resolution</a><p>
+
+
+<hr><a name="derivelsetoutside">
+<b>DeriveLsetOutside</b></a> P1 P2 P3 p4<p>
+
+Find the subset of a line set that lies outside a region.<p>
+
+P1 new line set <a href="#object-name">object-name</a><p>
+
+P2 existing line set <a href="#object-name">object-name</a><p>
+
+P3 existing region <a href="#object-name">object-name</a>.<p>
+
+p4 <a href="#resolution">resolution</a><p>
+
+
+<hr><a name="deriversetcommon">
+<b>DeriveRsetCommon</b></a> P1 P2 P3 p4<p>
+
+Find the spatial intersection (common region) of two regions.
+This is often referred to as the "polygon overlay" operation.<p>
+
+P1 new region <a href="#object-name">object-name</a><p>
+
+P2 first existing region <a href="#object-name">object-name</a><p>
+
+P3 second existing region <a href="#object-name">object-name</a>.<p>
+
+p4 <a href="#resolution">resolution</a><p>
+
+
+<hr><a name="deriversetcomplement">
+<b>DeriveRsetComplement</b> P1 [p2 [p3]]<p>
+
+Derive an Rset complementary to another Rset such that all that is outside
+one region is inside the complement.<p>
+
+P1 new region <a href="#object-name">object-name</a><p>
+
+p2 existing region <a href="#object-name">object-name</a>
+
+If p2 is omitted, the derived object will cover the entire planet.<p>
+
+p3 <a href="#resolution">resolution</a><p>
+
+
+<hr><a name="ptestlsetrset">
+<b>PtestLsetRset</b> P1 P2 p3<p>
+
+Test for common points of a line set and a region.<p>
+
+P1 existing line set <a href="#object-name">object-name</a><p>
+
+P2 existing region <a href="#object-name">object-name</a>
+
+p3 optional keyword <b>b</b> indicates that the ring boundaries of the
+region are to be included in the test.<p>
+
+The command returns its result in the console.<p>
+
+
+<hr><a name="ptestrsetrset">
+<b>PtestRsetRset</b> P1 P2 p3<p>
+
+Test for common points of a region and another region.<p>
+
+P1 existing region <a href="#object-name">object-name</a><p>
+
+P2 existing region <a href="#object-name">object-name</a>
+
+p3 optional keyword <b>b</b> indicates that the ring boundaries of the
+two regions are to be included in the test.<p>
+
+The command returns its result in the console.<p>
+
+
+<hr><a name="deriversetcombined">
+<b>DeriveRsetCombined</b></a> P1 P2 P3 p4<p>
+
+Find the spatial union (combined region) of two regions.<p>
+
+P1 new region <a href="#object-name">object-name</a><p>
+
+P2 first existing region <a href="#object-name">object-name</a><p>
+
+P3 second existing region <a href="#object-name">object-name</a>.<p>
+
+p4 <a href="#resolution">resolution</a><p>
+
+
+<hr><a name="deriversetnearpoints">
+<b>DeriveRsetNearPoints</b></a> P1 P2 P3 [p4 [p5]]<p>
+
+Create a "buffer" region around a point set in such a way that
+no point of the point set is nearer to the boundary of the buffer region
+than a prescribed distance. (The point set therefore is included within the
+buffer region).<p>
+
+P1 new region <a href="#object-name">object-name</a><p>
+
+P2 existing point set <a href="#object-name">object-name</a><p>
+
+P3 proximity distance (meters)<p>
+
+p4 <a href="#resolution">resolution</a><p>
+
+p5 region boundary vertex density factor [default is 2].<p>
+
+The buffer region is constructed from the union of (possibly overlapping)
+polygons that are distant from each point of the point set.  Each polygon
+is approximated by a multi-sided polygon having a surface area
+about equal to that of a region defined by a circular boundary.<p>
+
+<a name="densityfactor">
+The region boundary vertex <b>density factor</b> is an integer exponent between
+1 and 6 specifying the number of defining boundary vertices as the function
+12*pow(2.0, d), where d is the density factor.
+Note that the construction and processing times for such regions
+will increase exponentially with higher values of the density factor.<p>
+
+See also <a href="#deriversetafarpoints">DeriveRsetAfarPoints</a>.<p>
+
+
+<hr><a name="deriversetafarpoints">
+<b>DeriveRsetAfarPoints</b></a> P1 P2 P3 [p4 [p5]]<p>
+
+Create a "buffer" region around a point set in such a way that
+all points of the point set are farther from the boundary
+of the buffer region than a prescribed distance.
+(The point set is therefore excluded from the buffer region,
+defining its void(s)).<p>
+
+P1 new region <a href="#object-name">object-name</a><p>
+
+P2 existing point set <a href="#object-name">object-name</a><p>
+
+P3 proximity distance (meters)<p>
+
+p4 <a href="#resolution">resolution</a><p>
+
+p5 region boundary vertex <a href="#densityfactor">density factor</a> [default is 2].<p>
+
+This command is similar in operation to
+<a href="#deriversetnearpoints">DeriveRsetNearPoints</a>.<p>
+
+
+<hr><a name="deriversethullofpoints">
+<b>DeriveRsetHullOfPoints</b></a> P1 P2 p3<p>
+
+Find the convex hull region for a point set object.<p>
+
+P1 new region <a href="#object-name">object-name</a><p>
+
+P2 existing point set <a href="#object-name">object-name</a>.<p>
+
+p3 <a href="#resolution">resolution</a><p>
+
+
+<hr><a name="deriversetwindow">
+<b>DeriveRsetWindow</b></a> P1 p2<p>
+
+Derive the region object that bounds the current map window.<p>
+
+P1 new region <a href="#object-name">object-name</a><p>
+
+p2 <a href="#resolution">resolution</a><p>
+
+
+<hr><a name="orbits">
+<h3>Satellite Orbit and Sensor Swath Modeling</h3></a>
+
+These commands work with satellites: their orbits, sensors and associated
+Earth telemetry stations.  Several of the commands can be used to construct
+objects on the Earth's surface that can then be related to other objects.<p>
+
+<a name="satellite-name"></a>
+<b>Satellite Files</b><p>
+
+Satellite files (<b>*.sat</b>) specify satellite orbit and sensor geometry.<p>
+
+The format of a <b>.sat</b> file is the same as the format of the
+<i>georama.gin</i> file. There are two parameter groupings: <ul>
+<li><b>orbit.ORBIT_TYPE</b>
+<li><b>sensor.SENSOR_TYPE</b>
+</ul><p>
+
+The current implementation simplifies things somewhat by restricting
+a satellite file to one ORBIT_TYPE (classical) and
+one SENSOR_TYPE (allbands).<p>
+
+<a name="orbit-type"></a>
+The parameters of the <b>orbit.classical</b> group are:
+<ul>
+<li>orbit.number = an integer
+<li>epoch.date = <a href="#datestring">datestring</a>
+<li>epoch.time = <a href="#timestring">timestring</a>
+<li>epoch.node = <b>ascending</b>, <b>descending</b> or delay as a
+    real number (seconds)
+<li>longitude = <a href="#longitude">longitude</a>
+<li>inclination = <a href="#angle">angle</a>
+<li>argument.perigee = <a href="#angle">angle</a>
+<li>semi.major.axis = meters
+<li>eccentricity = real number, dimensionless
+<li>period = real number, seconds.
+</ul><p>
+
+Other orbit types to be implemented are:
+<ul>
+<li>orbit.nasa...
+<li>orbit.norad...
+<li>orbit.tbus...
+</ul><p>
+
+<a name="sensor-type"></a>
+Keywords and data of the <b>sensor.allbands</b> group are:
+<ul>
+<li>left.limit = <a href="#angle">angle</a>: 0 at nadir, positive left
+<li>right.limit = <a href="#angle">angle</a>: 0 at nadir, negative right
+</ul><p>
+
+<a name="receivers-name"></a>
+<b>Receiver Files</b><p>
+
+Receiver files (<b>*.rcv</b>) specify sets of Earth telemetry stations.<p>
+
+The format of a <b>.rcv</b> file is the same as that of a <b>.pts</b> file except
+that multiple data are supplied for each receiver in the set:
+<ul>
+<li><a href="#latitude">latitude</a>
+<li><a href="#longitude">longitude</a>
+<li>elevation above sea level (in meters)
+<li>width of the cone of reception (<a href="#angle">angle</a> from the zenith)
+<li>text naming the station (enclosed in quotes as required).
+</ul><p>
+
+<a name="datestring"></a>
+<a name="timestring"></a>
+<b>Dates and times</b><p>
+
+Commands that require dates and times will accept these elements in
+the form parsed by the <i>Hipparchus Auxiliary Library</i> functions
+<b>h0_StringToDaynumber</b> and <b>h0_String to Angle</b>
+(timestrings being parsed as though angles).
+Examples of acceptable dates
+and times are:<pre>
+ 1997-March-22 7:30
+ 99/12/31 23:59:59.999999
+ 2000-jan-1 0
+ 2000/001 0
+</pre><p>
+Note that Hipparchus times (and dates) are UT (GMT).<p>
+
+<a name="orbitnumber">
+<b>orbit number</b><p>
+Satellite orbits may be referenced by ordinals that number each orbit from
+its defined epoch. When referenced in this manner, a satellite's positions in
+that orbit will be calculated from the satellite's classical parameters given
+by its <b>.sat</b> file.<p>
+
+<a name="timescale">
+<b>time.scale</b><p>
+
+Real-time rendering of the various trace commands is subject to time
+compression according to the configuration parameter <b>time.scale</b>
+specified in the <b>galileo.gin</b> file.  A real-time delay between
+rendering successive orbit positions is calculated by dividing the simulated
+time step in orbit by <b>time.scale</b>. For example, if the simulated time
+step were 120 seconds and <b>time.scale</b> is 1200, then successive
+positions would be planned to be rendered every 1/10th of a second.  If the
+time required for the computation for a particular step is less than the
+planned delay, then rendering is delayed until the planned delay has expired.
+Otherwise, the results of the step calculation are rendered immediately.
+<b>Note</b> that the <b>time.scale</b> parameter can be changed at any time
+by use of the <a href="#set">Set</a> command.<p>
+
+<hr><a name="traceorbit">
+<b>TraceOrbit</b></a> P1 P2 P3 P4 P5 P6 [p7]<p>
+
+Trace a line of successive satellite orbit positions.<p>
+
+P1 <a href="#satellite-name">satellite file-name</a><p>
+
+P2 trace start <a href="#datestring">date</a><p>
+
+P3 trace start <a href="#timestring">time</a><p>
+
+P4 trace end <a href="#datestring">date</a><p>
+
+P5 trace end <a href="#timestring">time</a><p>
+
+P6 trace step time (seconds in orbit, integer or real)<p>
+
+p7 orbit <a href="#lines">line style</a><p>
+
+In the orthographic projection, the trace is that of the satellite in space.
+In all other projections it is that of the satellite's nadir.<p>
+
+The real-time presentation proceeds at a pace calculated from the
+step time and <a href="#timescale">time.scale</a> parameter.<p>
+
+To interrupt the trace, press <b>Esc</b> or click in the console.<p>
+
+
+<hr><a name="traceswath">
+<b>TraceSwath</b></a> P1 P2 P3 P4 P5 P6 [p7]<p>
+
+Draws scanlines depicting the extent of a satellite's sensor's
+surface swath.  At each step a line is drawn on the Earth's surface
+perpendicular to the path of the satellite's nadir.<p>
+
+P1 <a href="#satellite-name">satellite file-name</a><p>
+
+P2 trace start <a href="#datestring">date</a><p>
+
+P3 trace start <a href="#timestring">time</a><p>
+
+P4 trace end <a href="#datestring">date</a><p>
+
+P5 trace end <a href="#timestring">time</a><p>
+
+P6 trace step time (seconds in orbit, integer or real)<p>
+
+p7 <a href="#lines">line style</a>.<p>
+
+The real-time presentation proceeds at a pace calculated from the
+step time and <a href="#timescale">time.scale</a> parameter.<p>
+
+To interrupt the trace, press <b>Esc</b> or click in the console.<p>
+
+
+<hr><a name="traceorbitswath">
+<b>TraceOrbitSwath</b></a> P1 P2 P3 P4 P5 P6 [p7] [p8]<p>
+
+Combines the effects of <a href="#traceorbit">TraceOrbit</a> and
+<a href="#traceswath">TraceSwath</a>.<p>
+
+P1 <a href="#satellite-name">satellite file-name</a><p>
+
+P2 trace start <a href="#datestring">date</a><p>
+
+P3 trace start <a href="#timestring">time</a><p>
+
+P4 trace end <a href="#datestring">date</a><p>
+
+P5 trace end <a href="#timestring">time</a><p>
+
+P6 trace step time (seconds in orbit, integer or real)<p>
+
+p7 orbit <a href="#lines">line style</a><p>
+
+p8 sensor swath <a href="#lines">line style</a>.<p>
+
+In the orthographic projection, the orbit trace is that of the satellite in
+space. In all other projections it is that of the satellite's nadir. The
+satellite's sensor's swath is depicted as scanlines drawn on the Earth's
+surface perpendicular to the path of the satellite's nadir.<p>
+
+The real-time presentation proceeds at a pace calculated from the
+step time and <a href="#timescale">time.scale</a> parameter.<p>
+
+To interrupt the trace, press <b>Esc</b> or click in the console.<p>
+
+Note that this command is not implemented for plot generation. Use instead
+the successive application of <a href="#traceorbit">TraceOrbit</a> and
+<a href="#traceswath">TraceSwath</a>.<p>
+
+
+<hr><a name="traceorbitreceivers">
+<b>TraceOrbitReceivers</b></a> P1 P2 P3 P4 P5 P6 P7 [p8 [p9 [p10]]]<p>
+
+Trace a satellite's orbit while simultaneously indicating which ground
+station receivers (if any) are currently within telemetry range of the
+satellite.  A receiver whose cone of reception intersects the satellite's
+orbital path is considered to be "active". Otherwise it is considered to be
+"inactive".  A receiver's state is depicted by toggling its marker color.<p>
+
+P1 <a href="#receivers-name">receivers file-name</a><p>
+
+P2 <a href="#satellite-name">satellite file-name</a><p>
+
+P3 trace start <a href="#datestring">date</a><p>
+
+P4 trace start <a href="#timestring">time</a><p>
+
+P5 trace end <a href="#datestring">date</a><p>
+
+P6 trace end <a href="#timestring">time</a><p>
+
+P7 trace step time (seconds in orbit, integer or real)<p>
+
+p8 orbit trace <a href="#lines">line style</a><p>
+
+p9 active receiver <a href="#color">marker color</a><p>
+
+p10 inactive receiver <a href="#color">marker color</a>.<p>
+
+In the orthographic projection, the trace is that of the satellite in space.
+In all other projections it is that of the satellite's nadir.<p>
+
+As the trace proceeds, a date-and-time-stamped log appears in the console
+window, recording the names of active receivers.<p>
+
+The real-time presentation proceeds at a pace calculated from the
+step time and <a href="#timescale">time.scale</a> parameter.<p>
+
+To interrupt the trace, press <b>Esc</b> or click in the console.<p>
+
+Note that this command is not implemented for plot generation.<p>
+
+
+<hr><a name="traceorbitoverheadrset">
+<b>TraceOrbitOverheadRset</b></a> P1 P2 P3 P4 P5 P6 P7 [p8]<p>
+
+Trace only those orbit points that are directly overhead a region.<p>
+
+P1 region <a href="#object-name">object-name</a><p>
+
+P2 <a href="#satellite-name">satellite file-name</a><p>
+
+P3 trace start <a href="#datestring">date</a><p>
+
+P4 trace start <a href="#timestring">time</a><p>
+
+P5 trace end <a href="#datestring">date</a><p>
+
+P6 trace end <a href="#timestring">time</a><p>
+
+P7 trace step time (seconds in orbit, integer or real)<p>
+
+p8 orbit <a href="#lines">line style</a><p>
+
+"Overhead" is defined as lying somewhere along the normal to a point on the
+ellipsoid, NOT, in the general case, along a vector passing through the
+center of the ellipsoid.<p>
+
+In the orthographic projection, the trace is that of the satellite in space.
+In all other projections it is that of the satellite's nadir.<p>
+
+The real-time presentation proceeds at a pace calculated from the
+step time and <a href="#timescale">time.scale</a> parameter.<p>
+
+To interrupt the trace, press <b>Esc</b> or click in the console.<p>
+
+Note that this command is not implemented for plot generation. Use instead
+the successive application of <a href="#derivelsetnadir">DeriveLsetNadir</a>,
+<a href="#derivelsetinside">DeriveLsetInside</a> and
+<a href="#displaylines">DisplayLines</a>.<p>
+
+<hr><a name="traceorbitoverheadcollection">
+<b>TraceOrbitOverheadCollection</b></a> P1 P2 P3 P4 P5 P6 P7 [p8 [p9]]<p>
+
+Trace a satellite's nadir position and if the satellite is computed to be
+overhead any region in a named collection of regions, temporarily highlight
+that region.<p>
+
+P1 region <a href="#collections">collection</a>
+<a href="#file-name">file-name</a><p>
+
+P2 <a href="#satellite-name">satellite file-name</a><p>
+
+P3 trace start <a href="#datestring">date</a><p>
+
+P4 trace start <a href="#timestring">time</a><p>
+
+P5 trace end <a href="#datestring">date</a><p>
+
+P6 trace end <a href="#timestring">time</a><p>
+
+P7 trace step time (seconds in orbit, integer or real)<p>
+
+p8 region temporary fill <a href="#color">color</a><p>
+
+p9 orbit position trace <a href="#color">color</a>.<p>
+
+"Overhead" is defined as lying somewhere along the normal to a point on the
+ellipsoid, NOT, in the general case, along a vector passing through the
+center of the ellipsoid.<p>
+
+As the trace proceeds, a date-and-time-stamped log appears in the console
+window, recording the names of selected regions in the collection.<p>
+
+The real-time presentation proceeds at a pace calculated from the
+step time and <a href="#timescale">time.scale</a> parameter.<p>
+
+To interrupt the trace, press <b>Esc</b> or click in the console.<p>
+
+Note that this command is not implemented for plot generation.<p>
+
+<hr><a name="derivelsetnadir">
+<b>DeriveLsetNadir</b></a> P1 P2 [p3] P4 P5 P6 p7 p8<p>
+
+Construct a line set object from the nadir trace of a satellite.<p>
+
+P1 new nadir line set <a href="#object-name">object-name</a><p>
+
+P2 <a href="#satellite-name">satellite file-name</a><p>
+
+P3 start <a href="#datestring">datestring</a><p>
+
+P4 start <a href="#timestring">timestring</a><p>
+
+p5 end <a href="#datestring">datestring</a><p>
+
+P6 end <a href="#timestring">timestring</a><p>
+
+P7 trace step time (seconds in orbit, integer or real)<p>
+
+p8 <a href="#resolution">resolution</a>.<p>
+
+If the resolution specifies associated data, then each successive vertex
+of the line set is assigned an integer vertex number, starting with 1.<p>
+
+
+<hr><a name="deriversetswath">
+<b>DeriveRsetSwath</b></a> P1 P2 P3 P4 p5 p6 p7 p8<p>
+
+Construct a region object from the sensor swath of a remote-sensing
+satellite.<p>
+
+P1 new swath region <a href="#object-name">object-name</a><p>
+
+P2 <a href="#satellite-name">satellite file-name</a><p>
+
+P3 start <a href="#datestring">datestring</a><p>
+
+P4 start <a href="#timestring">timestring</a><p>
+
+P5 end <a href="#datestring">datestring</a><p>
+
+P6 end <a href="#timestring">timestring</a><p>
+
+P7 trace step time (seconds in orbit, integer or real)<p>
+
+p8 <a href="#resolution">resolution</a>.<p>
+
+If the resolution specifies associated data, then each successive
+sensor-limit vertex pair is assigned an integer vertex number, starting with
+1.<p>
+
+A swath region should be limited to less than one orbit. Otherwise, its ring
+boundary will likely intersect itself and the generated region will not be
+usable for other than line or point display.  When in doubt as to its
+topological consistency, the generated swath region can be tested using <a
+href="#verifyrsetboundary">VerifyRsetBoundary</a> and <a
+href="#verifyrsettopology">VerifyRsetTopology</a>, in that order.<p>
+
+See also <a href="#deriversetorbit">DeriveRsetOrbit</a>.<p>
+
+
+<hr><a name="deriversetorbit">
+<b>DeriveRsetOrbit</b></a> P1 P2 P3 P4 p5<p>
+
+Construct a region object from the sensor swath of the specified orbit of a
+remote-sensing satellite.<p>
+
+P1 new swath region <a href="#object-name">object-name</a><p>
+
+P2 <a href="#satellite-name">satellite file-name</a><p>
+
+P3 <a href="#orbitnumber">orbit number</a><p>
+
+P4 trace step time (seconds in orbit, integer or real)<p>
+
+p5 <a href="#resolution">resolution</a>.<p>
+
+The swath region derived is expected to be topologically correct. To avoid
+the possible congruence of its start and end segments that define closure,
+the region is foreshortened by one second of time in orbit, at most.<p>
+
+Regions derived using this function may be freely combined with similar
+regions derived from any other orbits.<p>
+
+If the resolution specifies associated data, then each successive
+sensor-limit vertex pair is assigned an integer vertex number, starting with
+1.<p>
+
+See also <a href="#deriversetswath">DeriveRsetSwath</a>.<p>
+
+
+<hr><a name="voronoi">
+<h3>Voronoi Index Management</h3></a>
+
+These commands work with Voronoi cell structures.<p>
+
+They are included here to establish specific Voronoi cell structures and to
+study their relationship to your application objects.<p>
+
+In earlier releases of <i>Galileo</i>, commands were provided to aid you in
+modifying existing Voronoi cell structures for use in your application. Since
+Release 3.1, these Voronoi cell structure modification and creation functions
+were moved to stand-alone non-graphical utility programs. This change was
+made in the interests of performance and cross-platform portability. These
+command-line utilities are supplied with Galileo, co-located with
+galileo.exe, and may be run independently of Galileo, or through Galileo via
+the Galileo <i>Shell</i> command.<p>
+
+Nevertheless, <i>Galileo</i> continues to support the basic Voronoi index
+operations required to establish specific Voronoi cell structures as spatial
+indexes and to visualize the relationship between those indexes and your
+data, in any of the available projections.<p>
+
+A "starter" Voronoi index file is supplied in ASCII center-points form.  This
+is isotype.pts (located in the <i>data</i> directory). This Voronoi index
+should be regarded as a starter index when densifying or otherwise creating
+an application-specific Voronoi index.  If you wish to use isotype directly
+as a binary file, you should generate the binary using <i>cellwvs</i> or
+<i>cellins</i> stand-alone utilities, like this:<pre>
+  cellwvs  isotype.pts isotype.vix
+</pre><p>
+
+The isotype index is relatively sparse, having just 272 cells. If your
+application requires a more-or-less regular but denser base, you can easily
+generate more dense "harmonic" subdivisions as follows: <pre>
+  cellwws  isotype.pts  isotype.vix
+  cellpts  isotype.vix  isotype2.pts /c /g
+  cellwvs  isotype2.pts isotype2.vix
+   ...
+  cellpts  isotypej.vix isotypek.pts /c /g
+  cellwvs  isotypek.pts isotypek.vix
+</pre><p>
+
+Here the <i>cellpts</i> utility makes new cell center-points out of the
+corner-points of the current structure and adjusts the current
+cell center-points to a new "gravity" location, being the vector
+mean of the existing corner-points.  The result of this operation
+is a new "rounded" structure having approximately three-fold
+as many cells.  Since the time required to run <i>cellwvs</i> is very
+roughly the square of the number of cells, be prepared to wait
+awhile for the higher harmonics!<p>
+
+Before constructing your own Voronoi index, you may wish to view our offering
+of freely downloadable prebuilt Voronoi index structures at <a
+href="voronoi.html" target="aside">voronoi.html</a>.<p>
+
+<hr><a name="readvix">
+<b>ReadVix</b></a> p1<p>
+
+Replace the current principal Voronoi index with an external Voronoi index
+(stored in binary format).<p>
+
+p1 <a href="#file-name">file-name</a> (optional).<p>
+
+During initialization, <i>Galileo</i> reads and establishes as current
+a binary Voronoi index structure. This is also the default file read by the
+<b>ReadVix</b> command.<p>
+
+<b>NOTE 1:</b> Hipparchus Binary Objects and Point, Line or Region Collections
+are processable <b>ONLY</b> in the presence of the <b>SAME</b> Voronoi index
+used when they were created.<p>
+
+<b>NOTE 2:</b> Binary Voronoi index files are generally <b>NOT</b>
+cross-platform compatible.  You may create a Voronoi index file in
+cross-platform ASCII text format by use of the supplied utility
+<i>vix2tix</i>.<p>
+
+See also <a href="#readdecryptvix">ReadDecryptVix</a>.<p>
+
+
+<hr><a name="readdecryptvix">
+<b>ReadDecryptVix</b></a> P1 P2<p>
+
+Replace the current principal Voronoi index with an external Voronoi index
+(stored in encrypted binary format).<p>
+
+P1 <a href="#file-name">file-name</a>.<p>
+
+P2 Passphrase or passkey.
+
+This command functions exactly the same as <a href="#readvix">ReadVix</a>
+except that the named <b>.vix</b> file is known to be encrypted and the
+passphrase or passkey is known.<p>
+
+This <b>.vix</b> file may have been previously encrypted using the
+<i>vixcrpt</i> utility.<p>
+
+The encryption/decryption is according to public domain functions based on
+Blowfish, only slightly modified to fit in with other components of the
+Hipparchus Auxiliary Library. For a complete description of this
+cryptography, see the Geodyssey web site at <a
+href="http://www.geodyssey.com" target="aside">www.geodyssey.com</a>.<p>
+
+<hr><a name="readtix">
+<b>ReadTix</b></a> P1<p>
+
+Replace the current principal Voronoi index with an external Voronoi index
+(stored in cross-platform ASCII text format).<p>
+
+P1 <a href="#file-name">file-name</a>.<p>
+
+During initialization, <i>Galileo</i> reads and establishes as current the
+<b>binary</b> Voronoi index structure specified by the configuration
+parameter <b>voronoi.index</b> contained in the initialization file
+<b>galileo.gin</b>.<p>
+
+<b>NOTE:</b> Hipparchus Binary Objects and Point or Line Set Databases
+are processable <b>ONLY</b> in the presence of the <b>SAME</b> Voronoi index
+used when they were created.<p>
+
+<b>NOTE:</b> You may obtain a Voronoi index file in cross-platform ASCII text
+format by use of the supplied <i>vix2tix</i> utility.<p>
+
+<hr><a name="drawcells">
+<b>DrawCells</b></a> p1<p>
+
+Draw the boundaries of all Voronoi cells currently in the map window.<p>
+
+P1 <a href="#style">style</a> (for <a href="#lines">lines</a>).<p>
+
+<hr><a name="drawcellcenters">
+<b>DrawCellCenters</b></a> P1<p>
+
+Draw the centerpoints of all Voronoi cells currently in the map window.<p>
+
+P1 <a href="#style">style</a> (for <a href="#points">points</a>).<p>
+
+<hr><a name="drawcellduals">
+<b>DrawCellDuals</b></a> P1<p>
+
+Draw the Delaunay duals of all Voronoi cells currently in the map window.<p>
+
+P1 <a href="#style">style</a> (for <a href="#lines">lines</a>).<p>
+
+<hr><a name="drawcellspokes">
+<b>DrawCellSpokes</b></a> P1<p>
+
+Draw the "spokes" between the cell centerpoint and cell corners for
+all Voronoi cells currently in the map window.<p>
+
+P1 <a href="#style">style</a> (for <a href="#lines">lines</a>).<p>
+
+<hr><a name="drawcellnumbers">
+<b>DrawCellNumbers</b></a> P1<p>
+
+Display the cell numbers of all Voronoi cells currently in the map window.<p>
+
+P1 <a href="#style">style</a> (for <a href="#numbers">numbers</a>).<p>
+
+<hr><a name="drawcellorder">
+<b>DrawCellOrder</b></a> [p1]<p>
+
+Fill the Voronoi cells currently in the map window using a color gradient
+to depict their order.<p>
+
+p1 <a href="#style">style</a> (for color <a href="#gradient">gradient</a>).<p>
+
+<hr><a name="displaycellsoccupied">
+<b>DisplayCellsOccupied</b></a> P1 [p2 [p3]]<p>
+
+Draw the boundaries of cells occupied by a point set object.<p>
+
+P1 existing point set <a href="#object-name">object-name</a><p>
+
+p2 <a href="#style">style</a> (for <a href="#lines">lines</a>)<p>
+
+p3 cell list <a href="#file-name">file-name</a>.<p>
+
+If a cell list file-name is specified, a list of occupied cells is output as an
+ASCII file of cell-identifier integers, one per line, in ascending order.
+If no file extension is specified, the extension <b>.cll</b> will be supplied.<p>
+
+<hr><a name="displaycellstraversed">
+<b>DisplayCellsTraversed</b></a> P1 [p2 [p3]]<p>
+
+Draw the boundaries of cells traversed by a line set object.<p>
+
+P1 existing line set <a href="#object-name">object-name</a><p>
+
+p2 <a href="#style">style</a> (for <a href="#lines">lines</a>)<p>
+
+p3 cell list <a href="#file-name">file-name</a>.<p>
+
+If a cell list file-name is specified, a list of traversed cells is output as an
+ASCII file of cell-identifier integers, one per line, in ascending order.
+If no file extension is specified, the extension <b>.cll</b> will be supplied.<p>
+
+<hr><a name="displaycellsboundary">
+<b>DisplayCellsBoundary</b></a> P1 [p2 [p3]]<p>
+
+Draw the boundaries of cells traversed by rings of a region object.<p>
+
+P1 existing region <a href="#object-name">object-name</a><p>
+
+p2 <a href="#style">style</a> (for <a href="#lines">lines</a>)<p>
+
+p3 cell list <a href="#file-name">file-name</a>.<p>
+
+If a cell list file-name is specified, a list of occupied cells is output as an
+ASCII file of cell-identifier integers, one per line, in ascending order.
+If no file extension is specified, the extension <b>.cll</b> will be supplied.<p>
+
+<hr><a name="displaycellsinterior">
+<b>DisplayCellsInterior</b></a> P1 [p2 [p3]]<p>
+
+Draw the boundaries of cells entirely interior to a region object.<p>
+
+P1 existing point set <a href="#object-name">object-name</a><p>
+
+p2 <a href="#style">style</a><p>
+
+p3 cell list <a href="#file-name">file-name</a> (for <a href="#lines">lines</a>).<p>
+
+If a cell list file-name is specified, a list of occupied cells is output as an
+ASCII file of cell-identifier integers, one per line, in ascending order.
+If no file extension is specified, the extension <b>.cll</b> will be supplied.<p>
+
+<hr><a name="nearestcells">
+<b>NearestCells</b></a>  P1 [p2] [p3]<p>
+
+Select and draw cells proximate to (near) a specified location.<p>
+
+P1 command modifier: <b>c</b>, <b>a</b> or <b>d</b><p>
+
+p2 <a href="#lines">cell boundary style</a> (optional)<p>
+
+p3 <a href="#color">cell center color</a> or <a href="#lines">cell boundary
+   style</a> (optional).<p>
+
+You give the specific location and proximity criterion using a mouse.
+Left-click the mouse on the location, then left-click again
+at some distant point to define the radius of proximity (nearness).<p>
+
+Note that <a href="#rightmousebutton">right-clicking</a> the mouse reveals
+its gegraphic coordinates plus its leg and cumulative distances (in Km) from
+positions previously right-clicked.<p>
+
+Proximate cells are selected and drawn according to the command modifier
+and optional styles:
+<dl>
+<dt><b>c</b><dd>Centers in proximity:
+cells are selected on the basis of proximity of their centers alone.
+Boundaries are drawn using style p2 (or a default).
+Centers are drawn using color p3 (or a default).
+<dt><b>a</b><dd>Any part in proximity:
+cells are selected on the basis of proximity of any part of their                                                 coverage. Boundaries are drawn using style p2 (or a default).
+Centers are not drawn.
+<dt><b>d</b><dd>Any part in proximity (differentiated):
+cells are selected on the basis of proximity of any part of their
+coverage, but are differentiated between those that are only                                 <i>partially</i> proximate and those that are <i>entirely</i> proximate.
+Boundaries of the former are drawn using style p2 (or a default).
+Boundaries of the latter are drawn using style p3 (or a default).
+</dl>
+
+<hr><a name="traversecells">
+<b>TraverseCells</b></a> [p1]<p>
+
+Traverse the path of a search for a new home cell.<p>
+
+p1 optional cell boundary line <a href="#style">style</a>.<p>
+
+This interactive command traces the search path followed internally when
+searching for the home cell of points designated using the mouse. The command
+will normally follow a <a href="#drawcells">DrawCells</a> command. An
+initial home cell is designated by the first left-click of the mouse.
+When some other point in the display is designated by left-clicking the
+mouse, the path taken internally by the cell search facility to identify the
+new home cell is traced by drawing the boundaries of cells visited. The trace
+process may be continued for additional points. The process is ended
+by clicking the <b>Esc</b> button or by pressing the <b>&lt;Esc&gt;</b>
+key.<p>
+
+<hr><a name="addcellcenters">
+<b>AddCellCenters</b></a> [p1 [p2]]<p>
+
+This interactive command permits the addition of one or more cells to the
+current Voronoi index, and illustrates the limited structural effects on the
+boundary definition of the new and neighboring cells.<p>
+
+p1 optional file-name into which the modified Voronoi index structure will be
+saved when done. If p1 is not specified, no permanent changes are
+recorded.<p>
+
+p2 optional line <a href="#style">style</a> with which to draw the
+boundaries of all cells affected by the addition of new cells.<p>
+
+This interactive command provides a mechanism to divide (possibly)
+over-populated cells, illustrates the limited effect of such division(s) and
+(optionally) saves for subsequent use the new Voronoi cell structure.<p>
+
+This command will normally follow a <a href="#drawcells">DrawCells</a>
+command. New cell centers are designated by left-clicking the mouse. The
+process of cell reconfiguration may be continued indefinitely. The process is
+ended by clicking the <b>Done</b> button, at which time the new index
+structure p1 is saved. The process may be aborted without side-effects by
+left-clicking the <b>Esc</b> button or by pressing the <b>&lt;Esc&gt;</b>
+key. In any case, the current index structure remains unaffected.<p>
+
+<hr><a name="scripting">
+<h3>Scripting</h3></a>
+
+These commands provide two script initiate commands as well
+as commands that generally have meaning only when issued
+from within a script.<p>
+
+<a name="scripts"></a>
+<b>Scripts</b> are ASCII text files normally identified by the
+filename extension <b>.gal</b>.<p>
+
+Once launched, scripts are read and run automatically by <i>Galileo</i>
+command processor until end-of-file is encountered, at which time control
+returns to the console window.  (Execution of the script may be monitored in
+the console window by setting to 1 the <b>script.echo</b> parameter in the
+<b>[console]</b> section of the <b>galileo.gin</b> file.)<p>
+
+Script execution may be suspended, resumed or terminated by operator action.
+You may suspend a running script by pressing any letter key.  In this mode,
+you may complete and execute a command from the console. Script processing is
+resumed on completion of the interposed command. However, if a <b>script</b>
+command is interposed, then the running script is ended and a new script (if
+any) is started.<p>
+
+Script file lines that are empty or that commence with a semi-colon
+('<b>;</b>') are treated as commentary and are ignored by the command
+processor.<p>
+
+<a name="label"><b>Labels:</b></a> scripted commands are directly addressable
+via script file <b>label</b> entries. These are script file lines commencing
+with a colon (':') that introduces a <b>label</b> token.  A label token
+consists of one to 32 characters commencing with a letter or underscore
+followed by letters, numerals or underscores. Conditional and unconditional
+branch commands can transfer control to the first command following a label
+entry. A script file can be started at the first command following a specific
+label entry in a script.<p>
+
+<a name="delay"><b>Delay:</b></a> several commands provide timed delays
+for presentation purposes.<p>
+
+A timed delay can be for a specific amount of time.  Specific time delays are
+scripted in terms of an integer number of seconds, but the <b>script.pace</b>
+parameter in the <b>galileo.gin</b> file can be set to alter this time scale,
+(but never reduce below one half second).<p>
+
+A scripted time delay of zero seconds is considered to be "forever",
+inviting a deliberate release using the mouse or keyboard.<p>
+
+Regardless of the delay specified, action can be restarted at any time
+by the operator clicking the left mouse button in the console window.<p>
+
+<hr><a name="script">
+<b>Script</b></a> [p1 [p2]]<p>
+
+Reads and processes <i>Galileo</i> commands from a
+<a href="#scripts">script</a> file.<p>
+
+p1 script <a href="#file-name">file-name</a><p>
+
+p2 <a href="#label">label</a> within a script.<p>
+
+A script command given within a script <b><i>chains to</i></b>
+rather than <b><i>calls</i></b> the named script file.<p>
+
+If both a script file and a label are specified, then execution of the script
+commences at the command following the specified label.<p>
+
+The operating environment of the named script is the current environment.
+Any changes made to that environment by the named script
+will persist after its completion.<p>
+
+If no parameters are specified, the command has no effect unless it was
+interposed from the console into a suspended script, in which case it has the
+effect of closing the suspended script (and any calling scripts), returning
+control to the console.<p>
+
+See also <a href="#call">Call</a>.<p>
+
+<hr><a name="call">
+<b>Call</b></a> P1 [p2]<p>
+
+Reads and processes <i>Galileo</i> commands from another
+<a href="#scripts">script</a> file.<p>
+
+P1 script <a href="#file-name">file-name</a><p>
+
+p2 <a href="#label">label</a> within a script.<p>
+
+A <b>Call</b> command embedded in a script transfers control to the named
+script. If a label is specified, then execution of the named script commences
+at the command following the specified label.<p>
+
+At <b>end of file</b> in the named script file, or upon encountering a
+<a href="#return">Return</a> command, control is returned to the issuing
+script immediately following the <b>Call</b> command.<p>
+
+The operating environment of the called script is that of the caller.
+Any changes made to that environment by the called script will persist
+on return to the calling script.<p>
+
+The <b>Call</b> command is effective only within a script.
+Nested <b>Call</b> commands are permitted to a reasonable limit,
+beyond which the command is ineffective.<p>
+
+See also <a href="#script">Script</a> and <a href="#quit">Quit</a>.<p>
+
+<hr><a name="return">
+<b>Return</b></a> (no parameters)<p>
+
+Return control to the script that most recently issued a
+<a href="#call">Call</a> command.<p>
+If no <b>Call</b> command is outstanding,
+<b>Return</b> has no effect and control passes to the next scripted command.<p>
+
+Encountering <b>end of file</b> in a called script is equivalent to executing
+the <b>Return</b> command.<p>
+
+<hr><a name="showmap">
+<b>ShowMap</b></a> P1<p>
+
+Keeps the map window in focus for some period of time.<p>
+
+P1 <a href="#delay">delay</a> (an integer number of seconds).<p>
+
+<hr><a name="showpanel">
+<b>ShowPanel</b></a> P1 P2 P3<p>
+
+Displays a text message panel in the map window and keeps the map window
+in focus for some period of time.<p>
+
+P1 <a href="#delay">delay</a>.<p>
+
+P2 <a href="#style">style</a> (for <a href="#panels">panels</a>)<p>
+
+P3 message text string.<p>
+
+The message text string consists of up to 64 lines of message text,
+with message lines separated by newline ("\n") characters.<p>
+
+Note that <i>Galileo</i> can read, compose and process command lines
+of up to 2K bytes in length.<p>
+
+Note also that this command line may be composed from lines that are
+"continued" by use of the <b>"\"</b> (backslash) as the last character of the
+line.<p>
+
+The text message panel is displayed in the map window and the map window
+is kept in focus for <b>delay</b> seconds.  The panel is sized to accommodate
+the text of the message.  The style parameter (interpreted for text panels)
+determines the text color, font size, line justification, panel background
+transparency or color and the panel placement.<p>
+
+<hr><a name="writetextfile">
+<b>WriteTextFile</b></a> P1 P2<p>
+
+P1 <a href="#file-name">file-name</a>. If not qualified by a path and/or
+extension, the file will be written to the <b>data.directory</b> with the
+extension <b>.txt</b>.<p>
+
+P2 one or more lines of text to be written to the named file. Multiple
+lines may be defined via the "continuation code", as defined for the <a
+href="#showpanel">ShowPanel</a> command.<p>
+
+<b>Note</b> that this command may be used to create short text files,
+scripts and/or batch procedures for subsequent execution via the <a
+href="#shell">Shell</a> command.<p>
+
+<hr><a name="echo">
+<b>Echo</b></a> P1 [p2 ...]<p>
+
+Echos its parameter(s) in the console window, regardless of the current
+setting of the <b>script.trace</b> configuration parameter.<p>
+
+P1 Parameter to be echoed.<p>
+
+See also <a href="#set">Set</a>.<p>
+
+<hr><a name="goto">
+<b>GoTo</b></a> P1<p>
+
+Unconditionally transfers command execution control to the first command
+following a script <b>label</b> entry.<p>
+
+P1 <a href="#label">label</a>.<p>
+
+<hr><a name="ifexist">
+<b>IfExist</b></a> P1 P2 ...<p>
+
+If the named object or file exists, then the command P2 is executed using any
+parameters following P2 as operands.  Otherwise, execution continues with the
+next scripted statement following.<p>
+
+P1 <a href="#object-name">object-name</a> or <a href="#file-name">file-name</a><p>
+
+P2 any command enabled for scripts.<p>
+
+Note that this command line may be composed from lines that are "continued"
+by use of the <b>"\"</b> (backslash) as the last character of the line.<p>
+
+<hr><a name="ifnotexist">
+<b>IfNotExist</b></a> P1 P2 ...<p>
+
+If the named object or file does not exist, then the command P2 is executed
+using any parameters following P2 as operands.  Otherwise, execution
+continues with the next scripted statement following.<p>
+
+P1 <a href="#object-name">object-name</a> or <a href="#file-name">file-name</a><p>
+
+P2 any command enabled for scripts.<p>
+
+Note that this command line may be composed from lines that are "continued"
+by use of the <b>"\"</b> (backslash) as the last character of the line.<p>
+
+<hr><a name="iferrorlevel">
+<b>IfErrorlevel</b></a> P1 P2 ...<p>
+
+If the <b>error value</b> returned by the immediately previous command equals
+or exceeds the specified errorlevel,
+then the command P2 is executed using any parameters following P2 as operands.
+Otherwise, execution continues with the next scripted statement following.<p>
+
+P1 <a href="#errorvalue">errorlevel</a><p>
+
+P2 any command enabled for scripts.<p>
+
+Note that this command line may be composed from lines that are "continued"
+by use of the <b>"\"</b> (backslash) as the last character of the line.<p>
+
+<hr><a name="ifnoterrorlevel">
+<b>IfNotErrorlevel</b></a> P1 P2<p>
+
+If the <b>error value</b> returned by the immediately previous command
+does NOT equal or exceed the specified errorlevel,
+then the command P2 is executed using any parameters following P2 as operands.
+Otherwise, execution continues with the next scripted statement following.<p>
+
+P1 <a href="#errorvalue">errorlevel</a><p>
+
+P2 any command enabled for scripts.<p>
+
+Note that this command line may be composed from lines that are "continued"
+by use of the <b>"\"</b> (backslash) as the last character of the line.<p>
+
+<hr><a name="miscellany"></a>
+<h3>Miscellany</h3>
+
+These are miscellaneous commands that don't belong to any of the above
+command categories.<p>
+
+<hr><a name="quit">
+<b>Quit</b></a> (no parameters)<p>
+
+Exit <i>Galileo.</i><p>
+
+<b>Note</b> that this command is unconditional, whether issued from the
+console or from within a script.<p>
+
+<hr><a name="shell">
+<b>Shell</b></a> P1<p>
+
+Call an operating system function, Hipparchus utility program or batch
+command procedure (i.e., Unix shell script).<p>
+
+P1 String containing a command and its parameters.<p>
+
+Unless specifically qualified, the command is sought first via the system
+path, then within the same directory containing <i>galileo.exe</i>. For
+this reason, it is convenient to co-locate the Hipparchus Utilities with
+<i>galileo.exe</i>.<p>
+
+In the Windows operating system, the command is executed as a separate window
+that disappears on completion of the command. Therefore, if you wish to
+inspect the <i>stdout</i> or <i>stderr</i> of the command, you will need to
+pipe it to <i>more</i> or construct a batch procedure containing a
+<i>pause</i>. Such procedures can be built on the fly by use of the <a
+href="#writetextfile">WriteTextFile</a> command.<p>
+
+<b>Note</b> that the P1 string will normally contain space or comma
+delimiters, and should therefore be enclosed in matching single or double
+quotation marks.<p>
+
+<b>Note</b> also that the command specified by P1 will be executed within an
+operating system sub-shell in which the current environment is inherited but
+cannot be modified (see <a href="#setenv">SetEnv</a>).<p>
+
+
+<hr><a name="duration">
+<b>Duration</b></a><p>
+
+Display in the console window the time it took to execute the
+immediately preceding command.<p>
+
+(no parameters).<p>
+
+<hr><a name="set">
+<b>Set</b></a> P1 [=] P2 [p3] ...<p>
+
+Change the value of a selected configuration parameter.<p>
+
+P1 Configuration parameter name<p>
+
+P2 Value to which parameter is to be set.<p>
+
+p3 Additional values for a parameter array, where applicable.<p>
+
+Only these configuration parameters may be named:<br>
+<pre>
+   work.space.size, angle.sexagesimal, ellipsoid.number,
+   ellipsoid.semiaxes, gravity.parameters, script.echo, script.pace,
+   time.scale, data.directory, script.directory, temporary.directory
+   and georama.directory.</pre>
+
+The form and purpose of these parameters is explained in the description of
+the <a href="#gin">galileo.gin</a> file and in the commands that access
+them.<p>
+
+<hr><a name="setenv">
+<b>SetEnv</b></a> P1<p>
+
+Set (or reset) an operating system variable in the
+<i>current</i> environment.<p>
+
+P1 String containing an operating system "setenv" (or equivalent) command.<p>
+
+<b>Note</b> that the string will normally contain space or comma delimiters,
+and should therefore be enclosed in single or double quotation marks.<p>
+
+See also <a href="#shell">Shell</a>.<p>
+
+<hr><a name="help">
+<b>Help</b></a><p>
+
+Suggests several methods of obtaining help.<p>
+
+(no parameters).<p>
+
+<hr><a name="version">
+<b>Version</b></a><p>
+
+Reports the Galileo build date plus Hipparchus Library and OS version information.<p>
+
+(no parameters).<p>
+
+<hr><a name="reportmemory">
+<b>ReportMemory</b> (no parameters)<p>
+
+Report current virtual memory configuration.<p>
+
+<hr><a name="reportrunenvironment">
+<b>ReportRunEnvironment</b> (no parameters).<p>
+
+Report current directory paths for data\, temp\, script\ and georama\ keywords.<p>
+
+<hr><a name="dumpobject">
+<b>DumpObject</b></a> P1 [p2]<p>
+
+Dump a Hipparchus binary object into an annotated ASCII text file.<p>
+
+P1 <a href="#object-name">object-name</a><p>
+
+p2 <a href="#file-name">file-name</a>.<p>
+
+If p2 is not specified, a file-name is manufactured having the same path and
+filename as object-name except that the filename extension <b>.dmp</b> will
+be substituted for that of the <b>.hbo</b> object.<p>
+
+<hr><a name="paintcdc">
+<b>PaintCDC</b></a><p>
+
+(No parameters are required).<p>
+
+This command illustrates graphically the domain of Concise Direction Cosine
+(CDC) geographic coordinates. It is best issued in the context of
+orthographic (ortho) or world-wide views (wwview) of the planet. Using a
+color continuum, the command illustrates the continuous nature and
+discontinuities associated with the numeric behavior of the CDC coordinate
+domain.<p>
+
+See also <a href="#paintdcos3">PaintDCos3</a> and
+<a href="#paintlatlong">PaintLatLong</a>.<p>
+
+<hr><a name="paintdcos3">
+<b>PaintDCos3</b></a><p>
+
+(No parameters are required).<p>
+
+This command illustrates graphically the domain of Direction Cosine
+geographic coordinates (DCos3). It is best issued in the context of
+orthographic (ortho) or world-wide views (wwview) of the planet. Using a
+color continuum, the command illustrates the continuous nature and absence of
+discontinuities associated with the numeric behavior of the DCos3 coordinate
+domain.<p>
+
+See also <a href="#paintcdc">PaintCDC</a> and
+<a href="#paintlatlong">PaintLatLong</a>.<p>
+
+<hr><a name="paintlatlong">
+<b>PaintLatLong</b></a><p>
+
+(No parameters are required).<p>
+
+This command illustrates graphically the domain of Latitude Longitude
+geographical coordinates (LatLong). It is best issued in the context of
+orthographic (ortho) or world-wide views (wwview) of the planet. Using a
+color continuum, the command illustrates the continuous nature,
+discontinuities and singularities associated with the numeric behavior of the
+Latitude Longitude coordinate domain.<p>
+
+See also <a href="#paintcdc">PaintCDC</a> and
+<a href="#paintdcos3">PaintDCos3</a>.<p>
+
+
+<hr><a name="zzz">
+<b>Zzz</b></a><p>
+
+This is a stub "place-holder" command for use by developers in implementing
+new or modified versions of <i>Galileo</i> command subprograms.<p>
+
+(parameters as required).<p>
+
+<hr><a name="utilities"></a>
+<h3>STAND-ALONE UTILITIES</h3>
+
+As a convenience in prototyping applications, <i>Galileo</i> includes Windows
+executables of all of the stand-alone utilities distributed in source as part
+of the <i>Hipparchus Source Materials</i>. As mentioned earlier, Windows
+executables are co-located with the galileo.exe program and may be invoked
+independently of Galileo or through Galileo via the Galileo <i>Shell</i>
+command.<p>
+
+These stand-alone utilities share a simple command-line user interface. Their
+command line usage is self-documenting.  For on-line help as to usage, you
+simply enter an /h or /? switch after the program name.  For detailed
+instructions as to their use, you will need to refer to the <a
+href="utilities.html" target="aside">Hipparchus Utilities Guide</a> and/or
+the source code.<p>
+
+The following is a list of some of the <i>Hipparchus Utilities</i> including
+a brief explanation of their purposes:
+<dl>
+<dt>cellwvs<dd>Create a binary Voronoi index file from ASCII centerpoints
+<dt>cellins<dd>Create a binary Voronoi index file from ASCII centerpoints
+<dt>cellpts<dd>Write Voronoi index centerpoints (and corners) in ASCII
+<dt>cellcat<dd>Concatenate (merge) Voronoi ASCII centerpoints files
+<dt>celldns<dd>Densify a binary Voronoi index file
+<dt>cellord<dd>Re-number the cells of a binary Voronoi index file<p>
+
+<dt>vix2tix<dd>Convert a binary Voronoi index file to ASCII format
+<dt>vixcrpt<dd>Encrypt a Voronoi index file
+<dt>cluster<dd>Generate a local cluster of cell center-points to be merged<p>
+
+<dt>convert<dd>Convert ASCII or 4-byte binary point/vertex coordinate data
+from or to latitude-longitude (LL) angular or concise direction cosines (CDC)
+format<p>
+
+<dt>duplpts<dd>Remove duplicate consecutive points from ASCII data
+<dt>gnrlize<dd>Generalize an ASCII line set (or region)
+<dt>ringchk<dd>Check individual rings in an ASCII region specification<p>
+
+<dt>pts2hbo<dd>Construct a Hipparchus point set binary object file
+<dt>lns2hbo<dd>Construct a Hipparchus line set binary object file
+<dt>rgn2hbo<dd>Construct a Hipparchus region binary object file
+<dt>bldptin<dd>Build a Triangular Irregular Network (TIN)
+<dt>randpts<dd>Generate globally distributed random points
+<dt>rgnfltr<dd>Select points either inside or outside a region<p>
+
+<dt>pts2plr<dd>Construct a binary collection of points
+<dt>lns2plr<dd>Construct a binary collection of lines
+<dt>rgn2plr<dd>Construct a binary collection of regions
+<dt>plrdat2<dd>Construct a plr-associated text file
+<dt>namendx<dd>Construct a plr-associated name index<p>
+
+<dt>gtr2lns<dd>Convert a Georama GPS trace to an ASCII lns line set
+<dt>nmeagen<dd>Generate a simulated live GPS NMEA data stream.<p>
+
+</dl><p>
+
+Many of these utilities are mentioned elsewhere in this publication, in the
+context of related topics.<p>
+
+<hr><a name="aboutscripts">
+<h3>ABOUT SCRIPTS</h3></a><p>
+
+By this time, you likely will have reviewed the operation of the various
+supplied scripts.  If not, take the time now to browse the contents of the
+<b>~\scripts</b> directory, looking for <b>.gal</b> files. You can view
+these files with any text editor.<p>
+
+Following the examples given, you should have very little trouble
+in developing your own scripts.<p>
+
+Geodyssey is interested in receiving, and possibly publishing,
+your most interesting or unusual <i>Galileo</i> scripts.<p>
+
+Here are the submission rules:<p>
+
+Your scripts must be self documented with commentary such that they can be
+included "as is" in future releases of the <i>Galileo</i> distribution.<p>
+
+You will have the first ten lines of commentary entirely to yourself as your
+credit and copyright notice. The first line must identify your script and its
+author's name and date.  Additional comment lines should identify your
+organization, address, telephone, fax or e-mail contact numbers. If you wish,
+you might also provide your professional qualifications, specialties and
+website address.<p>
+
+In addition, you may commence your script with a single opening
+<b>ShowPanel</b> message of maximum duration two seconds, which may identify
+you and/or your script. In this way, you can have run-time credit.<p>
+
+You may submit your script by mailing a 3.5" disk to Geodyssey Limited at the
+address given elsewhere in this Guide.  If your script requires specific data
+files not supplied by Geodyssey, you should include these on your disk
+submission.  To be eligible for publication, your script and data files must
+be limited to 100K bytes of ASCII material, when decompressed.<p>
+
+Submissions will not normally be returned by Geodyssey. From submissions
+received, Geodyssey may select your submission for publication in future
+releases of this product. Your submission is made by you and received by
+Geodyssey with the clear understanding that Geodyssey Limited will have no
+liability to you or your organization for future royalties or other
+considerations.<p>
+
+If your submission is selected for publication, you will first be contacted
+for reconfirmation of your permission to publish.  In order to avoid conflict
+between submissions and to ensure that your work will properly function
+in future releases, Geodyssey Limited reserves the right to make editorial
+changes to your work.<p>
+
+We look forward to receiving your submissions.<p>
+
+<hr><a name="support">
+<h3>PRODUCT SUPPORT</h3></a><p>
+
+<i>Galileo</i> is intended to be a companion to the <i>Hipparchus Tutorial</i>
+so that you can better understand the concepts and facilities of the
+<i>Hipparchus Library</i>. As such, the <i>Hipparchus Galileo Guide</i>
+is not updated automatically.<p>
+
+Ongoing support is generally available from the Geodyssey Limited website
+at <a href="http://www.geodyssey.com"
+target="aside">http://www.geodyssey.com</a>.<p>
+
+<hr><a name="geodyssey"></a>
+<h3>ABOUT GEODYSSEY</h3>
+
+<p>Galileo, Georama and Hipparchus are exclusively owned and distributed by
+Geodyssey Limited of Calgary, Alberta, Canada.  Geodyssey is a privately
+owned company of software professionals dedicated to the promotion and
+support of these remarkable products.  Geodyssey makes this technology
+available under simple development and end-use licensing agreements, usually
+free of on-going royalties.
+
+<p>Geodyssey's general licensing policy provides the developer with
+affordable access to this remarkable technology while deferring payment of
+any additional licensing fees until the resulting end-use application has
+demonstrated the benefits of the technology.
+
+<p>Geodyssey also offers extensive training, consulting and application
+development services.
+
+<p>For additional information, please visit our extensive web site at <a
+href="http://www.geodyssey.com" target="aside">http://www.geodyssey.com</a>
+or call, fax or write to Geodyssey.
+
+<p>
+
+<hr><a name="summary">
+<h3>SUMMARY</h3></a><p>
+
+The <i>Hipparchus Galileo Guide</i> provides the information needed to
+install and use <i>Galileo</i> components in a Wndows environment.  The
+installation procedures are simple and straightforward. Demonstration scripts
+serve to verify the installation and provide insight into the power of
+Hipparchus. Reference materials permit you to prototype many of the
+geographic aspects of your applications.  You can build new scripts to give
+life to your own application area.  Interesting or unusual scripts should be
+submitted to Geodyssey for possible inclusion in future releases of
+<i>Galileo</i>.<p>
+
+<hr><a name="index">
+<h3>COMMAND INDEX</h3></a><p>
+<a href="#addcellcenters">AddCellCenters</a> |
+<a href="#area">Area</a> |
+<a href="#call">Call</a> |
+<a href="#centeron">CenterOn</a> |
+<a href="#clear">Clear</a> |
+<a href="#derivelsetinside">DeriveLsetInside</a> |
+<a href="#derivelsetnadir">DeriveLsetNadir</a> |
+<a href="#derivelsetoutside">DeriveLsetOutside</a> |
+<a href="#derivepsetafarlines">DerivePsetAfarLines</a> |
+<a href="#derivepsetcombinedall">DerivePsetCombinedAll</a> |
+<a href="#derivepsetcombinedunique">DerivePsetCombinedUnique</a> |
+<a href="#derivepsetcommon">DerivePsetCommon</a> |
+<a href="#derivepsetduplicates">DerivePsetDuplicates</a> |
+<a href="#derivepsetinside">DerivePsetInside</a> |
+<a href="#derivepsetintersectlines">DerivePsetIntersectLines</a> |
+<a href="#derivepsetintersectlineself">DerivePsetIntersectLineSelf</a> |
+<a href="#derivepsetnearlines">DerivePsetNearLines</a> |
+<a href="#derivepsetoutside">DerivePsetOutside</a> |
+<a href="#derivepsetreduced">DerivePsetReduced</a> |
+<a href="#derivepsettin">DerivePsetTin</a> |
+<a href="#derivepsetunique">DerivePsetUnique</a> |
+<a href="#deriversetafarpoints">DeriveRsetAfarPoints</a> |
+<a href="#deriversetcombined">DeriveRsetCombined</a> |
+<a href="#deriversetcomplement">DeriveRsetComplement</a> |
+<a href="#deriversetcommon">DeriveRsetCommon</a> |
+<a href="#deriversethullofpoints">DeriveRsetHullOfPoints</a> |
+<a href="#deriversetnearpoints">DeriveRsetNearPoints</a> |
+<a href="#deriversetorbit">DeriveRsetOrbit</a> |
+<a href="#deriversetswath">DeriveRsetSwath</a> |
+<a href="#deriversetwindow">DeriveRsetWindow</a> |
+<a href="#displayarea">DisplayArea</a> |
+<a href="#displaycellsboundary">DisplayCellsBoundary</a> |
+<a href="#displaycellsinterior">DisplayCellsInterior</a> |
+<a href="#displaycellsoccupied">DisplayCellsOccupied</a> |
+<a href="#displaycellstraversed">DisplayCellsTraversed</a> |
+<a href="#displaylines">DisplayLines</a> |
+<a href="#displaypoints">DisplayPoints</a> |
+<a href="#displaysurfacehypso">DisplaySurfaceHypso</a> |
+<a href="#displaysurfaceshade">DisplaySurfaceShade</a> |
+<a href="#drawcellcenters">DrawCellCenters</a> |
+<a href="#drawcellduals">DrawCellDuals</a> |
+<a href="#drawcellnumbers">DrawCellNumbers</a> |
+<a href="#drawcellorder">DrawCellOrder</a> |
+<a href="#drawcells">DrawCells</a> |
+<a href="#drawcellspokes">DrawCellSpokes</a> |
+<a href="#drawcoast">DrawCoast</a> |
+<a href="#drawgrid">DrawGrid</a> |
+<a href="#drawhorizon">DrawHorizon</a> |
+<a href="#drawtext">DrawText</a> |
+<a href="#dumpobject">DumpObject</a> |
+<a href="#duration">Duration</a> |
+<a href="#echo">Echo</a> |
+<a href="#enterlset">EnterLset</a> |
+<a href="#enterpset">EnterPset</a> |
+<a href="#enterrset">EnterRset</a> |
+<a href="#enterrsetinsidecircle">EnterRsetInsideCircle</a> |
+<a href="#enterrsetinsidesector">EnterRsetInsideSector</a> |
+<a href="#enterrsetoutsidecircle">EnterRsetOutsideCircle</a> |
+<a href="#enterrsetoutsidesector">EnterRsetOutsideSector</a> |
+<a href="#eraseobject">EraseObject</a> |
+<a href="#exportobject">ExportObject</a> |
+<a href="#farthestinlset">FarthestInLset</a> |
+<a href="#farthestinpset">FarthestInPset</a> |
+<a href="#geometry">Geometry</a> |
+<a href="#goto">GoTo</a> |
+<a href="#help">Help</a> |
+<a href="#iferrorlevel">IfErrorlevel</a> |
+<a href="#ifexist">IfExist</a> |
+<a href="#ifnoterrorlevel">IfNotErrorlevel</a> |
+<a href="#ifnotexist">IfNotExist</a> |
+<a href="#importlset">ImportLset</a> |
+<a href="#importpset">ImportPset</a> |
+<a href="#importrset">ImportRset</a> |
+<a href="#length">Length</a> |
+<a href="#mapfieldaspect">MapFieldAspect</a> |
+<a href="#mapfieldsize">MapFieldSize</a> |
+<a href="#nearestcells">NearestCells</a> |
+<a href="#nearestinlset">NearestInLset</a> |
+<a href="#nearestinpset">NearestInPset</a> |
+<a href="#nearestinrset">NearestInRset</a> |
+<a href="#nearestorderedinpset">NearestOrderedInPset</a> |
+<a href="#nearlineincollection">NearLineInCollection</a> |
+<a href="#nearpointincollection">NearPointInCollection</a> |
+<a href="#overheadrsetincollection">OverheadRsetInCollection</a> |
+<a href="#overheadsurface">OverheadSurface</a> |
+<a href="#paintcdc">PaintCDC</a> |
+<a href="#paintdcos3">PaintDCos3</a> |
+<a href="#paintlatlong">PaintLatLong</a> |
+<a href="#plotend">PlotEnd</a> |
+<a href="#plotframe">PlotFrame</a> |
+<a href="#plotinclude">PlotInclude</a> |
+<a href="#plotstart">PlotStart</a> |
+<a href="#plotstring">PlotString</a> |
+<a href="#ptestlsetrset">PtestLsetRset</a> |
+<a href="#ptestrsetrset">PtestRsetRset</a> |
+<a href="#quit">Quit</a> |
+<a href="#readdecryptvix">ReadDecryptVix</a> |
+<a href="#readtix">ReadTix</a> |
+<a href="#readvix">ReadVix</a> |
+<a href="#recenter">ReCenter</a> |
+<a href="#reframe">ReFrame</a> |
+<a href="#reportmapfield">ReportMapField</a> |
+<a href="#reportmapgeometry">ReportMapGeometry</a> |
+<a href="#reportmemory">ReportMemory</a> |
+<a href="#reportrunenvironment">ReportRunEnvironment</a> |
+<a href="#rescale">ReScale</a> |
+<a href="#return">Return</a> |
+<a href="#savebitmap">SaveBitmap</a> |
+<a href="#script">Script</a> |
+<a href="#set">Set</a> |
+<a href="#setenv">SetEnv</a> |
+<a href="#shell">Shell</a> |
+<a href="#showbitmap">ShowBitmap</a> |
+<a href="#showmap">ShowMap</a> |
+<a href="#showpanel">ShowPanel</a> |
+<a href="#traceorbit">TraceOrbit</a> |
+<a href="#traceorbitoverheadcollection">TraceOrbitOverheadCollection</a> |
+<a href="#traceorbitoverheadrset">TraceOrbitOverheadRset</a> |
+<a href="#traceorbitreceivers">TraceOrbitReceivers</a> |
+<a href="#traceorbitswath">TraceOrbitSwath</a> |
+<a href="#traceswath">TraceSwath</a> |
+<a href="#traversecells">TraverseCells</a> |
+<a href="#updatebitmap">UpdateBitmap</a> |
+<a href="#verifyrsetboundary">VerifyRsetBoundary</a> |
+<a href="#verifyrsetisnull">VerifyRsetIsNull</a> |
+<a href="#verifyrsetisworld">VerifyRsetIsWorld</a> |
+<a href="#verifyrsettopology">VerifyRsetTopology</a> |
+<a href="#version">Version</a> |
+<a href="#writetextfile">WriteTextFile</a> |
+<a href="#zzz">Zzz</a><p>
+
+</body></html>

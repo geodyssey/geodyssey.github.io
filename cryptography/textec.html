@@ -1,0 +1,246 @@
+<html>
+
+<head>
+<title>Textec encrypted text format specification and tools</title>
+</head>
+
+<body>
+
+<h2>Textec</h2>
+<h4>Encrypted Text Format Specification and Tools</h4>
+
+<p>
+This Web-page is a working repository for a family of programs
+which share a central feature: strong (128-bit) encryption of text
+in a form (referred to as "<b>textec</b>" in this document) which
+makes such text suitable for communication between different
+application programs not necessarily designed to operate with
+encrypted data, as well as for communication of protected text
+between applications running on different operating systems and
+on different hardware architectures. All core C language functions
+- most notably those that perform <b>Blowfish</b> encryption and
+decryption - are part of the source code collection posted here.
+They have been rigorously tested on a large number of different
+computer systems.
+</p>
+
+<p>
+<b>Textec</b> is designed assuming a typical "unit" of protected
+data consists mostly - but not entirely - of natural language text
+and that its volume is what would be expected in a typical e-mail
+message or a narrative record-element of a computerized database.
+The encrypted text format attempts to be both simple and robust.
+In particular, <b>textec</b> "by design" steers away from "tags",
+"headers" or similar identifiers. Flexibility and simplicity have
+been the primary design principles. Specifically, and in contrast
+to MIME protocol and similar endeavors, <b>textec</b> design assumes
+that in many instances the archival repository or communication
+infrastructure system need not - indeed, there are good reasons
+why it should not - know "too much" about the data it is handling.
+</p>
+
+<p>
+<b>Textec</b> design also recognizes that in most real-life computer
+applications the weakest link in the security chain lies not with
+the strength (ill-understood as it might be) of the cryptographic
+algorithm, but remains well hidden somewhere in the myriad number
+of minor software engineering details that all large systems are
+burdened with. If this view is correct, simplicity and isolation
+of the code that participates in the "security chain" is an
+important condition of system security. Users that (perhaps
+legitimately) fear their opponent can cryptographically break the
+algorithm used by <b>textec</b>, may as well view all current
+cryptographic algorithms with equal scepticism and opt for
+non-algorithmic security solutions (OTP, physical protection,
+dedicated communication channels and so on).
+</p>
+
+<p>
+So far, "the family" consists of the following members:
+</p>
+
+<table border valign="top">
+
+<tr valign="top"><td><b>&nbsp; Encodex </b></td>
+<td>Command-line program performing encryption.</td>
+
+<tr valign="top"><td><b>&nbsp; Decodex </b></td>
+<td>Command-line program performing decryption.</td>
+
+<tr valign="top"><td><b>&nbsp; Notex </b></td>
+<td>Windows text editor similar to Notepad.</td>
+
+<tr valign="top"><td><b>&nbsp; Eudox </b></td>
+<td>Eudora 3.x "plug-in" encryptor/decryptor.</td>
+
+</table>
+
+<p>
+The current version of these programs is posted for testing
+and feedback (please e-mail bug-reports to: support@geodyssey.com);
+however, the format of <b>textec</b> is stable and is not expected to
+change. Its details are documented in the preamble of the <b>Encodex</b>
+(see below) program source code.
+(View the<a href="textecspec.txt" target="_text"> relevant section</a>).
+</p>
+
+<hr>
+
+<h3>Encodex and Decodex</h3>
+
+<p>
+Two "command line" utility programs (<b>Encodex</b> and
+<b>Decodex</b>) for three selected platforms (Linux, Mac OS X and
+Windows) provide the basic ability to encrypt and decrypt files
+into and out of the <b>textec</b> format.
+</p>
+
+<p>
+<a href="linux6/encodex">Download <b>Encodex</b></a> (encodex) for <b>Linux</b>.<br>
+<a href="linux6/decodex">Download <b>Decodex</b></a> (decodex) for <b>Linux</b>.<br>
+</p>
+
+<p>
+<a href="macosx/encodex">Download <b>Encodex</b></a> (encodex) for <b>Mac OS X</b>.<br>
+<a href="macosx/decodex">Download <b>Decodex</b></a> (decodex) for <b>Mac OS X</b>.<br>
+</p>
+
+<p>
+<a href="win32/encodex.exe">Download <b>Encodex</b></a> (encodex.exe) for <b>Windows</b>.<br>
+<a href="win32/decodex.exe">Download <b>Decodex</b></a> (decodex.exe) for <b>Windows</b>.<br>
+</p>
+
+<p>
+<a href="zaurus/encodex">Download <b>Encodex</b></a> (encodex) for <b>Zaurus</b>.<br>
+<a href="zaurus/decodex">Download <b>Decodex</b></a> (decodex) for <b>Zaurus</b>.<br>
+</p>
+
+<p>
+The complete C language source code of both programs is included here.
+The primary reason for providing it is to have it inspected as widely
+as possible, in order to ensure that it can be trusted.
+</p>
+
+<p>
+Additionally, both programs can be simply recompiled on new platforms
+in order to provide a quick ability to generate and process <b>textec</b>.
+The code can also be "stitched into" any other application (e-mail,
+text-processing, database, etc.) in order to give such application the
+ability to encrypt, decrypt and exchange secure text with other
+applications using the same format. There are no restrictions - this
+can be done by the developers of both "proprietary" and
+"open-source" systems, commercial or free. A small encrypted
+text file, included here <a href="textectest.xtx" target="_text">(textectest.xtx)</a>,
+can be used to confirm the correct operation of ported program.
+Its key is "geodyssey" (without quotes).
+</p>
+
+<p>
+<a href="codex.zip">Download <b>Encodex</b> and <b>Decodex</b> source
+code </a>(codex.zip).<br>
+</p>
+
+<hr>
+
+<h3>Notex</h3>
+
+<p>
+<b>Notex</b> is a program very <b>similar to the Windows Notepad</b>
+"applet". Using Windows "clipboard" it can exchange both clear and
+encrypted text not only with the e-mail clients, but with a wide
+variety of other text-processing applications running under the
+Windows family of "desktop" OS-es (9x, ME, 2K, XP, etc).
+</p>
+
+<p>
+<a href="notex.txt" target="_text">Read or save</a> preliminary
+documentation (notex.txt).
+</p>
+
+<p>
+<a href="win32/notex.exe">Download and/or test-run <b>Notex</b></a>
+(notex.exe). The program requires no "installation" or
+"configuration files". Your browser may let you <b>run Notex from</b>
+its current location on <b>the 'net</b>. If this is the case, you can
+use the clipboard to locally transfer the text to and from your
+e-mail program window, and encrypt and decrypt e-mail without
+any encryption software "installed" on your computer.
+</p>
+
+<p>
+You can <b>test this</b> quickly by selecting and copying into
+the clipboard the text displayed by your browser if you click on
+<a href="textectest.xtx" target="_text">textectest.xtx</a>,
+then starting notex.exe from the 'net and entering the password
+[Crypto] - [Enter...Key...] (the password is "geodyssey", no quotes)
+and decrypting the clipboard to the Notex text window
+[Crypto] - [Decrypt Clipboard to Text].
+</p>
+
+<hr>
+
+<h3>Eudox</h3>
+
+<p>
+The same format of e-mail-friendly ciphertext is used by an Eudora
+"plug-in" named <b>Eudox</b>. This plugin has been developed for
+use with <b>Eudora 3.0.6</b>: the most popular and probably still
+the best e-mail program for the Windows desktop. It has additionally
+been tested with Eudora 4.3 and 5.0.
+</p>
+
+<p>
+<a href="eudox.txt" target="_text">Read or save</a> brief documentation
+(eudox.txt).
+</p>
+
+<p>
+Download the eudox.dll file and simply copy it into the Eudora plug-in
+directory (usually named "plugins"), no other "installation" is required.
+Then run Eudora and first select [Tools] - [Eudox - Enter or Change Key]
+to enter the encryption key. Once the key has been entered select
+[Edit] - [Message-Plug-ins] and [Eudox encrypt] or [...decrypt]
+on the main Eudora menu to encrypt or decrypt either the whole body
+or only the selected (highlighted) part of an e-mail message in
+the active message window.
+</p>
+
+<a href="win32/eudox.dll">Download <b>Eudox</b></a> (eudox.dll).
+
+<hr>
+
+<p>
+<small>
+All of the above executable programs and the C language source code
+are published with no restrictions on their use and copying, and no
+guarantee, either explicit or implied.<br>
+MD5 checksums of binary files you can download from this repository are:<br>
+<code>
+ccc1c3dfaa28f712cbce61d60f7de3fa *codex.zip<br>
+<br>
+61f56699dfb3184d17198ca46bbe612b *linux6/encodex<br>
+24d86bd1a7fca6c43b2913ced9da0e45 *linux6/decodex<br>
+<br>
+17403dd3720dfbad4d9c76940e02faa4 *macosx/encodex<br>
+09e97ca35041a67ffc1694df140e6a01 *macosx/decodex<br>
+<br>
+bf93ab85f86737d87c4dd4ba9cb2988f *win32\encodex.exe<br>
+15ac4f2f9920cd25d7531cbd12eca2ca *win32\decodex.exe<br>
+97cb5bdd4a10aafab2148978d9816803 *win32\eudox.dll<br>
+c95a3d3f46de0cdbf1819ea0bc9be705 *win32\notex.exe<br>
+<br>
+198f3e8dd7ab6c2bb8db9813a4490955 *zaurus/encodex<br>
+1ff32cd03b1008cb1ec9207ec5639342 *zaurus/decodex<br>
+</code>
+</small>
+</p>
+
+<hr>
+
+<p>
+<a href="cryptography.html">
+Return to Geodyssey's cryptography page</a>.
+</p>
+
+</body>
+</html>

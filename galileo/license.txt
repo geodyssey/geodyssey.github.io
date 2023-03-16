@@ -1,0 +1,114 @@
+GEODYSSEY LIMITED GALILEO PRODUCT LICENSING AGREEMENT
+------------------------------------------------------
+
+LICENSE
+
+The software product co-located with this Agreement, consisting of computer
+programs, scripts, data and documentation collectively known as Galileo(TM)
+("Galileo") is owned exclusively by Geodyssey Limited of Calgary, Alberta,
+Canada ("Geodyssey") and is protected by Canadian copyright law and
+international treaty provisions.
+
+Geodyssey hereby grants you a non-exclusive license to use and/or distribute
+Galileo as set forth below.
+
+You may:
+
+. use or distribute without compensation unmodified Galileo software programs,
+  scripts, data or documentation for use on any number of appropriately
+  configured computers, providing that this licensing Agreement and its
+  contained Geodyssey copyright notice accompanies any Galileo components
+  distributed.
+
+RESTRICTIONS
+
+You may not:
+
+. use, copy, modify, or transfer Galileo, in whole or in part,
+  except as expressly provided for in this license,
+
+. sell, rent or lease for compensation any part of Galileo or its documentation
+  to any third party,
+
+. modify or adapt Galileo components or documentation in whole or in part
+  including but not limited to translating or creating derivative works for
+  any purpose except that for your own personal use or for use in developing
+  and delivering educational materials without compensation,
+
+. disassemble or reverse compile Galileo programs for the purpose of
+  discovering or reproducing the underlying functionality of Galileo.
+
+COPYRIGHT
+
+Galileo and its documentation are copyrighted (C) 2003 and are proprietary to
+Geodyssey.  You may not copy or use Galileo or its documentation except as
+specifically allowed hereunder.  All other copies and uses of Galileo or its
+documentation are in violation of this Agreement and constitute infringement
+of copyright which may be the subject of legal sanction.
+
+REDISTRIBUTION RIGHTS
+
+Under this Agreement, you have no rights to distribute for compensation
+programs or products incorporating components of Galileo, whether modified or
+not. Under a separate license, however, you may be granted certain rights to
+reproduce and distribute for compensation Galileo or your own works that
+incorporate components of Galileo.
+
+TERMINATION
+
+This Agreement and your license to use Galileo will automatically terminate if
+you fail to comply with any provision of the Agreement.
+
+SELECTION AND USE
+
+You assume full responsibility for the selection of Galileo to achieve your
+intended results and for the installation, use and results obtained from
+Galileo.  Geodyssey does not warrant that the functions contained in Galileo
+will meet your requirements or that operation of Galileo will be uninterrupted
+or error free.  Because of the inherent complexity of computer software you
+are advised to verify your results.
+
+WARRANTY
+
+Galileo is made available "as is", WITHOUT warranty of any kind.
+
+LIMITATIONS OF REMEDIES AND LIABILITIES
+
+GEODYSSEY'S LIABILITY AND YOUR EXCLUSIVE REMEDY ARE AS SET FORTH ABOVE AND
+GEODYSSEY DISCLAIMS ALL OTHER WARRANTIES, ORAL OR WRITTEN, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+FOR A PARTICULAR PURPOSE.  NO MODIFICATION OR ADDITION TO THIS WARRANTY IS
+AUTHORIZED UNLESS IT IS SET FORTH IN WRITING, IT REFERENCES THIS AGREEMENT AND
+IT IS SIGNED ON BEHALF OF GEODYSSEY BY AN AUTHORIZED OFFICIAL.
+
+IN NO EVENT WILL GEODYSSEY BE LIABLE FOR ANY DAMAGES WHATSOEVER INCLUDING, BUT
+NOT LIMITED TO, DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES OR OTHER PECUNIARY LOSS ARISING OUT OF THE USE OF OR INABILITY TO USE
+THE SOFTWARE, EVEN IF GEODYSSEY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH
+DAMAGES.  IN PARTICULAR, GEODYSSEY IS NOT RESPONSIBLE FOR ANY COSTS INCLUDING,
+WITHOUT LIMITATION, LOSS OF BUSINESS PROFITS, BUSINESS INTERRUPTION, LOSS OF
+BUSINESS INFORMATION, THE COST OF RECOVERING SUCH INFORMATION, THE COST OF
+SUBSTITUTE SOFTWARE, OR CLAIMS BY THIRD PARTIES. IN NO CASE SHALL GEODYSSEY'S
+LIABILITY EXCEED THE AMOUNT OF THE LICENSE FEE ACTUALLY PAID BY YOU.
+
+THIS AGREEMENT GIVES YOU CERTAIN LEGAL RIGHTS.  YOU MAY HAVE OTHERS UNDER LAW.
+
+GENERAL
+
+This agreement shall be governed by the laws of the Province of Alberta and
+the laws of Canada.
+
+By use of Galileo or its redistribution, you acknowledge that you have read
+this Agreement, understand it, agree to be bound by these terms, and that this
+Agreement is the complete and exclusive statement of the agreement between us,
+superseding all prior and other agreements, communications, and
+representations, written or oral, express or implied, between us relative to
+Galileo and its documentation and uses.
+
+If you have any questions concerning this Agreement, please contact:
+
+                Geodyssey Limited
+         Suite 240, 815 Eighth Avenue SW,
+        Calgary, Alberta, T2P 3P2, Canada
+     Tel 1-403-234-9848  Fax 1-403-243-3979
+           http://www.geodyssey.com

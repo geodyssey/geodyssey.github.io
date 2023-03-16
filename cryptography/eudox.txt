@@ -1,0 +1,89 @@
+Eudox: Eudora mail encryption plug-in
+-------------------------------------
+
+Eudox is an Eudora e-mail program addition that
+will, on an explicit request from the user, encrypt
+and decrypt text using a 128-bit ("strong")
+cryptographic algorithm named Blowfish.
+
+Encrypted message text is very safe in transit, but
+remember that both Eudora and - especially - Windows
+can leave data on the hard drive even if has been
+"deleted". This program therefore provides only a
+limited protection from an attacker who can gain
+either physical or network access to the computer
+used to send and receive e-mail.
+
+Download the eudox.dll and copy it into the directory
+where Eudora will look for plugins. This directory is
+named "plugins", and is a sub_directory of the
+directory where eudora.exe is located. (Alternatively,
+it can be a sub-directory of the user's mail directory,
+see Eudora help for details).
+
+If located properly, Eudox will be "connected to"
+whenever Eudora is started. This connection can be
+verified by clicking on [Special] on the main Eudora
+menu, followed by [Message Plug-ins Settings...].
+While Eudox requires no "settings", it will announce
+its presence and version number.
+
+Using Eudox:
+------------
+
+The key must be entered before any encryption or
+decryption can be done. To do so, click on [Tools]
+on the main Eudora menu. Underneath, there will be
+an entry named [Eudox - Enter or Change Key]. When
+clicked, this will activate a key entry dialog.
+
+You can enter either a key (8 to 16 characters), or
+a long, non-sensical sentence (a "pass-phrase") which
+the program will internally convert and store as a
+16-byte key. Both the key and the pass-phrase are case
+sensitive. It is sufficient to enter it once if all you
+want to do is to decrypt an incoming message, but it
+must be entered two times ("confirmed", keyed-in on both
+dialog lines) in order to perform encryption. The key
+can be changed whenever required.
+
+Under [Edit] on the main menu there is an entry named
+[Message Plug-ins]. When activated, there will be
+(possibly among other plugin entries) two menu entries
+named [Eudox - Encrypt] and [Eudox - Decrypt]. When
+activated, the program will perform encryption or
+decryption, respectively, of the message in the active
+Eudora message sub-window, using the last entered key.
+If there is a selected ("highlighted") section of the
+message, only that section will be encrypted or
+decrypted. This is a preferred mode of operation:
+just select the paragraph(s) you want to encrypt or
+the section of an incoming message composed of
+64-character "garbage" lines and click on the
+appropriate crypto function.
+
+HTML "tags": Eudox assumes the messages to be encrypted
+and decrypted consist of "plain" ascii text. In versions
+4.0 and higher, Eudora appears to present all text to
+Eudox as "html", even if the text will be mailed later
+on as plain text. In these versions, and if the text is
+presented as "html type" to Eudox, following "tags"
+will be removed from the plaintext message:
+<html>, <br>, </html> (only at the end of a line) and
+&nbsp (anywhere in the text). This means that if your
+message contains such strings (in the specified positions)
+they will be removed.
+
+Current version of Eudox is 3.16; it has been tested
+with Eudora 3.0.6, 4.3 and 5.1.
+
+There is a companion program called Notex (notex.exe).
+It is very similar to Windows Notepad applet. It can be
+used to encrypt and decrypt data in the same format as
+that used by Eudox. This data can be transferred (using
+the clipboard) from and to mail composition or display
+window of almost any other e-mail program - indeed any
+Windows program which supports text data transfer via
+the clipboard.
+
+And this is it...

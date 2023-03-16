@@ -1,0 +1,276 @@
+<HTML><HEAD>
+<META CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Burp Blowfish Cryptography</TITLE>
+<LINK rev=made href="mailto:jmahlon@geodyssey.com">
+</HEAD>
+
+<BODY>
+<H3>Cryptography: Protecting your Geographic <small>(and other)</small> Data</H3>
+
+<p>
+In our ongoing explorations of the methods of cryptographic
+protection of geographic location data we found <b>Bruce Schneier's
+Blowfish</b> to be the preferred cryptographic algorithm on which to
+base this protection. Its widespread use, small block size, speed
+and simple API make it an ideal component for use in high-performance
+database servers. However, the Blowfish C code published in
+Dr. Dobbs Journal, September, 1995 was not re-entrant, a necessary
+condition for use in multi-threaded database servers. Accordingly,
+we modified the published Blowfish functions slightly to provide
+re-entrancy. (For more about Blowfish, here's a link to
+<a href="http://www.schneier.com/paper-blowfish-fse.html" target="_blank">
+its description</a> on Bruce Schneier's company website).
+</p>
+
+<p>
+To confirm the correct operation and performance of these functions,
+we have prepared a <EM>general purpose</EM> multi-platform public-domain
+file encryption/decryption utility, as well as a family of programs
+intended to be used in conjunction with other applications (e-mail,
+text editors, etc.) exchanging <EM>encrypted text</EM> via clipboard
+in a format we call "textec".
+</p>
+
+<p>
+To learn more about the <a href="textec.html">
+<b>TEXTEC</b> family of programs</a> follow the link; the rest of this
+page deals with our <b>file encryptor utility</b>. Unceremoniously called
+<b>BURP</b> (for Blowfish Updated Re-entrant Project), it is a console
+("command-line") program we use for protection of the archival data
+storage and in our software and data distribution.
+</p>
+
+<p>
+The <b>current</b> version of <b>BURP</b> is <b>v. 1.20</b>. It has
+been ported to and tested on additional platforms and includes numerous
+minor upgrades. However, the program output data format is the same
+as it was in our original release version. Specifically, BURP
+provides "<b>plausible deniability</b>": it produces "clean"
+ciphertext files (i.e., there are no file headers, key verification
+tokens, system, application or content identification strings, etc.).
+Consequently, a file encrypted by BURP appears to consists entirely
+of a random data stream - it <b>can not be easily detected or
+"provably identified" as ciphertext</b>, as long as the key is secure,
+or unless it is broken cryptographically.
+</p>
+
+<p>
+You are invited to download and use this utility. Full cross-platform
+<b>C language source</b> is provided. There are no restrictions on its
+use and re-distribution (other than such general restrictions on the use
+and/or distribution of strong cryptography that might or might not be
+imposed by some jurisdictions on their residents).
+</p>
+
+<p>
+BURP has been in continous use by a large and diverse group of
+organizations and individuals since 1998. We expect and welcome
+your comments on both its strength and functionality.
+</p>
+
+<p>
+Download <a href="burp120.zip">complete BURP 1.20 archive</a>
+(burp120.zip - full source, documentation and selected binaries).
+If you wish to verify its integrity, its md5sum is:<br>
+<small>
+977171e18fb7c54adbf7c00a63133d39 *burp120.zip
+</small>
+</p>
+
+<hr>
+
+<p>
+If you need only a <b>platform-specific executable</b>, you may be able
+to use one of the binaries listed below. If you download and invoke
+the program with no parameters, it will list on the console its
+"use summary". A complete description of BURP's use and functionality
+can be found in the <a href="burp.txt" target="_text">burp.txt</a> file.
+</p>
+
+<p>
+<b>Note:</b> this set of binaries is provided primarily for the
+convenience of recipients of our distributions. (We will gladly port
+BURP to any platform not included below - and make it available for
+public use - if we can be provided with temporary <i>ssh</i> shell access).
+</p>
+
+<p>
+If you are encrypting your own data we strongly suggest that you download
+the source, inspect it and compile the program. Depending on the
+circumstances, it could be <b>extremely imprudent</b> to use any
+cryptograpy that has not been built from the source code in your
+possesion, inspected by you or someone you trust.
+</p>
+
+<p>
+Download <a href="alphanbsd/burp">BURP for NetBSD DEC Alpha</a>.<br>
+<small>
+ffccceb9c392251f4664ae5ec0c498d3 *alphanbsd/burp
+</small>
+</p>
+
+<p>
+Download <a href="beosx86/burp">BURP for BeOS on Intel</a>.<br>
+<small>
+ddf18496f1b5905d60e254261bd16245 *beosx86/burp
+</small>
+</p>
+
+<p>
+Download <a href="darwinx86/burp">BURP for Darwin/FreeBSD x86</a>.<br>
+<small>
+03e0c59cd10807172929045728ab0a96 *darwinx86/burp
+</small>
+</p>
+
+<p>
+Download <a href="dos16/burp.exe">BURP for 16-bit DOS, Win3.x</a>.<br>
+<small>
+b8dd1dda11a4f5717d52c1f68fd5948a *dos16\burp.exe
+</small>
+</p>
+
+<p>
+Download <a href="hpux/burp">BURP for Hewlett-Packard PA-RISC workstations</a>.<br>
+<small>
+59acb6458134050cc97453f6dc266273 *hpux/burp
+</small>
+</p>
+
+<p>
+Download <a href="linux5/burp">BURP for Linux on Intel using (old) libc5</a>.<br>
+<small>
+ff0debf0d77d2276bd183d51e170afe1 *linux5/burp
+</small>
+</p>
+
+<p>
+Download <a href="linux6/burp">BURP for Linux on Intel</a>.<br>
+<small>
+9068813f642fc8415257f3c154162184 *linux6/burp
+</small>
+</p>
+
+<p>
+Download <a href="macosx/burp">BURP for Mac OS X G4</a>.<br>
+<small>
+489edcb1aa4b8d5cd960f32282534be8 *macosx/burp
+</small>
+</p>
+
+<p>
+Download <a href="openbsd/burp">BURP for OpenBSD on Intel</a>.<br>
+<small>
+15aa8f28387384c117ebe8fd6dda6e67 *openbsd/burp
+</small>
+</p>
+
+<p>
+Download <a href="os2/burp.exe">BURP for IBM OS/2</a>.<br>
+<small>
+ded223f251e640eb4a157fae4f72d3c9 *os2\burp.exe
+</small>
+</p>
+
+<p>
+Download <a href="rs6000/burp">BURP for IBM RS/6000 workstations</a>.<br>
+<small>
+c271964484ec7df2e0f5ea46fea4370f *rs6000/burp
+</small>
+</p>
+
+<p>
+Download <a href="sgi/burp">BURP for Silicon Graphics workstations</a>.<br>
+<small>
+3a5e0c9f51cedbbe9082c2ada53fa568 *sgi/burp
+</small>
+</p>
+
+<p>
+Download <a href="sun/burp">BURP for Sun workstations under Solaris</a>.<br>
+<small>
+2ef464f3f3acc37f8e91485b777fa169 *sun/burp
+</small>
+</p>
+
+<p>
+Download <a href="win32/burp.exe">BURP for 32-bit Windows variants on Intel</a>.<br>(W9x, ME, NT, 2K, XP, etc.)<br>
+<small>
+34e83b56af8f7d40186a40001b92e389 *win32\burp.exe
+</small>
+</p>
+
+<p>
+Download <a href="win64/burp.exe">BURP for 64-bit Windows on AMD 64</a>.<br>
+<small>
+6c94ae2cabde55895cd85b1ac394b9e6 *win64\burp.exe
+</small>
+</p>
+
+<p>
+Download <a href="zaurus/burp">BURP for Zaurus (Linux on SA-1110)</a>.<br>
+<small>
+0e0e54c0f3616afc0e4046a4ccdf6b52 *zaurus/burp
+</small>
+</p>
+
+<h4>Additional Burp Links:</h4>
+
+<p>
+An example of use of Burp on <b>Zaurus</b> PDA can be found
+<a href="safezaurus.html">here</a>.
+</p>
+
+<p>
+A <b>Win32 GUI</b> "frontend" for Burp can be found
+<a href="http://rumkin.com/software/burp/">here</a>.
+Please read <a href="burp.txt" target="_text">burp.txt</a> file
+before downloading and using it, as such use of the program has
+serious security repercussions, and is best reserved for those
+instances where the attacker could never gain access to the
+computer used to produce encrypted files on removable media,
+or where the plainetx is intended to be permanently kept
+on a secured computer after the decryption.
+</p>
+
+<hr>
+<p>
+Download <a href="geodysseypubkey.asc">our PGP public key</a>.<br>
+Its md5sum is:<br>
+<small>
+6ef8cefde0292d5887d06bf00e9da2f3 *geodysseypubring.asc</small>
+</p>
+
+<hr>
+
+<p>
+<a href="http://www.geodyssey.com" target="_top">
+Return to Geodyssey's home page</a>.
+</p>
+
+<p>
+For more information about Geodyssey and Hipparchus,
+write, e-mail, fax or call:
+</p>
+
+<P>
+Geodyssey Limited,<BR>
+Suite 240, Panarctic Plaza,<BR>
+815 8th Avenue South West,<BR>
+Calgary, Alberta, T2P 3P2, CANADA<BR>
+Tel 1-403-234-9848, Fax 1-403-243-3979,<BR>
+E-mail: info@geodyssey.com<br>
+Website: http://www.geodyssey.com
+</p>
+
+<p>
+<small>
+Hipparchus&reg; is a registered trademark of Geodyssey Limited.<br>
+&copy; Copyright 1992, 2002 by Geodyssey Limited.
+All rights reserved.<br>
+Last revised 2002/12/03.
+</small>
+</p>
+
+</BODY>
+</HTML>

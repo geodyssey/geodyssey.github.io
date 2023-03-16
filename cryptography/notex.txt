@@ -1,0 +1,189 @@
+Notex: a "crypto-enabled" Windows text editor
+---------------------------------------------
+
+Notex is a simple text-editor program. It is very similar
+to the Notepad Windows applet - with one notable addition:
+it will encrypt and decrypt text using a 128-bit ("strong")
+cryptographic algorithm named Blowfish. This facility can
+be used, among others, to send and receive secure e-mail.
+Secure - in this context - means that the message can be
+neither generated nor read by someone who is not in the
+possession of a secret key, shared between the sender and
+the receiver of the message. Notex uses the Windows
+"clipboard" to transfer both plaintext and ciphertext to
+and from an existing e-mail client text-composition or
+display window. Encrypted data is very safe in transit,
+but remember that any applications running under Windows
+(and, especially, Windows itself) can leave data on the
+hard drive even if it has been "deleted". This program
+therefore provides only a limited protection from an
+attacker who can gain either physical or network access
+to the computer used to send and receive e-mail.
+
+It is assumed that the reader is already the user of an
+existing e-mail program (Eudora, Outlook, etc.) and is
+familiar with its text composition and display, as well as
+clipboard import and export functions. (Check the "Help"
+that comes with the mail program for details). It is also
+assumed that the reader knows how to use the Notepad
+"applet" present in all Windows systems. There is
+extensive on-line help in Notepad, most of which applies
+also to the Notex program.
+
+Using Notex:
+------------
+
+A key must be entered before the program can perform either
+encryption or decryption. This is done using the [Crypto] -
+[Enter or Change Key...] functions on the Notex main menu.
+Doing this once is sufficient to decrypt the text, but the
+key must be entered a second time ("confirmed") in order to
+encrypt text. (Using an erroneous key while decrypting the
+text will be detected and/or reported immediately, while a
+text encrypted with a key different from the one known to
+the intended recipient will be detected only when it is
+probably to late to correct the error - in the hands of
+the recipient who is unable to decrypt the message).
+
+The key can be a short "word" of a minimum of 8 and maximum
+of 16 characters, preferably including upper and lower case
+letters, numbers and punctuation, or a long, non-sensical
+sentence (a "pass-phrase") which the program will internally
+convert to and use as a 16-byte key. Both the key and the
+pass-phrase are case sensitive.
+
+In a typical application, the sender will compose the text
+of the message directly in the Notex window, and use the
+[Encrypt Text to Clipboard] function on the main menu of
+Notex, followed by [Paste] in an e-mail program message
+composition window. Encrypted text can be the whole, or
+only a part of an outgoing message. The recipient will
+first either [Select All] incoming message text, or select
+only that part of the incoming message that appears to be
+encrypted. This will be followed by [Copy] (to the
+clipboard, still in the incoming message window of the
+e-mail program), finally followed by [Decrypt Clipboard to
+Text] in Notex to obtain decrypted text in the Notex editor.
+If required, this text can be printed directly from the
+program ([File] - [Page Setup] and/or [Print]) or it can
+be saved as a file ([File] - [Save As]) to be processed
+using other computer applications.
+
+Ciphertext can also be printed in order to be stored or
+transported on paper - provided it is either short enough
+to be re-typed (without a single error!) or that it can be
+scanned and converted ("OCR-ed") from a scanned image back
+into a text file format.
+
+Both edit text and the key can be entered using the mouse
+and an on-screen "keyboard". This is advisable if Notex is
+used on a computer (for instance, in an Internet Cafe) which
+is suspected of being equipped with either hardware or
+software key-loggers. Note that the on-screen keyboard must
+be activated before the key entry dialog is opened. Entry
+of text from both "real" and on-screen keyboard can be
+freely intermixed. Note however that while the key-loggers
+may be the most common method of compromising a Windows
+system, they are many others.
+
+About encrypted text:
+---------------------
+
+Text to be encrypted is first compressed, then encrypted
+and finally turned from binary encrypted data once again
+into text, this time as a series of 64-character lines,
+composed entirely of "printable" ASCII characters, with no
+spaces or punctuation. Such content can be easily sent and
+received as the "body" of an e-mail message, without the
+need to deal with e-mail "attachments".
+
+Since the decryption process ignores lines which do not
+appear to be part of encrypted text (as described above),
+the program is somewhat tolerant of extraneous text (for
+instance, e-mail message headers that may be picked up with
+the [Select All] function of the e-mail program). This also
+makes it easy to include or extract only a number of
+encrypted lines to or from a message otherwise consisting
+mostly of plaintext.
+
+The encrypted text (intentionally) does not include any
+element that could be used to directly ascertain the
+"correctness" of a key used to decrypt it. If a key
+different than the one used to encrypt the text is used for
+decryption, arbitrary, "random-like" data will be produced.
+An attempt to "decompress" such random data can either fail
+with an error message, or it can produce "garbage" output
+which is assumed to be easily recognizable as such by the
+message recipient.
+
+Note that the Notepad and clipboard on most Windows
+systems are restricted to about 40K characters (about
+12 type-written pages) - this is also the approximate
+upper limit on the text in Notex.
+
+Additional technical details:
+-----------------------------
+
+Encryption and decryption techniques used by this program
+are based on the assumption that the plaintext consists
+mostly (but not entirely) of ASCII text, and that its size
+is that of a large e-mail message.
+
+The text is first compressed.  This has two benefits: it
+makes "brute force" cryptoanalysis more difficult, and it
+ensures that the ciphertext encoded in ASCII text form
+(see below) will - in all practical cases - be well below
+the volume of the plaintext.
+
+Compressed text is next encrypted using a strong
+cryptographic algorithm ("Blowfish") in "Cipher Block
+Chaining" (CBC) mode. A random Initialization Vector
+ensures that identical text encoded using the same key
+will not produce identical ciphertext.
+
+Encrypted text resembles a random byte stream consisting
+of both "printable characters" and various "control codes".
+In order to make it possible to pass the ciphertext around
+as "text" via clipboard or e-mail, it must be turned back
+into ASCII text - that is, into a stream of bytes consisting
+only of printable characters. This is achieved by what is
+known as "base64" encoding: three bytes of binary data with
+values anywhere between 0 and 255 are represented using 4
+characters of text (where each character can have a more
+restricted set of values: only those representing one of
+selected set of 64 "printable" characters. Text in this
+form is further organized - by purposefully adding
+"new-line" control bytes at appropriate intervals - in
+a number of fixed length text lines. If necessary,
+the last line is padded up to this length with random
+characters.
+
+Resulting text can be decrypted on computers which use
+different operating systems (Linux, Unix, etc.) as well as
+on the computers with different byte ordering. Two programs:
+encodex.c and decodex.c can be used either for this purpose
+directly, or as a source of tested C language programming
+code that can be incorporated in simple text editors on
+other "platforms".
+
+Decryption reverses the order and the direction of the three
+steps described above.
+
+Notex.exe can be renamed and will execute correctly under
+any new name. It will execute directly from a floppy, CD or
+any other removable medium, requires no "installation" and
+writes nothing in the system directories or to the
+configuration files on the computer it executes on. If your
+browser will allow Windows programs to be run from their
+network location (i.e., without "downloading") you can
+encrypt and decrypt e-mails  with no encryption software of
+any kind "installed" on your computer!
+
+Version information:
+--------------------
+
+The current Notex version is 1.00. This program is published
+with no restrictions on its use and copying, and no guarantee,
+either explicit or implied.
+
+End.

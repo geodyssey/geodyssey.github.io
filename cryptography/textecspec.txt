@@ -1,0 +1,69 @@
+   Textec encoding can be viewed as a three-step transformation:
+
+   <a> compression (from [sourceText] to [compressedText]),
+   <b> encryption (from [compressedText] to [cipherext]) and finally
+   <c> base64 encoding (from [ciphertext] to [encoded64Text]).
+
+   Decoding reverses the order and the "direction" of the above steps.
+
+   <a> Compression
+   ---------------
+   The compression level is moderate, ensuring only that (if the
+   plaintext consists of natural language words) the volume will be
+   reduced more than the later increase caused by the base64 encoding.
+   It can also make the known-plaintext attacks considerably more
+   difficult. If the volume of text is low or if it has little or
+   no redundancy, the compression step may be omitted (see below,
+   ~i~ trailer).
+
+   <b> Encryption
+   --------------
+   Ciphertext is encrypted in 8-byte blocks using Blowfish CBC mode.
+   If the last block of text (before the encryption) is "short",
+   (i.e., it consists of ~n~ bytes, where 1 <= n <= 7), it will be
+   padded (up to 8) with random bytes. If that was the case, a dummy
+   "trailer" of ~n~ random bytes is also added to the ciphertext. This
+   enables the decryption process to discard the padding: if the size
+   of the ciphertext presented to it is not an even multiple of 8
+   (i.e., there are n bytes over an even multiple of 8), only the
+   first n decrypted bytes of the last full block are included in
+   the plaintext.
+
+   <c> Base64 Encoding
+   -------------------
+   The final base64 encoding transforms 3 bytes of binary data into 4
+   characters of ascii text, using only numerals, upper and lower case
+   letters and braces. The text is broken into 64-character wide lines.
+
+   Each of the three derived forms of text has some additional
+   information added to it (NB.: in the diagram below, relative sizes
+   are preserved, but the scale is not):
+
+             [----------------------sourceText------------------------]
+   <a>
+             [----------compressedText----------]i
+   <b>
+      ---IV--[------------cypherText------------]-pad8-
+   <c>
+     -crc-cnt[--------------encoded64Text--------------]--pad64--
+
+   The headers and trailers indicated in the above diagram are:
+
+   i:        single random byte, interpreted as an integer, even if the
+             source text was successfully compressed, odd if it was
+             "uncompressable" and therefore simply copied from
+             [sourceText] to [compressedText].
+
+   IV:       an 8-byte CBC Initialization Vector. Random but not secret.
+
+   pad8:     optional, padding, as described above.
+
+   crc:      4-byte crc32 check value of (IV + cipherText + pad8) before
+             base64 encoding.
+
+   cnt:      4-byte integer byte count of (IV + cipherText + pad8) before
+             base64 encoding.
+
+   pad64:    up to 63 random bytes, padding (crc + cnt + encoded64Text)
+             to a full 64-character (last) line.
+

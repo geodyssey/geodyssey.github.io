@@ -1,0 +1,237 @@
+<html><head>
+<meta content="text/html; charset=US-ascii">
+<title>Encrypted Zaurus backup</title>
+</head>
+
+<body>
+
+<h3>Encrypted Zaurus backup</h3>
+
+<p>
+This document explains how to back up and restore the complete
+operational environment of Zaurus PDA. The main advantage
+over the backup/restore procedure supplied with the device
+is that the <b>backup archive file is encrypted</b>. This
+means that even if the data on the Zaurus must be carefully
+guarded against any unauthorized access, there is no need
+to guard the backup archive file: it may be, for instance,
+stored and retrieved from any web-server using insecure,
+public access or it may be burned on a CD without much
+concern whose hands that CD might end up in sometime in
+the future.
+</p>
+
+<p>
+Another potentially useful feature of this procedure is
+that the encryption program works "at both ends": on the Zaurus
+<em>and</em> on the PC. This means that in an emergency (for
+instance, if the Zaurus is lost or broken while travelling)
+the backup archive can be decrypted and de-compressed on any PC.
+Decrypted archive is a compressed 'tar' file well known to Linux
+users; if the PC on which the backup archive is decrypted runs
+Windows, 'tar' program for Win32 platforms can be obtained from
+http://gnuwin.epfl.ch/ . Wading through the raw Zaurus
+address-book file in XTML format on a PC might not be the most
+elegant way to get an address or a phone number, but if it is
+the <em>only</em> way, one would quickly find it quite tolerable.
+</p>
+
+<p>
+The working components of the procedure explained herein
+are the Burp encryption program for Zaurus and two shell scripts:
+the first one to backup and the second to restore the device.
+Both shell scripts are described in this document.
+The "terminal" application must also be installed on the
+Zaurus.
+</p>
+
+<p>
+This procedure has been tested on Zaurus SL-5500 with
+Sharp ROM, standard "terminal" application (from the CD
+that comes with the Zaurus) and FAT-formatted MMC card.
+It is expected to work with any ROM version and SD/MMC
+card. Only minor modifications might be required if the backup
+is stored on CF card. The following assumes that the "terminal"
+application is installed on Zaurus and that files can
+be transferred from the memory card to a PC and vice versa.
+</p>
+
+<h3>Quick overview</h3>
+
+<p>
+The steps you will have to carry out are:
+<p>
+
+<ol>
+<li>Copy an appropriate binary of the encryption program
+to Zaurus and, optionally, to the PC.</li>
+<li>Create an archive directory on the MMC/SD card.</li>
+<li>Create "save" and "restore" bash scripts.</li>
+</ol>
+
+
+<h3>Details</h3>
+
+<p>Before you do any of the following, ensure you have an
+up-to-date conventional backup and know how to restore
+the Zaurus after performing a "hard reset".
+</p>
+
+<p>
+Next, copy - using whatever method you normally use to
+transfer files between PC and Zaurus - the Burp program
+Zaurus binary from its <a href="cryptography.html">
+web repository</a> to the /usr/bin directory on Zaurus.
+Ensure that it is executable; if necessary consult Linux
+chmod command documentation for details. Read Burp
+documentation in (<a href="burp.txt">burp.txt</a> file)
+and test it by ecrypting and decrypting some data files.
+</p>
+
+<p>
+Using a text editor that writes clean ASCII text
+files, create two files, one called "bkopenv" and the other
+called "rstopenv". These names suggest "backup of operational
+environment" and "restoration of operational environment".
+You can change the names of these scripts, rename the
+encryptor program and use a different name for the directory
+where the archive will be stored, as long as you consistently
+change all references to such names in everything that follows.
+</p>
+
+<p>
+Copy both scripts to the same /usr/bin directory on Zaurus
+and ensure they are likewise executable.
+</p>
+
+<p>The content of the first script ("bkopenv") file is:
+</p>
+<hr>
+<b>
+<code>
+#!/bin/bash<br>
+cd /<br>
+<br>
+tar -cf /tmp/xx_archive.tar home/*<br>
+if [ $? != 0 ] ; then<br>
+   echo "Error: tar failed"<br>
+   exit 1<br>
+fi<br>
+
+gzip /tmp/xx_archive.tar<br>
+if [ $? != 0 ] ; then<br>
+   echo "Error: gzip failed"<br>
+   exit 1<br>
+fi<br>
+<br>
+burp -eo -c /tmp/xx_archive.tar.gz<br>
+if [ $? != 0 ] ; then<br>
+   echo "Error: burp failed or aborted"<br>
+   exit 1<br>
+fi<br>
+
+mv /tmp/xx_archive.tar.gz /mnt/card/xx_dir/xx_archive.tar.gz.burp<br>
+if [ $? != 0 ] ; then<br>
+   echo "Error: can't move archive to SD card"<br>
+   exit 1<br>
+fi<br>
+
+ls /mnt/card/xx_dir/.<br>
+echo "User backup done"<br>
+</code>
+</b>
+<hr>
+<p>The content of the second script ("rstopenv") file is:
+</p>
+<hr>
+<b>
+<code>
+#!/bin/bash<br>
+cd /<br>
+<br>
+if [ ! -f /mnt/card/xx_dir/xx_archive.tar.gz.burp ] ; then<br>
+   echo "Error: no file [/mnt/card/xx_dir/xx_archive.tar.gz.burp]"<br>
+   exit 1<br>
+fi<br>
+<br>
+burp -d -c /mnt/card/xx_dir/xx_archive.tar.gz.burp /tmp/xx_archive.tar.gz<br>
+if [ $? != 0 ] ; then<br>
+   echo "Error: burp failed or aborted"<br>
+   exit 1<br>
+fi<br>
+<br>
+gunzip /tmp/xx_archive.tar.gz<br>
+if [ $? != 0 ] ; then<br>
+   echo "Error: unable to decompress"<br>
+   exit 1<br>
+fi<br>
+<br>
+tar -xf /tmp/xx_archive.tar<br>
+if [ $? != 0 ] ; then<br>
+   echo "Error: unable to restore"<br>
+   exit 1<br>
+fi<br>
+<br>
+rm  /tmp/xx_archive.tar<br>
+echo "User restore done"<br>
+</code>
+</b>
+<hr>
+
+<p>
+Once all three components are on the Zaurus, open the terminal
+and create the backup directory on the SD/MMC card:<br>
+<code>
+mkdir /mnt/card/xx_dir<br>
+</code>
+</p>
+
+<p>
+You are now ready to backup the Zaurus - simply type "bkopenv"
+at the bash prompt and supply the key or the passphrase when
+Burp asks you to do so. Once the archive is created, copy it
+from the archive directory on the SC/MMC card to the PC and
+store it wherever you would store your important backup data.
+Remember, the archive file is encrypted and you don't have to
+worry who might get access to it - no matter how private and
+sensitive the data you keep on your Zaurus is.
+</p>
+
+<p>
+To restore the Zaurus from the archive, ensure the archive file
+is in the backup directory on the SD/MMC card and run "rstopenv"
+shell script. A word of caution: since the "terminal" application,
+Burp program and restore script will not be present on Zaurus
+if you were forced to perform "hard reset" (or if you are
+restoring to a brand-new replacement Zaurus) it is a good practice
+to keep a copy of Burp (Zaurus binary), restore shell script and
+qpe-terminal...arm.ipk file wherewer you keep the archive itself.
+Alternatively, you can prepare (and have handy) a conventional,
+unencrypted backup set of Zaurus that has no user data, just the
+terminal application installed and both Burp program and restore
+script present in the /usr/bin directory.
+</p>
+
+<p>
+Note that Burp does not verify the correctness of the decryption
+key - this is intentional, as it provides for higher security.
+Whatever key or passphrase you type, it will produce <em>some</em>
+output; however, if the key was not the same as the one supplied
+during the encryption, the process will fail in subsequent
+decompression step.
+</p>
+
+<p>
+<b>Finally, there are two things that can not be emphasized enough:
+read the documentation in the <a href="burp.txt">burp.txt</a> file
+and test this procedure thoroughly before you decide to depend on
+it in an operational setting.</b>
+</p>
+
+<p>
+<a href="cryptography.html">
+Return to Geodyssey's cryptography page</a>.
+</p>
+
+</body>
+</html>

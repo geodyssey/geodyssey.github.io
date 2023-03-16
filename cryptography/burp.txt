@@ -1,0 +1,325 @@
+---------------------------------------------------------------------------
+  BURP: Blowfish based, command-line file encryption/decryption program.
+         Version 1.2 - Programmer: Hrvoje Lukatela, 1998, 2002.
+---------------------------------------------------------------------------
+   This code is in the public domain; there are no restrictions on its
+   use or distribution, and no guarantees, either explicit or implied.
+---------------------------------------------------------------------------
+ BURP is an acronym. It stands for "Blowfish Updated Re-entrant Project".
+ Blowfish code used by BURP has been modified to provide re-entrancy, a
+ necessary condition for its use in multi-threaded geographical data servers.
+ (New versions of this program can be found at http://www.geodyssey.com/).
+---------------------------------------------------------------------------
+
+
+Introduction:
+-------------
+BURP is a lean, multi-platform command-line utility program that encrypts
+and decrypts files using a strong cryptographic algorithm named "Blowfish".
+The program can use either a long sentence-like passphrase, or a short
+(up to 16 random characters) key-string. It will normally read plaintext
+or ciphertext from one file and write its conjugate to another, but it
+will, optionally, read plaintext from the keyboard or write it to the
+screen, or encrypt file in-situ, overlaying the plaintext with the
+ciphertext.
+
+Unlike many similar programs, BURP writes to the output file only the
+ciphertext (i.e., it writes no "file headers", password verification data,
+system, program or content identification strings, etc.). Consequently,
+such file can not be "provably" identified as ciphertext, as long as
+the key is secure, or unless it is broken cryptographically.
+
+The program is very compact, executes without the need for any ancillary
+files and is available for a wide range of computer hardware platforms
+and operating systems. BURP can be easily integrated with many popular
+"Linux-on-a-floppy" systems. Such systems often keep their entire file
+structure in the main memory, and if no disk drives are "mounted",
+no data is ever written to the computer's hard drive. This enables one
+to implement comprehensive data-exchange protocols which, if followed
+carefully, guarantee that neither the cryptographic software nor the
+plaintext is ever resident on a computer used for the encryption and
+decryption. Such protocols ("drive-by-cryptography") are expected to
+provide the main motivation for its use.
+
+Compact and well documented C language source code is delivered with
+each copy of the program. This makes possible an independent assessment
+of its features by anybody who understands C programming language.
+Its modular construction ensures that the cryptographic routines can be
+independently re-tested and/or reused in other data-protection projects.
+The source code requires only the compiler and standard C library; this
+will provide for easy porting of BURP to new computing platforms - an
+important consideration in case of encryption of archival material.
+BURP-generated ciphertext can be decrypted on any computer (current or
+future) on which a simple, stand-alone C language program can be compiled
+and executed.
+
+BURP is - and shall remain in perpetuity - completely free, for either
+personal or commercial use.
+
+
+Operation:
+----------
+The following assumes that the reader is familiar - in general terms
+only - with the file directory system and the operation of command-line
+file utility programs. Please note that any participation in a secure
+data-exchange protocol without such knowledge is, at best, imprudent.
+
+The Burp distribution archive includes a number of different executable
+BURP program files, ready to run on different computer hardware and
+operating systems. (cf. "readme.1st" in the distribution archive; for
+additional executables visit http://www.geodyssey.com/cryptography.html).
+
+If none of the executables fit your operating environment (or, if you
+need the firm assurance that the executable corresponds to the published
+and inspected source code) the program can be built from the included
+source files. When doing so, consult specifically three "Porting notes"
+(echo-suppression, integer-width and byte-order) in the program preamble
+commentary in "burp.c" source file.
+
+BURP requires no "installation", "configuration files" or environment
+variables. The correct version should be simply copied to an appropriate
+directory on a computer running the required operating system. (Linux
+and Unix versions will probably also require setting of the "executable"
+attribute: "chmod +x burp"). For any of those versions, you may also
+choose to use a completely different executable file name. The program
+can also be resident on - and executed from - a floppy, "zip-disk",
+CDROM or any other removable media.
+
+In common use, the program will read plaintext (or ciphertext) from one
+file and write ciphertext (or plaintext) to another. When writing to
+files, it will - in a manner common to most DOS and UNIX file utilities -
+quietly write "over" an existing file. YOU HAVE BEEN WARNED. Note also
+that the program will attempt to avoid writing back to the input file,
+unless it is explicitly allowed and requested to do so by the -eo
+(see below) flag.
+
+In addition to common file-to-file operation, BURP will optionally perform
+in-situ encryption (i.e., write ciphertext "over" the plaintext in the same
+file, thus obliterating the plaintext). It can also read the plaintext from
+the keyboard (with either clear or "marker" echo), or write the decrypted
+text to the screen in a manner similar to the "more" utility.
+
+Either a key, or a pass-phrase may be used as the basis for the encryption.
+(Pass-phrase is a long, non-obvious sentence, key is a short, random-like
+string of characters). The pass-phrase takes longer to type, there is a
+greater likelihood of a mis-type, and an additional step (cryptographic
+"hash") is required to transform it into a key; it may, however, be easier
+to memorize - and therefore easier to protect - than the key. The pass-phrase
+should have at least 10 or so words, may include numbers and special
+characters, and should include punctuation. The key is a single string,
+preferably having the full length of 16 characters, and it should include
+both upper and lower case letters, numbers and special characters. The key
+should not resemble any plain language words. The program will enforce a
+minimum of 8 and a maximum of 16 characters for the key, and a minimum of
+32 and a maximum of 256 characters for the pass-phrase. Both the key and
+the pass-phrase are case-sensitive.
+
+If entered as a response to the program prompt, the string will be assumed
+to be a key if it has 16 characters or less, and a pass-phrase otherwise.
+(Note that, consequently, all strings between 17 and 31 characters in length
+(inclusive) will be treated as an error, the same as will be the case for
+strings with less than 8 or more than 256 characters). The string need not
+be enclosed in quotes, but for consistency with the command-line key or
+pass-phrase entry (see below) a pair of double quotes at the extremes of
+the string will be tolerated (and stripped before the string is processed).
+
+Since the program will perform both encryption and decryption, either of the
+two "direction" flags must be explicitly given: -e to e(ncrypt) or -d to
+d(ecrypt). Both flags can have either a 'simple' (-e, -d) or an 'extended'
+(-e[=]k(eyboard), -e[=]o(verlay), -d[=]s(creen)) form. ([=] means that the
+equal sign after the flag-letter is optional. There should be no spaces
+after the 'k', 'p' or the '=').
+
+One or two file names may be given on the command line. Where the
+plaintext or ciphertext is read from and written to, depends on -e
+or -d flag format, as follows:
+
+-e  plaintext read from first file, ciphertext written to second.
+-ek plaintext read from keyboard, ciphertext written to file.
+-eo plaintext read from file, same file is overlayed with ciphertext.
+
+-d  ciphertext read from first file name, plaintext written to second.
+-ds ciphertext read from file, plaintext written to screen.
+
+Note that there is no provision (-do) for in-situ decryption. Also, note
+that the "more-like" plaintext screen listing uses "console" output and
+(on most systems) can not be re-directed to a file. This is intentional:
+pieces of a "pipe" are typically left "laying around" by the system.
+
+Plaintext entered from the keyboard is assumed to consist of lines,
+of the maximum length of 512 characters. It is, however, advantageous
+to keep the length of the line less than the screen width, since the
+content of such line may be changed using the backspace character.
+Once the <enter> key is pressed, the content of the line is processed,
+and can no longer be changed. The end of the message is signalled by
+entering an empty line. (If an "empty" (for instance, to separate
+paragraphs) line is required, a line with a single space character could
+be used instead).
+
+As usual - to protect the key or the pass-phrase - the program will
+echo all keyboard-entered characters (other than space and <Enter>)
+as a '#' character. If, however, the ciphertext is typed-in from the
+keyboard (-ek flag), (and if only the operator can possibly observe
+the screen), the program may be set to echo "in clear", by specifying
+the -c(learecho) flag. Note that as an exception, the program may be
+compiled on systems which do not support "echo-less" console input,
+in which case all entered text will appear on the screen as typed.
+
+When the plaintext is written to the screen, the program will pause
+with a "--- more ---" prompt, after the screen has been filled with
+lines. It is assumed that the screen is 25 lines deep; this count can
+be changed with a -l[=]nn flag, where nn is the new line count.
+
+BURP supports the operation from a floppy drive, where the program is on
+one floppy (or other removable) disk and data on another. -f(loppy) flag
+will interrupt the execution at the point where the program is ready to
+access the files, such that the program disk can be removed from the disk
+drive, and data disk inserted.
+
+Instead of waiting for, and responding to the program prompt, the key or
+the pass-phrase can be entered on the command line. This should be avoided
+at all cost in "live" use of BURP; it is provided ONLY as a convenience
+while testing or experimenting. If (despite this advice) command-line key
+entry is used in an operational setting (for instance, in a batch script),
+one should be extremely careful not to leave behind scripts with copies of
+the live key. (Even if "erased", copies of such script files might contain
+recoverable text). When entered on the command line, the pass-phrase is
+introduced by a -p[=] flag; the key by -k[=]. If either contains spaces,
+commas, slashes, ASCII characters below 32 or above 127, or any other
+characters considered "special" by the command-line shell interpreter, it
+must be enclosed in double quotes). Note however, that different operating
+systems may still pre-process the command line, such that some special
+characters (e.g., "%", "\", "@", "#", etc.) are stripped or modified.
+
+Finally, a -h(elp) or -? flag will print a quick "usage" summary.
+
+
+Examples:
+---------
+
+burp -e myplan.txt MSWRD573.TMP
+   (Encrypt the content of myplan.txt to MSWRD573.TMP file. The program
+   will prompt the operator for either the pass-phrase or the key).
+
+burp -d MSWRD573.TMP myplan.txt
+   (Decrypt the content of MSWRD573.TMP to myplan.txt. Prompt for the key).
+
+burp -eo myplan.txt
+   (Encrypt the content of myplan.txt and overlay the content of the
+   same file with encrypted data. Prompt for the key).
+
+burp -ds -l50 -k="&yRw#5.Mw)3=gX3q" fromnbr1.msg
+   (Decrypt the ciphertext in fromnbr1.msg; use 16 character key,
+   write the plaintext to the screen, pausing after each 50 lines).
+
+burp bigdog.mix -ek -c
+   (Prompt for key or pass-phrase, then read keyboard input, and encrypt
+   the text to file bigdog.mix. Echo the text on the screen as typed.
+   Keyboard input is terminated by entering an empty line.
+
+burp mynovel.doc -p="duobus.modis.fit.iniuria.1.by.forca.2.by.frauda" -eo
+   (Use the pass-phrase and encrypt file mynovel.doc "in-situ",
+   i.e., overlay the original file with its encrypted version).
+
+a:burp -ds -f a:cat.bin
+   (Start (presumably under DOS, OS2 or Windows) BURP from floppy disk
+   in drive A:, than pause so that the program disk can be removed, and
+   a floppy with cat.bin file can be inserted. Prompt for the key, than
+   list the plaintext on the screen).
+
+for %f in (c:\bingo\*.jpg) do burp -eo -k=j6dfZHJGFhyu7Rz8 %f
+ren c:\bingo\*.jpg *.gum
+   (Encrypt, in-situ, all .jpg files in the c:\latenite\ directory,
+   then, using the "rename" utility, change their extensions to .gum.
+   The example assumes DOS/Windows "for" command line construct).
+
+for FILE in ~/bingo/* ; do burp -eo -k=j6dfZHJGFhyu7Rz8 $FILE ; done
+   (Similar to the first step above, under Linux)
+
+
+Technical notes:
+----------------
+
+Technically, BURP is a 64-bit block cipher (Blowfish, designed in 1993
+by Bruce Schneier) implemented in Cipher Block Chaining (CBC) mode, using
+an execution-specific random Initialization Vector (IV), and a trailer in
+which a count of random bytes overcomes a possible short-block at the end
+of the plaintext. For more on Blowfish, see the author's web page at
+http://www.counterpane.com/. Schneier's book, "Applied Cryptography",
+(second edition, Wiley & Sons, 1996) provides an excellent introduction
+to all cryptographic concepts and facilities discussed in this document.
+
+Blowfish is considered cryptographically "strong"; no shortcuts to the
+"brute-force" cryptoanalysis have been discovered in close to ten years of
+extensive studies. Initial key-setup is relatively time-consuming, but
+the encryption and decryption are very fast: this combination impedes the
+brute-force cryptoanalysis, but provides for fast processing of large files
+encrypted for archival storage. This implementation uses a 16 byte key.
+
+Unlike some other programs which perform similar functions (most notably
+the PGP in conventional encryption "-c mode"), this program will produce
+an encrypted file which can not be proven (by presence of standard header
+data, "magic numbers" or similar) to contain encrypted data. While
+encrypting, BURP will output nothing but an 8-byte random IV, the
+ciphertext, and, depending on the plaintext length, up to 7 random trailing
+bytes. The encrypted file will thus have either one or two 8-byte blocks
+more than the plaintext file (and vice versa). Care is taken to make the
+IV and file-length padding bytes different in each program execution, and
+"sufficiently random" to prevent them from being proven to be generated
+by this program. (IV is not required to be secret). The encrypted file
+will resemble random "noise"; it will contain no standard "file header"
+or similar data that may provide the message interceptor or file system
+intruder with a clue of the ciphertext file's true nature and purpose
+(beyond the fact that it is not recognizable as one of the common PC
+application file formats). This is particularly useful in situations
+where a mere provable presence of any encrypted material is a liability.
+(In such situations, however, the presence of this program may need
+addressing. As mentioned above, BURP.EXE may be renamed, or even
+re-compiled with all prompts, identification strings, function names etc.
+removed and/or changed. While such steps will make it somewhat difficult
+to detect its presence by casual inspection, it must be stressed that the
+program will still contain identifiable internal binary data and machine
+instruction sequences).
+
+The down-side of this "ciphertext-only" approach is that the output file
+contains no control information that would help to perform file content
+integrity checking or decryption key verification. Even if the plain-text
+is a "text" file, the ciphertext will be a "binary" one. (Note however,
+that text files consisting entirely of "gibberish" would be even more
+suspect of representing some ciphertext than a binary file consisting
+entirely of random bits).
+
+Be warned of the possibility of data loss in case of the optional in-situ
+encryption: if the program execution is interrupted before its completion,
+the content of the input file (which is at the same time the output file)
+will be destroyed.
+
+If the program is forced to quit early due to a recognized error condition
+(e.g., exhausting the space available for the output file) it will, before
+terminating, write over the disk file data produced up to the point of
+failure. Three passes are used: first with all 1's, then with a pseudorandom
+sequence of 1's and 0's, and  finally with all 0's. Similarly, all memory
+used for pass-phrase, key or cryptographic tables is set to nulls at the
+(controlled) end of program execution. Note however that BURP, like any
+other computer program, might abandon the execution due to a variety of
+reasons (system crash, power failure, etc.) that will prevent it from
+carrying out such clean-up. In addition, the circumstances under which
+the operating system makes copies of complete or partial data files are
+varied and sometimes impossible to control. For maximum security, plaintext
+should simply never reside on computer's hard drive.
+
+
+Version information: BURP V1.2 - April 2002
+--------------------------------------------------------
+Change from 1.00:
+   Introduction of -f(loppy) flag and additional examples.
+Changes from 1.01:
+   Command line options must use "-", (can no longer use "/").
+   Posix (Linux, Unix, etc.) "echo-less" console implemented.
+   Console plaintext input ends with an empty line.
+   Expanded commentary in burp.c file.
+   Minor updates of this (burp.txt) file.
+
+For new versions see: http://www.geodyssey.com/
+Please e-mail bug-reports to: support@geodyssey.com
+--------------------------------------------------------------------------
