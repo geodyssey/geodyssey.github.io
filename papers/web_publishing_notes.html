@@ -1,0 +1,188 @@
+<html>
+<head>
+<title>Notes on HTML Publishing for Dual Mode (Net/CD) Distribution</title>
+</head>
+<body bgcolor="white" text="black" link="blue" alink="lime" vlink="teal">
+<br>
+<center>
+<h2>Notes on HTML Publishing for Dual Mode (Net/CD) Distribution</h2>
+</center>
+<center>
+<h4>Hrvoje Lukatela,
+<a href="http://www.geodyssey.com/" TARGET="geodyssey">Geodyssey Limited</a>
+<small> http://www.geodyssey.com/</small><br>
+<small>Document URL: http://www.geodyssey.com/papers/web_publishing_notes.html</small><br>
+</h4>
+</center>
+
+<p>
+Following is a set of html directives and restrictions used for
+the publishing of "collections" of "chapters", "papers" or
+"articles", when such collections are to be distributed as both
+"web-pages", and as a stand-alone computer-media resident
+publications (on floppy disks, CD's, etc.). Such "publications"
+are read using "web-browser" programs (for example Mosaic,
+NetscapeNavigator, InternetExplorer, Opera, etc.) This text
+assumes that the reader is familiar with the essentials of the
+operating system independent computer file systems and with the
+basics of web publishing (html, bit-mapped graphics).
+</p>
+
+<p>
+One such "collection" can be thought of as the equivalent of
+one "bound volume" in the paper world (book, technical manual,
+magazine, conference proceedings...).  In further text it will be
+referred to as a "book". As already stated, a book is assumed to
+consist of "articles". It is further assumed that multiple books
+will reside and be distributed on a single computer disk. This
+document assumes that there will be one "decision-maker" (person or
+institution) that acts as a "book publisher" and a (possibly large)
+number of others that are considered "article authors".
+
+<p>
+This document addresses two principal issues: how to make more than
+one such book co-resident on a single disk, and how to internally
+organize a book, so that the manipulation of the material on a
+computer is as simple as possible, and can be "read" using as wide
+a range of computers and browsers as practical.
+
+<p>
+One book is completely contained in a single, "flat" directory.
+("Flat" means there are no subdirectories). The name of the book
+is a directory name, and it consists of lower-case letters, numbers
+and the underscore ("_") character, with the total count of less
+than 64. The starting character must be a letter. This standard does
+not control the book name space - which means it provides no rules
+that would guarantee such names would be unique. However, if the
+names are as complete and as descriptive as the names of the paper
+publications commonly are, and if they end with the publication date
+in 'yyyymmdd' form, the likelihood of name collision will be greatly
+reduced.
+
+<p>
+A book consists of a "table of contents", and "articles". Since all
+book content is assumed to be read in a browser, the table of contents
+will be an index.html file. The book publisher will assign a unique
+string, starting with a lower case letter, of up to 16 characters,
+conforming to a file-base-name convention, to each article. This string
+will be referred as "article name". (Note, however, that the reader
+will not normally see this name). Each file that "belongs" to an article
+has a file base name which starts with the "article name". Similar to
+the directory names, file name are strings of less than 64 characters.
+Unlike directory (or book) names, file  names will include exactly one
+period (".") character; separating the file base name from the extension.
+Each article will have one file whose name consists of the article name
+and an ".html" extension: this is the html file that will be linked to
+the html "hypertext reference" from the article title in the book table
+of content (index.html file).
+
+<p>
+This completes the set of rules that this "standard" specifies. However,
+the book publisher will usually add additional rules which the article
+authors are expected to follow. The purpose of such rules would be to
+ensure that, for instance, all articles can be read on a given level of
+browsers, that there is some guaranteed level of service in either
+web or media distribution, that all articles follow the same typography
+and presentation style, and so on. What follows is an example of such
+rules for article author(s):
+
+<ol>
+
+<li>
+<p>
+All file names will be unique, starting with the article name.
+Files must be of one of the following types (defined by their extensions):
+.html, .gif, .png and .jpeg . There will be one file named artclname.html
+(where artclname stands for the article name assigned by the book
+publisher); this file will be the main text content of the article in
+the form of an html document. It will be the only file with META tags,
+and it will have a <code>&lt;title&gt;</code> tag which gives a full title of
+the article. The article title will also appear as an <code>&lt;h2&gt;</code>
+header, all other headers within the document (if any) will be of lower
+(<code>&lt;h3&gt;</code>, <code>&lt;h4&gt;</code> etc.) levels.
+</p>
+</li>
+
+<li>
+<p>
+An article can have at most 8 .html files and at most 16 graphical
+files, totaling no more than 50 KB for all .html files combined, and
+no more than 200 KB of combined graphical (.gif, .png, and .jpeg) files.
+</p>
+</li>
+
+<li>
+<p>
+Html constructs used must conform to the 3.2 level. Standard html
+(UNIX-like) line endings are preferred. There are further restrictions,
+as noted below.
+</p>
+</li>
+
+<li>
+<p>
+Individual image size must not exceed 400 pixels in any dimension
+(width or height). .gif or (preferably) .png file format will be used
+for vector (computer generated) graphics, .jpeg for "dense-field"
+(photographs, etc.) graphics. .gif and .png files must use "web-safe"
+<a href="webcolors.html" TARGET="colors"><small>("WEBCOLORS")</small></a>
+palette. All images must include a meaningful description in an ALT tag.
+</p>
+</li>
+
+<li>
+<p>
+Hypertext references which are internal to the article can be
+"implicit" in the text and must use relative URL's; external
+references must be clearly described as net URL's in the text, and
+must be absolute URL's.  Internal references may not open a separate
+browser window; external ones must.
+</p>
+</li>
+
+<li>
+<p>
+Following html features must not be used: background color control;
+background graphics; sound; link appearance modification; browser
+window size or margin control; text-in-graphics; frames; server-side
+processing of any kind (CGI etc.); forms; plug-ins; java,
+java-script VB-script or style sheets; <code>&lt;font&gt;</code>,
+<code>&lt;font-size&gt;</code> or <code>&lt;blink&gt;</code>
+tags and text color control.
+</p>
+</li>
+
+<li>
+<p>
+Following html features are tolerated but discouraged: more than
+one .html file per article; animated .giff's; mail links; client-side
+imagemaps and paragraph or header indentation or justification control.
+</p>
+</li>
+
+</ol>
+
+<p>
+Finally, it is suggested to the article authors to test their
+documents with browsers that put a great deal of emphasis on enforcing
+the html standard and that restrict the functionality in order to
+improve loading speed and responsivness. Under Win32 operating systems
+this can be done with Opera (http://www.operasoftware.com/); under
+Unices with GNU Help Browser or similar. Such browsers will often
+demonstrate html errors even in instances that are quietly
+(but sometimes inconsistently) tolerated by mainstream browsers.
+</p>
+
+<p>
+If any of the web-publishing concepts mentioned
+in this document need further explanation, the suggested reference
+is:  Web Design in a Nutshell - A Desktop Quick Reference,
+J. Niederst, O'Reilly, 1999.
+</p>
+
+<center>
+<h2>...</h2>
+</center>
+
+</body>
+</html>
