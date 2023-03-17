@@ -1,0 +1,975 @@
+<html>
+<head>
+<title>Pipeline (AHGPP) Database Location Reference System</title>
+<META NAME="description" CONTENT="Pipeline Location Reference System">
+<META NAME="keywords" CONTENT="computer mapping, GIS, ellipsoid geometry, seamless global coverage">
+</head>
+<body bgcolor="white" text="black" link="blue" alink="lime" vlink="teal">
+<br>
+<center>
+<h2>Pipeline (AHGPP) Database Location Reference System</h2>
+</center>
+<center>
+<h4>Hrvoje Lukatela<br>
+Paper presented at the 50th Annual Meeting of the American Society of Photogrammetry,<br>
+Washington, D.C. 11 - 16 March 1984<br>
+<small>Document URL: http://www.geodyssey.com/papers/ahgpp.html</small><br>
+</h4>
+</center>
+
+<hr>
+<blockquote>
+<center>
+<h3>Abstract</h3>
+</center>
+
+<p>
+A multi-user geo-based information
+system was implemented as a
+surveying, geotechnical, biological, cadastral and pipeline design
+data repository for the Alaska Highway Gas Pipeline Project.
+Location reference software was designed as a general-purpose,
+high precision, global coverage system, and
+integrated with a commercial
+pseudorelational database package.
+Locations were described by a set of ellipsoid
+related planar cells, and their internal coordinates, derived
+by a pseudo-stereographic ellipsoid to plane projection.
+Input and output location data can be given or generated
+in any commonly used plane surveying coordinate system.
+Retrieval is based on the KP range,
+alignment sheet, proximity to other items or any area polygon.
+Database resolution surpasses the accuracy of the reference line
+field survey. Processing and storage utilization are highly
+efficient, an important consideration on a large mainframe
+computer complex.
+</p>
+</blockquote>
+<hr>
+
+<center><h3>Introduction</h3></center>
+
+<p>
+A significant amount of work
+has been done in recent years in the area of
+the design and implementation of
+geo-based computerised systems combining
+high data volumes and large area coverage.
+While all such systems share many similarities, an important
+distinction can be made based on the spatial analysis usually
+performed on the data. If only the
+general distribution and correlation of different
+entities is of interest, as often is the case in e.g. computerised
+natural resource inventories, the positional
+precision requirements are
+relatively low. Such systems are therefore usually
+based on a large coverage plane projection
+(e.g. UTM), sometimes using a small rectangular grid cell
+identifier as the only location descriptor.
+All spatial analysis is carried out by completely
+(but safely) ignoring the fact that plane coordinate relationships
+are at best only approximations of the actual location geometry.
+</p>
+
+<p>
+On the other hand, systems in e.g. cadastral,
+control network inventory, large civil engineering and defence
+applications require the ability to derive geometric
+relationships from location descriptions on the database with
+the same level of precision as that normally obtained by field
+measurement techniques and instruments employed by those disciplines.
+If the area coverage is
+continental or even global, differences in plane and true spatial
+geometry can no longer be ignored. At this point several options are
+available:
+</p>
+
+<ul>
+<li>
+<p>
+Implement the database using large coverage
+plane projection coordinates, and selectively
+calculate and apply corrections
+to the derived geometric data.
+</p>
+</li>
+
+<li>
+<p>
+Implement the database using only the ellipsoid coordinates,
+and derive directly all geometric data required. No corrections
+will be necessary, but the geometry processing,
+data volume and indexing scheme
+might require more computer resources than available
+or justifiable for a given application.
+</p>
+</li>
+
+<li>
+<p>
+Implement the database with a combination of ellipsoid
+and plane location
+descriptors, so that different tasks are performed using different
+mechanisms, with the goal of overall optimization in the usage
+of computer resources in data storage,
+searching and geometronical processing.
+</p>
+</li>
+</ul>
+
+<p>
+It is interesting to note that the first of these options
+describes quite well
+the approach used for location description and processing in
+manual (pre-computer) geo-based systems. The trade-off between the
+coverage and precision in most such systems (UTM 1958 is a good
+example) is resolved by adopting (by current standards)
+extremely high discrepancy tolerance. In consequence, corrections
+have to be calculated and applied much more often than
+anticipated when the projection was developed
+and the system implemented.
+Regardless of which of the above options are taken, some
+data partitioning and indexing will be required to make location
+based retrievals fast and efficient. How this is best done depends
+to a large degree on the type of user interface functions,
+volume, distribution and composition of the data,
+as well as on the performance characteristics of the
+computing hardware and software devices available.
+</p>
+
+<p>
+Throughout this paper, the term "location reference system"
+is used to identify a set of data items and software components
+which make possible
+location based retrieval of information, and support
+required geometronical processing.
+</p>
+
+<center><h3>Location Reference System Architecture</h3></center>
+
+<p>
+The major functional requiremets which affected the design
+of this location reference system were:
+</p>
+
+<ul>
+<li>
+<p>
+The application system will be implemented
+on a mainframe computer, using as much as possible
+already available communication network and database software.
+Effective integration in the database package
+must be possible.
+</p>
+</li>
+<li>
+<p>
+Location data retrieval will be
+based on: pipeline section; alignment sheet;
+proximity to reference line or other data items;
+or any other conveniently defined area polygon.
+Location elements should be stored with at least the same precision
+as that of the combined field traversing measurements and adjustment.
+</p>
+</li>
+<li>
+<p>
+Since an on-line database access is required,
+data storage volume and
+access cost should be minimized. Optimization should be biased
+towards the retrieval rather than the initial load of data.
+</p>
+</li>
+<li>
+<p>
+UTM coordinates will be given as location description for
+field surveyed items, and must be generated for some output
+reports and medium scale plotting. It should be possible to
+expand this requirement with other commonly used plane
+survey coordinate systems.
+</p>
+</li>
+<li>
+<p>
+Reference line distance accumulation (Kilometer-posts, KP)
+can be defined
+either along the centre-line or the R-O-W boundary line,
+slope or horizontal.
+KP/offset system should be kept as a simple,
+low precision way to reference data. In particular, KP values
+produced by a series of pipeline traverses and marked in the field
+should be recognized by the system.
+</p>
+</li>
+<li>
+<p>
+Programming of the location reference system routines
+must be kept as simple as possible in order to meet the
+pipeline design database implementation schedule.
+</p>
+</li>
+</ul>
+
+<p>
+The system is
+based on a hierarchical set of location descriptors:
+cell identifiers, ellipsoid coordinates,
+pseudo -stereographic ellipsoid to plane projection,
+common plane survey mapping system,
+and KP/offset pipeline references.
+Different sets of
+location elements are by definition only different numerical
+representations of one positional geometry,
+and can be dynamically transformed from one format into another.
+Redundant location elements are checked for consistency upon entry to
+the system, and then discarded, to be re-constituted when required.
+The system uses spatial, ellipsoid related set of the
+data partitioning cells.
+Each cell record contains a list of its neighbours.
+Two substantially different cell arrangement schemes are possible:
+</p>
+
+<ul>
+<li>
+<p>
+System assigned (and dynamically re-assigned) pattern of
+cells. Two sets of criteria are used by the system in this
+assignment process: optimum projection distortion
+tolerance for balance
+between plane and ellipsoid geometry calculations, and optimum
+cell population size for data retrieval efficiency.
+</p>
+</li>
+
+<li>
+<p>
+User assigned, orderly cell pattern.
+Optimization decisions mentioned above will in this case have to be
+made a priori and will remain frozen in a given implementation.
+</p>
+</li>
+</ul>
+
+The cell identifier and coordinates are
+the only location descriptors
+that need to be retained on the system.
+They are used for all local spatial manipulations,
+including data searching.
+Global problems are solved using ellipsoid coordinates.
+Location based data searching is performed by first finding the
+cell and solving the proximity or similar conditions for
+the population of that cell. If further data is required, a list
+of its neighbours must be traversed. A cell is rejected if no part
+of it can contribute to the search. Otherwise, the coordinates of its
+population are dynamically
+transformed into the local coordinate system of the
+cell in which the exercise was initiated, and search criteria
+are evaluated.
+The system is therefore capable
+of performing both
+quick and simple manipulations of data
+using plane coordinates, as well as high-precision
+ellipsoid geometry
+calculations required to match or use directly field measured values.
+</p>
+
+
+<h4>Ellipsoid Coordinates and Geometry</h4>
+
+<p>
+A discussion of discrepancies between a digital model
+using an ellipsoid of rotation as a reference surface
+and the true location of
+the objects on the surface of the Earth is out of the
+scope of this paper.
+We will only make the assumption
+(valid for any large and complex civil engineering system)
+that the derived spatial values, based on rigid ellipsoid
+geometry solutions, satisfy the precision
+reqiurements of all of the
+database geometronical application disciplines.
+</p>
+
+<p>
+Ellipsoid geometry has been a subject
+of intensive study with the purpose of finding ways to simplify
+manual calculations
+by accepting assumptions and derivation procedures
+yielding only the minimum of required accuracy.
+It is safe to say that practical considerations
+driving this research have
+been transformed considerably with the
+introduction of automatic computing devices.
+The benefit derived by reducing the number of elementary
+arithmetic operations has decreased substantially,
+while the cost of increase in calculational accuracy is
+no longer proportional (or extraproportional) to the number
+of significant digits carried - it is increasing in discrete,
+computing device dependent, steps.
+Since the loss of accuracy almost always increases with the
+"size" of the problem (e.g. length of intersecting lines),
+different classical solutions are indicated depending on some
+external, individual problem (data!) dependent
+criteria. Such a decision requires insight difficult to
+replicate in a computerised procedure. For this, "self-adjusting"
+algorithms are necessary, capable of producing
+maximum accuracy that can be delivered by
+the internal numerical resolution,
+yet simple and efficient when only
+short lines are involved. Iterative algorithms, (as opposed to
+expansions to required accuracy) are usually best capable of achieving
+this quality.
+</p>
+
+<p>
+The methodology employed for construction of these iterative
+ellipsoid geometry algorithms is
+illustrated by example - a
+solution of an ellipsoid intersection problem: given are two points
+(P1, P2), with known positions; and their respective tangential plane
+azimuths to a third point (Pn, point of intersection).
+Ellipsoid coordinates of the Pn are to be determined.
+A few terms will be defined to simplify the description of the
+procedure:
+</p>
+
+<dl>
+<dt>Line of sight
+<dd>is a given point tangential plane
+projection of the vector from a given to
+the unknown point.
+<dt>Intersection plane
+<dd>is a plane containing line of sight
+and ellipsoid normal in a
+given point.
+<dt>Intersection line
+<dd>is a straight line common to both intersection planes.
+<dt>Para-centre
+<dd>is a point (on any straight line), closest to the coordinate origin.
+<dt>Para-radius
+<dd>is a distance from the para-centre.
+</dl>
+
+<p>
+The procedure will first check for valid intersection data.
+Two conditions must be satisfied: first, intersection planes must not
+be parallel or coincident, and second,
+first of the two intersection points reached by moving along the
+intersection ellipse in the direction of the azimuth starting at
+each given point must be the same.
+Checking those conditions is simplified by the fact that an
+azimuth is internally kept as two direction cosines in
+its respective tangential
+plane, which is in turn stated by the ellipsoid coordinates
+(normal!) of a given point. Both intersection plane
+normal equation coefficients can be found by a simple rotation of
+the line of sight vectors and their free terms, by using given
+point coordinates.
+</p>
+
+<p>The equations of two intersecting planes and of
+the ellipsoid of rotation form a system whose roots are
+the cartesian coordinates of the two points of intersection.
+The solution is possible by any number of numerical methods, and
+transforming the result to the ellipsoid normal form presents no
+problem. Even simpler, more direct solution is possible, by
+finding an approximate normal through Pn,
+and iterating its components using the meridian ellipse productions
+until ellipsoid geometry is satisfied, observing in the process
+intersection conditions as well as
+the elevation of Pn.
+The iteration steps are as follows:
+</p>
+
+<ol>
+<li>
+<p>
+Obtain the intersection line
+in a normalized parametric equation form
+and find the intersection line para-centre coordinates.
+</p>
+</li>
+
+<li>
+<p>
+Assume the normal to be collinear with the intersection line, and
+find the normal para-radius using meridian ellipse geometry
+productions.
+</p>
+</li>
+
+<li>
+<p>
+Set the initial intersection line parameter equal to the
+para-radius obtained in the previous step.
+(Intersection
+point elevation can be taken into account in this and all subsequent
+steps involving para-radius.)
+</p>
+</li>
+
+<li>
+<p>
+Start next iteration step by
+finding a new position of the intersection point using
+the intersection line para-centre and parametric equations.
+</p>
+</li>
+
+<li>
+<p>
+Recalculate normal components
+using the provisional coordinates of the intersection point. Check
+for change since the previous step and exit if none.
+</p>
+</li>
+
+<li>
+<p>
+Use normal direction cosines to find new normal para-radius.
+Compare it with previous step and update the
+intersection line para-radius by a corresponding amount.
+Repeat from step (4).
+</p>
+</li>
+</ol>
+
+<p>
+Note that the meridian ellipse productions employed are
+closed, and the precision depends only
+on the criterion used
+in step (5). The iteration is so fast, even on lines only one
+order of magnitude below the ellipsoid semi-axes, that
+a "fuzziness threshold" of the floating point representation can be
+used as this criterion.
+</p>
+
+<p>
+The most common method of describing the location on
+(or slightly above or below) the ellipsoid surface
+is a numerical description of a direction of a normal through
+the location point.
+This can be done by specifying angular values
+relative to the equator and reference meridian plane (latitude and
+longitude), or using a vector component (direction cosine)
+form.
+The main advantage of the traditional form is its direct
+correspondence to navigational and similar observations,
+but it is extremly ill-suited for computerised calculations.
+With an angular value as a source item, most geometry
+calculations will require expensive,
+multiple evaluation of trigonometric functions.
+If direction cosines are used, this will not be the case, and
+the formulae of ellipsoid geometry will become symmetrical and much
+easier for programming.
+In addition, any numerical collapse will
+be directly related to the definition of the problem,
+and never to the method used.
+With 64 bit floating point arithmetic and data variables,
+a comfortable margin of several orders of magnitude
+can be maintained over the precision of any field measurements.
+While one more element must be kept
+for direction cosines (three plus elevation, versus 2+1 for
+latitude and longitude)
+this provides a simple check for a valid normal element data:
+if the vector is normalized after each manipulation, the sum of
+the squares of the components will equal one. The most important
+consideration remains the type of calculational algorithms
+utilized: conventional ellipsoid geometry
+derivations typically employ angular values and trigonometric
+functions,
+while direction cosines are used
+by closed iterative procedures and ellipsoid to plane
+geometric projection routines.
+</p>
+
+<h4>Pseudo-stereographic Ellipsoid to Plane Projection</h4>
+
+<p>
+As mentioned before, plane coordinates used by the system may
+require frequent and high volume
+transformations to the ellipsoid and back.
+Problems associated with the transfer
+of positions from ellipsoid to the plane and vice versa
+can vary from trivial to fairly complex. This complexity depends
+on a number of factors: the definition of the mapping function;
+the format in which the location is given for
+both ellipsoid and plane systems; the precision to be maintained
+in a single transfer; and the acceptable numerical deterioration
+in a case of multiple transfers.
+</p>
+
+<p>
+The mapping selected for this global (ellipsoid) to cell
+(plane) coordinate transformation
+can best be described as an ellipsoid distortion of
+a spherical stereographic perspective projection.
+It provides
+extremely fast and and precise (including multiple transfer)
+mapping algorithms.
+Given the population related restrictions on the cell size,
+projection distortions are likely to be negligible for all
+local geometry problems.
+Ellipsoid coordinates of the cell centre point are at the
+same time coefficients of a normal form of the projection plane
+equation.
+In order to avoid the necessity of the "sea level" reduction
+of the field measured distances, the
+average elevation of the terrain covered by
+the cell can be incorporated into the free
+term of the projection plane equation.
+The projection centre is located on the centre-point normal, at
+twice the depth below the surface of the ellipsoid of
+the geometric mean of the radii of curvature
+along the meridian and prime vertical.
+</p>
+
+<p>
+Ellipsoid coordinates of the centre -point, in
+addition to the elevation (if used as described above),
+are the only values required as the
+cell dependent projection parameters.
+Depending on the relative efficiency
+of data retrieval versus recalculation, and whether most
+transformations are performed individually or in a series,
+coordinates of the
+projection centre, para-radius of the projection centre normal
+and the free term of the centre-point prime vertical equation
+can be calculated when a cell is generated, and re-used in
+all ellipsoid to plane and reverse transformations involving the cell.
+</p>
+
+<p>
+A scaling effect takes place in ellipsoid to plane transformations:
+ceteris paribus,
+fewer digits are required to describe the location than
+if the ellipsoid coordinates are used.
+Specifically, if cell diameters are in the order of up to ten
+kilometers, a 32 bit floating point representation
+will be in the order of millimeters. While somewhat below
+the precision of the 64 bit ellipsoid coordinates, discrepancies
+will not propagate across the cell boundaries.
+This is an important consideration for
+implementations on systems with a significant difference
+in efficiency between
+"short" and "long" floating point arithmetic.
+</p>
+
+<h4>Universal Transverse Mercator Projection (UTM 1958)</h4>
+
+<p>
+UTM coordinates are, because of their widespread use and regulatory
+support, frequently used for interchange of location data.
+Unfortunately, several properties make them particularly unsuitable
+for computer system usage
+(most of the following comments would apply to all
+large coverage plane survey coordinate systems):
+
+<ul>
+<li>
+<p>
+Because of the high maximum distortion, only the most
+crude geometry processing can be performed using simple plane
+coordinate manipulations.
+</p>
+</li>
+<li>
+<p>
+Large systems will likely
+extend over more than one UTM zone. If that happens,
+the advantage of a single, continuous set of coordinates is lost.
+Transformation function domain is not global.
+</p>
+</li>
+<li>
+<p>
+"Long" floating point is normally required to store and
+manipulate coordinates. This is a special disadvantage where
+multiple coordinates are required to describe an entity.
+</p>
+</li>
+<li>
+<p>
+The transfer of coordinates between the UTM plane and
+ellipsoid is a rather involved and inefficient calculation
+due to the numerical nature of mapping
+algorithms (Taylor's expansion of Cauchy-Riemann
+differential equations).
+Most of the advantages of a conformal projection are
+lost when field measurements consist of a balanced set of
+directions and distances.
+</p>
+</li>
+</ul>
+
+<p>
+To provide the ability for external data interchange,
+the system must include a set of
+transformation routines, guarantying sub-millimiter
+precision even on the edges of a 6 degree zone in mid-latitudes.
+UTM coordinates presented to the system are
+immediately transformed into ellipsoid format. If an
+output request is made for numerical UTM coordinates,
+reverse transformation takes place.
+Direct orthogonal transformation of cell coordinates
+into UTM grid of the output page is used for plotting, as it is
+well within the resolution of even large scale plots.
+
+<h4>Linear (Kilometer-post) Reference</h4>
+
+<p>
+KP/offset is an often used method of describing the location
+on any "linear" engineering system.
+Cumulative distance and offset values are relative
+to a convenient reference line, usually centre line or R-O-W boundary
+line. Distances are sometimes accumulated and marked
+in the field ("original" KP) as the line is surveyed.
+There are ;/oe problems inherent with the KP/offset usage:
+the most significant resulting
+from the fact that whatever is selected as the reference line,
+it can, and probably will, change its length in the
+design and the construction phases of the project.
+Updating these values presents no problem, but references to
+"original" field values can become invalid or ambiguous.
+</p>
+
+<p>
+All cells that cover the reference
+line contain an ordered, doubly linked
+list of points representing a
+section of the reference line within the cell.
+Each item in the list contains point identification, cell coordinates,
+and original, field KP label. Each cell also contains true
+KP values at its boundary. Mapping from cell coordinates
+to KP/offset system is defined as an orthogonal projection
+to the closest reference line segment.
+List of local coordinates of the reference line segments can
+therefore be considered as a set of "mapping parameters" for
+cell to KP/offset and reverse
+transformations in the same manner as the coordinates
+of the centre-point are for cell to global
+transformation. Inquiry
+references using "original" values only are resolved
+by a bi-directionl search along the line, from a point with the same
+"true" KP, until a segment with appropriate "original"
+KP range is found.
+</p>
+
+<center><h3>AHGPP Implementation</h3></center>
+
+<p>
+The Alaska Highway Gas Pipeline Project is a natural gas
+transportation system designed for the primary purpose of
+transporting Alaskan natural gas from Prudhoe Bay on the North Slope
+of Alaska, south across western Canada, to markets in California
+and the mid-western United States.The Canadian portion of the project
+is comprised of 3285 km of pipeline.
+Due to the complexity of ambiance, primarily in the Yukon region of
+the AHGPP, large quantities of engineering, geotechnical, regulatory,
+biological, cadastral, pipeline design and other
+site-specific information had to be assembled and continuously
+referred to in the process of designing the pipeline.
+A computerised database system was implemented to provide a repository
+for the most volatile and widely required sub-set of that information.
+</p>
+
+<h4>Implementation Environment - Hardware</h4>
+
+<p>
+The system was implemented
+on a large corporate multiple mainframe
+computer complex, IBM 360/370 architecture, with buffered character
+CRT display terminals, remote (batch) printers, and an electrostatic
+plotter at the central location.
+Implementation of the system on a
+dedicated CAD computer was considered, but two problems
+made mainframe implementation more attractive:
+capital cost associated with the acquisition of dedicated hardware,
+and inability of existing CAD systems to cost effectively
+serve large number of simultaneous users, including those at
+remote locations. On-line mainframe access
+from remote locations was provided via CTR TTY terminals,
+1200 baud dial-up modems and an async/SNA hardware protocol converter.
+The same lines could be used with portable hardcopy terminals to
+retrieve batch generated reports.
+Plot output was available only at the central site.
+</p>
+
+<p>
+Further development, if and when initiated, will
+be based on a remote microcomputer. All graphical
+output would be generated on the workstation, and data maintenance
+for items other than global geometry
+would be done there. Mainframe functions would be
+reduced to the database retention and block
+update control processing,
+probably on a cell/discipline/user oriented authorization
+scheme.
+</p>
+
+
+<h4>Implementation Environment - Software</h4>
+
+<p>
+The system is implemented using ADABAS database
+management system. It is a multiple inverted file system, intended
+primarily for implementation of administrative and commercial systems.
+Like most similar products, it suffers from
+one serious impediment when used for comprehensive
+financial or engineering models: inability to deal with the
+floating point numeric data items.
+The problem was solved either by storing the value in fixed decimal
+format or by
+storing a floating point value as a character (byte)
+variable, and leave it's manipulation to an external programme.
+There was one more reason for storing cell coordinates in the
+decimal format. One of the ADABAS support software
+components is a dedicated on-line interpreter and compiler.
+While the language was particularly ill-suited for
+any kind of list processing or modelling programming
+(poor data structure handling capabilities,
+no workspace management functions, etc.) it
+provided very effective data retrieval and index
+maintenance functions, and was therefore used
+for all on-line database interaction programmes.
+All geometry required for data retrieval and proximity
+solutions could therefore be handled without
+incurring the overhead of run-time external module
+invocation.
+</p>
+
+<p>
+Since the system must operate in a
+multiple project environment,
+a project identifier is appended to each record on file
+and all location processing is normally carried out only within
+the project.
+Alignment sheets are an already established way of
+location partitioning of the
+pipeline data, and their size (2x7 Km) provides an excellent
+compromise between total number of cells on the
+system and individual cell population size.
+Data is further identified by
+cell coordinates (multiple in case of line or area items),
+and KP point or range. Some of these items
+are incorporated in the database index structures. Programmes are
+available to process location descriptors upon entry of an item
+to the database, manipulate data in the process of pipeline design
+where locations are changed, or
+retrieve data through on-line interactions
+or printed or plotted hardcopy output.
+</p>
+
+<p>
+Each record representing a location specific entity on the
+database contains the following data items:
+</p>
+
+<ul>
+<li>
+Project identifier
+<li>
+Entity class (record type) identifier
+<li>
+Cell identifier
+<li>
+True cumulative distance along the reference line (True KP)
+<li>
+Cell coordinates (multiple for a linear or an area item)
+</ul>
+
+<p>
+In addition, some records include parameter values which
+are used by programmes whenever location data is manipulated:
+</p>
+
+<p>
+Project record:
+</p>
+
+<ul>
+<li>Type and parameters of external mapping projection (including
+ellipsoid values) used on the project (e.g. UTM, Lambert, etc)
+<li>Reference line entity and method of KP distance accumulation
+</ul>
+
+<p>
+Cell (Alignment sheet) record:
+</p>
+
+<ul>
+<li>Approximate average elevation
+<li>True KP of up-stream and down-stream sheet matchline
+<li>Coordinates of logical (non -overlapping) cell boundaries
+<li>Ellipsoid coordinates of the cell coordinate system origin
+<li>Ellipsoid to plane transformation parameters
+<li>List of pointers to neighbouring cells
+</ul>
+
+<p>
+Reference line point record:
+</p>
+
+<ul>
+<li>Elevation
+<li>Internal pointers to up-stream and down-stream point record
+<li>Field marked cumulative distance (Original KP)
+</ul>
+
+<p>
+Three inverted lists (indexes) comprising location description data
+are maintained on the system. Arguments of these lists are concatenated
+location description items, as follows:
+</p>
+
+<p>
+Cell index:
+</p>
+
+<ul>
+<li>Project identifier
+<li>Entity class identifier
+<li>Cell identifier
+</ul>
+
+<p>
+Start KP index:
+</p>
+
+<ul>
+<li>Project identifier
+<li>Entity class identifier
+<li>True start KP
+</ul>
+
+<p>
+End KP index:
+</p>
+
+<ul>
+<li>Project identifier
+<li>Entity class identifier
+<li>True end KP
+</ul>
+
+<p>
+The last index structure contains only
+linear and area items which occur as
+contiguous segments along the line. It makes possible bi-directional
+traversing of item records. Unlike the neighbouring cell pointer
+list in the cell record, this index structure is maintained
+automatically by the inverted list update mechanism.
+(The conceptual design of
+both the pipeline database and the location reference components
+remained
+independent of the particular package, and any multiple index
+data access method or file management system could have been
+used with similar effectiveness.)
+</p>
+
+<p>
+The main programming component of the location reference system
+is a library of PL1 subroutines, performing elementary tasks, usually
+on single problem data (e.g. conversion of coordinates between
+ellipsoid and UTM, ellipsoid and cell, and cell and KP/offset
+systems; closed iterative solutions of common ellipsoid geometry
+propositions; planar geometry problems and transformations and
+data conversions).
+</p>
+
+<p>
+Plotting is implemented by batch executing database traverse
+programmes, which produce a high level, device independent
+flat plot files. These are subsequently reprocessed
+by a graphical post-processor generating electrostatic plotter output.
+At this point, one of the two types of
+files containing cell transformation parameters
+is used. The first contains a copy of cell centre points, and
+provides the ability to transform cell coordinates on plot file
+to a UTM defined output page. Second contains cell sets of reference
+line points and their page coordinates digitized from
+alignment sheets based (where these are used) on non-ortho mosaics.
+In this case, a separate orthogonal transformation
+will be calculated for each reference line segment, and used
+for all items in its KP range.
+</p>
+
+<p>The first step in
+establishing new project data is entry of skeleton cell records and
+location of reference line points.
+Cumulative distances along the reference line and cell projection
+parameters are next calculated, and stored on the database. Any other
+project data can now be entered, described by location either
+using external mapping system, KP/offset references or definition of
+proximity geometry relative to items already on the system.
+As each item is entered, inverted lists are maintained automatically
+by the database mechanism, making the item instantly part of inquiry
+traverses of project data.
+In case of a change of a reference line (pipeline re-routing)
+one or more cells are locked out from the active system, and updated
+positions of reference line stations are entered. Total population
+of the cell is then traversed, it's KP references re-calculated and
+updated. The rest of the project is then adjusted by adding or
+subtracting the required amount from all KP refernces down-stream from
+the revision area.
+</p>
+
+<center><h3>Conclusion</h3></center>
+
+<p>
+Major software components must be developed and integrated into
+generally available database packages if they are to be used
+with success for geo-based applications. Once this is achieved,
+significant benefits can be derived from implementation
+on a mainframe complex: simultaneous on-line service
+of an extensive user base; large data volume capability;
+economical remote access and capacity expansion and
+utilization of existing corporate capital investment and
+software engineering and construction skill base.
+
+<h4>References:</h4>
+
+<p>
+Bomford, G. 1975, ed. Geodesy, London, Oxford University Press
+</p>
+
+<p>
+Broughton, C. 1980,
+COSINE, a Land-Surveying Database Application:
+Paper presented to the 1980 S2K User Group meeting, Toronto
+</p>
+
+<p>
+Maggio, R.C., Baker, R.D., Harris, M.K. 1983,
+A Geographic Data Base for Texas Pecan:
+Photogrammetric Engineering and Remote Sensing, Vol 49, pp.47-52
+</p>
+
+<p>
+Radlinski, W.A. 1977, Modern Land Data Systems - A National
+Objective:
+Photogrammetric Engineering and Remote Sensing, Vol 43, pp.887-890
+</p>
+
+<p>
+Tobey, W.M. 1928, Geodesy, Geodetic Survey of Canada,
+Publication No. 11
+</p>
+
+<p>
+Wehde, M. 1982, Grid Cell Size in Relation to Errors in Maps
+and Inventories Produced by Computerized Map Processing:
+Photogrammetric Engineering and Remote Sensing, Vol 48, pp.1289-1298
+</p>
+
+<p>
+ ---, 1982 rev., The Alaska Highway Gas Pipeline Project
+- Project Overview, Foothills Pipe Lines (Yukon) Ltd., Calgary
+</p>
+
+<center>
+<h2>...</h2>
+</center>
+
+</body>
+</html>

@@ -1,0 +1,357 @@
+<html>
+<head>
+<title>Geologic Information Visualization (GIV)</title>
+</head>
+
+<body bgcolor="white" text="black" link="blue" alink="lime" vlink="teal">
+
+<br>
+<center>
+<h2>Geologic Information Visualization (GIV)</h2>
+</center>
+
+<center>
+<p>
+<b>
+<big>Russell A. Ambroziak, Ph. D.</big><br><br>
+U. S. Geological Survey<br>
+Office of Energy and Marine Geology<br>
+National Center, STOP 915, Reston, VA 22092<br>
+Tel: 703-648-6168, Fax: 703-648-5464<br>
+(Published on 1993 USGS Open File Report, CD: 93-231)<br>
+</b>
+</p>
+</center>
+
+
+<p>
+GIV allows geologists, other scientists, teachers, students and the
+general public to view, combine and analyze geologic data on an inexpensive PC
+with little or no training.  GIV uses simple straight forward data formats and
+color theory to graph and display any type of geologic data.  Map data tends
+to be the most pervasive for geologic use and most useful to non geologists so
+it gets the most attention.  Maps, however, are only part of GIV and should
+not be considered to be what GIV is.  GIV is unique because it is unconcerned
+with data format, uses color as a coordinate system, works well on an
+inexpensive PC, does just about anything, is cheap to build and run, and anyone
+can learn to do it.
+</p>
+
+<p>
+GIV is based on the fact that writing your own programs to answer simple
+questions is not only not bad, but it can be faster than using a package, will
+allow you to do any analysis you understand, helps you understand what you do,
+and allows you to analyze a surprising amount of data.  Even if they never
+plan to program, scientists should know how to program in order to know when
+to program, when to have someone else program for them, when to buy a program,
+and how to evaluate programs they buy.
+</p>
+
+<p>
+GIV now consists of a small set of USGS programs that can quickly turn a
+paper map into a computer displayable map, display and manipulate a variety of
+image types, combine maps with images and text in a variety of ways, and
+integrate just about any type of data display.  GIV is easy to use, easy to
+learn to use, completely owned by USGS, and will run on any PC that has a
+color display.  A complete set of hardware to run the entire suite of software
+costs less that $2000 and total training time to run the total program set is
+less than a week.  GIV is scale and  projection independent and is moving
+towards platform independence.
+</p>
+
+<p>
+GIV is not a system, but rather, it is an attempt to give control of
+science back to the scientist.  GIV is in part a set of functions that allow a
+scientist to control data display and analysis.  More importantly, GIV is a
+philosophy that it possible to start at the bottom with very simple tools and
+quickly build fairly complex data processing machines to work with any type of
+data.  Moreover, it is possible to learn how to do this even if computer
+programming is not a strong skill possessed by the scientist.
+</p>
+
+<p>
+Graphing and displaying data is one of the primary ways in which scientists
+understand the masses of data with which they work.  Before data can
+be used they must be understood, and to do  this a mental model of the data
+must be constructed.  Many times this is achieved by simplifying, sorting and
+graphing the data in various ways.  The current way of analyzing data involves
+getting the data out of the system where it resides, finding and procuring
+software (and sometimes hardware) to read and process the data, learning to
+use the software, then finally processing the data.  Each step of the process
+can take weeks, months or even years and, if the choice of software is
+incorrect, results will be disappointing.
+</p>
+
+<p>
+Scientists who have a PC on their desk and a grasp of just about any
+computer language can build a simple program set to answer the questions that
+need to be answered in a few days to a few weeks.  If the programs that did
+the work are thrown away and never used again there can still be a large
+savings in time and money over finding, procuring and learning to use
+commercial software.   Also, if the scientist writes the code to solve the
+problem, any test can be tried on the data rather than only those tests
+contained in the software.
+</p>
+
+<p>
+This is not to say that one should always write one's own programs -- this
+would be just a limiting as the current "never write your own programs"
+philosophy.  One should become familiar enough with programing to know how
+simple or complex a program must be to solve a problem.  Only then can a
+knowledgeable decision be made as to how to proceed.
+</p>
+
+<p>
+After FORTRAN the thought was that what was needed was higher level
+programing languages.  GIS (geographic information system) packages and
+systems are a type of high level programing  language.  They allow the user to
+do large tasks and to assemble the results into complex geographic outputs
+which can be combined in various ways to answer questions.  The problem with
+these systems is that they are complex to operate, require long learning
+curves, and create data format problems when more than one system is used.
+The most successful computer language of late is C, which is much lower level
+language than FORTRAN.  It is possible that for many applications what is
+needed is lower level not higher level languages.  C is a good box of crayons
+for drawing graphs on a computer.  GIS is not very competitive with a C
+compiler in the hands someone who wants to use it.
+</p>
+
+<p>
+We make CD-ROMs of USGS data and on each disc we put software to display
+the data contained on the disc.  The software has no other purpose than to
+display specific data and to display it quickly and easily on any type of PC
+with a color monitor.  Each program was written from scratch with no more than
+a week or two spent developing any program.  After the software is written for
+a disc the aut hor reviews it and decides what else it should do,usually by
+saying "Gee, wouldn't it be nice if ..." and the '...' are added to the
+program as new features.  As the number of specialized programs grew the
+functions they performed began to duplicate each other and libraries of
+functions became grouped into a few sets.  We now can create programs using
+these libraries in a few hours and we can modify any part of a libraryto do
+any additional task we wish.  The current state of GIV, which is placed on
+each CD-ROM as they are produced, is due to this process being used over and
+over.
+</p>
+
+<p>
+The important point is not that we have the libraries, but that one person
+built them in two years while turning out programs that worked. These programs
+are published as CD-ROM discs.  Almost anyone could duplicate this effort if
+they tried, but they are prevented from doing it by cliches such as 'you're
+reinventing the wheel' or 'GIS is a complex subject that is best left to the
+experts'.  Neither of these cliches is correct.  The invention of the wheel
+did not put wheelwrights out of business, rather it created their craft.
+Geographic information is relatively easy to use, but GIS's tend to complicate
+the process.  Because GIS's are written to do everything for everybody, they
+can be difficult to use and require a long time to learn to use.
+</p>
+
+<p>
+GIV, if correctly used, is unconcerned with data format because a simple
+program can usually be written in a matter of minutes to convert almost any
+data to an ASCII format that GIV can use.  GIV uses ASCII flat files as one
+form of data input and output for all applications.  ASCII flat files are also
+used to control the programs to minimize the need for software changes.
+The data and control files can be created, checked and edited with any text
+editor.  All earth locations are in decimal latitude and longitude.  Each file
+contains a small group of like information and there are many files with names
+that describe their contents.  The entire program set is designed for the PC
+user who does  not have a lot of time to learn to use complicated software but
+wants to do some mapping to solve a problem.
+</p>
+
+<p>
+One final point about GIV that distinguishes it from GIS is the use of
+color.  A color image is a 5-dimensional graph that is useful for displaying
+all types of information.  The five dimensions are 2 locational (x and y) and
+3 color (red, green and blue or intensity, hue and saturation).  If you learn
+a little color theory it is quite easy to use color to graph data, and the
+current programs that make up GIV use color theory to a great extent.  You do
+not need to understand color theory to use these programs but you will need to
+learn something about it if you wish to create your own.  If you want to learn
+color theory contact the Rochester Institute of Technology where you will find
+the most knowledgeable color experts in the country.
+</p>
+
+<center><h3>GIV giveth what GIS taketh away</h3></center>
+
+<p>
+Before the computer science was learned with the slide rule and graph
+paper.  The reason for the graph paper was to simplify and visualize complex
+concepts.  There were graphs in the books and on the chalk boards, but drawing
+your own graphs helped you to understand what is going on.  It was not the
+graph itself but the construction of it that gave the insight.  Now that we
+have replaced the slide rule and graph paper with the computer there seems to
+be an all pervasive philosophy of let others do your graphing for you and just
+look at the results.  Nowhere is this philosophy more prevalent than in
+geographic information.
+</p>
+
+<p>
+Getting back to the simple truths about learning and  understanding
+science, we scientists need to draw graphs.  What we had to work with in the
+past was basically a 2-dimensional graph of points on an x,y plane.  Several
+lines could be drawn on the same graph but they were all 2-dimensional.
+Attempts to make 3-dimensional graphs where limited and consisted mainly of
+contouring.  With color monitors on computers we now have three more dimensions
+to work with namely red, green and blue.  If we use these dimensions
+correctly we can draw and analyze 5-dimensional graphs.
+</p>
+
+<p>
+The thought that image analysis and geographic information analysis are
+complex subjects better left to the experts is not universally true.  Drawing
+a map is as simple as connecting dots much as we did when we where 5 years old
+in the 'follow-the-dots' book, but we use a function called 'plot_line' in a
+computer rather than a crayon.  OEMG has developed and implemented, with
+some success, a simple to use and understand program set of data visualization
+tools which is a bottom-up rather than a top-down approach.  We started out
+with the expressed purpose of writing specific software to display a single
+set of data and ended up building a small program set that was data independent.
+</p>
+
+<p>
+When we started writing software for CD-ROM publication we specifically
+said that we would not do data base management nor would we do any data
+analysis.  As it worked out the process of displaying data does all of the
+management functions required to present a clean, accurate, readily accessible
+data bases.  Moreover, it is not the computer that does the analysis, it is
+the scientist;  by displaying these data in various ways to the scientist, we
+provided the tools necessary to do the analysis.  The group of programs that
+resulted do a very limited number of operations, but they are the operations
+our scientists need and they work with the data we have.
+</p>
+
+<p>
+You could take these programs and learn to use them to display data.  This
+is not, however, the intent of this exercise.  The intent of the exercise is
+to show the average scientists that mapping and image processing are not as
+difficult as they might think and that there are times when it is both quicker
+and cheaper to do the job yourself than to find a system to do it for you.
+Image processing and graphics consists only of placing any color dot any where
+on the screen and reading the screen to find out what color dot is there.
+Mapping is using graphics to connect latitude and longitude dots to make
+lines, and to fill in areas with colors and patterns to make maps.  You can
+use our functions to do this if you know C or you can write your own.  Either
+way will free you from the bonds of complex software and data format
+incompatibilities.
+</p>
+
+<p>
+There are several shocks when we begin a project with a visiting scientist
+who has not worked with us before.  Data format is totally irrelevant, scale
+and projection have little or no meaning, just about anything can be done, and
+most importantly, the computer screen is not a piece of paper.  We write our
+own code to do simple tasks and make things appear on the screen.  The hard
+part is figuring out what you want on the screen -- getting it there is much
+easier.  We frequently say that we ar long on answers but short on questions.
+</p>
+
+<p>
+Because we are writing our own code we will transform whatever format we
+get to one we need in a matter of hours at most.  If we need a new format we
+will make it while keeping to the primary rules of GIV -- keep in simple and
+keep it small.  Flat ASCII files of one thing or closely related things with
+names that tell what's in them are best.  We can convert these to binary files
+which can be quickly processed by our programs and convert the binary back to
+ASCII as we need to.  People read ASCII, and computers read binary.  You need
+both and they should be easily transferred from one state to the other.
+</p>
+
+<p>
+A map scale and a map projection only have meaning for a paper map.  If
+all data are in decimal latitude and longitude there is no reason to limit the
+scale or projection.  All GIV programs handle a number of projections and
+users can switch between them as they see fit.  Scale is important to some
+extent to tell the user the relative accuracy of the input data, which usually
+came from a paper map.  However, the input scale of the data is usually
+obvious to the user as one zooms in and the lines become jagged with widely
+spaced points connected by straight lines.
+</p>
+
+<p>
+Paper maps are static while computer programs are dynamic.  In an atlas
+each page is fixed in size and content so maps tend to be divided into
+sections.  In a computer you can zoom into any region and quickly create a
+screen sized map.  The borders of sub maps become irrelevant to the user
+looking for a feature on the larger map.  Also overlays such a roads, streams,
+place names, etc. can be added as needed in any combination the user wishes.
+Colors can be changed, flashed or areas measured at will.  Any map on the
+screen can be output to some standard file format for printing at any scale
+desired.  Scales and projections can be changed as desired and other data can
+be added from data files, paper maps or drawn right on the screen.  Icons can
+be placed on the maps to mark objects and the icons can be used to locate text
+files, graphs or images.  By choosing an icon the user can read  information
+about it, see pictures of the location, or view graphs of data.  All of this
+is quite easy to do with GIV, usually taking less than a day to make any
+application work.
+</p>
+
+<p>
+Because GIV is not a system there is currently little documentation and it
+changes quite often.  We are keeping it backwards compatible, but some
+programs become obsolete as other programs take over their functions.  We do
+not guarantee that it works perfectly since we only use it for limited
+operations.  We do, however, constantly fix things which we find to be broken
+and the latest version cost just as much as the first -- its free.  We place
+every piece of software we use to make the disc on the disc in all forms
+needed to repeat the production process.  Source code, object code and
+executable files are included as are all support and data files.
+</p>
+
+<p>
+GIV is designed for the amateur who wants to do something quickly with a
+gentle learning curve yet not be limited by software if complex analysis is
+needed.  What the average PC programer needs are simple to understand data in
+small clearly identified files.  Large complex data sets which contain
+interrelated data of many types are difficult to work with and frequently
+impossible to decode.  A scientist should not be forced to study cryptography
+in order to do their job.  Very often I describe my position as the OEMG
+cryptographer because much of what I do is to get simple data out of complex
+formats that are frequently undocumented, or incorrectly documented.
+</p>
+
+<p>
+Much of what we do is concerned with mapping.  Mapping is not necessarily
+the primary science involved, but the data need to be displayed, at least in
+part, on a map of some sort.  To create a map that contains all of the
+information necessary to answer any of the questions a map can answer you need
+only a set of vectors (lines with attributes) and, if the vectors make
+polygons, you need to have at least one point inside of each polygon with the
+polygon's attribute.  Other files which mark places, things, etc. can be added
+after the base map is done.  The GIV package allows you to do all of this
+quickly and easily on a simple PC.
+</p>
+
+<p>
+The GIV imaging capability now includes conversion of 24-bit color images
+to 8-bit images which look like 24-bit images, mapping vectors and point data
+over images, creation of arbitrary image planes into color images, eigen
+vector rotation of up to 10 image planes, 3-dimensional colorsurface displays,
+and 5-dimensional color vector data displays.
+</p>
+
+<p>
+Other GIV functions include time series display and analysis and seismic
+segment display.  The time series display application is of current meter
+data.  The programs allow graphing of temperature and current vectors as well
+as spectral analysis of velocity.  Maps are used to locate available stations
+and all other parameters can be used to limit the data sets you wish to work
+with.
+</p>
+
+<p>
+The seismic display can show complete segments of any size on the screen
+and allows zooming into the segment to show detail at any level needed.  The
+traces are linked to surface position by maps on the screen and trace numbers
+which can be located in latitude and longitude position files.  All that is
+needed to input data to the programs is a seg-y data file and a paper (or
+computer generated vector) map of the shot points.
+</p>
+
+<center>
+<h2>...</h2>
+</center>
+
+</body>
+</html>

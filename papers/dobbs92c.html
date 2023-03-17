@@ -1,0 +1,169 @@
+<html>
+<body>
+<p>
+<code>
+<pre>
+/*[LISTING THREE]*/
+
+/* ---------------------------------------------------------------- *
+ * BUILD Program: Construct a seamless global database of line      *
+ * segments from text files defining the location of line vertices. *
+ * Two levels of detail are provided: dense and sparse.  The input  *
+ * consists of two flat ASCII text files; one each for dense and    *
+ * sparse coastline segment vertices.  The segment is begun with a  *
+ * line containing an asterisk marker (*) as its first character.   *
+ * The remainder of such line is ignored, and may be used to name   *
+ * the segment.  End-of-file is signalled by a similar marker line. *
+ * Line segment vertex coordinates follow each marker line, one     *
+ * latitude/longitude pair per line.  Coordinates are given in      *
+ * degrees, as free-format, white-space or comma delimited decimal  *
+ * fraction character strings.  Numbers are signed according to     *
+ * the international geographic coordinates sign convention:        *
+ * westerly longitudes and southerly latitudes are negative.        *
+ * ---------------------------------------------------------------- */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "algebra.c"
+
+#define  LINE_LNGTH  128
+#define  MAX_VRTX   1024
+
+void buildFiles(FILE *, FILE *, FILE *);
+
+void main(void) {
+   FILE  *fpTextLines;
+   FILE  *fpIndex;
+   FILE  *fpCoords;
+   char  *fnTextLines0 = "coast0.lns";      /* dense input segments */
+   char  *fnTextLines1 = "coast1.lns";     /* sparse input segments */
+   char  *fnIndex0     = "coast0.idx";      /* dense database index */
+   char  *fnIndex1     = "coast1.idx";     /* sparse database index */
+   char  *fnCoords     = "coast.dat";  /* composite coordinate file */
+/* ---------------------------------------------------------------- */
+
+   if ((fpTextLines = fopen(fnTextLines1, "rt")) == NULL) {
+      fprintf(stderr,"Input file (%s) open failed.\n", fnTextLines1);
+      exit(1);
+      }
+   if ((fpIndex = fopen(fnIndex1, "wb")) == NULL) {
+      fprintf(stderr,"Index file (%s) open failed.\n", fnIndex1);
+      exit(1);
+      }
+   if ((fpCoords = fopen(fnCoords, "wb")) == NULL) {
+      fprintf(stderr,"Data file (%s) open failed.\n", fnCoords);
+      exit(1);
+      }
+   fprintf(stderr, "\nSparse line segment input file...\n");
+   buildFiles(fpTextLines, fpIndex, fpCoords);
+
+   fclose(fpTextLines);
+   fclose(fpIndex);    /* Note that the coordinate file stays open! */
+
+   if ((fpTextLines = fopen(fnTextLines0, "rt")) == NULL) {
+      fprintf(stderr,"Input file (%s) open failed.\n", fnTextLines0);
+      exit(1);
+      }
+   if ((fpIndex = fopen(fnIndex0, "wb")) == NULL) {
+      fprintf(stderr,"Index file (%s) open failed.\n", fnIndex0);
+      exit(1);
+      }
+
+   fprintf(stderr, "\nDense line segment input file...\n");
+   buildFiles(fpTextLines, fpIndex, fpCoords);
+
+   fclose(fpTextLines);
+   fclose(fpIndex);
+   fclose(fpCoords);
+
+   fprintf(stderr, "\nTwo-level coastline database created:\n");
+   fprintf(stderr, "Index files: %s, %s\n", fnIndex0, fnIndex1);
+   fprintf(stderr, "Coordinate data file: %s\n", fnCoords);
+   }
+
+/* ---- Read Line Segment File, Write Index File and Vertex Coordinates ---- */
+void buildFiles(FILE *fpTextLines, FILE *fpIndex, FILE *fpCoords) {
+   static struct vct3 vertex[MAX_VRTX];
+   struct indexRec    indexRec;
+   struct plpt        stereoPlaneVertex;
+   struct ltln        inVertex;
+   struct lclpt       shortVertex;
+   double             s, d;
+   int                i, fileLine, lineCount;
+   long               totalVertexCount;
+   char               inLine[LINE_LNGTH + 1];
+/* ---------------------------------------------------------------- */
+
+   fileLine = lineCount = indexRec.vertexCount = 0;
+   indexRec.segmentId = 0;
+   totalVertexCount = 0L;
+
+   while (fgets(inLine, LINE_LNGTH, fpTextLines)) {
+      fileLine++;
+      if (inLine[0] == '*') {  /* line segment header, end-of-file? */
+         if (indexRec.vertexCount) { /* process accumulated segment */
+            fprintf(stderr,"line:%d vertices:%d \r",
+             lineCount, indexRec.vertexCount);
+
+            indexRec.center.di = 0.0;       /* find object "center" */
+            indexRec.center.dj = 0.0;
+            indexRec.center.dk = 0.0;
+            for (i = 0; i < indexRec.vertexCount; i++) {
+               indexRec.center.di += vertex[i].di;
+               indexRec.center.dj += vertex[i].dj;
+               indexRec.center.dk += vertex[i].dk;
+               }
+            NormalizeDcos3(&indexRec.center);
+
+            indexRec.radius = 0.0;    /* center-far-vertex distance */
+            for (i = 0; i < indexRec.vertexCount; i++) {
+               d = ArcDist(&indexRec.center, vertex + i);
+               if (d > indexRec.radius) indexRec.radius = d;
+               }
+            if (indexRec.radius < 1.0e-10) {
+               indexRec.radius = 0.0;
+               s = 0.0;
+               }
+            else s = LC_SCALE / indexRec.radius;
+
+            indexRec.fileOffset = ftell(fpCoords);
+            fwrite(&indexRec, sizeof(struct indexRec), 1, fpIndex);
+
+            for (i = 0; i < indexRec.vertexCount; i++) {
+               MapStereo(&indexRec.center, vertex + i,
+                &stereoPlaneVertex);
+                shortVertex.est = (short)(s * stereoPlaneVertex.est);
+                shortVertex.nrt = (short)(s * stereoPlaneVertex.nrt);
+               fwrite(&shortVertex, sizeof(struct lclpt),1, fpCoords);
+               }
+            totalVertexCount += indexRec.vertexCount;
+            indexRec.vertexCount = 0;
+            lineCount++;
+            }
+         }
+      else {           /* next in a series of line segment vertices */
+         inVertex.lat = DEG2RAD * atof(strtok(inLine, " ,\t\n"));
+         inVertex.lng = DEG2RAD * atof(strtok(NULL, " ,\t\n"));
+         if (((fabs(inVertex.lat) < 1.0e-10)
+           && (fabs(inVertex.lng) < 1.0e-10)) /* 0.0 lat, 0.0 long? */
+          || (fabs(inVertex.lat) > 0.5 * PI)
+          || (fabs(inVertex.lng) > PI)) { /* lat/long out of range? */
+            fprintf(stderr,"\nBad data, file line %d", fileLine);
+            exit(1);
+            }
+         if (indexRec.vertexCount == MAX_VRTX) {
+            fprintf(stderr,"\nSegment vertex buffer overflow...");
+            exit(1);
+            }
+         LatLongToDcos3(&inVertex, vertex + indexRec.vertexCount++);
+         }
+      }
+   fprintf(stderr,"...processed, line segments:%d, vertices:%ld\n",
+    lineCount, totalVertexCount);
+   }
+</pre>
+</code>
+</p>
+</body>
+</html>

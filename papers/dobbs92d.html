@@ -1,0 +1,309 @@
+<html>
+<body>
+<p>
+<code>
+<pre>
+/*[LISTING FOUR]*/
+
+/* --------------------------------------------------------------- *
+ * VIEW Program: View the line segments from a global database.    *
+ * Display areas of the Earth in stereographic projection at dif-  *
+ * ferent scales and with different map center (tangency) points.  *
+ * The user interface is simple: it provides for change of scale   *
+ * and shift of map center point using the sign and arrow keys.    *
+ * For each map scene, calculate its radius of view. Then retrieve *
+ * from the coordinate file only those coastline segments that     *
+ * might come into view. Draw the line segments, relaying on the   *
+ * display-graphics to clip the parts still outside the window.    *
+ * --------------------------------------------------------------- */
+
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <graph.h>                   /* Using MS C 6.0 graphics... */
+
+#include "algebra.c"
+
+#define DISPL_WIDE 0.24                    /* screen width, meters */
+#define DISPL_HIGH 0.18                   /* screen height, meters */
+#define EARTH_RAD  6.371e6   /* approximate Earth's radius, meters */
+
+#define MERIDIAN           1             /* grid drawing selectors */
+#define PARALLEL           0
+
+#define COLOR_FRAME        7
+#define COLOR_GRID         1
+#define COLOR_COAST        3
+#define COLOR_SCALE        7
+#define COLOR_PROMPT_TEXT  5
+#define COLOR_PROMPT_KEYS  7
+
+void drawDataLines(FILE *, FILE *);
+void drawGrid(int, int);
+void drawGridSegment(const struct ltln *, double, double, int);
+
+static double         xfmArray[8];  /* Plane/display transfomation */
+static double         maxDispDist;               /* Radius of view */
+static struct vct3    displayCenter;      /* Map center, spherical */
+
+void main(void) {
+
+/* Initial map scale and center (projection plane tangency) point: */
+   double             worldScale = 100.0e6;
+   struct ltln        llStart = {DEG2RAD * 50.0, DEG2RAD * -100.0};
+
+   struct plpt        pUpperLeft, pLowerRight, pNewCntr;
+   struct dpxl        dUpperLeft, dUpperMid, dUpperRight,
+                      dLowerLeft, dLowerMid, dLowerRight,
+                      dLeftMid,   dRightMid, dNewCntr, dCntr;
+   double             worldWide, worldHigh;
+   struct videoconfig vcnfg;
+   struct vct3        sphVx;
+   int                ich;
+   char               outStr[32];
+
+   char              *fnIndex0      = "coast0.idx";
+   char              *fnIndex1      = "coast1.idx";
+   char              *fnCoordinates = "coast.dat";
+
+   FILE              *fpIndex0;
+   FILE              *fpIndex1;
+   FILE              *fpCoordinates;
+/* ---------------------------------------------------------------- */
+
+   LatLongToDcos3(&llStart, &displayCenter);  /* initial map center */
+
+   if ((fpIndex0 = fopen(fnIndex0, "rb")) == NULL) {
+      fprintf(stderr,"Index file (%s) open failed.\n", fnIndex0);
+      exit(1);
+      }
+   if ((fpIndex1 = fopen(fnIndex1, "rb")) == NULL) {
+      fprintf(stderr,"Index file (%s) open failed.\n", fnIndex1);
+      exit(1);
+      }
+   if ((fpCoordinates = fopen(fnCoordinates, "rb")) == NULL) {
+      fprintf(stderr,"Data file (%s) open failed.\n", fnCoordinates);
+      exit(1);
+      }
+   if (_setvideomode(_VRES16COLOR) == 0) {   /* assume VGA graphics */
+      fprintf(stderr, "Graphics mode set failed.\n");
+      exit(1);
+      }
+   _getvideoconfig(&vcnfg);
+
+   dUpperLeft.x = dUpperLeft.y = 0;
+   dLowerRight.x = vcnfg.numxpixels - 1;
+   dLowerRight.y = vcnfg.numypixels - 1 - 20;
+
+   _setcliprgn(dUpperLeft.x, dUpperLeft.y,
+    dLowerRight.x, dLowerRight.y);
+
+   dCntr.x = (dUpperLeft.x + dLowerRight.x)/2;
+   dCntr.y = (dUpperLeft.y + dLowerRight.y)/2;
+
+   dLowerLeft.x = dLeftMid.x = dUpperLeft.x;
+   dUpperRight.x = dRightMid.x = dLowerRight.x;
+   dUpperMid.x = dLowerMid.x = dCntr.x;
+
+   dUpperRight.y = dUpperMid.y = dUpperLeft.y;
+   dLowerLeft.y = dLowerMid.y = dLowerRight.y;
+   dLeftMid.y = dRightMid.y = dCntr.y;
+
+   for (;;) {
+      worldWide = (worldScale * DISPL_WIDE) / EARTH_RAD;
+      worldHigh = (worldScale * DISPL_HIGH) / EARTH_RAD;
+
+      pUpperLeft.est  = -worldWide * 0.5;
+      pUpperLeft.nrt  =  worldHigh * 0.5;
+      pLowerRight.est =  worldWide * 0.5;
+      pLowerRight.nrt = -worldHigh * 0.5;
+
+      SetPlaneDisplay(xfmArray,
+       &pUpperLeft, &pLowerRight, &dUpperLeft, &dLowerRight);
+
+      UnMapStereo(&displayCenter, &pUpperLeft, &sphVx);
+      maxDispDist = ArcDist(&displayCenter, &sphVx);
+
+      _clearscreen(_GCLEARSCREEN);
+      _setcolor(COLOR_GRID);
+      if      (worldScale > 10.0e6) drawGrid( 1,  1);
+      else if (worldScale >  3.0e6) drawGrid( 2,  3);
+      else                          drawGrid(10, 15);
+
+      _settextcolor(COLOR_PROMPT_TEXT);
+      _settextposition(vcnfg.numtextrows, 20);
+      _outtext("Press space bar to interrupt this scene...");
+
+      _setcolor(COLOR_COAST);
+      if (worldScale > 20.0e6) drawDataLines(fpIndex1, fpCoordinates);
+      else                     drawDataLines(fpIndex0, fpCoordinates);
+
+      sprintf(outStr, worldScale > 20.0e6 ?
+       "1 : %.0lfM" : "1 : %.1lfM", worldScale / 1.0e6);
+      _settextposition(vcnfg.numtextrows - 2, 37);
+      _settextcolor(COLOR_SCALE);
+      _outtext(outStr);
+
+      _setcolor(COLOR_FRAME);
+      _rectangle(_GBORDER, dUpperLeft.x, dUpperLeft.y,
+       dLowerRight.x, dLowerRight.y);
+
+      _settextcolor(COLOR_PROMPT_TEXT);
+      _settextposition(vcnfg.numtextrows, 1);
+      _outtext(" Press: (+)|(-) to change scale, (\x1b)|(\x18)|"
+               "(\x19)|(\x1a) to move center, (Esc) to quit.");
+
+      _settextcolor(COLOR_PROMPT_KEYS); /* highlight key characters */
+      _settextposition(vcnfg.numtextrows, 10); _outtext("+");
+      _settextposition(vcnfg.numtextrows, 14); _outtext("-");
+      _settextposition(vcnfg.numtextrows, 35); _outtext("\x1b");
+      _settextposition(vcnfg.numtextrows, 39); _outtext("\x18");
+      _settextposition(vcnfg.numtextrows, 43); _outtext("\x19");
+      _settextposition(vcnfg.numtextrows, 47); _outtext("\x1a");
+      _settextposition(vcnfg.numtextrows, 67); _outtext("Esc");
+
+      do {
+         if (ich = getch()) {   /* non-0 scan code, ACSII character */
+            switch (ich) {
+               case 45: worldScale *= 2.0; break;              /* - */
+               case 43: worldScale /= 2.0; break;              /* + */
+               case 27: _setvideomode(_DEFAULTMODE); exit(0);/* Esc */
+               default: putch('\a'); ich = 0;        /* invalid key */
+               }
+            if (ich) {         /* OK, scale changed, enforce limits */
+               if (worldScale < 1.5625e6) worldScale = 1.5625e6;
+               if (worldScale > 200.0e6) worldScale = 200.0e6;
+               }
+            }
+         else {   /* arrow or diagonal key, move map tangency point */
+            switch (ich = getch()) {    /* get "extended scan code" */
+               case 73: dNewCntr = dUpperRight; break;  /* up/right */
+               case 72: dNewCntr = dUpperMid;   break;        /* up */
+               case 71: dNewCntr = dUpperLeft;  break;   /* up/left */
+               case 75: dNewCntr = dLeftMid;    break;      /* left */
+               case 79: dNewCntr = dLowerLeft;  break; /* down/left */
+               case 76: dNewCntr = dCntr;       break; /* 5, center */
+               case 80: dNewCntr = dLowerMid;   break;      /* down */
+               case 81: dNewCntr = dLowerRight; break;/* down/right */
+               case 77: dNewCntr = dRightMid;   break;     /* right */
+               default: putch('\a'); ich = 0;        /* invalid key */
+               }
+            if (ich) {              /* OK, center was re-positioned */
+               DisplayToPlane(xfmArray, &dNewCntr, &pNewCntr);
+               UnMapStereo(&displayCenter, &pNewCntr, &displayCenter);
+               }
+            }
+         } while (ich == 0); /* i.e. until valid input was obtained */
+      }
+   }
+
+/* ---- Traverse the Line Index and Display Close Line Segments ---- */
+void drawDataLines(FILE *fpIndex, FILE *fpCoordinates) {
+   struct indexRec    indexRec;
+   struct lclpt       shortVx;
+   struct vct3        sphereVx;
+   struct plpt        stereoPlaneVx;
+   struct dpxl        displayVx;
+   double             s;
+   int                i;
+/* ---------------------------------------------------------------- */
+
+   rewind(fpIndex);    /* whole index will be searched sequentially */
+   while (fread(&indexRec, sizeof(struct indexRec), 1, fpIndex)) {
+
+      if (kbhit()) if (getch() == 32) break;    /* space bar, break */
+
+/*    Skip line segments which are so far away from the display
+      that they can't have any vertices in it...                    */
+
+      if (ArcDist(&displayCenter, &indexRec.center)
+       > maxDispDist + indexRec.radius) continue;
+
+      s = indexRec.radius / LC_SCALE;
+      fseek(fpCoordinates, indexRec.fileOffset, SEEK_SET);
+
+      for (i = 0; i < indexRec.vertexCount; i++) {
+         fread(&shortVx, sizeof(struct lclpt), 1, fpCoordinates);
+         stereoPlaneVx.est = s * (double)shortVx.est;
+         stereoPlaneVx.nrt = s * (double)shortVx.nrt;
+         UnMapStereo(&indexRec.center, &stereoPlaneVx, &sphereVx);
+
+         MapStereo(&displayCenter, &sphereVx, &stereoPlaneVx);
+         PlaneToDisplay(xfmArray, &stereoPlaneVx, &displayVx);
+         if (i == 0) _moveto(displayVx.x, displayVx.y);
+         else _lineto(displayVx.x, displayVx.y);
+         }
+      }
+   }
+
+/* ---- Display Latitude/Longitude "Rectangles" in the Display ---- */
+#define RCT_LAT_DEG       10     /* Rectangle extent in latitude... */
+#define RCT_LNG_DEG       15       /* ... and longitude, in degrees */
+#define RCT_HALFDIAG_DEG   9     /* Rect. center-to-corner distance */
+#define RCT_LAT_RAD (DEG2RAD * RCT_LAT_DEG)      /* same in radians */
+#define RCT_LNG_RAD (DEG2RAD * RCT_LNG_DEG)
+
+void drawGrid(int densityLat, int densityLng) {
+   struct ltln        llVx;
+   struct vct3        sphereVx;
+   double             sLat, sLng;
+   int                i, j, k;
+/* ---------------------------------------------------------------- */
+
+   for (i = -80; i <= 80; i += RCT_LAT_DEG) {
+      for (j = -180; j < 180; j += RCT_LNG_DEG) {
+         llVx.lat = i * DEG2RAD + 0.5 * RCT_LAT_RAD;
+         llVx.lng = j * DEG2RAD + 0.5 * RCT_LNG_RAD;
+         LatLongToDcos3(&llVx, &sphereVx); /* grid rectangle center */
+
+         if (ArcDist(&displayCenter, &sphereVx)
+          > maxDispDist + DEG2RAD * RCT_HALFDIAG_DEG) continue;
+
+         sLat = (RCT_LAT_RAD / densityLat);
+         sLng = (RCT_LNG_RAD / densityLng);
+         for (k = 0; k < densityLat; k++) {
+            llVx.lat = i * DEG2RAD + k * sLat;
+            llVx.lng = j * DEG2RAD;
+            drawGridSegment(&llVx, sLng / 4, RCT_LNG_RAD, PARALLEL);
+            }
+         if (i == 80) continue;
+         for (k = 0; k < densityLng; k++) {
+            llVx.lat = i * DEG2RAD;
+            llVx.lng = j * DEG2RAD + k * sLng;
+            drawGridSegment(&llVx, sLat / 4, RCT_LAT_RAD, MERIDIAN);
+            }
+         }
+      }
+   }
+
+/* ---- Display a Segment of a Meridian or a Parallel in Short Steps ---- */
+void drawGridSegment(const struct ltln *llVxStart,
+                     double step, double maxDist, int m) {
+   struct ltln       llVx;
+   struct vct3       sphereVx;
+   struct plpt       stereoPlaneVx;
+   struct dpxl       displayVx;
+   double            d = 0.0;
+/* ---------------------------------------------------------------- */
+
+   LatLongToDcos3(llVxStart, &sphereVx);
+   MapStereo(&displayCenter, &sphereVx, &stereoPlaneVx);
+   PlaneToDisplay(xfmArray, &stereoPlaneVx, &displayVx);
+   _moveto(displayVx.x, displayVx.y);
+   do {
+      d += step;
+      if (d + 1.0e-10 > maxDist) d = maxDist;
+      llVx.lat = llVxStart->lat + (m * d);         /* <m> is 0 or 1 */
+      llVx.lng = llVxStart->lng + ((1 - m) * d);
+      LatLongToDcos3(&llVx, &sphereVx);
+      MapStereo(&displayCenter, &sphereVx, &stereoPlaneVx);
+      PlaneToDisplay(xfmArray, &stereoPlaneVx, &displayVx);
+      _lineto(displayVx.x, displayVx.y);
+      } while (d != maxDist);
+   }
+</pre>
+</code>
+</p>
+</body>
+</html>
