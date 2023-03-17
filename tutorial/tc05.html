@@ -1,0 +1,586 @@
+<html><head>
+<title>Hipparchus Open Geographical Software Tools Tutorial
+       and Programmer's Guide Design Concepts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body bgcolor="white" text="black" link="blue" alink="lime" vlink="teal">
+
+<a href="tc04.html">Previous Chapter</a> |
+<a href="tc00.html#toc">Table of Contents</a> |
+<a href="tc06.html">Next Chapter</a>
+<hr>
+
+<h2>Chapter 5: Design Concepts</h2>
+
+<P><h3>Introduction</h3>
+
+<P>The purpose of this chapter is to review some of the basic things you
+may want to consider when you are designing your application and planning
+your geographic database.
+
+<P><h3>Approaching the Application Design</h3>
+
+<P>For most applications, a review of the data is a first step in the design
+process. The structures and formats of that data will have an enormous
+effect on the solution to the problem that you have been given. For the
+purposes of this tutorial, we will not attempt to reproduce or replace
+the many excellent texts on this subject. Rather, in this chapter we will
+assume that you will have at least some experience with database design.
+
+<P>Given a problem to solve (for example, "I need a list of all of the major
+cities in the world that are within 50 miles of an ocean or large lake"),
+you first must look at the problem in detail. As usual, the problem itself
+is somewhat ill-defined but you will likely need to decide:
+<ul>
+<li>what data is needed
+<li>where to get the data
+<li>how to input the data
+<li>how to process the data
+<li>how to present the results.
+</ul>
+
+<P>In the example problem, you will want to know just what constitutes
+a "major city". This could be defined by population, number of square miles
+covered, etc. Similarly, you will need to know what is meant by "large" lake.
+
+<P>As an experienced developer, you ask "Why does the client want this list"?
+There may be additional questions soon to follow. Since your company
+distributes sports fishing equipment you might guess that additional questions
+will have something to do with markets, sports fishing and new product lines.
+You might therefore anticipate subsequent questions, such as:
+
+<ul>
+<li>which of these cities have a population greater than x?
+<li>which of these cities have sports fishing manufacturers?
+<li>which of these cities are near salt water?
+<li>and so on.
+</ul>
+
+<P>If you are clever, you will likely design an application where the end
+user can sit at a workstation and ask these questions interactively.
+The user could choose to adjust her/his definitions of "major" as well
+as develop other questions. For example, "How many of the cities are within
+50 miles of a <B>salt water</B> coastline"?
+
+<P>If answers to such questions could be displayed quickly on the screen
+and the user could move around the globe in search of answers of evolving
+clarity, you would have done a reasonable job as a developer. The data
+attributes needed to answer these auxiliary questions might be of importance
+during the data acquisition process as well as the data modeling process.
+
+<P>Not too surprisingly, data considerations are a major element for each
+step in the application development process. The following outlines some
+of the typical data concerns you probably need to address.
+
+<P><h3>Types of Data</h3>
+
+<P>In general, there are five categories of data that make up a database:
+
+<ol>
+<li>Physical measurements - this includes any form of measurement or
+count. Typical attributes include geographic location, height, weight,
+length, time, population, density, mass, volume, pressure, etc. These are
+measured in appropriate units and represented with appropriate resolution.<p>
+<li>References to other tables - usually defined identifiers such as
+employee number. For example, in a payroll system, an employee number in
+a pay register may identify an entry in another table that contains the
+employee's age, address, telephone number, position, etc.<p>
+<li>Monetary data - usually measured in a specific currency (for example,
+US dollars) and represented with a specific resolution (for example, dollars
+and cents).<p>
+<li>Free-form descriptive material such as text (for example, "This area
+is considered as a wildlife sanctuary under legislation enacted in 1967
+by ...".<p>
+<li>Multi-media material such as images, audio, video, etc.<p>
+</ul>
+
+<P>Of these five categories of data, Hipparchus works with
+data of the first and second categories listed above.
+<p>Hipparchus deals almost exclusively with the attributes of geographic
+position. Only in specific instances does Hipparchus carry other data "along
+for the ride". For example, a digital elevation model (DEM) application will
+almost certainly associate directly the elevation datum with the surface
+coordinates of each observation.  More typically, however, you will associate
+your geographic location data with other data by means of cross-references.
+In such cases it will be these cross-references that Hipparchus will carry
+along internally. (You saw an example of this in the tutorial program
+<I>CITIES</I>. There, pointers to the cities file records were carried as
+part of the <I>cities</I> point set and subsequently propagated into the
+derived point set <I>cities_subset</I>). Typically, it is your application
+that provides the glue that binds your geographical and non-geographical
+data.
+
+<P><h3>Typical Data Concerns</h3>
+
+<P>Typically, you will need to be concerned about several aspects of your
+location data. You will need to find out the following:
+
+<ul>
+<li>its source
+<li>its volume
+<li>its currency
+<li>its integrity
+<li>its precision
+<li>its geographic distribution.
+</ul>
+
+<P>For your application, you should decide (after discussion with your
+clients), the following:
+
+<ul>
+<li>the accuracy requirements
+<li>the speed of response required
+<li>the form of display or hard copy
+<li>the retention of calculated data.
+</ul>
+
+<P><h3>Understanding Location Data</h3>
+
+<P>Much of the positional data that we know today is described either directly
+or indirectly in terms of latitude and longitude. For example, our
+Geodyssey's current home office is located at N51:02:45 W114:04:48 (WGS84).
+(This is read as North latitude 51 degrees, 2 minutes, 45 seconds and
+West longitude 114 degrees, 4 minutes, 48 seconds). In planning your
+logical data model, these coordinates will be two of the attributes in the
+physical measurement category. Their nominal external precision will be known
+and reflected by the location data: degrees alone, degrees and minutes,
+degrees, minutes and seconds, etc.
+
+<P><h3>Geodetic Datum</h3>
+
+<P>When looking at a source of geographic location data, you may need to
+be aware of its "geodetic datum". Field surveys that generated
+that particular set of location data were performed using a specific
+frame of reference. You may need to know more about that frame of reference.
+
+<P>The surveyor's frame of reference has two interdependent parts: the
+ellipsoid and the datum:
+
+<h4>The Ellipsoid</h4>
+
+<P>Latitude and longitude positional measurements are NOT spherical.
+They are ellipsoidal measurements. For example, whoever surveyed your town's
+boundaries calculated specific latitudes and longitudes according to
+an ellipsoidal model of the Earth. Over the years, the increasing
+sophistication of geodetic engineering has led to the specification of a
+large number of ellipsoidal models. They are well known to surveyors and
+other professionals concerned with the measurement of the Earth's surface.
+
+<P>Hipparchus has the computational specifications for some 34 ellipsoidal
+models, some historical and some currently in use. You can choose one of these
+or supply your own model. You do this using the <I>h4_SetEllipsoidParameters</I>
+function. To get an idea of the numeric differences between these reference
+ellipsoids, consider the physical location of a point having a particular
+latitude and longitude. Under a change of the reference ellipsoid, the
+apparent location may be altered by as little as one meter or by as much as
+several hundred meters.
+
+<h4>The Datum</h4>
+
+The central element of the surveyor's frame of reference is the datum. This
+is a reference to a specific network of relatively few, but also relatively
+high precision position observations, adjusted on a regional or continental
+basis to account for differences between adjacent observations of specific
+features. These are known as <i>control points</i>. The agreed adjusted
+position of these control points forms the basis for a hierarchy of agreed
+regional and local positions, such as benchmarks and other monuments. In
+practice, the main body of local survey data is based on observations of
+distances and angles to or from nearby monuments and benchmarks.
+
+<p>Since the adjustment of network control points varies from one
+region to another, reconciliation of local observations recorded under
+different datums can be done only by computationally intensive local
+comparison and statistical inference rather than by a mathematical
+transformation between reference ellipsoids. If your application demands such
+a reconciliation, plan on consulting an experienced survey professional!
+
+<P>In different parts of the world, surveying is practiced more or less
+independently, often without reference to the same ellipsoids and,
+most certainly, without reference to the same datums. Historic survey
+reports for positions on different continents (or at sea) are therefore
+basically incommensurate. Distances and angles between such data must be
+understood to be approximate.
+
+<p>The good news is that modern satellite and astronomic survey techniques
+promise a new generation of accurate, high-volume, commensurate position
+information, reconcilable both locally and globally!
+
+<P>If your application demands high precision and you do not know the frame
+of reference for your source data, you will have an important question
+to resolve before commissioning the application. However, if you are less
+concerned about precision or cannot immediately determine the frame of
+reference, you should select one of the more recent models (e.g., for the
+tutorial example we used model number 34, "World Geodetic System, 1984").
+
+<P>For a complete discussion of this subject, we suggest you refer to
+<I>Surveying Theory and Practice</I> described in <I>Appendix B: References</I>.
+
+<p><h3>"Flat-Earth" Coordinates</h3>
+
+<p>A widespread method for the expression of local positional data is a pair
+of "flat-Earth" (x-y) positional coordinates giving a location in one of the
+Universal Transverse Mercator (UTM) or "state plane" projections. Just as for
+latitude and longitude coordinates, the nominal external precision of these
+"flat-Earth" coordinates will be known and reflected by their units of
+measure: meters, millimeters, etc.  Although expressed as planar "flat-Earth
+coordinates", they are usually derived indirectly from survey observations
+based on a specific ellipsoid and datum.
+
+<P><h3>Logical Data Design</h3>
+
+<P>Once you have learned more about your problem and the nature of the
+data involved, you can set about to develop your logical data model. Using
+the sample question regarding the "major cities within 50 miles of an ocean
+or large lake", you might look for information sources that would help answer
+your questions.
+
+<P>Let us assume that you have located the data that provides the information
+that you need to answer the initial question. The data might logically
+be represented as columns in two relational database tables:
+
+<P>Cities table:<ol>
+<li>Name
+<li>Location
+<li>Population
+</ol>
+
+<P>Coastline vertices table:<ol>
+<li>Coast
+<li>Vertex number
+<li>Vertex location.<p>
+</ol>
+
+<p>In a conventional relational database, these tables could be be
+intersected on their common column, <i>location</i> to yield a list of
+cities lying on a coast, but only if their was an explicit and exact match of
+location attributes. So what is the reason for mentioning this logical data
+modeling approach?
+
+<P>The reason is that with the power of the Hipparchus spatial operators, you
+can logically combine such tables to come up with the answers to questions
+such as those posed in our hypothetical sport fishing equipment manufacturing
+example. In fact that's exactly what we did in <I>Chapter 4: Getting
+Started</I>.
+
+<P>As conjectured earlier, you anticipate some additional questions about
+population, sports fishing equipment manufacturers and salt water. You have
+located additional information that might be useful. Logically, it might look
+like this:
+
+<P>Sports Fishing Equipment Manufacturer Table:<ol>
+<li>Name of manufacturer
+<li>Name of city
+</ol>
+
+<P>Water Salinity Measurements Table:<ol>
+<li>Geographic location
+<li>Salinity reading
+</ol>
+
+<P>In the example, you now have four logical tables of input data. With
+these tables alone, you ought to be able to use Hipparchus to find answers
+to the additional questions anticipated.
+
+<P>Logical object manipulation is one of the great strengths of the Hipparchus
+approach. In the tutorial example, you asked for a form of logical
+intersection of a point set object and a line set object. Now let us explore
+more generally just what makes up an object.
+
+<P><h3>Hipparchus Objects</h3>
+
+<P>Hipparchus objects are the building blocks or "variables" used to calculate
+spatial relationships between things, conditions or events. Hipparchus
+objects are of course only an abstraction of reality. They nevertheless
+convey the whereabouts of things. They can represent the position of things
+that exist on the surface of the Earth, below the surface, in the atmosphere,
+or in the near space surrounding the Earth.
+
+<P>Objects are not constrained in any way by geography. They may be used to
+describe things as large or as small as you need to model the features you
+have in mind.
+
+<P>Hipparchus works with three types of objects:
+<ul>
+<li>dimensionless objects (points)
+<li>one-dimensional objects (lines)
+<li>two-dimensional objects (areas).
+</ul>
+
+<P>More precisely, Hipparchus works with three canonical forms of these
+objects: point sets, line sets and regions (bounding ring sets). With these
+three basic forms you can describe almost any geographic feature imaginable.
+
+<P>A <b>Point Set</b> object (Pset) may consist of a single point or a group
+of points. For example, in the tutorial program <I>CITIES</I>, you
+constructed a point set consisting of the locations of a set of cities. You
+then derived a new object which was the subset of cities meeting the
+proximity criterion. Other examples of point sets are:<ul> <li>a set of
+weather reporting locations <li>a set of post office locations <li>a set of
+survey monuments. </ul>
+
+<p>As mentioned, the set of points may consist of just one point. The set may
+also be empty.
+
+<P>A <b>Line Set</b> object (Lset) is defined by <B>ordered</B> sets of point
+locations. Any two successive point locations define a line segment. Segments
+are "straight" lines (geodesics). Two or more segments define a line. The
+points are said to be vertices of the line. A line has directional
+<B>sense</B>: a line from A to B is distinct from a line from B to A. A line
+set object may consist of a group of zero, one or more lines. Examples
+include the following:<ul>
+<li>a line defining the USA/Mexico border
+<li>a set of lines that define the coastlines of the world
+<li>a directed line defining the track of a moving vehicle
+<li>lines that define equal barometric pressure (isobars)
+<li>lines that define satellite sensor visibility limits.
+</ul>
+
+<P>A <b>Region</b> object (Rset) consists of an area of interest that has some
+specific characteristics. The term "region" is somewhat synonymous with
+"boundary ring set". A region is defined by ordered sequences of points
+forming closed rings. The region being defined lies on the left side of the
+directed line forming the ring. The region may be "not simply connected" which
+means that you can define multiple rings (for example, an island group) or
+rings within rings (for example, an island in a lake on an island). Examples
+of regions include:<ul>
+<li>an area of market influence
+<li>an area seen by a satellite over a specified time
+<li>an area constituting an island group
+<li>an area of glacial coverage
+<li>an area bounded politically.
+</ul>
+
+<P>Working with these three primary classes of objects, you can create
+new objects, such as the following:
+<ul>
+<li>cities within 50 miles of a world coastline
+<li>shipping lanes seen by a particular satellite
+<li>states of the United States that are wholly landlocked.
+</ul>
+
+<P>Once you have developed the initial objects from your data, creation
+of new objects based on spatial unions and intersections is an easy task
+using the <I>Hipparchus Library</I> functions for object manipulation.
+These are found in section <I>h7</I> of the <I>Hipparchus Library</I>.
+
+<P>This topic is revisited in <I>Chapter 7: Refining Your Design</I>.
+
+<P><h3>Modeling Objects</h3>
+
+<P>Modeling can sometimes be described as an art form. In using a powerful
+tool like Hipparchus we suggest that you follow the golden rule of modeling:
+
+<P><B><I>Always model reality rather than a model of reality</I></B>
+
+<P>In other words, it is better to create a direct model of the physical
+world rather than a model of another model already derived or conceived.
+
+<P>For example, if you have a set of meteorological reporting locations
+that provide temperature and pressure, the golden rule tells you to create
+an object based on the measurement points themselves, rather than one based
+on isotherms or isobars. Isotherms and isobars are developed by others as
+models of the weather situation. If you know how, isobars and isotherms can
+be created "on-the-fly" at any time. They are merely objects derived from
+physical observations made at specific geographic points. (Of course, if you
+have no ready access to the observational data, you may have to make do with
+published isotherms and isobars).
+
+<P><h3>Geographic Image Data</h3>
+
+<P>Many geographic applications deal with image data. Our definition of
+geographic image data includes:
+<ul>
+<li>photographs of the Earth's surface
+<li>satellite-sensed images of the surface
+<li>scanned or otherwise digitized maps.
+</ul>
+
+<P>In some applications, you may wish to use such image data as a visual
+reference for your users, permitting them to identify the geographic locations
+of specific image features or to create vector objects by tracing with a
+mouse. For example, a ship's captain might want to know the precise latitude
+and longitude of an iceberg seen in a satellite image of Davis Straight. In
+another example, a forester might want to trace on an aerial photo the
+proposed routing for his logging trucks.
+
+<P>Hipparchus provides functions that let your users adjust the plane of
+the display so that it coincides approximately with the arbitrary plane
+of a bit-mapped image. Then, using standard Hipparchus unmapping functions,
+mouse coordinates can be projected back to the surface of the ellipsoid, and
+a vector data object created. As you might expect, you can also display other
+vector data in this arbitrary plane, overlaying the reference image.
+
+<P>In other more complex image processing applications, you may be processing
+each pixel of the image, adjusting shades of grey or false color. Should
+your application require geographic alignment of image data on a pixel
+by pixel basis, then Hipparchus can be used to advantage. In such cases,
+the image data likely would be treated as a point set vector object. This
+is discussed later in this chapter and more extensively in <I>Chapter 7:
+Refining Your Design</I>.
+
+<P>In any case, Hipparchus can provide significant benefits in indexing such
+image data. With Hipparchus, you will be able to dramatically accelerate
+geographic image retrieval times. This capability in explained in <i>Chapter
+6: Working with Cells</i>.
+
+<P><h3>Physical Data File Design</h3>
+
+<P>When implementing applications with Hipparchus, you communicate with
+Hipparchus entirely via memory structures. The <I>Hipparchus Library</I>
+functions will know nothing about your external data files. So, part of your
+physical data file design must necessarily deal with how your data is going
+to be organized once it's been brought into memory. You should address this
+issue first, then tackle the external file design. Memory modeling
+considerations may influence dramatically your external physical database
+design. Of course, you will probably do a bit of both before firming up your
+plans.
+
+<P>The first thing you will need to know for your memory design is the
+maximum number of data items you will need to deal with at any one time.
+The second thing you will need to know is the precision required for the
+location attributes. Externally, location attributes may be expressed in a
+wide variety of formats and precisions. However, once brought into memory
+for processing by Hipparchus, location items will be represented by a very
+limited number of canonical forms, ranging from a maximum of thirty-two bytes
+per point or vertex to a minimum of just two bytes per point or vertex.  This
+topic is addressed in detail in <I>Chapter 7: Refining Your Design</I> and
+again in <i>Chapter 12: Advanced Topics</i>.
+
+<P><h3>External File Design</h3>
+
+<P>You will next need to consider the form that your data should have in
+its external storage medium (for example, hard disk). This does not have
+to be the same as the form it takes when in memory for processing. There
+are of course a large number of factors to consider when deciding on an
+external database design.
+
+<P>Since you communicate with Hipparchus via internal memory structures
+only, your external design is not dictated by Hipparchus. You are free to
+organize your external data in whatever way seems best, using whatever
+file system or DBMS you like.
+
+<P>Your design for the external data store could be critical to achieving
+performance goals, especially if the application is designed to interact
+with the user. For this reason, we will address some of the design issues that
+can significantly affect the overall performance of your application.
+
+<p><h3>Static Versus Dynamic Location Data</h3>
+
+<p>As mentioned earlier, by far the largest volume of geographic location
+data is static. Examples of static location data are terrain elevations,
+bathymetry, coastlines, rivers, lakes, administrative boundaries and
+historic events or observations.  Although perhaps occasionally updated,
+these objects typically remain unchanged for the life cycle of the
+applications employing them. And, if updated, the new versions can be
+imported into the application in their entirety, replacing the earlier
+versions. The original object data file creation and subsequent updates, if
+any, will typically be performed by batch processes, off-line from the
+application. The application will generally treat such objects as read-only,
+so their integrity is seldom an issue, nor is simultaneous multi-user access
+an issue.
+
+<p>Considering the foregoing, we strongly recommend the use of simple
+file system solutions for the design of your static external application
+data. (Remember that your static geographic location data can be linked
+to other more dynamic application data located in other files or databases
+via simple "tag-along" attribute references such as flight or sales office
+identifier).
+
+<p>By contrast, consider some examples of application location data that is
+clearly dynamic. Almost any location data that pertains to current or planned
+human activity and events will be dynamic in nature. Examples of such objects
+are: satellite trajectories, aircraft flight plans, shipping orders, sales
+distribution, demographics, etc. These are typically small in their
+geographic extent or data volume.  Applications that deal with such objects
+will likely need to consider on-line (or at least frequent off-line) data
+update procedures and all that go with them: backups, permissions, record
+locking, referential integrity, etc.
+
+<p>Even here, if the data volumes are not daunting, you might well consider
+the use of simple flat file solutions, relying on the use of text editors or
+simple application procedures to enforce the access or update rules.
+
+<p>Only if the data volumes are very large or the update and access rules
+very demanding should you consider the use of an orthodox Data Base Management
+System (DBMS) for the external storage of your application's geographic
+location data.
+
+<p><h3>Flat Files</h3>
+
+<p>Whether your application geographic location data is static or dynamic,
+you should consider the use of simple "flat files". These might be
+appropriate in instances where either the object count or point/vertex
+volume is modest or where the planned use of objects mandates that they be
+brought into memory in their entirety. (Both of these conditions applied in
+the simple application introduced in <i>Chapter 4: Getting Started</i>.
+Flat files can be ASCII or binary. If they are to be shared with other
+applications, then ASCII would be better. But if they are to be used only by
+the one application on a single platform type, and if the point/vertex is
+higher, then a binary record format might be considered.
+
+<p><h3>Hipparchus Binary Objects</h3>
+
+Another binary file option that may be open for consideration is the use of
+"Memory Mapped" files. In this option (if offered by your operating system),
+you may treat the application external objects as persistent memory objects
+that are mapped into your computer's virtual memory disk swap space. Such
+objects may be considered by an application to be either static or dynamic.
+(Both the <i>Galileo for Windows 95</i> workbench and the <i>Georama for
+Windows 95</i> Atlas programs demonstrate the use of such files).
+
+<p>Even very large Hipparchus Binary Objects may be processed <i>in situ</i>,
+without the need to be brought in to memory in their entirety.  This means
+that very large objects (such as the the supplied "Dry Land of the World"
+region object) can very efficiently be intersected with a user display window
+or any other local selection region.
+
+<p>For Hipparchus Binary Objects, the only limitation to size or complexity
+is the host system's virtual memory disk swap space allocation.
+
+<P><h3>Spatial Indexing for Your External Data</h3>
+
+<P>If your application geographic location data is at all voluminous, you
+will need a plan for the creation and maintenance of an effective indexing
+mechanism. This is a method for quickly finding specific data that is stored
+externally.
+
+<P>Your application may have indexing requirements that are independent
+of your data's location attributes. For example, in a personnel application,
+data about people would normally be indexed by the person's name, not by
+the person's location.
+
+<P>The chances are, however, that if your application deals with geographic
+relationships, you will need to index at least some of your data by location.
+This is called "<B>spatial indexing</B>".
+
+<P>The construction of an efficient spatial index is possibly the most
+critical design factor for your application. This alone may "make or break"
+the practicality of your planned application. Hipparchus offers significant
+performance advantages in this important aspect of your application design.
+
+<p>In <i>Chapter 7: Refining Your Design</i> we introduce a number of
+simple indexed file options that require only the basic C/C++ run-time library
+stream i/o facilities. But whether you opt for one of these simple file
+designs or for a more generalized DBMS, you will need to understand your
+options for a spatial index, which are introduced in
+<I>Chapter 6: Working With Cells</I>, following immediately.
+
+<P><h3>Summary</h3>
+
+<P>General application development rules apply. The incorporation of
+location-specific information using Hipparchus is relatively straightforward.
+You convert your location information into the internal Hipparchus notation.
+Geographical objects are modeled as point sets, line sets or regions. These
+objects can be of unrestricted size and complexity. Objects can be
+manipulated with ease. Your data can be stored externally in many ways using
+simple flat files, memory-mapped files, simple indexed stream i/o files
+or a DBMS of your choice. For high-volume external application location data,
+its spatial indexing may be the most important performance issue.
+
+<hr>
+<a href="tc04.html">Previous Chapter</a> |
+<a href="tc05.html">Top of Chapter</a> |
+<a href="tc06.html">Next Chapter</a>
+
+</body></html>

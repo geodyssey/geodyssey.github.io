@@ -1,0 +1,400 @@
+<html><head>
+<title>Hipparchus Open Geographical Software Tools Tutorial
+       and Programmer's Guide Libraries</title>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body bgcolor="white" text="black" link="blue" alink="lime" vlink="teal">
+
+<a href="tc02.html">Previous Chapter</a> |
+<a href="tc00.html#toc">Table of Contents</a> |
+<a href="tc04.html">Next Chapter</a>
+<hr>
+
+<h2>Chapter 3: The Hipparchus Libraries</h2>
+
+<P><h3>Introduction</h3>
+
+<P>The purpose of this chapter is to describe the <I>Hipparchus Library</I>,
+how it is organized, its naming conventions and its support facilities,
+including the <I>Hipparchus Auxiliary Library</I>.
+
+<P>The <I>Hipparchus Library</I> <I>(hipparch.lib)</I> provides a complete
+set of ready-to-link functions for managing the geographic attributes of
+your data. The <I>Hipparchus Auxiliary Library</I> provides the C language
+source from which you may construct an auxiliary library suited to your
+interface requirements (usually called <I>hippauxl.lib</I>).
+
+<P>The functions of the <I>Hipparchus Libraries</I> may be freely integrated
+with applications developed in C<SUP>++</SUP>. However, to avoid the mangling
+of function names, any Hipparchus C language header files included in
+C<SUP>++</SUP> programs should be encapsulated with the code sequence:<pre>
+   extern "C" {
+
+    ...
+
+      }</pre>
+
+or its equivalent.
+
+<P><h3><I>The Hipparchus Library</I></h3>
+
+<P>All functions of the <I>Hipparchus Library</I> are fully re-entrant
+and may be linked for multi-threaded (multi-task) execution. All are formally
+documented in the <I>Hipparchus Library Reference Manual</I>.
+
+<P><B><I>h1</I></B> Data Conversion and Cell Lists
+
+<P>These functions provide general facilities for the conversion of latitudes,
+longitudes and other angles to and from Hipparchus internal formats, for
+the management of lists of cell identifiers and for the management of system
+heap memory.
+
+<P><B><I>h2</I></B> Plane Geometry.
+
+<P>These functions provide for the derivation of planar items such as circles
+and ellipses and for the calculation of planar productions such as the
+intersection of line segments. Included are functions that provide affine
+"rubber-sheet" transforms for planar data.
+
+<P><B><I>h3</I></B> Spherical Geometry.
+
+<P>These functions provide facilities for the vector algebraic calculation of
+spherical surface and solid geometry productions. Examples include spherical
+arc, chord, line segments and point-line proximity. Functions for simple
+projective mapping and unmapping are included.
+
+<P><B><I>h4</I></B> Ellipsoidal Geometry.
+
+<P>These functions provide facilities for quadratic ellipsoidal geometric
+calculations including surface distances, azimuths and conversion between
+a specified ellipsoid and other domains. Functions are included that call
+on the satellite orbit modeler and relate orbit positions to points on
+a planetary surface.
+
+<P><B><I>h5</I></B> Classical Cartographic Projections.
+
+<P>These functions provide UTM (Gauss-Kreuger) to ellipsoid and other
+ellipsoid mapping and unmapping operations.
+
+<P><B><I>h6</I></B> Cell Structures and Local Coordinates.
+
+<P>These functions provide facilities to construct, verify, maintain and
+navigate Voronoi cell structures. Included in this section are functions
+that manage Hipparchus scatchpad memory
+
+<P><B><I>h7</I></B> Terrestrial Object Manipulation and Spatial Relationships.
+
+<P>These functions provide facilities to construct, verify, manipulate
+and relate terrestrial objects (point sets, line sets and regions).
+Higher-level functions permit new objects to be derived from others as a
+function of their spatial relationships. Several of the functions enable the
+construction of terrestrial objects from the nadir trace or sensor swath of
+satellites.
+
+<P><B><I>Hipparchus Auxiliary Library</I></B>
+
+<P>All functions of the <I>Hipparchus Auxiliary Library</I> are re-entrant
+and may be linked for multi-threaded (multi-task) execution. There are three
+sections:
+
+<p><b><i>h8</i></b> File Access functions.
+
+<p>Several of these functions provide simple access to Hipparchus stream I/O
+files known as point, line or region collections (PLR's). Using standard
+run-time stream I/O, these provide efficient access to static geographic
+vector data. Other functions in this section support dynamic memory-mapped
+file access. All are formally documented in the <I>Hipparchus Library
+Reference Manual</I>.
+
+<P><B><I>h9</I></B> Geographics.
+
+<P>These functions support the rendering of terrestrial objects and satellite
+orbits as well as latitude-longitude reference grids and Voronoi cell
+structures. Renderings can be displayed or plotted in any of the gnomonic,
+stereographic, conic (Lambert-like), orthographic, Mercator or Miller-like
+projections. Functions provide for conversion between global and
+differentially-encoded coordinates and for "quick-mapping" between
+differentially-encoded coordinates and the pixels of a display. In addition,
+there are functions that can transform back and forth between cartographic
+planar projection coordinates and discrete display or plotter pixel
+coordinates.
+
+<P>All of the functions of this section are re-entrant, permitting linkage
+for multi-threaded (multi-task) execution as well as single-thread
+simultaneous generation of multiple displays and/or hard copy graphic
+outputs.
+
+<P>These functions are designed for cross-platform GUI integration and assume
+only minimal graphic primitives. The supplied source is directly compilable
+for Windows 95/98/NT, but may be freely modified and re-used in other GUI's.
+All are formally documented in the <I>Hipparchus Library Reference
+Manual</I>.
+
+<P><B><I>h0</I></B> Utility User Interface.
+
+<P>These functions provide low-level user interface facilities for use with
+the utility and other sample source programs provided. These are supplied in
+source and although some are specific to the demo GUI environment, they may
+be freely modified and re-used. All are formally documented in the<I>
+Hipparchus Library Reference Manual</I>.
+
+<P><h3>Data Structures</h3>
+
+<P>All data structures referenced by the <I>Hipparchus Libraries</I> are
+defined in supplied header files. These files, referenced by your
+<I>#include</I> statements, provide the required definitions for:
+
+<ul>
+<li>elementary structures and unions
+<li>coordinate and vector structures
+<li>terrestrial object descriptive structures
+<li>Voronoi cell index descriptive structures
+<li>satellite orbit descriptive structures
+<li>inter-function communications structures
+</ul>
+
+<p>In addition to their definitions in the header file <i>hipparch.h</i>,
+many of these structures are graphically diagrammed in an HP PCL printable
+file <i>strtbls.pcl</i>, distributed under HELP sub-directory.
+
+<P>The functions provided in the <I>Hipparchus Libraries</I> contain no
+globally or locally defined <I>static</I> variables.
+
+<P><h3>Internal Functions</h3>
+
+<P>All <I>Hipparchus Library</I> functions are available for use when
+constructing your application. There are no hidden components or structures.
+Many of the functions were designed primarily for internal use in
+implementing the more powerful functions. So, unless you are pressing the
+limits of Hipparchus, it is unlikely that you will find a need to reference
+these internal functions. Nevertheless, their prototypes and specific types,
+constants and structure definitions are fully described and available for
+use, should the need arise.
+
+<P><h3>Naming Conventions</h3>
+
+<P><i>Hipparchus Library</i> function names are exactly six characters long
+(for example, <I>h5utmz</I>). Full descriptive names (i.e., "long" names)
+for each function are also established by <I>#define</I> pre-processor
+statements supplied in one of the header files that are distributed with
+the <I>Hipparchus Libraries</I>. You may invoke the functions by either
+their short or long names. However, using long names adds to a program's
+readability. The <I>Hipparchus Library Reference Manual</I> is organized
+alphabetically using the long names.
+
+<P>Developers may choose whichever form is most comfortable. Each function
+name begins with the letter <I>h</I>, followed by a digit denoting the
+section of the library (for example, <I>5</I> for the classical cartographic
+projection functions). A four-letter lower case mnemonic (for example,
+<I>utmz</I>) completes the short name. The long names are separated from
+the prefix with an underscore. The long names use both upper and lower case
+letters. The long name for our example <I>h5utmz</I> is
+<I>h5_UtmCentralMeridian</I>.
+
+<p><i>Hipparchus Auxiliary Library</i> functions have long names only.
+
+<P>For tutorial purposes, we will use only the long names in the sample
+programs.
+
+<P><B>Note:</B> Your program's object modules will always reference the
+<I>Hipparchus Library</I> functions by their short names. Any related
+error messages issued by your compiler/linker will refer to short names.
+(The <I>Hipparchus Library Reference Manual</I> has numerous hyperlinks to
+cross-reference short names and long names).
+
+<P><h3>Abbreviations</h3>
+
+<P>The following are abbreviations we used in constructing the long function
+names. They are presented as clues to the intent of the functions:
+
+<dl>
+<dt>Bitflag<dd>integer word bit, used as a binary logic indicator
+<dt>Bsearch<dd>binary search
+<dt>Cellid<dd>cell number or identifier
+<dt>Cellstring<dd>list of cell identifiers (compressed or otherwise)
+<dt>Daynumber<dd>number of days passed since January 1, 1900
+<dt>Dist<dd>distance
+<dt>Dcos2<dd>two dimensional vector of direction cosines
+<dt>Dcos3<dd>three dimensional vector of direction cosines
+<dt>Hpsph<dd>"Hipparchus sphere", a near-conformal sphere corresponding to
+a particular ellipsoid, synonymous with "Hipparchus Frame".
+<dt>Iso<dd>isometric
+<dt>LatLong<dd>ellipsoidal or spherical latitude and longitude
+<dt>Map<dd>mapping or projection from a higher-order to a lower-order surface
+<dt>UnMap<dd>inverse mapping or projection from a lower-order to a higher-order
+surface
+<dt>Pset<dd>point set, terrestrial object
+<dt>Lset<dd>line set, terestrial object
+<dt>Rset<dd>ring set (region), terrestrial object
+<dt>Utm<dd>Universal Transverse Mercator
+<dt>Ux<dd>spatial union or intersection.
+</dl>
+
+<P><h3>Function Prototypes</h3>
+
+<P>These are provided in the supplied header files <I>hipparch.h</I> and
+<I>hippengn.h</I>. The supplied on-line HELP information details each
+function prototype and provides additional notes and usage commentary
+extracted from the <I>Hipparchus Library Reference Manual</I>.
+
+<P>Some functions are implemented as C/C++ language macros. These are
+identifiable by their names which begin with <I>Hx_</I>, where <I>x</I>
+refers to a section of the <I>Hipparchus Library</I> or the <I>Hipparchus
+Auxiliary Library</I>.
+
+<P><h3>Type Definitions</h3>
+
+<P>Standard type definitions for elementary Hipparchus constants and variables
+are defined in the supplied header files <I>hipparch.h</I>, <I>hippengn.h</I>
+and <I>hippvrsn.h</I>.
+
+<P>While the contents of <I>hipparch.h</I> and <I>hippengn.h</I> are version
+independent, the contents of <I>hippvrsn.h</I> headers are associated with a
+particular Hipparchus version. A separate <i>hippvrsn.h</i> header is supplied
+for each version in the distribution. The types defined by <I>hippvrsn.h</I>
+are few, referring mainly to the preferred word size for numbers and pointers.
+
+<P>Within the <i>Hipparchus Library Reference Manual</i>, many of the
+references to these types are hyperlinked to their definitions.
+
+<P><h3>Manifest and System Constants</h3>
+
+<P>In Hipparchus, manifest and system constants are descriptively named
+from an upper-case alphabet that includes numerals and the underscore.
+
+<P>Manifest and system constants are defined by the supplied header file
+<I>hipparch.h</I>.
+
+<P>Manifest constants are sometimes called program parameters. They are
+program-related constants or codes that are given specific names for the
+combined purposes of readability, scope and portability. For example, the
+manifest constant <I>MERCATOR</I> defines a numeric code that refers to
+one of the projection options.
+
+<P>System constants are mathematical or physical values that are considered
+constant by Hipparchus and are given specific names for much the same reasons
+given above. For example, the system constant <I>ERTHRAD</I> defines the
+approximate value for the radius of the Earth.
+
+<P>Within the <i>Hipparchus Library Reference Manual</i>, many of the
+references to these constants are hyperlinked to their definitions.
+
+<P><h3>Computational Domains</h3>
+
+<P>From the forgoing description of the <I>Hipparchus Libraries</I>,
+you will have guessed that an application that incorporates Hipparchus
+technology will likely perform computations in more than one domain.
+
+<P>First, your external data may be expressed in the conventional geographic
+coordinate domain of latitudes and longitudes (angles). Although these
+angles always specify positions on an ellipsoid, they will need to be
+transformed into the vector coordinate domain of that ellipsoid using one or
+more of of the functions provided. Similarly, output from your application
+may need to be transformed back into latitudes and longitudes.
+
+<p>Alternatively, your external application data may be expressed in the
+planar domain of UTM or state plane coordinates and will first need to be
+transformed into ellipsoid vector coordinates. If your application ultimately
+feeds back into an existing "Flat-Earth" system, you may need to transform
+some data back into the UTM or state plane domain, again using one or more of
+the functions provided.
+
+<P>You must choose one of the supplied ellipsoids or else define your own.
+You will normally select just one ellipsoid. (Only rarely would you work
+simultaneously with data in the domain of more than one ellipsoid).  If your
+application works with the position of orbiting satellites, you will also be
+working in the geocentric domain of near space. Knowing the instantaneous
+position of a satellite in this domain, you will likely need to calculate the
+elipsoidal surface coordinates of its nadir trace or sensor swath limits.
+(For more on this subject, see <i>Chapter 10: Working with Satellites</i>).
+
+<P>Next, if your application deals with terrestrial objects (as most will),
+your data will be need to be transformed into and manipulated in the domain
+of the <i>Hipparchus sphere</i>. This is also known as the <i>Hipparchus
+Frame</i>, a hypothetical sphere that is approximately conformal to an
+ellipsoid at specific latitudes. Spatial relationships of objects can be more
+efficiently determined in this domain. However, to properly locate any
+derived objects, you will need to transform your data back into the
+ellipsoidal domain. Besides the object constructors, functions are provided
+to permit you to move freely between the coordinate domains of an ellipsoid
+and its corresponding Hipparchus spheres.
+
+<P>Next, your application may need to display information in one or more
+cartographic projections. These lie in planar coordinate domains that differ
+according to the type of projection required (i.e., gnomonic, stereographic,
+orthographic, Mercator, Lambert-like, etc.). Functions are provided to map
+from the ellipsoid or the Hipparchus sphere into the desired planar domain.
+For applications that may need to trace back to ground coordinates positions
+designated in the domain of one of these projections, functions are provided
+to "un-map" from the planar domain back to the Hipparchus sphere or ellipsoid.
+
+<P>Some applications may require the display and/or computation of positions
+in planar projections other than those strictly defined as cartographic
+projections. For example, the application may require that objects be
+displayed in the same plane as an aerial photograph or satellite-sensed
+image. On the other hand, the application might call for the calculation of
+the ground coordinates of features indicated by a user with a mouse or pen.
+To accommodate such displays and computations, Hipparchus provides functions
+for the mapping and unmapping of coordinates between arbitrary planar
+domains. These affine "rubber sheet" transformations provide the
+computational link between these disparate planar coordinate domains.
+
+<P>Finally, for speed of display, Hipparchus recognizes the specific integer
+pixel domain of displays and plotters. Functions are provided that can
+map or unmap points between the mathematical planar domain of an arbitrary
+planar projection and the corresponding pixel domain of a display or plotter.
+
+<P><a name="tf06"><img border=1 SRC="tf06.gif" HEIGHT=400 WIDTH=400 ALIGN=BOTTOM>
+<p>Figure 6 illustrates these various computational domains and the paths
+that Hipparchus provides between them.
+
+<P><h3>Computational Verification</h3>
+
+<P>The core elements of the <i>Hipparchus Library</i> have been in continuous
+use since 1989. Their computational accuracy has been repeatedly challenged
+and verified by concerned developers. Nevertheless, to provide developers
+with a measure of self-testing capabilities, we have provided functions
+that form the cornerstones of conventional computational geodesy. These
+functions <I>(h4_DirectRudoe</I> and <I>h4_InverseRudoe)</I> implement
+the calculation of position, distance and/or azimuths on the surface of
+an ellipsoid using the traditional methods of Rudoe. Using these functions,
+the developer can implement computational cross-checking of results.
+
+<p><h3>Galileo for Windows 95</h3>
+
+<p>The demonstration program <i>Galileo for Windows 95</i> implements almost
+all of the functionality of the <i>Hipparchus Libraries</i> in the context of
+a general purpose Hipparchus programmer's workbench. It is strongly
+recommended that <i>Galileo</i> be used and its source consulted for examples
+of the use of the <i>Hippparchus Libraries</i>.
+
+<p><h3>Hipparchus Libraries Reference Manual</h3>
+
+<p>The<i>Hipparchus Libraries Reference Manual</i> provides the definitive
+description of each of the functions of the <i>Hipparchus Library</i> and the
+<i>Hipparchus Auxiliary Library</i>.  An essential ingredient of the licensed
+Hipparchus Software Development Kit (SDK), this manual provides the
+programmer with the details of the Hipparchus Application Program Interface
+(API).
+
+<P><h3>Summary</h3>
+
+<P>The <I>Hipparchus Library</I> provides Hipparchus engine functions in
+ready-to-link form. Short forms for the function names provide for improved
+portability. Alternate long names are more descriptive. Type definitions,
+constants, data structures and function prototypes have all been provided
+in header files. The <I>Hipparchus Auxiliary Library</I> provides auxiliary
+functions that support the sample programs.
+All components of the <I>Hipparchus Auxiliary Library</I> are supplied
+in source form and are supported by supplementary header files. \
+The Hipparchus programmer's workbench program <i>Galileo</i> implements a
+majority of the <i>Hipparchus Library</i> functions, in a convenient
+programmer's workbench environment.
+
+<hr>
+<a href="tc02.html">Previous Chapter</a> |
+<a href="tc03.html">Top of Chapter</a> |
+<a href="tc04.html">Next Chapter</a>
+
+</body></html>

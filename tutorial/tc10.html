@@ -1,0 +1,191 @@
+<html><head>
+<title>Hipparchus Open Geographical Software Tools Tutorial
+       and GIS Programmer's Guide Working with Satellites</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body bgcolor="white" text="black" link="blue" alink="lime" vlink="teal">
+
+<a href="tc09.html">Previous Chapter</a> |
+<a href="tc00.html#toc">Table of Contents</a> |
+<a href="tc11.html">Next Chapter</a>
+<hr>
+
+<h2>Chapter 10: Working with Satellites</h2>
+
+<P><h3>Introduction</h3>
+
+<P>Orbiting satellites are becoming more and more important to us. Satellites
+carry incredible volumes of television, telephone and digital data
+communications traffic. Satellites are also used to track ships, airplanes
+and transport trucks. Satellites provide imagery of wheat fields, rain
+forests, cloud cover and oil spills. And now, satellites provide the
+mechanism for the Global Positioning System (GPS). Now, everyday computer
+applications must know the whereabouts of satellites and what their sensors
+"see". Your clients must be able to reconcile the data observed from
+satellites with that obtained terrestrially, relating the two geographically.
+
+<P>The purpose of this chapter is to outline the special functions and
+considerations involved in the modeling of Earth satellite orbits and what
+their sensors may "see". Hipparchus provides powerful capabilities to
+correlate the position and sensor swaths of Earth satellites with Earth's
+surface features.
+
+<P>Some of the material in this chapter assumes that you have a little
+knowledge of orbital mechanics. However, even if you are totally unfamiliar
+with this subject, you might still want to skim through this chapter to
+get a feel for this very powerful component of Hipparchus. If you want
+to review some of the fundamentals, refer to the popular text <I>Remote
+Sensing</I> referenced in <I>Appendix C: Bibliography</I>.
+
+<P><h3>About Orbits</h3>
+
+<P>Satellite orbits follow elliptical paths. Over time, an orbit traces
+an ellipse. You already know that Hipparchus works with the geometry of
+the ellipsoid. You also know that Hipparchus uses direction cosines and
+modern vector algebra to know what's where. These same techniques can be
+applied to the calculation of orbital positions. It should be no surprise
+then to learn that Hipparchus provides functions to permit you to work
+with orbits.
+
+<P>Now, not only will you be able to know the location of a satellite at any
+instant, you will be able to know what points on the ground can communicate
+with it and what areas on the ground its sensors "see". The ability to
+calculate the instantaneous relationships between a satellite and the ground
+provides you with an extremely powerful tool.
+
+<P>Defining the path of an orbiting satellite can be done in several ways.
+The most common method is to define the "Classical Orbit Parameters". These
+are parameters used to describe the orbit path. Hipparchus uses this standard.
+Your clients may provide this information in other ways. If so, you will
+first need to convert to the Classical form before attempting
+to initialize the <I>Hipparchus Library</I> orbit functions.
+
+<P>A common word associated with orbits is "period". Unfortunately, this
+word has two different meanings.
+
+<P>As one of the classical orbit parameters, "period" refers to the amount
+of time taken by an elliptically orbiting satellite to complete one full
+revolution. This is the definition used by Hipparchus.
+
+<P>Alternatively, "period" is sometimes used to refer to the time taken for
+successive crossings of the plane of the Earth's Equator. This is a different
+value from that described above, referring to the time taken to circle the
+Earth from a terrestrial point of view.
+
+<P>To caricature the difference, consider the orbit of a typical
+geo-stationary communications satellite. This is a high orbit in which the
+satellite sits continually over a single point on the Earth. Viewed from
+overhead the Earth, its period will be seen to be exactly one day (one
+<i>sidereal</i> day, that is). But, being stationary with respect to every
+point on the Earth, it will never cross the plane of the Equator and it's
+"period" might be forever! (As an aside, to be geo-stationary in the first
+place, it <B>has</B> to be orbiting <B>directly over</B> the Equator)!
+
+<P>It will be important that your clients check that the "period" they
+supply for a satellite is the classical one.
+
+<P><h3>Processing Considerations</h3>
+
+<P>Applications that include orbital calculations are well supported by
+Hipparchus. You will find the relevant functions in section <I>h4</I> of the
+<I>Hipparchus Library</I>.
+
+<P>To accommodate orbital applications, you will first have to initialize a
+control block, <I>orbprms</I>, with the specifications of the orbit. Orbits
+are defined using the <I>h4_SetClassicalOrbit</I> and
+<I>h4_OrbitPrecession</I> functions.  These are used to initialize the
+<i>orbprms</i> control block (in memory). If your application works with
+multiple satellites, you will need to supply orbit specifications for each
+one. Please refer to the <I>Hipparchus Library Reference Manual</I> for a
+complete description of these functions and their arguments.
+
+<P>One important element of the <I>orbprms</I> control block is the "epoch".
+This is literally "a point in time". Using the supplied Hipparchus functions,
+you can set a starting epoch for an orbit and then successively apply a
+"delta" of time after that epoch to predict "future" positions of the
+satellite.
+
+<P>The instantaneous orbital position of the satellite is provided in terms
+of a location on its elliptical path. If required, your application can
+convert this position to a corresponding location on the surface in the
+Hipparchus sphere, typically using the functions in <I>h4</I>.
+
+<P>Orbital positions are calculated with the same high precision as surface
+positions. Precision is sub-millimetric, even for orbits as high as those of
+the geo-stationary communications satellites.
+
+<P>The Hipparchus orbit modeler is known as a "third order" modeler. This
+means that it accounts for the three most significant aspects of orbital
+motion: elliptical eccentricity, precession and the rotation of apsides.
+(Other less significant disturbances that can affect a satellite's orbital
+path are the uneven distribution of the Earth's mass, the influence of
+the Moon and Sun, atmospheric drag, and so on).
+
+<P>The orbit modeler calculates the path of an orbiting satellite in a
+manner largely transparent to both you and your client. You use the same
+set of functions to define its orbit and trace its path, regardless of
+its eccentricity. The orbit modeler is sufficiently precise that the orbit
+of most satellites can be accurately predicted for upwards of a month!
+
+<P>Many remote-sensing surveillance satellites have what is called a "viewing
+geometry". Their on-board sensors receive information about objects on or
+near the surface of the Earth. For example, some satellites observe weather
+patterns by sensing cloud cover, while others use side-looking radar to
+detect other specific features. Using Hipparchus, you can construct a two
+dimensional object that describes the sensor coverage (what the satellite
+sensor "sees") over a specific time interval. This coverage is often called
+the "sensor swath". An accurate definition of the swath pattern of a
+satellite can be critical to an application. In addition to tracing the
+surface points directly under an orbit (a <I>nadir trace</I>), Hipparchus
+permits the definition of side-looking swaths.
+
+<P>Using Hipparchus, you can easily perform the exacting calculations needed
+to select only the data seen by a satellite while overhead specific regions
+of interest. For example, if you are interested in data about ocean shipping
+lanes, data captured by the satellite while over the Sahara Desert will
+be of little interest, especially if the data acquisition and transmission
+costs are high.
+
+<P><h3>Calendar Arithmetic</h3>
+
+<P>Orbital modeling requires us to incorporate the concept of time. Dates and
+times used for orbital calculations are always expressed in terms of
+Universal Coordinated Time (GMT). Orbit times in seconds since epoch are
+easily expressed in the familiar terms of date and time. The <I>Hipparchus
+Libraries</I> include functions that perform common calendar arithmetic
+computations. All such time and date manipulations are "Year 2000
+Compliant"</a>.
+
+<p><h3>Animated Illustrations</h3>
+
+<p>For a graphically animated illustration of the various satellite paths and
+operations possible on satellite orbits and their sensor objects, refer to
+<i>Galileo for Windows 95</i> and the <i>Orbits</i> script in particular.
+Study of this animation and the Galileo script elements that produce it will
+provide immediate insight into the power of the Hipparchus orbit modeler.
+
+<P><h3>Other Notes</h3>
+
+<P>One small proviso should be remembered when developing sensor swath
+objects. Keep the swath object to a single orbit. This is so that the object
+boundary does not cross itself and produce a computationally awkward object.
+You can best create an object that consists of multiple orbits by developing
+single objects for each orbit and then later taking the union of the
+collection to produce the single object you are looking for.
+
+<P><h3>Summary</h3>
+
+<P>Satellite applications are increasingly important. Hipparchus provides an
+accurate means of knowing the exact position of satellites in relation to
+surface features. Remote sensor swaths can be converted to Hipparchus regions
+and intersected with other objects. Using the <I>Hipparchus Library</I> orbit
+functions in conjunction with the other <I>Hipparchus Library</I> functions,
+satellite applications are handled with relative ease.
+
+<hr>
+<a href="tc09.html">Previous Chapter</a> |
+<a href="tc10.html">Top of Chapter</a> |
+<a href="tc11.html">Next Chapter</a>
+
+</body></html>

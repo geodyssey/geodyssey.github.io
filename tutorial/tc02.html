@@ -1,0 +1,336 @@
+<html><head>
+<title>Hipparchus Open Geographical Software Tools Tutorial
+       and Programmer's Guide Required Computing Environments</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body bgcolor="white" text="black" link="blue" alink="lime" vlink="teal">
+
+<a href="tc01.html">Previous Chapter</a> |
+<a href="tc00.html#toc">Table of Contents</a> |
+<a href="tc03.html">Next Chapter</a>
+<hr>
+
+<h2>Chapter 2: Computing Environments</h2>
+
+<P><h3>Introduction</h3>
+
+<P>The purpose of this chapter is to describe the computing environments
+required for Hipparchus application development and end use processing.
+We will also review any special considerations that might be required.
+
+<P><h3>Cross-Platform Portability</h3>
+
+<P>The <I>Hipparchus Library</I> software product has been implemented with
+cross-platform portability specifically in mind. It is designed to work in a
+wide variety of computing environments, ranging all the way from hand-held
+and notebook personal computers to the largest of mainframes. As a
+consequence, there are very few restrictions imposed by the <I>Hipparchus
+Library</I> itself. It is more likely that other aspects of your application
+will determine your minimum practical computing environment. Nevertheless,
+you will need to study the specifics of the <I>Hipparchus Library</I> and
+support program requirements.
+
+<P><h3>Product Designations</h3>
+
+<P>Hipparchus is distributed for use in a number of computing environments.
+Each <B>distribution</B> carries <B>release</B> and <B>version</B>
+designations.
+
+<P><B>Distribution</B> refers to a Geodyssey product (the package you just
+acquired). A distribution may contain several <B>versions</B> of Hipparchus,
+current for the <B>release</B>. For example, the current Intel IN31
+distribution of Hipparchus includes <B>versions</B> for linking with
+Microsoft, IBM, Borland, Watcom and Linux compiled applications.
+
+<P><B>Release</B> refers to the product generation. Releases are designated
+by numbers, following the common industry practice. Major releases are
+serially numbered 1, 2, 3, etc. You can expect significant product additions
+or changes with a major new release. Incremental releases in which only
+moderate changes are introduced are numbered serially after a decimal point.
+For example, Release 3.1 follows Release 3, Release 3.2 follows Release
+3.1, and so on. Software or data correction releases are numbered serially
+by a second digit after the decimal. For example, Release 3.11 might correct
+a faulty Release 3.1, while Release 4.31 might correct an incomplete Release
+4.3. Most machine-readable materials distributed by us carry a time-stamp
+identifying the release. For example, all release 3.2 materials are
+time-stamped as having been created at time 03:20, while Release 3.21
+materials will be time-stamped 03:21. (These time-stamps are applied during
+distribution and override only the file modification times. The file
+modification dates remain intact, reflecting our maintenance history).
+
+<P><B>Version</B> refers to the <I>Hipparchus Library</I> that corresponds
+to a specific combination of hardware, operating system and compiler/linker
+environments supported as part of a release. A <B>version</B> of Hipparchus
+is directly associated with the construction of a specific instance
+of the <I>Hipparchus Library</I>. At any release level, a version is always
+represented by a binary object library (<I>hipparch.lib</I>) and the
+version-specific C/C++ language header used in its construction
+(<I>hippvrsn.h</I>). Note that two other C/C++ language headers are used
+in constructing the <I>Hipparchus Library</I>: they are <I>hipparch.h</I> and
+<I>hippengn.h</I>. These are version independent and are a part of the
+source materials associated with any distribution. To emphasize their
+use in constructing the <I>Hipparchus Library</I>, they are normally flagged
+as "read-only" in the distribution materials.
+
+<P><h3>Engine Class</h3>
+
+<P>Every Hipparchus <B>distribution</B> belongs to a specific Hipparchus
+Engine Class.
+
+<P>The term "Engine Class" refers to the most general description of
+Hipparchus functionality. For example, all distributions of Hipparchus
+supporting 32-bit Intel microprocessors are of the same engine class. Those
+supporting RISC computers under UNIX<SUB>&reg;</SUB> are of yet another
+engine class.
+
+<P>Distributions carrying the same engine class designations can be expected
+to have comparable capabilities and are usually distributed under similar
+licensing agreements.
+
+<P><h3>Hardware</h3>
+
+<P>There are only three general statements that need to be made regarding
+minimum hardware requirements.
+
+<P>First, you will require hardware for floating point arithmetic. Although
+many processors such as the Intel 80386 can be run in a mode in which
+floating point hardware is emulated by software, the <I>Hipparchus
+Library</I> does not support this mode. If your processor does not already
+provide floating point arithmetic capability, you will need to add it.
+Hipparchus makes extensive use of floating point arithmetic and its
+availability is considered mandatory for end-use applications. Without the
+floating point hardware capability installed, you will not be able to run the
+demonstrations or test your application (but you will of course still be able
+to edit, compile and link your application).
+
+<P>Second, you will require sufficient processor memory (RAM) to accommodate
+the Hipparchus run-time code and the related data and indexing structures
+you will be developing for your application. The Hipparchus run-time code
+requirement is comparatively modest; between 20K and 150K bytes are needed.
+Otherwise, the nature of your application and the other software components
+you elect to use will decide your RAM requirements. <I>Chapter 7: Refining
+Your Design</I> details your RAM requirements.
+
+<P>Third, you will normally require a color display with reasonably high
+resolution. We recommend a VGA (or better) graphics adapter and monitor
+combination providing at least 640x480 resolution display of 16 colors.
+If you plan to produce hard copy graphics, then we recommend as minimum
+that you use a monochrome laser printer with HP-GL/2 plotter language
+compatibility.
+
+<P><h3>Operating System</h3>
+
+<P>There are no special operating system functions required by the
+<I>Hipparchus Library</I>. The only operating system resources referenced
+directly by any <i>Hipparchus Library</i> function is the heap memory
+manager. However, these references are exclusively via two pass-through
+Hipparchus functions, <I>h1_Malloc</I> and <I>h1_Free</I>, for which you may
+substitute.
+
+<P>The demonstration and utility support components distributed with
+Hipparchus do of course have additional specific requirements. These are
+dealt with in the specific README text files that accompany the distribution.
+
+<P><h3>Other Software</h3>
+
+<P>Hipparchus is not the only tool you will use to develop your application.
+
+<P>For a complete development environment, we count on you to provide the
+other system components that you require.
+
+<P>In particular, you will likely already be using the following:
+
+<ul>
+<li>a C/C++ language compiler and run-time library
+<li>a graphical user interface (GUI)
+<li>a database management system (DBMS).
+<li>a text editor, such as Multi-Edit
+<li>an Internet web browser, such as Netscape.
+</ul>
+
+<P><a name="tf04"><img border=1 SRC="tf04.gif" HEIGHT=300 WIDTH=400 ALIGN=BOTTOM>
+<p>Figure 4: Relationship of Components
+<p>Figure 4 illustrates how Hipparchus relates to other components of your
+application. Notice that your application is central to the scheme,
+controlling the usage of various facilities (for example, the GUI and
+the DBMS). Hipparchus is called by your application for support in dealing
+with the "where" of things. Hipparchus calls on your operating system for
+run-time memory management services only.
+
+<P>For applications built for use by others, the GUI provides a rich
+interface for presentation and interaction with users. It may also provide a
+familiar "touch and feel" that will make your application easier to use.
+
+<P>For applications that work with significant amounts of data, a DBMS can
+provide your clients with the required external data handling facilities and
+at the same time enforce appropriate data management and backup disciplines.
+
+<P>In creating an application program, the developer combines GUI, Hipparchus
+and DBMS functions to build an application system for the ultimate user.
+The application is, in essence, the "glue" that binds these independent
+components.
+
+<P>The application program is compiled to produce an object program. The
+object program is then linked with referenced run-time library functions
+to produce an executable application program (or DLL or equivalent).
+
+<P>Hipparchus is designed to accommodate the broadest variety of GUI and
+DBMS packages. Specifically, Hipparchus is intended to work <B>with</B>
+these products, rather than replace their functionality. Your application
+logic will determine how and where.
+
+<P><h3>GUI Integration</h3>
+
+<P>Not everyone uses a graphical user interface. However, if your application
+needs this facility, Hipparchus is designed specifically for easy integration.
+The integration is done by your application program which controls the
+interactions between the user, the GUI and Hipparchus. Typically, Hipparchus
+is used to supply the GUI with graphics by projecting geographic features
+from the ellipsoidal Earth onto the flat, planar display. These may be
+points, lines, polygons or filled areas. This feature presentation can
+be in the graphics context of raster images as background. Hipparchus is
+also used to "unmap" a mouse or pen position from the flat display of both
+raster images and vector objects, thereby enabling the user to select or
+trace geographic features for subsequent processing.
+
+<P><h3>DBMS Integration</h3>
+
+<P>There are no special integration requirements for "binding" Hipparchus
+with your DBMS. Hipparchus does not communicate directly with your DBMS.
+Instead, your application manages the storage and retrieval of data from your
+DBMS. Your application extracts object location attributes from external
+databases and passes these to Hipparchus via internal memory structures. In a
+similar fashion, geographic results derived by Hipparchus are passed back to
+your application via internal memory structures. If results are to be stored
+externally, your application selects them from a memory structure and
+presents them to the DBMS (or simple file system) for storage externally.
+
+<P>Your application may take significant advantage of the Hipparchus internal
+cell index by using it as the basis for the DBMS external geographic index
+(the <I>spatial index</I>).
+
+<P><a name="tf05"><img border=1 SRC="tf05.gif" HEIGHT=300 WIDTH=400 ALIGN=BOTTOM>
+<p>Figure 5 illustrates the data domains involved. From the domain
+of all your data, only a subset will reference geography. Of this, some may
+be handled by your DBMS and some by a simple file system. Many applications
+require a mixture of static and dynamically updatable geographic data.
+Because the static elements are often the most voluminous (e.g., coastlines,
+roads, rivers, lakes, etc.), many developers opt to handle these items
+outside the DBMS using the file system native to their computing environment,
+reserving use of the DBMS for storage of the more dynamic elements (such as
+retail sales locations, flight plans or satellite image boundaries).
+
+<P>Naturally, the run-time behaviour of your DBMS and native file system
+will influence the overall performance of your application.
+
+<P>Your DBMS or native file system is capable of handling your data in
+a wide variety of formats. These are not directly relevant to Hipparchus.
+Since you will be passing the geographic attributes to Hipparchus in memory
+structures, you can reformat them "on the fly", as required. Of course,
+if you are starting from scratch, you will design your DBMS tables or file
+system records to be as compatible as possible. In particular, you may
+want to store Hipparchus floating point data externally. If your DBMS doesn't
+handle floating point data directly, you can easily disguise the items
+as "text" or "binary" data, subject to any compiler or storage alignment
+restrictions. It is highly unlikely that you would ever want your DBMS
+to operate directly on this kind of item, anyway.
+
+<P>In setting up your DBMS or native file system solution, you will be
+dealing with geographic objects that consist of points, lines or regions.
+How to deal with such things is discussed in <I>Chapter 5: Design
+Concepts</I> and again in <I>Chapter 7: Refining Your Design</I> and
+<I>Chapter 12: Advanced Topics</I>.
+
+<P><h3>C/C++ Language Compiler Considerations</h3>
+
+<P>In general, Hipparchus applications can be compiled with any ANSI standard
+compliant C/C++ compiler that produces object modules compatible with the
+object modules that make up the <I>Hipparchus Library</I> distribution. For
+each distribution, we specify that information. For example, for the
+<I>Hipparchus IN31 Product Distribution</I>, the <i>Hipparchus Library</i>
+has been compiled using the Microsoft, Borland, IBM, WatCom and Linux
+compilers with the flat model and in-line math options specified. Many of the
+competitive C/C++ compilers for this environment can produce object modules
+compatible with one of these formats.
+
+<P>The heap storage management functions, <I>h1_Malloc</I> and <I>h1_Free</I>
+are used by the Hipparchus object handling functions. These are merely
+"pass-through" usages of the ANSI C functions <I>malloc</I> and <I>free</I>.
+If need be, you can replace these with installation-specific functions
+of your choice which might optionally provide context-switchable memory
+management services.
+
+<P>The system memory heap is the only run-time resource that the Hipparchus
+"engine" uses directly.
+
+<p>When constructing objects, some of the Hipparchus functions need a large
+number of small blocks of memory workspace for transient use. In some processing
+environments, this use of the system memory heap can lead to significant heap
+fragmentation, causing degraded performance.
+
+<p>To avoid this, the Hipparchus engine uses its own "scratch
+pad" temporary workspace management facilities. These are similar to the
+stack memory management facilities sometimes provided by the non-ANSI
+<I>alloca</I> C library function.
+
+<P>Sharing of services of the Hipparchus temporary workspace manager with
+your application is quite practical but requires strict adherence to the
+usage protocols. These are outlined for the <I>h6_WorkspaceInit</I> function
+in the <I>Hipparchus Library Reference Manual</I>.
+
+<P>Floating point math functions used by Hipparchus (such as <I>sqrt</I>) are
+redefined in <I>hipparch.h</I>. The re-definitions are merely direct macro
+substitutions for the standard math functions. If you will be using any of
+these math functions to operate on Hipparchus data entities, we encourage you
+to use their redefined forms so that a possible future change in type can be
+easily accommodated (for example, a type change from <I>double</I> to <I>long
+double</I>).
+
+<P><h3>Linking Considerations</h3>
+
+<P>Linking programs with the <I>Hipparchus Library</I> is simple and
+straightforward. Hipparchus Library functions appear as any other run time
+library function.
+
+<P>All of the Hipparchus linkage references are "visible" to your application.
+In other words, there will be no surprises from "hidden" references that
+only surface at linking time. References to the <I>Hipparchus Library</I>
+that you make in your application will be the only references made.
+
+<P><h3>On-Line HELP</h3>
+
+<P>All distributions of Hipparchus include a set of HTML manuals and help
+files that are readable using any Internet web browser. These files
+include:<ul>
+<li>the <i>Hipparchus Tutorial and Programmer's Guide</i>
+<li>the <I>Hipparchus Library Reference Manual</I>,
+<li>the <i>Hipparchus Utilities Guide</i>
+<li>the <i>Galileo for Windows 95 Guide</i>.
+</ul>
+
+<i>Georama for Windows 95</i> is documented by Windows 95 on-line Help.
+
+<p>These files are extensively hyperlinked for easy cross-reference.
+
+<p>Typically, you access the HELP information while creating or debugging
+your application program. Alternatively, using your browser or Windows Help,
+you can print the notes for off-line study.
+
+<P>You should also consider compiling the supplied source materials in an
+environment that supports a multi-module browse facility. This can
+significantly assist in understanding the relationships and calling sequences
+of the functions.
+
+<P><h3>Summary</h3>
+
+<P>Hipparchus is easy to add to most C language programming and development
+environments. The product has a clear focus on efficiency considerations
+and does not constrain developers in their choices of other tools.
+
+<hr>
+<a href="tc01.html">Previous Chapter</a> |
+<a href="tc02.html">Top of Chapter</a> |
+<a href="tc03.html">Next Chapter</a>
+
+</body></html>

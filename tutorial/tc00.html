@@ -1,0 +1,228 @@
+<html><head>
+<title>Hipparchus Open Geographical Software Tools Tutorial
+       and Programmer's Guide Title, Preface and Contents</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body bgcolor="white" text="black" link="blue" alink="lime" vlink="teal">
+
+<h1>Hipparchus<sub><font size=-1>&reg;</font></sub> Tutorial<br>and
+Programmer's Guide</h1>
+
+<p>Internet Edition<br>
+(Corresponding to Hipparchus Release 3.4)<br>
+Last updated 2004/02/27.<p>
+
+<P>by Ron V. Gilmore, Vice President and John Russell, President
+<P>Geodyssey Limited<br>
+Calgary, Alberta, Canada<br>
+<a href="http://www.geodyssey.com">www.geodyssey.com</a>
+
+<small>
+<p>&copy; Copyright Geodyssey Limited, 1993-2004.
+All rights reserved, worldwide.<p>
+</small>
+
+<hr><A NAME="toc"></A><h2>Table of Contents</h2>
+<ul compact>
+<li><a href="tc00.html#preface">Preface</a><p>
+
+<li><a href="tc01.html">Chapter 1: Introduction</a>
+<li><a href="tc02.html">Chapter 2: Computing Environment</a>
+<li><a href="tc03.html">Chapter 3: The Hipparchus Libraries</a>
+<li><a href="tc04.html">Chapter 4: Getting Started</a>
+<li><a href="tc05.html">Chapter 5: Design Concepts</a>
+<li><a href="tc06.html">Chapter 6: Working With Cells</a>
+<li><a href="tc07.html">Chapter 7: Refining Your Design</a>
+<li><a href="tc08.html">Chapter 8: Utilities and File Options</a>
+<li><a href="tc09.html">Chapter 9: Geographics</a>
+<li><a href="tc10.html">Chapter 10: Working with Satellites</a>
+<li><a href="tc11.html">Chapter 11: Troubleshooting</a>
+<li><a href="tc12.html">Chapter 12: Advanced Topics</a><p>
+
+<li><a href="tapp.html#appa">Appendix A: Glossary of Terms</a>
+<li><a href="tapp.html#appb">Appendix B: Galileo and Georama</a>
+<li><a href="tapp.html#appc">Appendix C: Bibliography</a>
+<li><a href="tapp.html#appd">Appendix D: Geocuriosa</a><p>
+
+</ul>
+
+<hr><a name="preface">
+
+<a href="tc00.html#toc">Table of Contents</a> |
+<a href="tc01.html">Next Chapter</a>
+<hr>
+
+<h2>Preface</h2>
+
+<P><h3>About Hipparchus</h3>
+
+Hipparchus <I>(pronounced hip-ARK-us)</I> was perhaps the greatest of
+the ancient Greek astronomer mathematicians. The inventor of latitudes
+and longitudes, he used these measurements to calculate distances on the
+surface of the Earth. As you learn more about this software product, you
+will soon see why we named it as we did.
+
+<P><h3>About This Publication</h3>
+
+<p>The <i>Tutorial</i>, (short for <i>Hipparchus Tutorial and Programmer's
+Guide</i>), is currently presented in HTML format only, on the web at <a
+href="http://www.geodyssey.com">www.geodyssey.com</a>, and as a part of all
+subsequent Hipparchus SDK distributions. If you are viewing this document on
+the web, please understand that any hyperlinks to components of the
+<i>Hipparchus Library Reference Manual</i> are resolvable only in the context
+of a properly licensed Hipparchus Software Development Kit (SDK).
+
+<P>The purpose of the <i>Tutorial</i> is to acquaint you with Hipparchus
+concepts and its programmer's facilities. We will focus on helping you with
+the design of application systems using the <I>Hipparchus Libraries</I> of
+functions. We will try to explain the who, what, why, how, when and where of
+Hipparchus. The material presented will cover the following topics:<p> <ul>
+<li>what is Hipparchus <li>what is included with the package <li>what
+computing environment is needed <li>how do you use the <I>Hipparchus
+Libraries</I> functions and utilities <li>how do you interface Hipparchus to
+other software products. </ul>
+
+<P>Although this publication is not intended for everyone, we have made some
+effort to make the material readable by most. But its content is designed for
+a particular audience.
+
+<P><h3>Intended Audience</h3>
+
+<P>This publication is intended to be used by computer application
+development professionals who will be working with the <i>Hipparchus</i>
+Geographic Software Tools, (or are otherwise considering it).
+
+<P>We occasionally make reference to graphical user interface and database
+management software. Readers are assumed to have some knowledge of these
+subjects, or have access to others that have it.
+
+<P>In addition, you are assumed to have a reasonable familiarity with
+traditional positional coordinate systems (latitude and longitude),
+measurement systems (imperial and metric) and certain simple mathematical
+terms. We will make frequent reference to these items. A glossary of terms
+and a list of reference reading are provided to help you bridge any gaps. An
+effort is made to provide popular analogies and real life examples to help
+
+<P>Although we may at times gloss over some of the rigor associated with
+the underlying mathematics of the subject matter (called computational
+geodesy), be assured that the software provides precise treatment. For
+most, this should suffice. If you have a need to understand the underlying
+premises and theory, we recommend that you review the cited references.
+
+<P><h3>How To Use The Tutorial</h3>
+
+<P>The <i>Tutorial</i> is organized to lead you along a gradual learning
+curve (we hope).
+
+<P>The following is a reading guide to the <i>Tutorial</i>:
+
+<P><I>Chapter 1</I> introduces <i>Hipparchus</i>. This is a must for all
+readers.
+
+<P><I>Chapter 2</I> describes the computing platform requirements. If you
+plan to put Hipparchus to work immediately, study this chapter carefully.
+Otherwise, you might just skim it for its general content.
+
+<P><I>Chapter 3</I> describes the <I>Hipparchus Library</I> material. This
+chapter is for the programmer. If at this stage you are only interested
+in concepts, you might review only the first section or two of this chapter.
+
+<P><I>Chapter 4</I> gets you started using Hipparchus. This chapter is
+for the C or C++ language programmer. However, if you have any programming
+experience at all, you might benefit by a cursory glance at this chapter.
+Alternatively, you could flip to <I>Appendix B</I> and work with some of
+the pre-programmed sample programs provided.
+
+<P><I>Chapters 5, 6 and 7</I> introduce important design concepts. These
+chapters are a must for all application architects, regardless of their
+programming skills or background.
+
+<P><I>Chapter 8</I> describes the Hipparchus Utilities and several
+pre-programmed file options that are available for use by developers,
+(and others).
+
+<P><I>Chapter 9</I> addresses the role played by Hipparchus in supporting the
+graphical presentation of geographic data. This chapter should be read by
+anyone planning a graphical user interface to their application.
+
+<P><I>Chapter 10</I> addresses satellite orbit modeling. This chapter
+is for anyone planning to work with satellite data. No programming skills
+are required.
+
+<P><I>Chapter 11</I> reviews debugging techniques. This chapter is strictly
+for the programmer.
+
+<P><I>Chapter 12</I> contains information on advanced topics. This chapter
+is mainly for the working Hipparchus application developer.
+
+<P><I>Appendix A</I> is a glossary of terms. If you run across
+an unfamiliar word or acronynm, try finding it here.
+
+<P><I>Appendix B</I> references several of the sample applications provided.
+
+<P><I>Appendix C</I> provides some bibliography.
+
+<P><I>Appendix D</I> provides some facts about planet Earth.
+
+<P><I>Appendix X</I> provides an index to this publication.
+
+
+<P><h3>About Our Company</h3>
+
+<P>Geodyssey Limited is a privately-owned corporation based in Calgary. The
+firm is dedicated to the promulgation of Hipparchus Technology. The sole aim
+of the organization is the marketing, distribution and support of Hipparchus.
+As owner of the exclusive worldwide rights to Hipparchus, we are committed to
+provide our customers with quality new products and top-flight support.
+
+<P>To help you apply the full power of Hipparchus, Geodyssey Limited
+periodically offers hands-on customer training courses in major cities of the
+world. In addition, should you or your company require related application
+development assistance, we can supply experienced Hipparchus analysts and
+programmers to assist you directly. Hipparchus has been carefully crafted to
+meet most geographic application needs. Nevertheless, should your application
+require special treatment or enhancements, Geodyssey will be pleased to
+provide product extensions.
+
+<P><h3>Summary</h3>
+
+<P>We realize that some of the concepts we have already introduced via this
+<i>Tutorial</i> may be quite new and different. This is a challenge we have
+attempted to overcome. We recognize that some readers will struggle with the
+specifics. It should be no surprise then if you discover that the
+<i>Tutorial</i> is not the kind of book that can be read lightly, such as
+something that you might read on a commuter plane. Absorbing the material
+presented will require some of your valuable time, and more particularly,
+will test your powers of concentration.
+
+<P>We encourage you to run the Windows 95/98/NT demonstration programs:
+(<i>Columbus</i>, <i>Galileo</i> and <i>Georama</i>. This will accelerate
+your ride up the learning curve. Do you remember when you were first
+introduced to the concept of "programming"? This new idea was strange at
+first, but at some magic moment the light went on and you have "owned" the
+concept ever since. Watch for similar magic moments as you make your own
+voyage of discovery through Hipparchus.
+
+<P>Enjoy this voyage. See our world on your computer screen and move about as
+if you were on a magic carpet floating high above the oceans and continents.
+Drop down to the surface and pinpoint the relative locations of all manner of
+things and events. Skim across the terrain with a new multi-dimensional
+measuring tape of amazing flexibility and accuracy. Revel in the thrill of
+solving problems that foiled the ancient scholars, and even some of our best
+contemporary minds at that.
+
+<P>Envision yourself building startling new computer applications with ease,
+speed and precision. A stunning array of powerful new tools for business,
+engineering, government and the mass consumer market now awaits creative
+developers. And there's newly garnished data to power such applications.
+
+<P>An ancient Chinese philosopher once said "The journey of a thousand
+miles begins with a single step". Take that first step now on your journey
+of discovery through Hipparchus. Immerse your mind in the words that follow.
+
+<hr>
+<a href="tc00.html#preface">Top of Preface</a> |
+<a href="tc01.html">Next Chapter</a>
+
+</body></html>

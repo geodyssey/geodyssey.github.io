@@ -1,0 +1,410 @@
+<html><head>
+<title>Hipparchus Open Geographical Software Tools Tutorial
+       and Programmer's Guide Geographics</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body bgcolor="white" text="black" link="blue" alink="lime" vlink="teal">
+
+<a href="tc08.html">Previous Chapter</a> |
+<a href="tc00.html#toc">Table of Contents</a> |
+<a href="tc10.html">Next Chapter</a>
+<hr>
+
+<h2>Chapter 9: Geographics</h2>
+
+<P><h3>Introduction</h3>
+
+<P>The purpose of this chapter is to review the various methods of generating
+geographic output from your application and receiving geographic (mouse)
+input. In addition, we review considerations for the preparation of hard copy
+(plotted) output.
+
+<P><h3>The Basics</h3>
+
+<P>First, remember that all of the Hipparchus functions for geographic output
+and input have been provided in source form. This is so that you can more
+easily interface your application to the graphical environment of your
+choice. The majority of the sample graphical functions provided with your
+environment are intended for use in Win32 applications. You may choose to use
+other GUI options such as Windows CE or X Windows.
+
+<P>The <I>h9</I> section of the <I>Hipparchus Auxiliary Library</I> provides
+you with generic functions to draw geographic points, lines (geodesics)
+and objects (point sets, line sets and regions). Other characteristics,
+such as color, line width, style, etc., need to be managed by your application.
+To expand your graphical capability, please refer to your standard sources
+on graphics. Your choice of graphical platform will determine the specific
+means to perform the following:
+<ul>
+<li>paint a pixel (or plot a point)<p>
+<li>draw a line on the display (or plotter)<p>
+<li>move the cursor (or pen) from one position to another<p>
+<li>fill a region with a designated color pattern.<p>
+</ul>
+
+<P>In the <I>h9</I> functions, these operations are invoked via macros
+(for screen display) that are defined in the header file <I>hippgsys.h</I>.
+Their hard copy counterparts are implemented as functions in the
+<I>h0_Hpgl...</I> family of functions. If either of these macro/function
+groups do not match your environment, you should substitute more appropriate
+ones and recompile. For examples of the usage of these basic operations,
+please refer to the source for the <I>GALILEO</I> and/or <i>GEORAMA</i>
+sample applications.
+
+<P><h3>Display Output</h3>
+
+<P>Output presented on a screen differs from hard copy output formats in one
+critical dimension - time! The importance of providing sub-second response
+for human interaction is well understood. This means that you must make every
+effort to provide rapid delivery of information to the display.
+
+<P>For most textual material, you can deliver a whole screen of information
+(say 25 lines of 80 characters each, about 2000 characters) in a relatively
+short time. The design and processing considerations to achieve this are
+usually straightforward.
+
+<P>For a graphical presentation, however, you may conceivably need to process
+10,000 records to extract and draw 10,000 line segments on the display. The
+differences are huge, without any consideration of the processing involved.
+These differences (i.e., potentially several orders of magnitude in data
+volumes) demand a thoughtful approach if you are to achieve the needed speed
+and efficiencies.
+
+<P>In particular, you will need to pay special attention to the following:
+<ul>
+<li>the physical database design<p>
+
+<li>the processing of the data<p>
+
+<li>the hardware and operating system capabilities (cpu, graphics adapter
+and disk performance).<p>
+</ul>
+
+<P>Hipparchus has been designed to help optimize the performance of your
+geographic presentations.
+
+<P>First, Hipparchus can provide extremely efficient indexing to your
+externally stored data. This means that when your user opens a window on a
+particular view of her/his data, Hipparchus can help you find that data
+faster than ever before, all other things being equal.
+
+<P>Second, in directing your search for the data, Hipparchus can select only
+that output information which is required for the window. In other words,
+Hipparchus is smart enough to tell you what to ask for from your database
+(i.e., only that data for the presentation window that fits inside the
+window, or along its border). There is not much use in retrieving more data
+for presentation than is absolutely necessary. But, having retrieved the
+interior and border data, you will normally use your graphics package (GUI)
+to "clip" any points, lines or areas that might be just outside the window
+frame.
+
+<P>Third, Hipparchus provides very efficient projection algorithms in mapping
+geographic features from the ellipsoid to the plane of the display. More is
+said later about your various projection options. Our point here is that
+these algorithms are very fast and take special advantage of the internal
+storage formats used extensively in Hipparchus to represent geographic
+objects.
+
+<P>These three features of Hipparchus combine to provide a very powerful
+engine for generating geographic presentations. This will become even more
+apparent to your users when they change the scale or move the viewpoint of a
+window. Redraw times will be the fastest that they have likely ever seen.
+
+<p>With other systems, the designers have usually had to trade off
+inefficient data retrieval and projection calculations for acceptable
+application response times. To effect this trade-off, window scales and
+viewpoints are often restricted to pre-set options so that a whole area of
+interest can be retrieved and projected on the first request. Subsequent
+requests merely move the window around in this larger area, without
+re-projecting. Although such secondary browsing techniques may have
+acceptable response times, they generally have undesirable effects on RAM
+usage and presentation resolution. Usually, just one Earth tangency point has
+been chosen for the projection, so as the user moves away from this point,
+the inherent planar distortion of the display increases.
+
+<P>With Hipparchus, however, you will be able to let your client roam freely,
+without prior restriction as to projection, scale or viewpoint. Since data
+can be selectively retrieved at high speed every time your client respecifies
+the window, you will seldom need to provide intermediate buffering. And since
+its geographic attributes can be efficiently re-projected with every change
+of the window, the presentation will always be at the maximum accuracy
+obtainable from your client's database and display equipment. The Earth
+tangency point for the display will always be centered in the window and the
+pixel scaling factor chosen so that the maximum resolution is obtained for
+that window.
+
+<P><h3>Mouse Input</h3>
+
+<P>As well as speeding the output of geographic information, Hipparchus
+can also be used as a powerful ally in its input.
+
+<P>If your application environment will include a graphics pointing device
+(for example, a mouse), then you will be able to use the "un-mapping"
+functions of the <I>Hipparchus Library</I>. These functions let you relate
+pixel coordinates read from your mouse driver (or GUI) to positions and
+objects on the ellipsoidal Earth.
+
+<P>For example, you might ask your user to "point and click" at a particular
+spot on the ground for which she/he needs more information. By un-mapping
+the window coordinates to ground coordinates, you can select a new window
+scale and tangency point, and then re-select and re-project the information
+for the next window display. For an example of this type of operation, see
+<i>GALILEO</i>'s <i>Reframe</i> command.
+
+<P>In another example, you might ask your user to use the mouse to trace out
+the boundary of an area of interest. You would then unmap the whole sequence
+of window coordinates making up the area, construct an internal region
+object, intersect this with other data objects and give her/him back the
+resulting selection of data. For examples of these operations, see again the
+sample application <i>GALILEO</i> and its <i>Interact.scr</i> script.
+
+<P>You will find many examples of mouse input possibilities in the sample
+programs. For more information, see <I>Appendix B - Galileo and Georama</I>.
+
+<P><h3>Cartographic Projection Options</h3>
+
+<P>In constructing your various geographic displays, you might want to
+view the surface of the Earth in three quite different ways:
+<ul>
+<li>as a view of the relevant patch, region or continent (for example,
+downtown Cincinatti, Cook County, New York State, or Africa)<p>
+<li>as a picture of the entire Earth (flattened onto the display, of
+course), or<p>
+<li>as a 3D (three dimensional) view of the globe, as if from space.<p>
+</ul>
+
+<P>Hipparchus allows you to choose any one of these three views using the
+following cartographic projections:
+<ul>
+<li>gnomonic
+<li>stereographic
+<li>local Mercator
+<li>conical (Lambert-like)
+<li>world-wide Mercator
+<li>world-wide Miller-like
+<li>orthographic.
+</ul>
+
+<P>First, the <I>Hipparchus Library</I> provides functions to map positions
+from the ellipsoid to positions on the plane using any of these seven
+projections. For each mapping function provided, there is a corresponding
+un-map function that projects from the plane back onto the ellipsoid.
+
+<P>To support general geographic display needs, we have provided higher
+level <I>Hipparchus Auxiliary Library</I> functions to enable the rapid
+development of geographic displays. These are available in source form
+so that you can see how it's done.
+
+<P>You may require some guidance in selecting an appropriate projection
+and scale for your displays.
+
+<P>The <B>stereographic</B> projection (<b>stereo</b>) is usually used to
+display maps that depict areas of the Earth not greater than a continent.
+Despite its name, it does <B>not</B> convey a sense of the third dimension.
+Here is an example of a <a href="tf18.gif">stereographic projection</a>.
+
+<P>It's most striking features are the following:
+<ul>
+<li>areas which are equal on the Earth are approximately equal on a
+    display<p>
+<li>dimensions are relatively isometric over large areas<p>
+<li>meridians and parallels are somewhat curved in a display.<p>
+</ul>
+
+<P>The stereographic projection is an excellent one for depiction of smaller
+areas anywhere on the surface of the Earth. The tangency point can be
+anywhere, even centered on one of the poles. The stereographic projection is
+developed as though the Earth were hollow and rays of light defining the
+features were emanating from a point on the other side of the Earth from the
+tangency point, that is to say, from the point antipodal to the tangency
+point.
+
+<P>The <B>gnomonic</B> projection (<b>gnomonic</b>) is often used for the
+depiction of small objects. Like the stereographic projection, its tangency
+point can be anywhere. The gnomonic projection is developed as though the
+Earth were hollow and rays of light defining the features were emanating from
+the <I>center</I> of the Earth.
+
+<P>For small areas, the gnomonic projection has attributes very similar to
+the stereographic projection. Since it is far faster to generate, it is the
+projection of choice for the depiction of small objects at large scale.
+
+<p>The <b>Lambert-like</b> projection (<b>conical</b> is a display option
+used to approximate the Lambert-1 or Lambert-2 projections used mainly in
+the aeronautical and meteorological fields.
+
+<P>The <B>world-wide Mercator</B> projection (<b>wwmerc</b>) is the familiar
+projection in which all of the world can be depicted on one display. Of
+course, the Mercator projection suffers badly from distortion near the poles.
+However, it has compensating advantages. These are: <ul> <li>the identifiable
+nature of shapes is preserved <li>dimensions are relatively isometric for
+local areas<li>meridians and parallels form right angle intersections. </ul>
+
+<P>Mercator projections usually depict the whole world centered at the prime
+meridian (which passes through London). With the <I>Hipparchus Library</I>,
+you can center the projection on any meridian and depict smaller areas than
+the entire Earth. By definition, the Mercator projection always has a
+tangency point on the Equator. The Mercator projection appears somewhat as
+though it might be developed by projecting rays from the center of a hollow
+Earth onto a cylindrical screen wrapped around it, touching at the Equator.
+The Mercator projection however is not actually a projection in the geometric
+sense; it is defined in a mathematical sense only.
+
+<p>The world-wide Miller-like projection (<b>wwview</b>) also depicts the
+whole world centered at a meridian of your choice. Unlike the world-wide
+Mercator projection, the world-wide Miller-like projection caries the view to
+the poles. This projection is particularly useful in depicting the paths of
+polar orbiting satellites.
+
+<P>The <B>orthographic</B> projection (<b>ortho</b>) is sometimes called a
+"3D" projection in that it depicts the Earth as seen from space. This
+projection is developed as though the observer was infinitely far away, but
+its scale can be set freely so that it occupies more or less of the display.
+You can also set the tangency point freely, so that your user can look at the
+Earth from directly above any point, even one of the poles. Figure 16 is an
+example of an orthographic projection.
+
+<P>To support your geographic display development, we have included a number
+of generic geographic display functions that can complement your own graphics
+support facilities.
+
+<P>The <I>h9</I> section of the <I>Hipparchus Auxiliary Library</I> provides
+projection functions for the following geographic features:
+<ul>
+<li>points and point sets
+<li>lines and line sets
+<li>region boundaries
+<li>region area fills.
+</ul>
+
+<P>The <I>h9</I> section of the <I>Hipparchus Auxiliary Library</I> also
+provides a useful set of map generation functions which include:
+<ul>
+
+<li>point object markers
+
+<li>line object vertices and end points
+
+<li>line and region boundaries (as geodesics connecting successive vertices)
+
+<li>region object ring vertices
+
+<li>region object ring boundaries (as geodesics connecting successive
+vertices)
+
+<li>region object area fills
+
+<li>latitude/longitude grids, (with longitudes suppressible
+    for orthographic displays in which animated views of Earth will be
+    rotated).
+
+</ul>
+
+<P>With this set of functions, you can display virtually any combination of
+points, lines and regions in a variety of styles.
+
+<P>The <I>h0</I> section provides functions for generating specific coastline
+displays using any of the seven projections: stereographic, gnomonic,
+conical, Mercator, word-wide Mercator, worldwide Miller-like or orthographic.
+These functions use world coastlines data packaged exclusively for this
+purpose. Using these coastlines for visual orientation can make the display
+of your other data more effective. For more about the world coastlines data,
+see <I>Appendix B - Galileo and Georama</I>.
+
+<P><h3>Scaling of Output</h3>
+
+<P>To present your output, either on a display or in hard copy, you need
+to select an appropriate scale. Scale is defined as the ratio of a window
+distance to an equivalent distance on the ground. For your display, you
+need to know its size and decide what portion of it you want to use for
+a window and for the object to be displayed. You may want to reserve a
+portion of the display or window for error messages or other textual data.
+
+<P>Typically, a color display screen will be 10 inches wide and 7.5 inches
+high (having an aspect ratio of 4:3). In metric or SI units, this will
+be 0.254 meters by 0.184 meters (25cm x 18cm). These are typical numbers.
+Refer to the technical reference manual for your specific display monitor
+for the exact numbers for your display, or better yet, measure them yourself!
+
+<P>In mapping, scale is represented as a ratio, for example 1:50,000. In this
+example, every 1 millimeter (mm) on the map represents 50,000 millimeters (50
+meters) on the ground. The ratio a:b gets a bit trickier when different units
+are used. For example, where one inch on the map is used to represent one
+mile on the ground, the scale will be 1:63,360 (figure it out). In general,
+there's less chance of error when you calculate scale using metric units.
+
+<P>If you wanted to display an image of the entire Earth on your display,
+you would need to know the size of the Earth as well as the size of the
+display area. The Earth's radius is about 6,370,000 meters. Double that
+for its diameter. To see it displayed with some room to spare around it,
+you might decide to scale it such that it would be 15 cm in diameter on
+the display. To set the scale, you would merely divide the Earth's real-life
+diameter (6,370,000 meters times 2) by the display diameter (0.15 meters)
+to get the scale (1:84,900,000). You would normally present the inverse
+of this scale to the Hipparchus functions as an exponential number, in
+this case 84.9e6.
+
+<P>You normally use the function <I>h9_InitWindow</I> to set the scale of the
+window for subsequent presentation of objects.
+
+<P><h3>Topographical Data</h3>
+
+<P>You should always consider importing topographical data for use in
+providing visual references for your graphic presentations. For example, you
+may have access to a file of data on roads, rivers, railways, survey lines,
+etc. It is a simple matter to create an object from this data and display it
+as needed by your application. Even if such objects are never brought
+directly into your computations, they can often help the end users to orient
+themselves to a particular presentation.
+
+<P>See <I>Appendix C - Bibliography</I> for some leads on sources of digital
+information.
+
+<P><h3>Hard Copy Output</h3>
+
+<P>For hard copy plotted results, <I>Hipparchus Auxiliary Library</I>
+functions can be used to generate <I>HP-GL/2</I> (<I>Hewlett-Packard Graphics
+Language</I>) printer/plotter protocol. These routines have been provided in
+source form so you can adapt them to any other protocol you wish. Hipparchus
+does not particularly care what you use. Only the normal caveat applies: any
+"replacing" function must be syntactically the same (i.e., use the same
+arguments and return the same values).
+
+<P>The sample programs include copious examples of methods and techniques
+for generating plotted hard copy of your geographics. For additional
+information about the sample programs, refer to <I>Appendix B - Galileo
+and Georama</I>.
+
+<P>When you are producing hard copy plotted results, remember that people
+will often use this output as an overlay for other graphic material. Also,
+remember that some clients may attempt to use a ruler and compass to perform
+other calculations using the hard copy output. For these situations, you
+must be particularly careful about the projection, scale and viewpoint,
+and your clients will need to have some understanding of mapping in general.
+For further information, refer to the text by Davis et al described in
+<I>Appendix C - Bibliography</I>.
+
+<P><h3>Geographics Examples</h3>
+
+<P>To further explore the possibilities for the graphic presentation of
+geographic information, we refer you to <I>Appendix B - Galileo and
+Georama</I>.
+
+<P><h3>Summary</h3>
+
+<P>Providing graphic application input and output is a challenging element of
+computing. Hipparchus allows you easily to interface to a GUI of your choice
+for interactive graphic input and output. The connection is simple and direct
+as discussed in <I>Chapter 2 - Computing Environments</I>. Once this is done,
+there are few considerations beyond the obvious when you are rendering output
+from your application. Some day, when we eventually have access to
+inexpensive holographic 3D display systems, using the Hipparchus capabilities
+will become even more exciting.
+
+<hr>
+<a href="tc08.html">Previous Chapter</a> |
+<a href="tc09.html">Top of Chapter</a> |
+<a href="tc10.html">Next Chapter</a>
+
+</body></html>

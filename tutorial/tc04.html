@@ -1,0 +1,779 @@
+<html><head>
+<title>Hipparchus Open Geographical Software Tools Tutorial
+       and Programmer's Guide Getting Started</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body bgcolor="white" text="black" link="blue" alink="lime" vlink="teal">
+
+<a href="tc03.html">Previous Chapter</a> |
+<a href="tc00.html#toc">Table of Contents</a> |
+<a href="tc05.html">Next Chapter</a>
+<hr>
+
+<h2>Chapter 4: Getting Started</h2>
+
+<P><h3>Introduction</h3>
+
+<P>The purpose of this chapter is to get started by developing a complete
+application using Hipparchus. As Plato said, "We learn by doing". So let's
+do it! (If you are not a programmer or perhaps lack access to the required
+C/C++ language programming development environment, you may still benefit by
+study of this chapter).
+
+<P><h3>The Pieces of the Puzzle</h3>
+
+<P>For this application, you will need the following:
+
+<ul>
+<li>Details of the specific problem to solve
+<li>An appropriate computing environment:<br>
+    hardware, operating system and C/C++ compiler/linker
+<li>Hipparchus development tools</I>
+<li>Relevant data
+<li>Other support material.
+</ul>
+
+<P><h3>What We Supply</h3>
+
+<P>Your Hipparchus Software Development Kit (SDK) provides:
+
+<ul>
+<li>The <I>Hipparchus Library</I> of functions (binaries)
+<li>The <I>Hipparchus Auxiliary Library</I> of functions (source)
+<li>C language header files to support the above libraries
+<li>The <I>Hipparchus Library Reference Manual</I> (in HTML)
+<li>Several Voronoi cell structures (in ASCII format)
+<li>World coastlines, city locations and other vector data
+<li>The tutorial source program (<I>CITIES.C)</I>
+<li>Utility programs (in source form)
+<li>The <i>Hipparchus Utilities Guide</i> (in HTML)
+<li>Other programs and demonstration scripts
+<li>This <I>Hipparchus Tutorial and Programmer's Guide</I>.
+</ul>
+
+<P><h3>First Steps</h3>
+
+<P>To get started, we recommend the following steps:
+
+<ol>
+<li>If you have access to an Intel computer with Windows 95/98/NT,
+be sure to run the <I>Galileo for Windows 95</I> program and its supplied
+data and demonstration scripts, beginning with the <i>Tour</i> script.<p>
+
+<li>First, you must establish the <I>Hipparchus Source Materials</I> in your
+C/C++ language development environment (as appropriate).<p> <li>Then you must
+establish the selected <I>Hipparchus Library Materials</I> version binaries
+in your object program linker environment. <p> <li>Following the README.315
+notes accompanying the <I>Library Materials</I>, you should then compile,
+link and run the "smoke test" applications, <I>BENCHMRK.C</I> and
+<I>CITYLIST.C</I><p> <li>Optionally, using the <I>Hipparchus Auxiliary
+Library</I> source materials, you should compile a local <I>HIPPAUXL.LIB</I>
+auxiliary library, again after first consulting the README.315 notes.<p>
+<li>Review this chapter, then compile, link and run the supplied tutorial
+program (<I>CITIES.C)</I>.<p> <li>Refer to the support material as needed.<p>
+</ol>
+
+<P>Running the Hipparchus "smoke tests" will assure you that the <I>Hipparchus
+Library</I> has been correctly located and that your development environment
+is set up properly.
+
+<P>If you want to integrate Hipparchus with your chosen development tools
+(DBMS, GUI, etc.), we suggest that you first consult the reference material
+for those products. The source for the sample application programs
+accompanying Hipparchus (such as <I>GALILEO</I> and <I>GEORAMA</I>) will
+demonstrate a number of ways in which Hipparchus can be integrated with the
+Windows 95/98 or NT4+ graphic environments. With the source code of these
+programs as a guide, the integration of Hipparchus with a specific GUI should
+be relatively easy.
+
+<P><h3>Tutorial Application 1: <I>CITIES</I></h3>
+
+<P>Suppose that you are an application developer supporting the marketing
+department of a sports fishing equipment firm. The marketing folks always
+have interesting new problems for you to solve. Today, they have asked you
+for help on a critical new marketing initiative.
+
+<P><I>Problem: Find the names of major cities in the world that lie within
+50 miles of an ocean or major lake.</I> Your objectives are clear.
+
+<P>Given some experience with Hipparchus, you are justifiably confident
+of quickly providing the answers. You make up a plan for the application.
+In "pseudo-code", it looks like this:
+
+<ol>
+<li>Define program parameters and variables
+<li>Allocate and initialize Hipparchus workspace
+<li>Read in an appropriate Voronoi cell structure
+<li>Read world coastlines data and construct a line set object
+<li>Read in world cities data and construct a point set object
+<li>Find the cities that are proximate to the coastlines
+<li>Print the results, clean up and finish.
+</ol>
+
+<P>The following material will expand on each of these steps, illustrating
+one way you could write a C/C++ language program for this application. Note
+that this tutorial application will assume clean data and no graphical user
+interface. Real world applications would of course need additional
+"bullet-proofing" for actual use. Our intent here is only to show how simple
+it is to use Hipparchus to build the application.
+
+<p>For easy cross reference to the functions and structures we'll be using,
+you may at this time want to point your Internet Web browser to the start of
+the <i>Hipparchus Library Reference Manual</i>, which starts with a HELP file
+called "Intro.htm".
+
+<P><h3>Step 1: Define Variables and Allocate Workspace</h3>
+
+<P>For openers, you must refer to a set of headers as shown below:<pre>
+/* Hipparchus "Cities" Demonstration Program 3.2.                   */
+/* Copyright (c) Geodyssey Limited 1992,2001.  All rights reserved. */
+/*                                                                  */
+/* Title: Cities near coastlines. Filename: CITIES.C.               */
+/*                                                                  */
+/* Program to find major cities in proximity to world coastlines.   */
+/*                                                                  */
+/* Usage:                                                           */
+/*                                                                  */
+/* cities [tix_path [coastlines_path [cities_path [proximity]]]]    */
+/* ________________________________________________________________ */
+
+/* Standard Headers                                                 */
+
+#include &lt;stdio.h&gt;                  /* standard input output header */
+
+/* Hipparchus Library definitions for:                              */
+                                            /* - manifest constants */
+                                    /* - system and other constants */
+                                         /* - elementary data types */
+                                    /* - data structures and unions */
+                                           /* - function long names */
+                                           /* - function prototypes */
+                                                        /* - macros */
+#include &lt;hipparch.h&gt;
+
+/* Hipparchus Auxiliary Library definitions                         */
+/*        - additional definitions to support selected h0 functions */
+
+#include &lt;hippttys.h&gt;
+</pre>
+
+<P>Since you are only going to print out a list of the cities, your program
+is going to be very simple in the input/output department. Yes, your
+application would be a lot more exciting if you could see the world
+coastlines on a color screen and have the major cities within 50 miles of big
+bodies of water highlighted in a different color. It would also be exciting
+to move around the globe and zoom in on the cities of Europe or Asia. But
+you've got to crawl before you walk! You can add these enhancements later.
+
+<P>Next, you define a few parameters and constants for your program and
+supply the prototype for your <I>main</I> function. If you don't want to
+copy the requisite input files into your current directory, you may wish
+to modify the statements that define the manifest constants TIX_PATH,
+COASTLINES_PATH and CITIES_PATH. Alternatively, you could override these
+items from the command line at run time.<pre>
+/* Program global definitions                                       */
+
+#define TIX_PATH "isotype.tix"        /* path to Voronoi index file */
+#define COASTLINES_PATH "coast.lns"      /* path to coastlines file */
+#define CITIES_PATH "cities.pts"             /* path to cities file */
+
+#define WGS_84 34                                /* ellipsoid index */
+#define WORKSPACE 100000                /* workspace for engine use */
+#define PROXIMITY 50                 /* proximity criterion (miles) */
+#define MILES_TO_METERS 1609.344               /* conversion factor */
+
+#define LINE_LENGTH 256      /* max line length for data file input */
+#define ITEM_LENGTH 128     /* max item length for character string */
+
+/* Program file function prototypes                                 */
+
+int main(int, char **);                  /* main function prototype */
+</pre>
+
+<P>In the next part, you begin by declaring your <I>main</I> function and
+then declaring the various local variables and structures that will be
+referenced in the body of the program. These will be described as we go
+along.<pre>
+/* ================================================================ */
+
+/* Main Program                                                     */
+
+int main(int argc, char *argv[]) {
+
+   struct ellprms eparms;     /* structure for ellipsoid parameters */
+
+   struct vix_dscr vxd;      /* Hipparchus Voronoi index descriptor */
+
+   struct wrk_dscr wkd;          /* Hipparchus workspace descriptor */
+
+   struct hp1d coast_lines;     /* world coastlines line set object */
+
+   struct hp0d cities,             /* world cities point set object */
+               cities_subset;           /* derived point set object */
+
+   void *workspace;                            /* workspace pointer */
+
+   FILE *file_ptr;                          /* generic file pointer */
+   long record_ptr;                          /* file record pointer */
+
+   char tix_path[128] = TIX_PATH,             /* Voronoi index path */
+        coastlines_path[128] = COASTLINES_PATH,  /* coastlines path */
+        cities_path[128] = CITIES_PATH;              /* cities path */
+
+   double proximity = PROXIMITY;     /* specified proximity (miles) */
+
+   char record[LINE_LENGTH];  /* storage space for one input record */
+
+   char item_a[ITEM_LENGTH],            /* parser extraction string */
+        item_b[ITEM_LENGTH],            /* parser extraction string */
+        item_c[ITEM_LENGTH];            /* parser extraction string */
+
+   char *string_ptr;   /* generic pointer for character string work */
+
+/* Pointers to stack or queue elements containing the               */
+/* point/vertex global direction cosine coordinates only:           */
+
+   struct ptmp_gl *vertex_ptr,      /* generic ptr to a line vertex */
+                  *queue1_head,     /* specific line set queue head */
+                  *queue1_tail;     /* specific line set queue tail */
+
+/* Pointers to stack or queue elements containing                   */
+/* point/vertex global direction cosine coordinates                 */
+/* plus associated arbitrary data or a pointer:                     */
+
+   struct ptmp_gld *city_ptr,      /* generic ptr to a city element */
+                   *stack1_top,       /* specific stack top pointer */
+                   *stack2_top;       /* specific stack top pointer */
+
+   struct e_ltln global_coordinates;   /* radian latitude/longitude */
+
+   struct s_vct3 location;              /* direction cosines vector */
+
+   int result;    /* for receiving int values returned by functions */
+</pre>
+
+<P>Next, you begin the executable part of the program. First, you put out
+a message announcing commencement of the program. Then you process any
+optional command line override parameters. (For your first test of the
+program, you should check the default settings by running without any of
+these parameters specified).<pre>
+/* -----------------------------------------------------------------*/
+
+   fprintf(stdout, "%s:\n"
+    "Find cities in proximity to coastlines.\n", argv[0]);
+
+/* Optional overrides of default pathnames and proximity            */
+   if (argc > 1) {
+      strcpy(tix_path, argv[1]);
+      if (argc > 2) {
+         strcpy(coastlines_path, argv[2]);
+         if (argc > 3) {
+            strcpy(cities_path, argv[3]);
+            if (argc > 4) proximity = atof(argv[4]);
+            }
+         }
+      }
+</pre>
+
+<P>Next, you must allocate and initialize some memory workspace for Hipparchus
+internal operations. To do this you use the Hipparchus functions <I>h1_Malloc</I>
+and <I>h6_WorkspaceInit</I>. <I>h1_Malloc</I> is a pass-through function,
+the equivalent of the standard <I>malloc</I>, provided in this form so that
+you can (if necessary) port your code by substituting for <I>h1_Malloc</I>.
+<I>h6_WorkspaceInit</I> requires three parameters, the address of a workspace
+descriptor block, a workspace pointer and the size (in bytes) of the
+workspace. (For a complete discussion of these and other related functions,
+see the <I>Hipparchus Library Reference Manual)</I>. Your workspace
+allocation statements will look like these:<pre>
+/* Allocate work space for internal use by the Hipparchus engine.   */
+   workspace = h1_Malloc(WORKSPACE);
+   if (workspace) h6_WorkspaceInit(&wkd, workspace, WORKSPACE);
+   else {
+      fprintf(stderr, "1. Insufficient heap memory available.\n");
+      exit(1);
+      }
+   fprintf(stderr,  "Hipparchus workspace allocated.\n");  /* DEBUG */
+</pre>
+
+<P>On our advice, you allocate 100,000 bytes of storage for your workspace.
+This is not an unreasonable amount of space. It will be used internally
+by the higher-level Hipparchus functions (<i>h6</i> and above). Later on in
+<I>Chapter 7: Refining Your Design</I> you will learn how this
+requirement can be estimated.
+
+<P><h3>Step 2: Initialize Ellipsoid Parameters</h3>
+
+<P>Scientists have established a number of ellipsoidal models of the Earth.
+You need to either pick one of these or supply your own.
+
+<P>Hipparchus will be calculating positions and distances on the basis
+of the specific model you choose. To begin, you must allocate space for
+and then initialize a table of ellipsoidal geometry parameters. For the
+tutorial example, you can assume that the application requires the <I>World
+Geodetic System 1984</I> ellipsoidal model (not that it matters that much
+for this application). You initialize your table using the
+<I>h4_SetEllipsoidParameters</I> function. This requires three arguments:
+<ul>
+<li>a code for your chosen ellipsoid
+<li>a pointer to a structure that will receive the ellipsoid parameters and
+<li>a pointer to an area that is to receive a character string identifying
+the ellipsoid.
+</ul><pre>
+/* Set ellipsoid parameters to a specific model.                    */
+   h4_SetEllipsoidParameters(WGS_84, &eparms, NULL);
+   fprintf(stderr, "Ellipsoid parameters set okay.\n");    /* DEBUG */
+</pre>
+
+<P>The manifest constant <I>WGS_84</I>, set to 34 in the preamble, selects
+standard ellipsoid number 34. The structure <I>eparms</I> will receive
+the ellipsoid parameters. The structure type <I>eparms</I> is defined in
+<I>hipparch.h</I>. The third argument, <I>NULL</I>, indicates that you
+are not interested in the ellipsoid's name.
+
+<P><h3>Step 3: Load Voronoi Cell Structure (Cell Index)</h3>
+
+<P>Hipparchus comes with several pre-defined Voronoi cell structures. Each
+of these provides a complete coverage of the Earth.  As you'll see later
+on, there can be any number of Voronoi cell structures, each of which may
+be defined externally in at least three distinct formats. The one we'll
+use for this application is called <I>ISOTYPE.TIX</I>. To establish the
+cell index in memory, you simply invoke the <I>h0_LoadTix</I> function
+as shown below. This dynamically allocates heap memory, loads the external
+cell index structure file and updates a small pre-allocated Voronoi index
+descriptor (<I>vxd</I>). You need only provide the <I>h0_LoadTix</I> function
+with the opened filename of the external Voronoi cell structure, the address
+of a receiving Voronoi index descriptor and an allocation method
+indicator.<pre>
+/* Load Voronoi cell structure.                                     */
+   file_ptr = fopen(tix_path, "rb");
+   if (file_ptr == NULL) {
+      fprintf(stderr, "2. Unable to open file %s\n", tix_path);
+      exit(1);
+      }
+   result = h0_LoadTix(file_ptr, &vxd, H6_RTBL_ALLOC_WHOLE);
+   if (result) {
+      fprintf(stderr, "3. h0_LoadTix error %d.\n", result);
+      exit(1);
+      }
+   fclose(file_ptr);
+   fprintf(stderr,
+    "Voronoi cell structure loaded okay.\n");              /* DEBUG */
+</pre>
+
+<P><b>NOTE:</b> The function <I>h0_LoadTix</I> is a member of the
+<I>Hipparchus Auxiliary Library</I>. The prototype for this function is
+defined in <i>hippttys.h</i>. If you have already compiled your own version
+of <I>HIPPAUXL.LIB</I>, you should include it in your compiler/linker's
+library path.  Otherwise, you should append a copy of the <I>Hipparchus
+Auxiliary Library</I> source file <I>H0LTIX.C</I> to the <I>CITIES.C</I>
+source file.  While you are at it you may as well append copies of
+<i>H0PARS.C, </i><i>H0CSAA.C</i> and <i>H0FVIX.C</i>. They are the source
+files for <i>h0_ParseString</i>, <i>h0_StringToAngle</i> and
+<i>h0_FreeVix</i>, respectively, referenced later. Their prototypes are also
+defined in <i>hippttys.h</i>.
+
+<P><h3>Step 4: Load World Coastlines and Convert To An Object</h3>
+
+<P>The <I>Hipparchus</I> SDK provides a ready-to-use set
+of points that describe the major coastlines of the world. The data is
+supplied as a file of ASCII information. The file consists of a set of
+latitude/longitude records. Each coordinate pair represents a point on
+a coastline. Points taken in sequence form the outline of an "island",
+"continent" or "lake". Each sequence is terminated with a special marker
+record having an asterisk ("*") in its first position. You can read this
+data one record at a time and use the Hipparchus parser <I>h0_ParseString</I>
+to pick out the latitude/longitude coordinates for each point. Of course,
+you must check for the asterisk to detect the end of each piece of coastline.
+Back-to-back asterisk marker records signal the end of the line set. In
+this example you can just read ahead to the end of the file, assuming that
+the back-to-back markers are there.
+
+<P><B>Note:</B> the sample code presented in this tutorial makes use of
+dynamic memory management and linked-list queuing techniques. We will not
+be explaining these techniques in this tutorial. If you find that you need
+help in this area, we recommend the text by Thomas Plum described in <I>Appendix
+C: Bibliography</I>.
+
+<P>For each line of the set, you convert these coordinates to the internal
+Hipparchus notation, placing the results onto a "queue". Line and line
+set ending markers go on the queue too, identified as such by the <I>UNDEF</I>
+entry.
+
+<P><B>Note:</B> You use a "queue" here because your data is <B>ordered</B>
+in a specific way. You want Hipparchus to work with it in the same order
+you read it from the external file. In the context of Hipparchus the term
+"queue" means specifically a "first in, first out" (FIFO) singly-linked
+list, usually comprised of elements allocated from the system memory heap
+using <I>h1_Malloc</I>.<pre>
+/* Read text file of line segment coordinates for a line set        */
+/* defining the most significant coastlines of the world.           */
+/* Isolate the latitude/longitude coordinates for each vertex.      */
+/* Convert coordinates to internal Hipparchus global form.          */
+/* Stash line segment vertices in a FIFO memory queue.              */
+
+   file_ptr = fopen(coastlines_path, "rt");
+   if (file_ptr == NULL) {
+      fprintf(stderr,
+       "4. Error in opening file %s\n", coastlines_path);
+      exit(1);
+      }
+
+   queue1_head = queue1_tail = NULL;   /* initialize queue pointers */
+   while (string_ptr = fgets(record, LINE_LENGTH, file_ptr)) {
+      string_ptr = h0_ParseString(string_ptr, item_a, ITEM_LENGTH);
+      if (*item_a == '*') {            /* detect line ending marker */
+         location.di = UNDEF;          /* encode line ending marker */
+         }
+      else {
+         string_ptr = h0_ParseString(string_ptr, item_b, ITEM_LENGTH);
+
+/*       Convert coordinates to radian measure.                     */
+         global_coordinates.lat =
+          h0_StringToAngle(item_a, "+Nn", "-Ss");
+         global_coordinates.lng =
+          h0_StringToAngle(item_b, "+Ee", "-Ww");
+
+/*       Check the coordinates.                                     */
+         if (global_coordinates.lat == UNDEF) {
+            fprintf(stderr, "5. Error in latitude item.\n");
+            exit(1);
+            }
+         if (global_coordinates.lng == UNDEF) {
+            fprintf(stderr, "6. Error in longitude item.\n");
+            exit(1);
+            }
+
+/*       Convert ellipsoidal global latitudes/longitudes to         */
+/*       Hipparchus sphere conformal direction cosines              */
+         h4_EllipsoidToHpsph(&eparms, &global_coordinates, &location);
+         }
+
+/*    Allocate heap space for vertex queue element.                 */
+      vertex_ptr =
+       (struct ptmp_gl *)h1_Malloc(sizeof(struct ptmp_gl));
+      if (vertex_ptr == NULL) {
+         fprintf(stderr, "7. No more heap space available.\n");
+         exit(1);
+         }
+
+/*    Enqueue vertex queue element                                  */
+      if (queue1_head == NULL) queue1_head = vertex_ptr;    /* head */
+      else queue1_tail->next = vertex_ptr; /* prev element next ptr */
+      queue1_tail = vertex_ptr;                   /* set queue tail */
+      queue1_tail->next = NULL;             /* set next element ptr */
+      queue1_tail->s_point = location;           /* insert location */
+
+      }               /* end of while loop for the coastlines input */
+
+   fprintf(stderr, "World coastlines read in okay.\n");    /* DEBUG */
+   fclose(file_ptr);
+</pre>
+
+<P>With the coastline data now enqueued in memory, you then pass the name
+of the queue to the Hipparchus line set constructor to build a Hipparchus
+line set object representing the world coastlines.<pre>
+/* Now convert internal queue of coastlines to a line set object    */
+   result = h7_GlobalToLset(&vxd, &wkd, NULL, &coast_lines, 1, 0,
+    H_FLOAT_RES, 1, (struct ptmp_gld *)queue1_head);
+   if (result > 0) {
+      fprintf(stderr,
+       "9. GlobalToLset error %d.\n", result);
+      exit(1);
+      }
+
+   fprintf(stderr, "Coastlines converted okay.\n");        /* DEBUG */
+</pre>
+
+<P>The constructor function <I>h7_GlobalToLset</I> takes nine operands
+which you might review in the <I>Hipparchus Library Reference Manual</I>.
+Note here however that the reference to the queue element pointer
+(<I>queue1_head</I>) has been cast to conform with the type of the operand
+defined in the prototype. This is because these queue elements are of type
+<I>struct ptmp_gl</I>, a subset of type <I>struct ptmp_gld</I>.
+
+<P>Since you won't need the queued data any longer, you can remove it.<pre>
+/* Free the coastlines point queue, element by element.             */
+   while (queue1_head != NULL) {
+      vertex_ptr = queue1_head;
+      queue1_head = queue1_head->next;
+      h1_Free(vertex_ptr);
+      }
+</pre>
+
+<P><h3>Step 5: Read List Of Cities</h3>
+
+<P>Now, you need to read in your list of cities together with their locations
+and other information. The <I>Hipparchus</I> SDK
+provides a file of ASCII data describing the locations and place names
+of cities of the world. For each city, you need to convert the latitude
+and longitude to the internal Hipparchus notation. You use nearly the same
+process you used to read in the world coastlines data. For each city, you
+will parse, convert and enqueue its location information. You will also
+have to capture and set aside for possible later use its record pointer
+within the cities file. You can ignore any markers in this file. Since the
+order of the cities is unimportant to Hipparchus, you can use a somewhat
+simpler form of queue called a "stack".
+
+<P><B>Note:</B> A "stack" is actually a "last in, first out" (LIFO) singly-linked
+list. In the context of Hipparchus, a "stack" should not be confused with
+the system memory stack which is used mainly to pass function arguments
+and accommodate automatic variables. In fact, you will usually allocate
+the elements of such "stacks" from the system heap, <B><I>NOT</I></B> the
+system stack, using <I>h1_Malloc</I>.<pre>
+/* Read text file of city locations and names.                      */
+/* Parse latitudes and longitudes and convert to internal form.     */
+/* Associate city record file pointer with city coordinates         */
+/* Build a LIFO stack of major city locations and file pointers.    */
+
+   file_ptr = fopen(cities_path, "rt");
+   if (file_ptr == NULL) {
+      fprintf(stderr, "10. Unable to open file %s.\n", cities_path);
+      exit(1);
+      }
+
+   stack1_top = NULL;                      /* initial stack element */
+   record_ptr = 0L;                       /* initial record pointer */
+
+   while (string_ptr = fgets(record, LINE_LENGTH, file_ptr)){
+
+      if (*string_ptr == '*') continue;          /* discard markers */
+
+/*    Extract the latitude element.                                 */
+      string_ptr = h0_ParseString(string_ptr, item_a, ITEM_LENGTH);
+
+/*    Extract the longitude element.                                */
+      string_ptr = h0_ParseString(string_ptr, item_b, ITEM_LENGTH);
+
+/*    Convert the location coordinates to radian measure.           */
+      global_coordinates.lat = h0_StringToAngle(item_a, "+Nn", "-Ss");
+      global_coordinates.lng = h0_StringToAngle(item_b, "+Ee", "-Ww");
+
+/*    Check the coordinates.                                        */
+      if (global_coordinates.lat == UNDEF) {  /* check for bad data */
+         fprintf(stderr, "12. Error in latitude item.\n");
+         exit(1);
+         }
+      if (global_coordinates.lng == UNDEF) {  /* check for bad data */
+         fprintf(stderr, "13. Error in longitude item.\n");
+         exit(1);
+         }
+
+/*    Convert global lat/long coordinates to internal notation.     */
+      h4_EllipsoidToHpsph(&eparms, &global_coordinates, &location);
+
+/*    Allocate heap space for "stack" element.                      */
+      city_ptr =
+       (struct ptmp_gld *)h1_Malloc(sizeof(struct ptmp_gld));
+      if (city_ptr == NULL) {
+         fprintf(stderr, "14. No more heap space available.\n");
+         exit(1);
+         }
+
+/*    Enqueue "stack" element.                                      */
+      city_ptr->s_point = location;       /* insert location coords */
+      city_ptr->datum.l = (hipp4_uint)record_ptr; /* record pointer */
+      city_ptr->next = stack1_top;             /* set next item ptr */
+      stack1_top = city_ptr;                             /* set top */
+
+      record_ptr = ftell(file_ptr);          /* get next record ptr */
+
+      }               /* end of while loop for cities input process */
+
+   fprintf(stderr, "Cities input completed.\n");           /* DEBUG */
+</pre>
+
+<P>Now you can convert this stack of point locations into a Hipparchus
+point set object. As was the case for the line set constructor, the point set
+constructor <I>h7_GlobalToPset</I> takes nine operands. Note that in this
+case, the ninth operand was not cast.<pre>
+/* Convert the "stack" of city points into a point set object.      */
+   result = h7_GlobalToPset(&vxd, &wkd, NULL, &cities, 2, 0,
+    H_FLOAT_RES_DATA, 0, stack1_top);
+   if (result > 0) {
+      fprintf(stderr, "15. Point set creation error %d.\n", result);
+      exit(1);
+      }
+   fprintf(stderr, "Cities point set object okay.\n");     /* DEBUG */
+</pre>
+
+<p>Since we're finished with the city points input stack, we can now delete
+it<pre>
+/* Free up the cities input stack, one by one                       */
+   while (stack1_top != NULL) {
+      city_ptr = stack1_top;
+      stack1_top = stack1_top->next;
+      h1_Free(city_ptr);
+      }
+</pre>
+
+<P><h3>Step 6: Find The Cities That Are Proximate To A Coastline</h3>
+
+<P>Now that you have your world coastlines and city locations in the Hipparchus
+internal set notation, you can use the <I>h7_PointUxLset</I> function to
+select those cities that satisfy the "within 50 miles of a coastline" criterion.
+You are asking for a point-line intersection of the two objects with a
+defined proximity criterion. You need to supply the following parameters:
+<ol>
+<li>a reference to a Voronoi cell index structure descriptor
+<li>a reference to a Hipparchus workspace descriptor
+<li>an optional reference to a memory area to receive the new object,
+    if other than the system heap
+<li>a reference to the ellipsoid parameters structure
+<li>the operator type <I>H_AND</I> (meaning select points nearer to the
+    line than the specified proximity criterion)
+<li>the proximity criterion (distance in meters)
+<li>a reference to an object header that is to receive pointers to the newly
+    derived object (a point set object)
+<li>an object-id and class for the new object
+<li>the internal format option for the new object
+<li>a reference to your point set object (the cities)
+<li>a reference to your line set object (the world coastlines).
+</ol><pre>
+/* Apply the proximity criterion to derive a new object which       */
+/* will be a subset of cities that are proximate to coastlines.     */
+
+   fprintf(stderr,
+    "Now checking for proximity to coastlines ...\n");     /* DEBUG */
+
+   result = h7_PsetUxLset(&vxd, &wkd, NULL, &eparms, H_AND,
+    proximity * MILES_TO_METERS, &cities_subset, 3, 0,
+    H_FLOAT_RES_DATA, &cities, &coast_lines);
+   if (result > 0) {
+      fprintf(stderr, "16. PsetUxLset error %d.\n", result);
+      exit(1);
+      }
+</pre>
+
+<P><I>h7_PsetUxLset</I> will build the new object in the Hipparchus workspace,
+allocate space for the resultant object, copy it onto the heap, update
+the object header <I>cities_subset</I> and return the result status. If
+the function encountered any difficulties, such as running out of space
+in the Hipparchus workspace or on the heap, it will return a positive non-zero
+value. If the return value is -1, it means that the function found no points
+in proximity to the line set and has created a valid empty point set. Otherwise,
+the resultant new point set object will contain a subset of the points
+in the input point set, which remains unchanged. Note that the datum associated
+with each of the selected points, a pointer to the selected city's record in
+the cities file, has been copied into the new object.
+
+<P>If you think about it, you might realize that this set operation involves
+a very large number of distance calculations. For each of over 300 cities,
+Hipparchus will potentially have to calculate a proper geodetic distance
+to the closest point of about 1400 coastline segments. This multiplies
+to a very large number of mathematical calculations, so be prepared to
+wait a moment for the results.
+
+<P>Since we no longer need the input point or line set objects, and since
+they were allocated on the heap, we can release their memory using
+<I>h7_ReleaseHpobj</I>. Note that the object header structures (hp0d, hp1d)
+are NOT de-allocated by this process, but their internal pointers to the
+objects' substructures are NULL'ed.<pre>
+/* Release the canonical coast_lines and cities objects.            */
+   h7_ReleaseHpobj((struct hpobj *)(&coast_lines));
+   h7_ReleaseHpobj((struct hpobj *)(&cities));
+</pre>
+
+<P><h3>Step 7: Print The Results And Finish</h3>
+
+<P>To work with your set of results, namely the new object <I>cities_subset</I>,
+it is probably simplest here to convert it back to its global form as a
+stack of point coordinates and related name pointers. You do this with
+the <I>h7_PsetToGlobal</I> function, providing a reference to a pointer
+variable to receive a pointer to its top. Now it will be a simple matter
+to traverse the stack, extracting city records and printing them, on the
+fly. Note that the result of a successful <I>h7_PsetToGlobal</I> is a
+count of the number of points enqueued (which may be zero).<pre>
+/* Convert derived point set to a stack of global coordinates.      */
+   result = h7_PsetToGlobal(&vxd, NULL, &stack2_top, &cities_subset);
+      if (result &lt; 0) {
+      fprintf(stderr, "18. Derived PsetToGlobal failed.\n");
+      exit(1);
+      }
+
+/* Release the derived cities point set object.                     */
+   h7_ReleaseHpobj((struct hpobj *)(&cities_subset));
+
+/* Print report heading                                             */
+   fprintf(stdout,
+    "\n%d cities within %d miles of a coastline:\n",
+    result, (int)proximity );
+
+/* Traverse the cities sub-set stack                                */
+/* retrieving records of the selected cities and                    */
+/* printing out the names of the selected cities,                   */
+/* releasing the stack space on the fly.                            */
+
+   while (stack2_top != NULL) {
+      record_ptr = (long)stack2_top->datum.l;
+      fseek(file_ptr, record_ptr, 0);
+      string_ptr = fgets(record, LINE_LENGTH, file_ptr);
+      string_ptr = h0_ParseString(string_ptr, item_a, ITEM_LENGTH);
+      string_ptr = h0_ParseString(string_ptr, item_b, ITEM_LENGTH);
+      string_ptr = h0_ParseString(string_ptr, item_c, ITEM_LENGTH);
+      fprintf(stdout, "%s\n", item_c);
+      city_ptr = stack2_top;
+      stack2_top = stack2_top->next;
+      h1_Free(city_ptr);
+      }
+
+   fprintf(stderr, "\nEnd of list.\n");                    /* DEBUG */
+   fclose(file_ptr);
+</pre>
+
+<P>As an aside, you could easily modify your program to cycle through the
+list of cities and perform the intersections one at a time, printing out
+the city name if the intersection was satisfied. For this operation, you
+would use the <I>h7_PointLsetDist</I> function. This might be the technique of
+choice if you wanted to see the world coastlines on your screen and have the
+selected city locations highlighted with a brightly colored marker, one
+at a time.
+
+<P>Being a professional, you will finish your program by cleaning up your
+work. You know that the compiler will look after the system stack space
+management, but it is your job to free up any system heap space. For the
+sample program this is really not required since you have no further work
+to do and you are simply going to terminate execution, returning to the
+operating system. If your program might some day be included as part of
+a larger application, however, then proper clean up will be needed. This
+is especially true if your program is to be incorporated by others in their
+work.
+<P>The termination of your program looks like this:<pre>
+/* Release the Voronoi index and workspace.                         */
+   h0_FreeVix(&vxd);
+   h6_WorkspaceRelease(&wkd, workspace);
+   fprintf(stdout, "\nEnd of Cities program.\n");
+   return 0;
+   }                                         /* end of main program */
+</pre>
+
+<P>Your program is complete. It should now be compiled, linked and run
+in your own C/C++ language development environment.
+
+<P><h3>Summary</h3>
+
+<P>From the tutorial example, you have learned about some basic Hipparchus
+functions that you will likely use in your Hipparchus-based applications.
+These are:
+
+<ul>
+<li>initializing Hipparchus workspace
+<li>specifying an ellipsoid parameter set
+<li>establishing a Voronoi cell structure
+<li>converting external coordinates
+<li>managing stacks and queues
+<li>constructing objects
+<li>logically deriving new objects
+<li>traversing the elements of an object
+<li>releasing space occupied by an object.
+</ul>
+
+<P>Throughout the balance of the <I>Hipparchus Tutorial and Programmer's
+Guide</I>, we will be introducing other important functions of Hipparchus.
+
+<hr>
+<a href="tc03.html">Previous Chapter</a> |
+<a href="tc04.html">Top of Chapter</a> |
+<a href="tc05.html">Next Chapter</a>
+
+</body></html>

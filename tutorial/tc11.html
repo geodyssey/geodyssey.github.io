@@ -1,0 +1,178 @@
+<html><head>
+<title>Hipparchus Open Geographical Software Tools Tutorial
+       and Programmer's Guide Troubleshooting</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+</head>
+
+<body bgcolor="white" text="black" link="blue" alink="lime" vlink="teal">
+
+<a href="tc10.html">Previous Chapter</a> |
+<a href="tc00.html#toc">Table of Contents</a> |
+<a href="tc12.html">Next Chapter</a>
+<hr>
+
+<h2>Chapter 11: Troubleshooting</h2>
+
+<P><h3>Introduction</h3>
+
+<P>The purpose of this chapter is to provide some advice on troubleshooting
+your Hipparchus-based application. This chapter is not intended as a general
+discussion on the art of debugging. You should refer to other sources for
+general input on this important subject. C/C++ can be very demanding when
+debugging, given all the freedom the languages allow (with pointers,
+structures, functions, etc.). One good book on the subject is entitled <I>"C
+Traps and Pitfalls"</I> by Andrew Koenig. See <I>Appendix C -
+Bibliography</I>.
+
+<P>One important item you must remember when developing your application
+is that the <I>Hipparchus Library</I> functions perform little data checking.
+For the sake of speed and efficiency, it is assumed that your application
+will perform the edits and checks prior to passing information to any of
+these functions.
+
+<P>If you are working with a 16-bit version of Hipparchus, you must be
+particularly alert to the possibility of 64K address wrap-around.
+
+<P><h3>Tools</h3>
+
+<P>There are several debugging tools provided with the <I>Hipparchus</I> SDK
+that will help you when you are developing your applications. These tools
+include the following:<ul>
+
+<li>the on-line <I>Hipparchus Library Reference Manual</I> (HTML)<p>
+
+<li>other on-line manuals such as the <i>Hipparchus Utility Guide</i><p>
+
+<li>certain Hipparchus debug display functions<p>
+
+<li>numerous C source utility and sample application programs that may be
+compiled in the presence of your C/C++ source program browser.<p>
+</ul>
+
+<P>In addition, you may have access to other general debugging tools that may
+be of significant assistance. For example, for complex applications you may
+find it helpful to install one of the commercially available debugging
+software packages and route its output to a second computer for display,
+while your application is running. For the "how to" on these tools and
+techniques, we will leave you to access your own technical support sources.
+
+<P>The <I>Hipparchus Library Reference Manual</I> is your primary source
+of information on the specific use and application of the <I>Hipparchus
+Library</I> and <I>Hipparchus Auxiliary Library</I> functions. For each
+function, you have been supplied with the following:
+<ul>
+<li>descriptions of each of the arguments<p>
+
+<li>description of the return type (if any)<p>
+
+<li>explanation of the return values<p>
+
+<li>tips on usage<p>
+
+<li>references to other related functions.<p>
+</ul>
+
+<P>If you use the details provided in the Hipparchus headers,
+you will have little difficulty in the proper syntactic usage of each of
+the functions. In general, the primary challenge will be in learning the
+semantics of each of the functions. And, as usual, much of your debugging
+energy will be spent in resolving issues and irregularities with your data.
+However, the latter will not likely be new to you and you will have your
+own tools and approaches for this.
+
+<P><h3>Debugging Functions</h3>
+
+<P>Hipparchus contains a number of functions specifically designed for this
+purpose. In general, we have assumed that most developers will have graphical
+capability and will not be restricted to a text only capability.
+Nevertheless, as a last resort, the <I>Hipparchus</I> SDK includes some tools
+that operate at this level. The list includes the following functions that
+output the points or vertices defining an object, in text format:
+<ul>
+<li><I>h0_DumpPset</I> - dump a point set object<p>
+
+<li><I>h0_DumpLset</I> - dump a line set object<p>
+
+<li><I>h0_DumpRset</I> - dump a region object<p>
+
+<li><I>h0_DumpCoordinates</I> - dump a subset of differential coordinates.<p>
+</ul>
+
+<P>As mentioned, these functions would likely only be used as a last resort
+during development. At a minimum, they illustrate how to traverse the
+internal structures, should you have a need to do this.
+
+<P><h3>Techniques</h3>
+
+<P>The old technique of lacing your source code with <I>printf</I> statements
+is still valid. But the text sent to your display can obliterate your graphic
+results. Dual display environments and commercial debugging tools can be
+more effective.
+
+<P>If you have a second machine, you can use the economy technique. Simply
+lace your application with <I>fprintf</I> statements sending the output
+to a serial port using <I>stdaux</I>. For example:<pre>
+  fprintf(stdaux, "Trace message here\n");</pre>
+
+<P>Then, with appropriate pauses, you can trace the graphic generation on one
+display and send the debug messages to another machine. You can do this using
+a null modem cable and some simple communications software. The second
+machine can then display the text messages in your <I>fprintf</I> statements.
+This is a helpful technique if you do not have a debugger or if you are
+concerned that your debugger might interfere with your graphical output.
+Using this technique, you can reduce your environment to a more simple state.
+
+<P>Sometimes, debugging can provide a solid justification for an advanced
+GUI. With such a GUI, you can open a separate debug window and send the
+<I>fprintf</I> output there while the application proceeds.
+
+<P>In developing your source programs, a consistent standard of indentation
+can also help. For source programs supplied with the <I>Hipparchus</I> SDK,
+the following standards have been used:
+<ol>
+<li>Every opening brace is on the same line as the <I>do</I>, <I>while</I>,
+<I>for</I>, <I>struct</I>, <I>union</I>, <I>enum</I>, <I>switch</I> or
+<I>if</I> statement.<p>
+
+<li>Every statement in the body is indented 3 spaces, as will be the
+closing brace<p>
+
+<li>Continuations are indented 1 space on the continued line<p>
+
+<li>Single line statements are used for single statement <I>if</I> and
+<I>else</I> blocks<p>
+
+<li>Every closing brace occupies its own line<p>
+
+<li>After a closing brace, subsequent statements will move 3 spaces to
+the left.<p>
+</ol>
+
+<P>You may choose to follow a different standard. As long as you follow
+a consistent approach, your debugging effort will be reduced.
+
+<P>You will probably want to print off a copy of <I>hipparch.h</I> and the
+other header files supplied with Hipparchus. The structure and type
+definitions will be helpful in resolving inconsistent usage. Alternatively,
+if you are debugging in an integrated development environment, you may be
+able to make direct use its source code browser. Note that the on-line
+<i>Hipparchus Library Reference Manual</i> provides HTML extensive hyperlinks
+to the header definitions for the majority of structures referenced by the
+functions.
+
+<P><h3>Summary</h3>
+
+<P>We have assumed that you will have some experience with the art of
+debugging.  Specific debugging commands are provided. The on-line HTML
+<i>Hipparchus Library Reference Manual</i> provides extensive hyperlinked
+cross-references between function and header specifications. The utilities
+and sample applications provide additional examples and automated cross
+references once compiled in the presence of a source browser.
+
+<hr>
+<a href="tc10.html">Previous Chapter</a> |
+<a href="tc11.html">Top of Chapter</a> |
+<a href="tc12.html">Next Chapter</a>
+
+</body></html>

@@ -1,0 +1,873 @@
+<html><head>
+<title>Hipparchus Open Geographical Software Tools Tutorial
+       and Programmer's Guide Appendices</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body bgcolor="white" text="black" link="blue" alink="lime" vlink="teal">
+
+<a name="appa">
+<a href="tc00.html#toc">Table of Contents</a> |
+<a href="tapp.html#appb">Next Appendix</a>
+<hr>
+
+<h2>Appendix A: Glossary of Terms</h2>
+
+<P><h3>Introduction</h3>
+
+<P>The purpose of this appendix is to provide a list of common terms used
+in this material along with a more detailed explanation of the terms. Often,
+we get conditioned to $50 words when other simpler forms would serve as well.
+This glossary will attempt to get back to simpler usage.
+
+<dl>
+
+<p><dt>azimuth
+
+<p><dd>The angle between geographic North and the tangent to a line at a
+particular point, measured clockwise, ranging 0 to 360 degrees.
+
+<p><dt>bisector
+
+<p><dd>Geometrically, a line drawn at 90 degrees across another line at a
+point exactly in the middle of the other line.
+
+<p><dt>cadastral
+
+<p><dd>Having to do with political, jurisdictional or land ownership
+boundaries.
+
+<p><dt>canonical
+
+<p><dd>Conforming to specified rules.
+
+<p><dt>cartography
+
+<p><dd>The mathematics and process of making maps.
+
+<p><dt>cell
+
+<p><dd>A Voronoi cell, being one of a specific structure of cells selected
+for use in a particular end-use application. See also: Voronoi cell, Voronoi
+cell structure, Voronoi polygon.
+
+<p><dt>cell center point
+
+<p><dd>The point determining the geometry of a cell with respect to its
+neighbors, only rarely coincident with the centroid. The choice of points to
+be used for cell centers can be based on the spatial distribution of your
+location-referenced information.
+
+<p><dt>concise direction cosines
+
+<p><dd>An abbreviated form of direction cosines in which one of the cosines
+is dropped but may be reconstructed later using the two other cosines plus
+the sign and identity of the dropped cosine.
+
+<p><dt>conformal
+
+<p><dd>A mathematical term suggesting adherence to known form or rules. In
+mapping, it suggests that there is a preservation of infinitesimally small
+shapes.
+
+<p><dt>data domain
+
+<p><dd>A data analysis term used to classify data according to its broad type
+or use.
+
+<p><dt>DBMS
+
+<p><dd>Acronym for database management system. A piece of specialized
+software used for the management of data on external storage devices such as
+a disk.
+
+<p><dt>direction angle
+
+<p><dd>The angle between a vector and a reference axis.
+
+<p><dt>direction cosine
+
+<p><dd>The cosine of a direction angle, a measure of direction which can be
+used in conjunction with the description of an ellipsoid or sphere to specify
+the location of a point on the surface.
+
+<p><dt>dodecahedron
+
+<p><dd>The symmetrical solid figure having 12 identical pentagonal plane
+faces.
+
+<p><dt>ellipsoid
+
+<p><dd>A flattened sphere, such as the Earth, whose meridian cross-sections
+are elliptical, rather than circular.
+
+<p><dt>entity
+
+<p><dd>A set of points, lines or areas having some common attribute. See
+also: spatial object.
+
+<p><dt>FIFO
+
+<p><dd>First In, First Out. A term describing the operation of a particular
+type of queue.
+
+<p><dt>fragment
+
+<p><dd>See line fragment, ring fragment.
+
+<p><dt>geopositioning model
+
+<p><dd>A plan for recording and working with the position of things relative
+to the Earth's surface.
+
+<p><dt>geodesic
+
+<p><dd>An imaginary line describing the shortest surface distance between any
+two points on the Earth's surface.
+
+<p><dt>geodesy
+
+<p><dd>The measurement of angles and distances on the Earth's surface (or any
+other complex mathematical surface for that matter). More generally, the
+science of numerical exploration of the size and shape of the planetary
+surface, and of the spatial relationships between objects on or near the
+surface or in near space.
+
+<p><dt>geoid
+
+<p><dd>an ultra-precise model of the physical Earth that takes into account
+local concentrations of mass such as the Himalayan mountains.
+
+<p><dt>geo-spatial relationship
+
+<p><dd>Spatial relationship relative to the Earth's surface, subsurface,
+atmosphere or surrounding near space. See also: spatial relationship.
+
+<p><dt>great circle
+
+<p><dd>The arc traced on the surface of a sphere when travelling the shortest
+distance between two points.
+
+<p><dt>GUI
+
+<p><dd>Acronym standing for Graphics User Interface, such as Windows.
+
+<p><dt>Hipparchus
+
+<p><dd>Perhaps the greatest of the Greek mathematicians and astronomers who
+lived in the second century BC. Hipparchus invented the stereographic
+projection. He is credited with the idea of representing locations on the
+surface of the Earth by spherical measurements of latitude and longitude. He
+is also credited with developing a method for performing distance
+calculations using these angles.
+
+<p><dt>Hipparchus Frame
+
+<p><dd>See Hipparchus sphere, below.
+
+<p><dt>Hipparchus sphere
+
+<p><dd>A near-conformal (with respect to an ellipsoid of rotation) coordinate
+reference system used to advantage in the Hipparchus Geopositioning System.
+Point locations are expressed in normalized direction cosine form and common
+distance measurements consist of the square of the spatial chord on the
+co-central unit sphere. Synonymous with Hipparchus Frame.
+
+<P>The Hipparchus sphere avoids locality restrictions and geometry
+imprecisions typically imposed on systems based on "Flat Earth" geometry. On
+the other hand, it affords the analysis of spatial relationships with
+sub-millimetric precision sufficient for most practical applications, while
+avoiding the expense of more rigorous ellipsoidal calculations when
+processing large volumes of data.
+
+<p><dt>HP-GL/2
+
+<p><dd>Hewlett-Packard Graphics Language. A proprietary protocol for
+communicating information to graphic devices such as plotters or laser
+printers.
+
+<p><dt>icosahedron
+
+<p><dd>The symmetrical solid figure having 20 identical plane triangular
+faces.
+
+<p><dt>isometric
+
+<p><dd>Having the same dimensional measure in all directions.
+
+<p><dt>latitude
+
+<p><dd>An angular measurement of North/South distance from the Equator. By
+convention, latitudes measured northward from the Equator are positive while
+those measured southward are negative. High latitudes are those approaching
+either pole.
+
+<p><dt>LIFO
+
+<p><dd>Last In, First Out. A term describing the operation of a particular
+type of queue. This is the way that a classic stack operates.
+
+<p><dt>line
+
+<p><dd>An ordered set of two or more points on the surface of the Earth that
+if connected together would form a line. The points are said to be vertices
+of the line and successive pairs of vertices define line segments. Each
+segment is a geodesic, the shortest distance on the surface of an ellipsoidal
+planet. The directional sense of a line can be significant.
+
+<p><dt>line fragment
+
+<p><dd>That part of a line that starts in a cell and then exits that cell, or
+that enters a cell and then ends in that cell, or that enters a cell and
+then exits that cell.
+
+<p><dt>line set
+
+<p><dd>An unordered set of zero, one or multiple lines having some common
+attribute. The lines of a set may intersect or be tangent to themselves or
+one another. The external representation of a line set consists of ordered
+sequences of global ellipsoid coordinates defining the position of each
+vertex for each line. The Hipparchus internal representation is a specific
+cell local coordinate form in which the individual vertices defining each
+segment of each line are related to the cells visited by the lines. In
+addition, the internal representation lists those cells visited (or
+overflown) by the segments of the line(s).
+
+<p>In Hipparchus documentation, a line set is sometimes referred to as an
+"Lset".
+
+<p><dt>longitude
+
+<p><dd>An angular measurement of East/West distance from the prime meridian.
+By convention, longitudes measured Eastward are positive while those measured
+Westward are negative.
+
+<p><dt>meridian
+
+<p><dd>A great circle on the surface of the Earth, passing through the poles
+and a particular place. The prime meridian is the one passing through London
+(Greenwich) commonly used as the zero reference for measurements of longitude.
+
+<p><dt>model
+
+<p><dd>A general plan or way of thinking about things. See also: paradigm.
+
+<p><dt>near space
+
+<p><dd>That small part of space that immediately surrounds the Earth,
+extending so far out as to include Earth's satellites.
+
+<p><dt>object
+
+<p><dd>A set of points, lines or areas having some common attribute. See also:
+entity, spatial object.
+
+<p><dt>orbital
+
+<p><dd>Having to do with the path of orbiting satellites.
+
+<p><dt>paradigm
+
+<p><dd>The central idea, method or way of thinking about things. See also:
+model.
+
+<p><dt>point
+
+<p><dd>A single position or location on the surface of the Earth.
+
+<p><dt>point set
+
+<p><dd>An unordered set of zero, one or multiple points having some common
+attribute. Its external form consists of an aggregate of points defined
+by global ellipsoidal coordinates. The Hipparchus internal representation
+is a specific cell local coordinate form in which each point is related
+to its containing cell. In addition, the internal representation lists
+those cells occupied by the point(s) of the set.
+
+<p>In Hipparchus documentation, a point set is sometimes referred to
+as a "Pset".
+
+<p><dt>polygon
+
+<p><dd>A plane figure of many angles and sides; usually one whose perimeter
+consists of more than four straight lines.
+
+<p><dt>plane
+
+<p><dd>A flat surface, such as a table-top, map sheet or video display
+(conceptually, at least!).
+
+<p><dt>planar
+
+<p><dd>Being flat.
+
+<p><dt>platform
+
+<p><dd>A computing platform is the combination of computer hardware and
+operating system software that defines a particular computing environment.
+
+<p><dt>projection
+
+<p><dd>A particular view of an object, usually presented on some flat surface
+such as a display or map sheet.
+
+<p><dt>radian
+
+<p><dd>a unit of angular measure which divides a complete revolution into 2
+parts so that 360 degrees = 2 times 3.1415926... radians. This is the usual
+representation of angular measurements in mathematical calculations.
+
+<p><dt>region
+
+<p><dd>An area or areas of the Earth's surface containing all those surface
+points that possess some common attribute. A region is defined by an
+unordered set of zero, one or multiple rings defining the boundaries of the
+area(s). A region is non-simply connected if it is defined by more than one
+ring. Multiple rings within a set may not cross or be tangent to one another.
+Rings may wholly contain other rings of the same set, to any level of
+nesting, for example defining islands in lakes on islands, etc.
+
+<P>The external representation of a region consists of sequences of ordered
+global ellipsoidal coordinates defining the location of each vertex of
+each segment of each bounding ring of the set.
+
+<P>The Hipparchus internal representation is a specific cell local coordinate
+form in which the individual vertices defining each segment of the bounding
+rings are related to the cells visited by the rings. In addition, the
+internal representation lists those cells wholly contained within each
+bounded area as well as those cells visited by the segments of the bounding
+ring(s).
+
+<p>In Hipparchus documentation, a region is sometimes referred to as an
+"Rset".
+
+<p><dt>ring
+
+<p><dd>an ordered set of points on the surface of the Earth which, if
+connected, would define a bounded area. The points are said to be vertices of
+the ring. By convention, the area defined lies to the left of the line formed
+by the vertices taken in order. Also by convention, the last vertex is not
+specified explicitly but is taken to be identical with the first vertex of
+the ring. Also, by definition, the segments of a ring may not intersect or be
+tangent one to another.
+
+<p><dt>ring fragment
+
+<p><dd>That part of a ring that starts in a cell and then exits that cell, or
+that enters a cell and then ends in that cell or that enters a cell and then
+exits that cell.
+
+<p><dt>ring set
+
+<p><dd>The set of bounding rings defining a region.
+
+<p><dt>segment
+
+<p><dd>The portion of a line or bounding ring that connects two successive
+vertices. Hipparchus considers such segments to be true geodesics.
+
+<p><dt>sexagesimal
+
+<p><dd>Measurement of angles in units of degrees, minutes and seconds of arc.
+This is the usual external representation of angular measurements.
+
+<p><dt>space
+
+<p><dd>The entirety of everything that's out there, to infinity.
+
+<p><dt>spatial
+
+<p><dd>Having to do with what's where.
+
+<p><dt>spatial frame of reference
+
+<p><dd>A particular coordinate system in which canonical numeric models of
+spatial objects are constructed and manipulated.
+
+<p><dt>spatial index
+
+<p><dd>A directory for finding where location-related data is stored in a
+computer's memory or attached or networked disk storage device.
+
+<p><dt>spatial object
+
+<p><dd>A point set, line set or ring set (region) defining the location of
+things, conditions or events on the surface of the Earth, below the surface,
+in the atmosphere or in near space surrounding the Earth.
+
+<p><dt>spatial relationship
+
+<p><dd>Where is this with respect to that? Is this point near that one? Do
+these lines cross each other? Do these regions have places in common?
+
+<p><dt>sphere
+
+<p><dd>A ball-shaped object whose cross-sections are circular, any way you
+cut them.
+
+<p><dt>tangent plane
+
+<p><dd>A plane which meets the Earth's surface at a single point without
+intersecting it.
+
+<p><dt>tangency point
+
+<p><dd>The single point where the tangent plane touches the ellipsoid.
+
+<p><dt>terrestrial
+
+<p><dd>On or about the Earth.
+
+<p><dt>tessellation
+
+<p><dd>The division of a surface into a mesh or network (reticulation).
+
+<p><dt>Voronoi, M.G.
+
+<p><dd>Nineteenth century Russian mathematician who described the
+construction and properties of Voronoi polygon structures on the plane.
+
+<p><dt>Voronoi cell
+
+<p><dd>An area of the Earth's surface having boundaries with neighboring
+cells defined by the geodesic distances between its center point and the
+center points of its neighbors. Although imaginary, the boundaries themselves
+are considered to be geodesics. See also: cell, Voronoi cell structure,
+Voronoi polygon structure.
+
+<p><dt>Voronoi cell structure
+
+<p><dd>A subdivision of the Earth's surface having properties corresponding
+to those of a Voronoi polygon subdivision of the plane, notably that every
+point contained within a particular cell is closer to the center point of
+that cell than the center point of any other cell. This cell structure forms
+the basis for spatial indexing within Hipparchus. See also: cell, Voronoi
+cell, Voronoi polygon structure.
+
+<p><dt>Voronoi polygon structure
+
+<p><dd>A subdivision of the plane into polygons such that points on the plane
+within a particular polygon are closer to the center point of that polygon
+than the center point of any other polygon. See also: cell, Voronoi cell,
+Voronoi cell structure.
+
+</dl>
+
+<p><h3>Summary</h3>
+
+<p>
+
+<P><hr><a name="appb">
+
+<a href="tapp.html#appa">Previous Appendix</a> |
+<a href="tc00.html#toc">Table of Contents</a> |
+<a href="tapp.html#appc">Next Appendix</a>
+<hr>
+
+<h2>Appendix B: Galileo and Georama</h2>
+
+<p><h3>Introduction</h3>
+
+<i>Galileo for Windows</i> is the Hipparchus programmer's workbench
+program replacing the Hipparchus Application Prototyper programs of previous
+Releases. Galileo is a scriptable, interactive GIS programmer's workbench
+that permits direct manipulation of application data using many of the
+functions of the Hipparchus Libraries.  Besides providing
+useful geographic results, Galileo is intended to provide the
+programmer with source code examples of various ways and means
+of incorporating geography into an application.<p>
+
+Galileo is fully documented by the <a href="../galileo/galileo.html"
+target="aside">Galileo Guide</a>. An executable for Windows is available for
+download from the web at <a href="http://www.geodyssey.com"
+target="aside">www.geodyssey.com</a>. The download includes numerous sample
+data files and demo scripts.<p>
+
+By contrast, <i>Georama for Windows</i> is an end-user Atlas viewer that
+permits seamless browsing of World Atlas material, and includes a
+number of world place-name gazetteers.  Georama processing includes
+mouse-directed inspection of geographical features or events. Georama accepts
+real-time inputs from a GPS receiver, providing notebook computer users with
+a GPS trace log and a moving-map display.  Although directly executable from
+the CD-ROM, Georama may be set up for partial or exclusive operation from a
+hard disk.<p>
+
+Georama is fully documented by the <a href="../georama/georama.html"
+target="aside">Georama Guide</a>. A fully functional Georama executable is
+available for download from the web at <a href="http://www.geodyssey.com"
+target="aside">www.geodyssey.com</a>. The data provided with this download
+provides multi-thematic coverage of New Zealand only.<p>
+
+<p><h3>Summary</h3>
+
+Several sample programs are provided to display many of the operational
+possibilities for your Hipparchus-based applications.  Recompilation of these
+programs in the presence of a C/C++ source program browser can provide
+valuable examples of and cross-references to working Hipparchus usage. Source
+code for these programs supplied with the Hipparchus SDK may be freely cut
+and pasted into your own application.<p>
+
+<P><hr><a name="appc">
+
+<a href="tapp.html#appb">Previous Appendix</a> |
+<a href="tc00.html#toc">Table of Contents</a> |
+<a href="tapp.html#appd">Next Appendix</a>
+<hr>
+
+<h2>Appendix C: Bibliography</h2>
+
+<P><h3>Introduction</h3>
+
+<P>The purpose of this appendix is to provide a list of other sources of
+reading material that might be helpful for developers interested in expanding
+their understanding of some of the subject matter.
+
+<P><h3>Bibliography</h3>
+
+<ol>
+
+<li><I>Surveying Theory and Practice</I>, Davis, Foote, Anderson, Mikhail,
+McGraw-Hill, 1981.
+
+<P>This exceedingly practical book provides a basic overview of the
+mathematics of surveying and mapping. The material provides detailed
+explanations of practical geopositional surveying problems and techniques.<p>
+
+<li><I>Geodesy</I>, Henry D. Bomford, Oxford University Press, Third Edition,
+1973.
+
+<P>This is a well known textbook on the subject of the measurement of all
+manner of things on the Earth's surface. This could be a valuable complement
+to the library of material for the serious Hipparchus developer. However,
+recognize that this is a theoretical source of "last resort" for only the
+ambitious. This will not likely be your first book.<p>
+
+<li><I>Geodesy</I>, W. M. Tobey, 1928, Government of Canada Queen's Printers.
+
+<P>This is a classic on the subject of the basic geometry of the surface of
+an ellipsoid. This small book provides the classical approach to the angular
+latitude/longitude computational geodesy in contrast to the direction cosine
+vector approach. If you are a collector of material on the subject, you will
+want to add this little gem.<p>
+
+<li><I>Manual of Remote Sensing</I>, Second Edition, 1983, American Society
+of Photogrammetry, Volumes 1 and 2.
+
+<P>Specifically, Chapter 6 on <I>"Orbital Mechanics for Remote Sensing"</I>
+by Kenneth I. Duech and Joseph C. King contains a comprehensive treatment of
+the subject.<p>
+
+<li><I>The Shape of the World, The Mapping and Discovery of the Earth</I>,
+Simon Berthon, Andrew Robinson, Rand McNally, 1991.
+
+<P>Following the immensely successful PBS television series on this subject
+hosted by Patrick Stewart (second generation Captain Jean Luc Picard of the
+"Starship Enterprise"), the authors captured the series content in book form.
+This easily digestible material follows the evolution of knowledge and
+awareness of the shape if the world since earliest time. The book is an easy
+read and a great coffee table item.<p>
+
+<li><I>The C Programming Language, Second Edition</I>, Ritchie and Kernighan
+
+<P>This is the classic definition of the C programming language by the C
+language creators themselves.<p>
+
+<li><I>Learning to Program in C</I>, Thomas Plum, Plum Hall, 1989.
+
+<P>This tutorial assumes that readers have absolutely no knowledge of C, and
+therefore is the classic introduction to the language. Well written and
+loaded with helpful examples, it is a great assist for C novices who are
+trying to learn the language.<p>
+
+<li><I>Reliable Data Structures in C</I>, Thomas Plum, Prentice-Hall, 1985.
+
+<P>Hipparchus operates on many data structures. Your application will use
+these structures for location information. The text develops the concepts of
+structures, dynamic memory management, queues, stacks, doubly linked lists
+and so on. The book is particulary helpful for programmers who are learning C
+as a second programming language and where their first language does not have
+these capabilities.<p>
+
+<li><I>C Traps &amp; Pitfalls</I>, Andrew Koenig, AT&amp;T Laboratories,
+1989.
+
+<P>A great source of information on debugging techniques. Along with the
+power and flexibility that the C language provides, come the risks of
+incredibly complex code and the ensuing challenge of making it work and
+keeping it working. Koenig's work has been a blessing to many.<p> </ol>
+
+<P><lr><a name="appd">
+
+<a href="tapp.html#appc">Previous Appendix</a> |
+<a href="tc00.html#toc">Table of Contents</a>
+<hr>
+
+<h2>Appendix D: Geocuriosa</h2>
+
+<P><h3>Introduction</h3>
+
+<P>The purpose of this Appendix is to provide some facts and figures about
+the planet Earth. And just for fun, we have also included a few historical
+notes.
+
+<P>This material is provided as a possible source of assistance or amusement
+to developers working on applications involving objects on or near the
+surface of the planet.
+
+<P>Much of the material is drawn from Isaac Asimov's <i>Book of Facts</i>,
+Bell Publishing Co., 1981, ISBN 0-517-38111-6.
+
+<P><h3>Facts</h3>
+
+<dl>
+
+<dt><P>AREA<dd>
+
+<P>The surface area of Earth is 196,950,000 square miles. 57,500,000 square
+miles is land mass and the balance of 139,450,000 square miles is covered by
+water (71%).
+
+<P>Asia covers 17,139,000 square miles.
+
+<P>Africa covers 11,702,000 square miles.
+
+<P>North America covers 9,360,000 square miles.
+
+<P>South America covers 6,894,000 square miles.
+
+<P>Antarctica covers 5,100,000 square miles.
+
+<P>Europe covers 4,023,000 square miles.
+
+<P>Australia (with Tasmania) covers 2,975,000 square miles.
+
+<P>The Pacific Ocean covers 64,000,000 square miles.
+
+<P>The Atlantic Ocean covers 31,814,600 square miles.
+
+<P>The Indian Ocean covers 25,298,000 square miles.
+
+<P>The Arctic Ocean covers 5,400,000 square miles.
+
+<P>The ancient Egyptians first developed a method for calculating area. We
+are sure it will be no surprise to learn that the purpose of this was to
+provide a basis for taxation. They first learned how to calculate the areas
+of rectangles and triangles. They also learned how to approximate the areas
+of fields with curved borders (the creativity and genius of the taxperson
+knows no limits!). They learned how to measure angles and took the first
+faltering steps in the development of trigonometry.
+
+<P>The ancient Greeks collected the wisdom of many civilizations including
+the Egyptians. Thales of Miteus (640? - 546 B.C.) adapted the tax assessors'
+ideas and discovered some of the fundamental propositions of plane geometry.
+One of his students, Anaximander (611 - 547 B.C.) prepared a map of the world
+based on data from the sailors who frequented the city of Mileteus where he
+lived.
+
+<dt><P>CIRCUMFERENCE<dd>
+
+<P>The circumference of the Earth is 24,888 miles. Eratosthenes of Alexandria
+first compared the length of the Sun's shadow at the same time at Alexandria
+and at Syene, about 500 miles away. Assuming the Earth to be a sphere, he
+obtained an estimate of the Earth's circumference to be 250,000 stadia or
+about 28,740 miles. He then drew up a map of the known world and suggested
+one could sail from Spain to India "along the same parallel".
+
+<dt><P>CITIES<dd>
+
+<P>There are approximately 5000 cities in the world of population in excess
+of 100,000 people.
+
+<dt><P>DESERT<dd>
+
+<P>The largest desert in the world - the Sahara - is as large as the US.
+Although certain valleys in Antarctica are the driest spots on Earth, they
+have more water than does any place on or above the surface of Mars.
+
+<dt><P>DIAMETER<dd>
+
+<P>The equatorial diameter of the Earth is 7922 miles. The distance between
+the poles is 7895 miles. The difference results from the bulge of the Equator
+induced by centrifugal force (of rotation).
+
+<dt><P>ECCENTRICITY<dd>
+
+<P>The ellipsoidal eccentricity of the Earth is about 0.34%. (See diameter
+above).
+
+<dt><P>FLAT EARTH<dd>
+
+<P>An absurd fiction of history is that when Columbus said that the world was
+round, everybody else thought that it was flat. During the debates at the
+court of Queen Isabella, the true shape of the Earth was never the issue; its
+size was! The opponents of Columbus said he was underestimating the size, and
+that he could never sail due west from Europe to the Orient. They were
+probably right. Except for his accidental discovery of an unknown continent
+in between, Columbus would either have turned back or starved at sea.
+
+<dt><P>GAS<dd>
+
+<P>Almost every bit of Helium that exists in the world today is a product of
+natural gas wells in the United States.
+
+<dt><P>HIGHEST POINT<dd>
+
+<P>The highest point in the world is the peak of Mount Everest at 29,028 feet
+above sea level. Mount Everest is a foot higher than it was a century ago,
+and it may be growing at an accelerating rate.
+
+<dt><P>ICE<dd>
+
+<P>About 3,900,000 square miles of the Earth's land surface (10% of the
+whole) is under a permanent ice cover. 80% of all of the world's ice is in
+Antarctica; 12% more is in Greenland. The remaining 8% is distributed among
+various polar islands and mountain glaciers.
+
+<dt><P>LOWEST POINT<dd>
+
+<P>The lowest land point in the world is where the Jordan River enters the
+Dead Sea, at 1290 feet below sea level. Another interpretation could be the
+ocean floor in the Mariana Trench in the western Pacific Ocean which is
+35,810 feet below sea level.
+
+<dt><P>MAPS<dd>
+
+<P>An ambitious plan for an international map of the world on a uniform scale
+has been proposed, but only a part of the plan has been completed. Designed
+by the German Albrecht Penck, and presented to several meetings of the
+International Geographical Congress (in 1891, 1909, 1913), the map would
+consist of about 1500 sheets each covering four degrees of latitude and six
+degrees of longitude in a modified conic projection, on a scale of
+1:1,000,000.
+
+<dt><P>PARALLELS AND MERIDIANS<dd>
+
+<P>Hipparchus of Nicaea was one of the great mathematicians of Rhodes in the
+Aegean Sea. He built an observatory there and painstakingly performed
+brilliant research with the best instruments of his time. He is said to have
+been the first to describe a position on the surface of the Earth in terms of
+latitude and longitude. Hipparchus was also the first to observe that the
+equinoxes fall a little later each year.
+
+<dt><P>PEOPLE AND PLACES<dd>
+
+<P>Frigid, ruggedly beautiful Patagonia, the narrowing tip of South America,
+is the only populated continental land area south of 45 degrees South
+Latitude. By comparison, most of Europe, Asia and two-thirds of North America
+are north of 40 degrees North Latitude.
+
+<P>Berlin and Warsaw are farther north than parts of Alaska. The
+southern-most Aleutian Island, Amchitka, is at a latitude of about 51.7
+degrees North, which is about the latitude of London and Calgary. Both are
+farther south than Berlin or Warsaw.
+
+<dt><P>POPULATION<dd>
+
+<P>The current population of the world is estimated at 5.2 billion (January
+1, 1990 estimate). Half of the world's population live in just four
+countries: China, India, the former Soviet Union and the United States (China
+alone counts for about 25% of the total). The other half live in over 160
+countries.
+
+<dt><P>RADIUS<dd>
+
+<P>Eratosthenes, a Greek scholar and astronomer is credited with measuring
+the circumference and the tilt of the Earth. When he needed to know the
+distance from Alexandria to Syene, men were engaged who were trained to walk
+in uniform steps and count them - the distance was about 500 miles! We use
+6,371,007.1808 meters for the radius of the Earth.
+
+<dt><P>RAINFALL<dd>
+
+<P>The driest place on Earth is Calama, in the Atacama Desert in Chile. Not a
+drop of rain has been seen there, ever!
+
+<dt><P>ROTATION AROUND THE SUN<dd>
+
+<P>The Earth revolves around the sun, its axis inclined at an angle of about
+23 degrees to the plane of rotation. It remains inclined at almost the same
+angle throughout the revolution; thus the direct rays of the sun fall on
+different parts of the Earth at different times, resulting in our change of
+seasons.
+
+<dt><P>ROTATION OF EARTH<dd>
+
+<P>In 1851, Jean Bernard Leon Foucault set up an experiment in which a
+pendulum seemed to change its plane of swing slowly. Actually, the pendulum
+continued to oscillate in a single plane; the Earth carrying the observer was
+slowly rotating beneath it!
+
+<P>The spinning of the Earth has an effect on moving objects: it causes them
+to deflect slightly to the right in the Northern Hemisphere, or to the left
+in the Southern hemisphere. The "Coriolis effect" applies equally well to a
+river or a ballistic missile. But don't be fooled; its because of this
+deflection to the right that bath water goes down the drain in a
+counter-clockwise rotation (North of the Equator).
+
+<P>In addition, the slow precession of the axis of the Earth's rotation has
+advanced the December solstice to Sagittarius. The Tropic of Capricorn is
+used to describe the geographic latitude where the sun appears overhead
+because two millennia ago the December solstice was located in Capricornus
+and the reference has stuck. The same is true of the Tropic of Cancer, for
+the summer solstice is now in Gemini, not in Cancer.
+
+<dt><P>SHAPE<dd>
+
+<P>Although we have spent much time talking about various mathematical models
+of the Earth, the "real thing" is quite complex. One of the best analogies
+used to describe the exact shape of the Earth is that of a thick-skinned
+balloon filled with water. As the balloon rotates around an its axis pulled
+by forces of gravity and rotation, the equatorial points bulge out to give us
+something of the "pumpkin" shape we talked about (except that the top of our
+balloon looks just like the bottom, unlike a real pumpkin). To complicate our
+model, we add an uneven, brittle crust to our balloon (the land mass
+variations of the globe).
+
+<dt><P>TIME<dd>
+
+<P>Immanuel Kant suggested, in the eighteenth century, that tidal friction
+slowed the rotation of the Earth. He was correct, but it could not be
+demonstrated for another century. As the tidal bulge travels about the
+planet, it scrapes against shallow sea bottom - especially the Bering Sea and
+the Irish Sea - and the energy of the Earth's rotation is dissipated in
+frictional heat enough to slow rotation and lengthen the day by one second
+every 100,000 years.
+
+<P>To go on the lunar day, merely adjust your watch to lose two minutes and
+five seconds every hour.
+
+<P>Time Zones were invented and introduced in 1884 by Sir Sanford Fleming,
+engineer and surveyor of the Canadian Pacific Railway.
+
+<P>The former Soviet Union was so wide that it encompassed eleven time zones.
+
+<P>The most exciting cartographic discovery in this century turned out to be
+a forgery - the infamous Vinland Map, "proof" that the Vikings had explored
+the New World.
+
+<dt><P>WATER AREAS<dd>
+
+<P>Approximately 71% of the surface of the Earth is covered by water. The
+Pacific Ocean fills nearly a complete hemisphere of the Earth's surface. The
+oceans of the world are so vast and deep that if the Earth had an absolutely
+level crust, the seas would form an envelope over 8,800 feet deep around the
+globe.
+
+</dl>
+
+<P><h3>Summary</h3>
+
+<P>We think that the planet Earth is a fascinating place. Since most of us
+are destined to spend our lives here, learning more about the place seems to
+be a prudent objective. Some of the facts about our planet are truly
+interesting. We would be pleased to hear from the reader regarding other
+pertinent facts that we might include in this Appendix.<p>
+
+For more fun, be sure to visit <a href="http://www.geocuriosa.com"
+target="aside">www.geocuriosa.com</a>.<p>
+
+<hr>
+<a href="tc00.html#toc">Table of Contents</a>
+
+</body></html>
+
