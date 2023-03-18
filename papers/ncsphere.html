@@ -3,6 +3,11 @@
 <title>Ellipsoid Radius-Vector as a Near-Conformal Ellipsoid to Sphere Mapping</title>
 <META NAME="description" CONTENT="Near-Conformal Ellipsoid to Sphere Mapping">
 <META NAME="keywords" CONTENT="cartography, geodesy, computer mapping, GIS, ellipsoid geometry, spherical geometry">
+<style>
+body{margin:40px auto;max-width:800px;line-height:1.4;padding:0px 10px;
+font-size:18px;font-family: sans-serif;background-color:GhostWhite}
+dd{font-size:16px;color:SaddleBrown}
+</style>
 </head>
 <body bgcolor="white" text="black" link="blue" alink="lime" vlink="teal">
 <br>
@@ -12,9 +17,9 @@
 <center>
 
 <h4>Hrvoje Lukatela,
-<a href="http://www.geodyssey.com/" TARGET="geodyssey">Geodyssey Limited</a>
+<a href="http://geodyssey.github.io/" TARGET="geodyssey">Geodyssey Limited</a>
 <small> http://www.geodyssey.com/</small><br>
- 
+
 </h4>
 </center>
 
@@ -22,12 +27,12 @@
 <center>
 <h3>Abstract</h3>
 </center>
- 
+
 <blockquote>
 <p>
 The paper explores an ellipsoid-to-sphere latitude transformation
 with a particular combination of desirable properties when used for
-the internal coordinate encoding in global or wide-area GIS systems. 
+the internal coordinate encoding in global or wide-area GIS systems.
 </p>
 
 <p>
@@ -70,9 +75,9 @@ understood, as the simplification must not exceed the limits imposed
 by the real-life activity that is served by the computational system.
 We are therefore in search of such simplifications that will result in
 errors which are safely below the level of an order of magnitude more
-precise than the geodetic measurements of the real-life activity. 
+precise than the geodetic measurements of the real-life activity.
 </p>
- 
+
 <center>
 <h3>Auxiliary latitudes</h3>
 </center>
@@ -85,13 +90,13 @@ practice, Snyder calls them "Auxiliary Latitudes". They are:
 </p>
 
 <ul>
-<li>Conformal</li> 
+<li>Conformal</li>
 <li>Authalic</li>
 <li>Rectifying</li>
 <li>Geocentric</li>
 <li>Reduced</li>
 </ul>
-  
+
 <p>
 <i>Conformal</i> refers to a generic mathematical property: it requires
 that an infinitesimally small two-dimensional object, mapped from
@@ -100,7 +105,7 @@ may change the scale but must preserve the shape. This is the same
 as stating that the mapping scales in two principal directions
 (the meridian and the prime vertical) must be the same. [footnote:
 [Jordan] provides a comprehensive treatment of the geodetic fundamentals
-of the subject of this paper; [Qihe] of its cartographic equivalent)].  
+of the subject of this paper; [Qihe] of its cartographic equivalent)].
 </p>
 
 <p>
@@ -110,7 +115,7 @@ latitude forms the basis of the mapping discussed further in this text.
 <i>Reduced</i> (or, as also termed in [Snyder], "<i>parametric</i>")
 latitude is numerically quite close to the true ellipsoidal latitude,
 and is defined, similarly to the <i>geocentric</i>, by a simple
-geometrical construct.   
+geometrical construct.
 </p>
 
 <center>
@@ -166,7 +171,7 @@ alternative: use of the rigorous conformal ellipsoid-to-sphere mapping.
 When modified, to address primarily the difference between the
 conformal and geocentric latitudes, computed for WGS84 ellipsoid
 (Snyder's examples are for Clarke 1866 ellipsoid), and including
-the second differences, the table looks as follows:  
+the second differences, the table looks as follows:
 </p>
 
 <pre>
@@ -229,13 +234,13 @@ of the major and minor ellipsoidal semi-axes (<i>asq</i> and <i>bsq</i>,
 respectively); and if the system will use the results of the mapping in
 the vector form (<i>u</i> and <i>v</i>, respectively, as the sine and
 cosine of the spherical latitude), the symmetrical form, (perhaps as
-suggested by Bomford?), will have the following form:       
+suggested by Bomford?), will have the following form:
 </p>
 
 <code>
 u = bsq * s<br>
 v = asq * c<br>
-</code>  
+</code>
 
 <p>
 The above discussion considers only the meridian ellipse, and ignores
@@ -245,9 +250,9 @@ instead be a combination of two direction cosines of the longitude of
 some point on the ellipsoid. This, however, means only that another
 square root operation will be required to "fold" and "unfold" the
 longitude into and from the meridian ellipse: spherical longitude in
-all such mappings is equal to the ellipsoidal longitude.      
+all such mappings is equal to the ellipsoidal longitude.
 </p>
-  
+
 <p>
 To implement such latitude mapping and its inverse in computer code
 becomes quite a bit simpler than doing the same for the rigorous
@@ -258,7 +263,7 @@ the series of terms of the ascending powers of ellipsoid eccentricity
 (Quihe, p81, production 3.5.0, which includes the terms with
 <code>e**8</code>). Unlike rigorous conformal mapping, the
 transformation productions are closed in both directions: this means
-that there will be no implementation-dependent "drift" if one 
+that there will be no implementation-dependent "drift" if one
 point is, for some reason, repeatedly transferred between the two
 surfaces. In contrast, in the case of the rigorous conformal sphere
 inverse mapping, there is no option but to use either the iteration
@@ -278,8 +283,8 @@ on a PC with Intel Pentium "Core-2" CPU, running at 1.8 GHz clock rate.
 The times are in seconds.
 </p>
 
-<p> 
-The first set of values assumes that both given and computed 
+<p>
+The first set of values assumes that both given and computed
 coordinates are in the vector form:
 </p>
 
@@ -293,7 +298,7 @@ sphere to ellipsoid: 30.329<br>
 <p>
 Conformal sphere to ellipsoid mapping in the above was implemented using
 iteration, with the closeness criterion of about 1/10th of a millimeter
-on the Earth's surface. 
+on the Earth's surface.
 </p>
 
 <p>
@@ -302,7 +307,7 @@ so that ellipsoidal values will be imported and exported from the system
 in their conventional, angular form, and the spherical points used for
 internal computations and data storage will be in the vector (direction
 cosine) form. The above values for the near-conformal mapping would in
-such case be as follows:    
+such case be as follows:
 </p>
 ellipsoid to sphere: 4.578<br>
 sphere to ellipsoid: 3.640<br>
@@ -317,15 +322,15 @@ same set of points as above, the values are:
 </p>
 Angle to vector: 3.437<br>
 Vector to angle: 3.422<br>
-<br>   
+<br>
 
 <center>
 <h3>The indicatrix</h3>
 </center>
 
 <p>
-The computation of the two principal radii of curvature on ellipsoid 
-is simplified by the introduction of <i>t</i>, the free term of the 
+The computation of the two principal radii of curvature on ellipsoid
+is simplified by the introduction of <i>t</i>, the free term of the
 tangential plane equation. If the ellipsoid point coordinates (i.e.,
 the direction of the normal to the ellipsoid) are given in their
 normalized vector form (<i>i</i>,<i>j</i> and <i>k</i>), <i>t</i>
@@ -333,34 +338,34 @@ can be computed in a "symmetrical form" similar to the ones used
 above:
 </p>
 
-<code>  
+<code>
 t = asq * i * i + asq * j * j + bsq * k * k
-</code>  
+</code>
 
 <p>
 Let <i>u</i> be the reciprocal of <i>t</i>:
 </p>
 
-<code>  
+<code>
 u = 1 / t
-</code>  
+</code>
 
 <p>
 The curvature of the prime vertical (<i>p</i>) in the given point will
 then be:
 </p>
 
-<code>  
+<code>
 p = asq * u
-</code>  
+</code>
 
 <p>
 And <i>r</i>, curvature of the meridian:
 </p>
 
-<code>  
+<code>
 r = p * bsq * u * u
-</code>  
+</code>
 
 <p>
 General curvature <i>q</i> on the ellipsoid (i.e., one in the azimuth
@@ -368,15 +373,15 @@ defined by  two direction cosines in the tangential plane, <i>f</i>
 and <i>g</i> can then be computed as follows:
 </p>
 
-<code>  
-q = (f * f) / p + (g * g) / r 
-</code>  
+<code>
+q = (f * f) / p + (g * g) / r
+</code>
 
 <p>
 The above productions can be used to determine the elements of the
 indicatrix for any point on the ellipsoid: the radius of curvature of
 the sphere is 1, and for the purpose of the computation of indicatrix
-axes, such sphere can be safely considered to be conformal. 
+axes, such sphere can be safely considered to be conformal.
 </p>
 
 <center>
@@ -393,7 +398,7 @@ ellipsoid-to-sphere conformal mapping. If the ellipsoidal
 computations are performed on the coordinates in their vector form,
 the parameters of the indicatrix - the basis for the scaling of metric
 results between the problem-local vicinity on the ellipsoid and the
-near-conformal sphere - is equally straightforward.  
+near-conformal sphere - is equally straightforward.
 </p>
 
 <center>
@@ -402,23 +407,23 @@ near-conformal sphere - is equally straightforward.
 
 <ol>
 
-<li>                        
+<li>
 Bomford, G.: <i>Geodesy</i>
- London, Oxford University Press, 1975 ed. 
+ London, Oxford University Press, 1975 ed.
 </li>
- 
-<li>                        
+
+<li>
 Jordan, Eggert and Kneissl: <i>Handbuch der Vermessungskunde</i>
 (Band IV: Mathematische Geodaesie), 10th ed.
 Metzlersche Verlag., Stuttgart, 1959
 </li>
-                                                                            
-<li>                        
+
+<li>
 John P. Snyder: <i>Map Projections Used by the U.S. Geological Survey</i>
 Geological Survey Bulletin 1532, Second Edition, 1982
 </li>
 
-<li>                        
+<li>
 Qihe Yang, John P. Snyder and Waldo R. Tobler:
 <i>Map Projection Transformation</i> Taylor & Francis, 2000
 </li>
@@ -427,4 +432,4 @@ Qihe Yang, John P. Snyder and Waldo R. Tobler:
 
 <center><h2>...</h2></center>
 </body>
-</html> 
+</html>

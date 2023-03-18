@@ -2,9 +2,14 @@
 <head>
 <title>Koordinatni sustavi globusnih digitalnih zemljopisa</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<style>
+body{margin:40px auto;max-width:920px;line-height:1.4;padding:0px 10px;
+font-size:18px;font-family: sans-serif;background-color:GhostWhite}
+dd{font-size:16px;color:SaddleBrown}
+</style>
 </head>
 
-<body bgcolor="ghostwhite" text="black" link="blue" alink="lime" vlink="teal">
+<body>
 
 <center>
 <h2>Koordinatni sustavi globusnih digitalnih zemljopisa<br>
@@ -14,33 +19,34 @@ Hrvoje Lukatela, Zagreb
 </h2>
 </center>
 <center>
-<h4>Kontakt:<a href="http://www.lukatela.com/hrvoje/" TARGET="hrvoje">http://www.lukatela.com/hrvoje/</a>
+<h4>Kontakt:
+<a href="http://www.lukatela.com/hrvoje/" TARGET="hrvoje">http://www.lukatela.com/hrvoje/</a>
 </h4>
 </center>
 
 <h3>Geodezija i digitalna računala</h3>
 
 <p>
-Malo se je koja klasična tehnička znanost primjenom digitalnih računala tijekom 
-proteklih nekoliko desetljeća promijenila toliko kao geodezija. Tu su promjenu izazvali, 
-i sve je nadalje određuju, dva čimbenika: jednoga bi mogli nazvati "vanjskim", a drugoga 
-"unutarnjim". Vanjski je čimbenik sveudilj veća potreba, da se za informatičke 
-sustave koji uključuju znanje o prostoru izmjeri, organizira i učini brzo pristupačnim 
-stalno rastuća količina podataka o ljudskom okolišu, sa sve većom točnošću i 
-pravodobnošću. Unutarnji je čimbenik ubrzano i stalno usavršavanje izvedbe geodetskih 
+Malo se je koja klasična tehnička znanost primjenom digitalnih računala tijekom
+proteklih nekoliko desetljeća promijenila toliko kao geodezija. Tu su promjenu izazvali,
+i sve je nadalje određuju, dva čimbenika: jednoga bi mogli nazvati "vanjskim", a drugoga
+"unutarnjim". Vanjski je čimbenik sveudilj veća potreba, da se za informatičke
+sustave koji uključuju znanje o prostoru izmjeri, organizira i učini brzo pristupačnim
+stalno rastuća količina podataka o ljudskom okolišu, sa sve većom točnošću i
+pravodobnošću. Unutarnji je čimbenik ubrzano i stalno usavršavanje izvedbe geodetskih
 računanja, koje omogućuje neprekidni napredak u elektoničkoj računalnoj opremi.
 </p>
 
 <p>
-U postupku gradnje svakog digitalnog zemljopisa jedna od najvažnijih odluka je 
-ona o izboru kanoničkog načina prikazivanja položaja neke točke na zemljinoj površini 
-pomoću brojeva; ili još točnije, brojevima u obliku u kakvom ih je moguće pohranjivati 
-i obrađivati u digitalnom računalu. Ovaj kratki članak prikazuje jedan od mogućih 
+U postupku gradnje svakog digitalnog zemljopisa jedna od najvažnijih odluka je
+ona o izboru kanoničkog načina prikazivanja položaja neke točke na zemljinoj površini
+pomoću brojeva; ili još točnije, brojevima u obliku u kakvom ih je moguće pohranjivati
+i obrađivati u digitalnom računalu. Ovaj kratki članak prikazuje jedan od mogućih
 pristupa tom problemu. Zašto <i>problemu</i>? Zato jer je izbor tog načina od velikog
-utjecaja na učinkovitost računalne opreme, koja pak postaje sve to kritičnija kako se 
-povećava količina podataka i brzina kojom ih sustav mora obrađivati. Nesvrsishodno 
-rješenje tog problema imati će teške poslijedice po isplativost sustava, a promijeniti 
-ga naknadno rijetko će biti praktično, a vrlo često biti će to i sasvim nemoguće. 
+utjecaja na učinkovitost računalne opreme, koja pak postaje sve to kritičnija kako se
+povećava količina podataka i brzina kojom ih sustav mora obrađivati. Nesvrsishodno
+rješenje tog problema imati će teške poslijedice po isplativost sustava, a promijeniti
+ga naknadno rijetko će biti praktično, a vrlo često biti će to i sasvim nemoguće.
 </p>
 
 <h3>Koordinatni sustavi digitalnih zemljopisa</h3>
@@ -52,169 +58,169 @@ prikazivanja mora imati:
 
 <ol>
 
-<li> 
-Odnos izmedju brojeva koji definiraju položaj, i točaka na zemljinoj površini 
-mora biti jednoznačan i mora pokrivati, sa podjednakim matematičkim osobinama, 
+<li>
+Odnos izmedju brojeva koji definiraju položaj, i točaka na zemljinoj površini
+mora biti jednoznačan i mora pokrivati, sa podjednakim matematičkim osobinama,
 cijeli onaj dio zemljine površine na kojem se nalaze podaci koje sustav obraduje.
 </li
 
 <li>
-Prostor u memoriji sustava mora biti čim bolje iskorišten. Očekujemo stoga, 
-da će u idealnom slučaju broj jednoznačnih kombinacija koje se mogu prikazati 
-onom širinom elementa računske memorije koji odgovara pohrani položaja 
-jedne točke (recimo, 64 bita) biti jednak broju elementarnih površinskih 
-čestica zemljine površine, dovoljno malenih da ih možemo, sumjerljivo potrebama 
-točnosti sustava, aproksimirati <i>točkom</i> (za razliku od <i>površine</i>). 
+Prostor u memoriji sustava mora biti čim bolje iskorišten. Očekujemo stoga,
+da će u idealnom slučaju broj jednoznačnih kombinacija koje se mogu prikazati
+onom širinom elementa računske memorije koji odgovara pohrani položaja
+jedne točke (recimo, 64 bita) biti jednak broju elementarnih površinskih
+čestica zemljine površine, dovoljno malenih da ih možemo, sumjerljivo potrebama
+točnosti sustava, aproksimirati <i>točkom</i> (za razliku od <i>površine</i>).
 </li>
 
 <li>
-Brojevi trebaju biti pohranjeni u takvom obliku da se matematičke operacije 
-računske geodezije mogu izvoditi bar na dva krajnja načina: nešto sporije, ali 
-sa maksimalnom točnošću koja će se od sustava zahtijevati, i brže, sa minimalnom 
-točnošću, u onim prilikama kada je opravdano smanjiti zahtjeve točnosti u zamjenu 
+Brojevi trebaju biti pohranjeni u takvom obliku da se matematičke operacije
+računske geodezije mogu izvoditi bar na dva krajnja načina: nešto sporije, ali
+sa maksimalnom točnošću koja će se od sustava zahtijevati, i brže, sa minimalnom
+točnošću, u onim prilikama kada je opravdano smanjiti zahtjeve točnosti u zamjenu
 za povećanu brzinu obrade.
 </li>
 </ol>
 
 <p>
-Vrijedi posebno upozoriti, da među tim osobinama nema jedne, koja je 
-bila od velike važnosti kad su se problemi računske geodezije rješavali 
+Vrijedi posebno upozoriti, da među tim osobinama nema jedne, koja je
+bila od velike važnosti kad su se problemi računske geodezije rješavali
 "ljudskom rukom": potrebom, da brojčana vrijednost položajnog podatka, u svojoj
-kanoničkoj formi, bude neposredno razumljiva korisniku informatičkog sustava. 
-To nije potrebno zato, jer će tek iznimno, i u vrlo malom postotku, točke koje 
-sustav obrađuje biti (u brojčanom obliku, za razliku od njihovog slikovnog 
+kanoničkoj formi, bude neposredno razumljiva korisniku informatičkog sustava.
+To nije potrebno zato, jer će tek iznimno, i u vrlo malom postotku, točke koje
+sustav obrađuje biti (u brojčanom obliku, za razliku od njihovog slikovnog
 uobličenja na zemljovidu) predstavljene ljudskim očima, pa će, u onim rijetkim
-slučajevima kada to bude potrebno, prijetvorba internog koordinatnog 
-podatka (naprimjer takvih brojeva o kakvima će biti riječ dalje u ovom prikazu) 
-u onakav podatak kakav je korisnik navikao vidjeti (naprimjer, niz slova i 
-brojeva koji pismom predstavljaju kutnu mjeru geografske širine i dužine) 
-predstavljati sasvim zanemarivo opterećenje za sustav.  
+slučajevima kada to bude potrebno, prijetvorba internog koordinatnog
+podatka (naprimjer takvih brojeva o kakvima će biti riječ dalje u ovom prikazu)
+u onakav podatak kakav je korisnik navikao vidjeti (naprimjer, niz slova i
+brojeva koji pismom predstavljaju kutnu mjeru geografske širine i dužine)
+predstavljati sasvim zanemarivo opterećenje za sustav.
 </p>
 
 <p>
-Ovaj prikaz takodjer podrazumjeva da je problem izbora geodetskog datuma 
-(elipsoida i elipsoidnih koordinata točaka osnovne mreže) riješen, pa ćemo, 
-kada govorimo o "koordinatnom sustavu", pretpostaviti da govorimo tek o načinu 
-kako elipsoidne koordinate predstavljamo u računskom sustavu, a ne uključujemo 
-razmatranja o tome kako se osnovna mreža, koja je sadržana u definiciji 
-"geodetskog datuma", odnosi spram svojeg utjelovljenja na zemljinoj površini. 
-Stoga, a i zato jer nas ovdje zanimaju prvenstveno matematičke osobine elipsoidnih 
-koordinata, zanemariti ćemo pojmnovnu razliku izmedju geodetskih i geografskih 
-koordinata, i upotrebljavati u daljnjem tekstu najširem krugu graditelja i korisnika 
-sustava najpristupačniji termin: "geografske koordinate". 
+Ovaj prikaz takodjer podrazumjeva da je problem izbora geodetskog datuma
+(elipsoida i elipsoidnih koordinata točaka osnovne mreže) riješen, pa ćemo,
+kada govorimo o "koordinatnom sustavu", pretpostaviti da govorimo tek o načinu
+kako elipsoidne koordinate predstavljamo u računskom sustavu, a ne uključujemo
+razmatranja o tome kako se osnovna mreža, koja je sadržana u definiciji
+"geodetskog datuma", odnosi spram svojeg utjelovljenja na zemljinoj površini.
+Stoga, a i zato jer nas ovdje zanimaju prvenstveno matematičke osobine elipsoidnih
+koordinata, zanemariti ćemo pojmnovnu razliku izmedju geodetskih i geografskih
+koordinata, i upotrebljavati u daljnjem tekstu najširem krugu graditelja i korisnika
+sustava najpristupačniji termin: "geografske koordinate".
 </p>
 
 <h3>Domena podataka</h3>
 
 <p>
 U tradicionalnoj geodetskoj praksi izbor koordinatnog sustava skoro uvijek je
-bio integralni dio projekta početne izmjere neke administrativne jedinice: dakle 
-strogo omeđene, relativno male (čak i u slučajevima cijelih drzava, "male" u 
-usporedbi sa cijelom Zemljom) površine. Ako se međutim problem izbora rješava 
+bio integralni dio projekta početne izmjere neke administrativne jedinice: dakle
+strogo omeđene, relativno male (čak i u slučajevima cijelih drzava, "male" u
+usporedbi sa cijelom Zemljom) površine. Ako se međutim problem izbora rješava
 ne za određeni administrativno-tehnički projekt, već za uporabu u nekom
-informatičkom sustavu koji ce služiti velikom broju različitih digitalnih 
-zemljopisa, na prizvoljno velikim i proizvoljno položenim prostorima, izbor 
-koordinatnog sustava mora zadovoljavati i one slučajeve u kojima se prostorni 
-podaci protežu diljem sveukupne površina planeta (Zemlje, a nerijetko već i 
-njezinog satelita ili planetarnih susjeda). Premda svaka pojedinačna primjena 
-takvog računskog sustava ne mora nužno obuhvatiti cijelokupnu planetarnu 
-površinu, koordinate na osnovu kojih je informatički sustav izgradjen, morat 
+informatičkom sustavu koji ce služiti velikom broju različitih digitalnih
+zemljopisa, na prizvoljno velikim i proizvoljno položenim prostorima, izbor
+koordinatnog sustava mora zadovoljavati i one slučajeve u kojima se prostorni
+podaci protežu diljem sveukupne površina planeta (Zemlje, a nerijetko već i
+njezinog satelita ili planetarnih susjeda). Premda svaka pojedinačna primjena
+takvog računskog sustava ne mora nužno obuhvatiti cijelokupnu planetarnu
+površinu, koordinate na osnovu kojih je informatički sustav izgradjen, morat
 će odgovoriti takvom zahtjevu.
 </p>
 
 <p>
-U ovom prikazu predpostavljamo dakle, da je domena podataka cijela, nprekinuta 
-planetarna površina, i da koordinatni sustav mora biti primjenjljiv, kako je 
-prije spomenuto, <i>...sa podjednakim matematičkim osobinama...</i>, na bilo kojem 
-njezinom dijelu. Prije otprilike desetak godina počeli su se pojavljivti prvi 
-veliki napudbeni proizvodi koji poštuju to načelo, a prvi je medju njima bio 
-Geodetic DataBlade, Infomix-ovog (danas IBM) Dynamic Server DB sustava. 
+U ovom prikazu predpostavljamo dakle, da je domena podataka cijela, nprekinuta
+planetarna površina, i da koordinatni sustav mora biti primjenjljiv, kako je
+prije spomenuto, <i>...sa podjednakim matematičkim osobinama...</i>, na bilo kojem
+njezinom dijelu. Prije otprilike desetak godina počeli su se pojavljivti prvi
+veliki napudbeni proizvodi koji poštuju to načelo, a prvi je medju njima bio
+Geodetic DataBlade, Infomix-ovog (danas IBM) Dynamic Server DB sustava.
 (http://tinyurl.com/ysgcms). Programi prostornih računanja toga sustava zasnovani
-su na programskoj biblioteci u C jeziku, koja je sadržavala komponente o 
-kojima je ovdje riječ. Produkt je originalno razvijen specifično za potrebe 
-NASA-e, da bi ubrzo postao prvi komercijalno uspješni sustav za gradnju globusnih 
-ili kontinentalnih prostornih baza podataka. Engleski je nadimak za takve prozvode, 
-koji se sve više udomaćuje u geodetsko-informatičkoj praksi, "<b>round-world GIS</b>", 
-pa bi ih mi mogli zvati, u možda nesto opširnijem ali zato i preciznijem obliku, 
+su na programskoj biblioteci u C jeziku, koja je sadržavala komponente o
+kojima je ovdje riječ. Produkt je originalno razvijen specifično za potrebe
+NASA-e, da bi ubrzo postao prvi komercijalno uspješni sustav za gradnju globusnih
+ili kontinentalnih prostornih baza podataka. Engleski je nadimak za takve prozvode,
+koji se sve više udomaćuje u geodetsko-informatičkoj praksi, "<b>round-world GIS</b>",
+pa bi ih mi mogli zvati, u možda nesto opširnijem ali zato i preciznijem obliku,
 "<b>globusnim digitalnim zemljopisima</b>".
 </p>
 
 <h3>Geografske koordinate</h3>
 
 <p>
-Sustav koordinata geografske dužine i širine vuče svoje korjene iz doba, 
-kada je tek počela sazrijevati spoznaja o pravom obliku zemlje, a duboko je 
-povezan sa prirodom oko nas. Geografska dužina odraz je, u kutnoj mjeri, 
-odredjenog vremena koje je zemljina kugla provela u svojoj vrtnji, a širina 
-je naprosto prosječna godišnja mjera komplementa kuta, pod kojom sunce sredinom 
-dana obasjava dio njezine površine. Ta fundamentalna veza geografskih koordinata 
-sa našim poimanjem prirode oko nas, čini ih intuitivno razumljivima ne samo 
-geodetskom stručnjaku - graditelju prostornog informatičkog sustava, nego i 
-svakom njegovom potencijalnom korisniku, pa i "čistim informatičarima" koji u 
-takvoj gradnji sudjeluju. Više nego bilo koja druga mjera, ikada upotrebljavana 
-u geodetskoj praksi, posebno pak neusporedivo više negoli lokalne ravninske 
-koordinate različitih načina konformnog preslikavanju elipsoida u ravninu, 
-geografske su koordinate ljudskoj mjeri prilagodjen, "prirodni način" brojevnog 
+Sustav koordinata geografske dužine i širine vuče svoje korjene iz doba,
+kada je tek počela sazrijevati spoznaja o pravom obliku zemlje, a duboko je
+povezan sa prirodom oko nas. Geografska dužina odraz je, u kutnoj mjeri,
+odredjenog vremena koje je zemljina kugla provela u svojoj vrtnji, a širina
+je naprosto prosječna godišnja mjera komplementa kuta, pod kojom sunce sredinom
+dana obasjava dio njezine površine. Ta fundamentalna veza geografskih koordinata
+sa našim poimanjem prirode oko nas, čini ih intuitivno razumljivima ne samo
+geodetskom stručnjaku - graditelju prostornog informatičkog sustava, nego i
+svakom njegovom potencijalnom korisniku, pa i "čistim informatičarima" koji u
+takvoj gradnji sudjeluju. Više nego bilo koja druga mjera, ikada upotrebljavana
+u geodetskoj praksi, posebno pak neusporedivo više negoli lokalne ravninske
+koordinate različitih načina konformnog preslikavanju elipsoida u ravninu,
+geografske su koordinate ljudskoj mjeri prilagodjen, "prirodni način" brojevnog
 opisa položaja neke točke na zemaljskoj površini.
 </p>
 
 <p>
-Nije stoga začudjujuce, da je tradicionalna kutna mjera geografske širine i dužine 
-čest izbor koordinatnog sustava digitalnog zemljopisa, kada taj mora pokrivati 
-cijelu zemljinu površinu. Takav će izbor zadovoljiti jedan dio maloprije 
+Nije stoga začudjujuce, da je tradicionalna kutna mjera geografske širine i dužine
+čest izbor koordinatnog sustava digitalnog zemljopisa, kada taj mora pokrivati
+cijelu zemljinu površinu. Takav će izbor zadovoljiti jedan dio maloprije
 postavljenih kriterija, ali će se teško ogriješiti o neke druge. Za uočavanje
-problema koje sa sobom donosi upotreba kutne mjere geografskih koordinata, a 
-i za razmatranje alternativnih rješenja, korisno će biti poslužiti se slikom, 
-kako slijedi.   
+problema koje sa sobom donosi upotreba kutne mjere geografskih koordinata, a
+i za razmatranje alternativnih rješenja, korisno će biti poslužiti se slikom,
+kako slijedi.
 </p>
 
 <h3>Slika polja koordinatnih promjena</h3>
 
 <p>
-Ako zemljinu površinu preslikamo u ravninu, pa elementarjoj čestici 
-podloge po kojoj crtamo pridodamo boju, koja se intenzitetom svojih komponenti 
-mijenja proporcionalno sa veličiniom koordinatnih brojeva odgovarajuce čestice 
+Ako zemljinu površinu preslikamo u ravninu, pa elementarjoj čestici
+podloge po kojoj crtamo pridodamo boju, koja se intenzitetom svojih komponenti
+mijenja proporcionalno sa veličiniom koordinatnih brojeva odgovarajuce čestice
 zemljine površine, dobit ćemo slike polja koordinatnih promjena (koje ćemo
-u daljnjem tekstu nazivati kratko "koordinatnim slikama"). Prva takva 
-koordinatna slika (slika 1), u cilindričnoj projekciji, načinjena je tako, 
-da se boja mijenja od modrozelene do crvene kako geografska širina raste od 
--PI/2 do +PI/2, a istovremeno od ljubičaste do žutozelene, kako se geografska 
-dužina mijenja od -PI do +PI. Kombinirana boja mijenja se tako bez ikakvog 
-diskontiuiteta, diljem cijelog dvodimenzionalnog polja slike, pa bi se na 
-prvi pogled moglo zaključiti, da su i numerička svojstva koordinatnog sustava, 
-odražena bojom na njegovoj slici, jednako tako kontinuirana diljem cijele 
+u daljnjem tekstu nazivati kratko "koordinatnim slikama"). Prva takva
+koordinatna slika (slika 1), u cilindričnoj projekciji, načinjena je tako,
+da se boja mijenja od modrozelene do crvene kako geografska širina raste od
+-PI/2 do +PI/2, a istovremeno od ljubičaste do žutozelene, kako se geografska
+dužina mijenja od -PI do +PI. Kombinirana boja mijenja se tako bez ikakvog
+diskontiuiteta, diljem cijelog dvodimenzionalnog polja slike, pa bi se na
+prvi pogled moglo zaključiti, da su i numerička svojstva koordinatnog sustava,
+odražena bojom na njegovoj slici, jednako tako kontinuirana diljem cijele
 domene podataka.
 </p>
 
-<p><center><img src="eksc0801_1.png" 
+<p><center><img src="eksc0801_1.png"
 alt="Koordinatna slika, fi - lambda, cilindrična projekcija 0, 0"
 border=1></center></p>
 
 <p><center>Slika 1.</center></p>
 
 <p>
-To naravno nije tako: dovoljno je pomaknuti centar cilindrične 
-projekcije za PI/2 prema zapadu od početnog meridijana i ponoviti postupak 
-(slika 2), da bi se na slici pokazalo, da je meridijan antipodan početnom 
-meridijanu linija diskontinuiteta kutne mjere geografske dužine. 
+To naravno nije tako: dovoljno je pomaknuti centar cilindrične
+projekcije za PI/2 prema zapadu od početnog meridijana i ponoviti postupak
+(slika 2), da bi se na slici pokazalo, da je meridijan antipodan početnom
+meridijanu linija diskontinuiteta kutne mjere geografske dužine.
 </p>
 
-<p><center><img src="eksc0801_2.png" 
+<p><center><img src="eksc0801_2.png"
 alt="Koordinatna slika, fi - lambda, cilindrična projekcija 0, -PI"
 border=1></center></p>
 
 <p><center>Slika 2.</center></p>
 
 <p>
-Ako pak koordinatnu sliku kutne mjere geografske širine i dužine izvedemo u 
-ortografskoj projekciji (slika 3), uočiti ćemo nešto još mnogo važnije: 
-krajnje točke linije diskontinuiteta (sjeverni i južni pol) singularne su točke 
+Ako pak koordinatnu sliku kutne mjere geografske širine i dužine izvedemo u
+ortografskoj projekciji (slika 3), uočiti ćemo nešto još mnogo važnije:
+krajnje točke linije diskontinuiteta (sjeverni i južni pol) singularne su točke
 numeričke koordinatne domene, premda su te dvije točke u prirodi, po svim
-osebinama njihove prostorne geometrije, sasvim jednake bilo kojoj drugoj 
-točki na globusu. 
+osebinama njihove prostorne geometrije, sasvim jednake bilo kojoj drugoj
+točki na globusu.
 </p>
 
-<p><center><img src="eksc0801_3.png" 
+<p><center><img src="eksc0801_3.png"
 alt="Koordinatna slika, fi - lambda, ortografska projekcija"
 border=1></center></p>
 
@@ -222,51 +228,51 @@ border=1></center></p>
 
 <p>
 Uvesti u sustav singularne točke koje su uzrokovane samo načinom na koji
-mjerimo koordinate tamo, gdje ih u prirodnoj domeni podataka nema, bila bi 
-velika pogreška: pri računanju bi onda morali očekivati (i naravno riješiti) 
-sve one probleme koji su tipični za numeričke metode koje obradjuju 
-koordinatne brojeve u okolišu singulariteta. Dok će <i>računaru</i> (to će reći 
-čovjeku koji izvodi računanje) biti odmah očito da li u kontekstu nekog projekta 
-treba ili ne treba brinuti o koordinatnim diskontinuitetima i singularitetima, za 
-<i>računalo</i> (elektronički uređaj) nema takvoga olakšanja; pa se svaki pojedini 
+mjerimo koordinate tamo, gdje ih u prirodnoj domeni podataka nema, bila bi
+velika pogreška: pri računanju bi onda morali očekivati (i naravno riješiti)
+sve one probleme koji su tipični za numeričke metode koje obradjuju
+koordinatne brojeve u okolišu singulariteta. Dok će <i>računaru</i> (to će reći
+čovjeku koji izvodi računanje) biti odmah očito da li u kontekstu nekog projekta
+treba ili ne treba brinuti o koordinatnim diskontinuitetima i singularitetima, za
+<i>računalo</i> (elektronički uređaj) nema takvoga olakšanja; pa se svaki pojedini
 program, programska rutina ili algoritam, koji se ikada tijekom radnog vijeka
-nekog sustava može susresti sa podacima u okolišu diskontinuiteta ili singulariteta, 
-mora učiniti otpornim na numeričke nedaće koje se u takvom okolišu s pravom 
-očekuju. Ugrađivanje takve otpornosti je proces koji ne samo da bitno poskupljuje 
-gradnju napudbine, već - i što je često mnogo važnije - čini neusporedivo težim 
-provjeru njezine točnosti i ispravnosti. Svaki dodatni posebni uvjet koji 
-udvostručuje lokalnu lepezu programskog tijeka, doprinosi eksponencijanom 
-povećanju broja globalno mogućih kombinacija programskog tijeka. Takove bi pak 
-kombinacije trebalo, sve do poslijednje, nezavisno ispitati u svakom sustavu 
-koji se želi provjeriti do potpunosti. Već i u mnogim jednostavnim programima 
-tako će nešto biti teško izvedivo, dok će u kapitalnim napudbenim produktima to 
-biti potpuno nemoguće, bez obzira na izdašnost proračuna ili raspoloživost vremena.         
+nekog sustava može susresti sa podacima u okolišu diskontinuiteta ili singulariteta,
+mora učiniti otpornim na numeričke nedaće koje se u takvom okolišu s pravom
+očekuju. Ugrađivanje takve otpornosti je proces koji ne samo da bitno poskupljuje
+gradnju napudbine, već - i što je često mnogo važnije - čini neusporedivo težim
+provjeru njezine točnosti i ispravnosti. Svaki dodatni posebni uvjet koji
+udvostručuje lokalnu lepezu programskog tijeka, doprinosi eksponencijanom
+povećanju broja globalno mogućih kombinacija programskog tijeka. Takove bi pak
+kombinacije trebalo, sve do poslijednje, nezavisno ispitati u svakom sustavu
+koji se želi provjeriti do potpunosti. Već i u mnogim jednostavnim programima
+tako će nešto biti teško izvedivo, dok će u kapitalnim napudbenim produktima to
+biti potpuno nemoguće, bez obzira na izdašnost proračuna ili raspoloživost vremena.
 </p>
 
 <p>
-Uzgred možemo spomenuti jos jednu veliku manu računanja sa kutnim mjerama 
-geografske širine i dužine: skoro svaki računski postupak morat ćemo započeti 
-iznalaženjem trigonometrijskih vrijednosti kutnih kordinata, a završiti 
-računanjem kuta iz vrijednosti neke njegove trigonometrijske mjere. 
-Transcendentalne su funkcije relativno skupa operacija, pa premda, kao i 
+Uzgred možemo spomenuti jos jednu veliku manu računanja sa kutnim mjerama
+geografske širine i dužine: skoro svaki računski postupak morat ćemo započeti
+iznalaženjem trigonometrijskih vrijednosti kutnih kordinata, a završiti
+računanjem kuta iz vrijednosti neke njegove trigonometrijske mjere.
+Transcendentalne su funkcije relativno skupa operacija, pa premda, kao i
 algebarske operacije, postaju sve brže u novijim generacijama digitalnih
-procesora, <i>odnos</i> izmedju brzine algebarskih i trigonometrijskih operacija 
-postaje sveudilj lošiji po ove druge, tako da ih u računanju treba izbjegavati, 
+procesora, <i>odnos</i> izmedju brzine algebarskih i trigonometrijskih operacija
+postaje sveudilj lošiji po ove druge, tako da ih u računanju treba izbjegavati,
 kad god je to moguće.
 </p>
 
 <p>
-Kutne geografske koordinate samo su jedan od načina da se brojevima opiše prostorna 
+Kutne geografske koordinate samo su jedan od načina da se brojevima opiše prostorna
 orjentacija normale, koja definira položaj točke na  površini rotacionog elipsida:
-ona može biti (slika 4) jednako tako jednoznačno određena svojim normaliziranim 
-vektorskim komponentama <i>i</i>, <i>j</i>, i <i>k</i>, kao i kutevima <i>fi</i> i 
-<i>lambda</i>. Ako dakle prihvatimo namjesto kutne mjere ta tri broja kao koordinate 
-točke na površini elipsida, riješit ćemo se svih maloprije spomenutih neprilika, 
-uz tek jedan ozbiljan prigovor, kojem se, kako ćemo vidjeti kasnije, može naći 
+ona može biti (slika 4) jednako tako jednoznačno određena svojim normaliziranim
+vektorskim komponentama <i>i</i>, <i>j</i>, i <i>k</i>, kao i kutevima <i>fi</i> i
+<i>lambda</i>. Ako dakle prihvatimo namjesto kutne mjere ta tri broja kao koordinate
+točke na površini elipsida, riješit ćemo se svih maloprije spomenutih neprilika,
+uz tek jedan ozbiljan prigovor, kojem se, kako ćemo vidjeti kasnije, može naći
 prikladno rješenje.
 </p>
 
-<p><center><img src="eksc0801_4.png" 
+<p><center><img src="eksc0801_4.png"
 alt="Normala na površinu rotacionog elipsoida"
 border=1></center></p>
 
@@ -274,33 +280,33 @@ border=1></center></p>
 
 <p>
 Dalako najvažnija, i u gradnji informatičkih sustava (za razliku od "računanja
-rukom") najkorisnija osobina takvog koordinatnog sustava vidi se ako pogledamo 
+rukom") najkorisnija osobina takvog koordinatnog sustava vidi se ako pogledamo
 koordinatne slike normale izražene u obliku vektora: ne samo da je polje boja
-kontinuirano u cilindričnoj projekciji (slika 5), nego je vidljivo da je polje 
-boja bez ikakvih diskontinuiteta ili singulariteta, bez obzira kako i odakle 
-promatramo površinu (slike 6 i 7). Možemo dakle reći, da je takav koordinatni 
-sustav neprekdan i izometričan do one iste mjere do koje je neprekidna i 
+kontinuirano u cilindričnoj projekciji (slika 5), nego je vidljivo da je polje
+boja bez ikakvih diskontinuiteta ili singulariteta, bez obzira kako i odakle
+promatramo površinu (slike 6 i 7). Možemo dakle reći, da je takav koordinatni
+sustav neprekdan i izometričan do one iste mjere do koje je neprekidna i
 izometrična domena podataka.
 </p>
 
-<p><center><img src="eksc0801_5.png" 
+<p><center><img src="eksc0801_5.png"
 alt="Koordinatna slika vectorskog oblika normale, cilindrična projekcija"
 border=1></center></p>
 <p><center>Slika 5.</center></p>
 
-<p><center><img src="eksc0801_6.png" 
+<p><center><img src="eksc0801_6.png"
 alt="Koordinatna slika vectorskog oblika normale, ortografska projekcija (a)"
 border=1></center></p>
 <p><center>Slika 6.</center></p>
 
-<p><center><img src="eksc0801_7.png" 
+<p><center><img src="eksc0801_7.png"
 alt="Koordinatna slika vectorskog oblika normale, ortografska projekcija (b)"
 border=1></center></p>
 <p><center>Slika 7.</center></p>
 
 
 <p>
-Funkcije koje pretvaraju geografske koordinate iz kutnog u vektorski oblik (i obrnuto) 
+Funkcije koje pretvaraju geografske koordinate iz kutnog u vektorski oblik (i obrnuto)
 krajnje su jednostavne, pa ih ovdje uključujemo prvenstveno radi definicije programskih
 struktura i konstanti koje ćemo koristiti i u slijedećem odjeljku:
 </p>
@@ -328,14 +334,14 @@ struct cdc64 {           /* CDC (concise direction cosines), 4-byte integers */
 /* implementation that, presumably via assembler code, makes use of the      */
 /* simultaneous derivation of sine and cosine offered on most FPU-s.         */
 /* For instance, for GNU C compiler (gcc) and Intel 386+ FPU, use:           */
-/* void gp_SineCosine(double a, double *s, double *c) {                      */ 
+/* void gp_SineCosine(double a, double *s, double *c) {                      */
 /*    asm("fsincos" : "=t" (*c), "=u" (*s) : "0" (a));                       */
 /*    }                                                                      */
 void gp_SineCosine(double angle,                   /* given angle in radians */
                    double *pSin,                            /* returned sine */
                    double *pCos) {                        /* returned cosine */
    *pSin = sin(angle);
-   *pCos = cos(angle); 
+   *pCos = cos(angle);
    };
 /* ========================================================================= */
 /* Given latitude and longitude, return vector form of the normal. note that */
@@ -350,7 +356,7 @@ void gp_LatLongToDircos(const struct sLatLong *pltln,      /* given lat/long */
    pdcos->dcy = cosPhi * sinLmbd;
    return;
    }
-/* ========================================================================= */  
+/* ========================================================================= */
 /* Given vector form of the normal, return latitude and longitude. note that */
 /* input value is assumed to be well-formed, no data checking is performed.  */
 void gp_DircosToLatLong(const struct sDircos *pdcos,         /* given vector */
@@ -369,30 +375,30 @@ void gp_DircosToLatLong(const struct sDircos *pdcos,         /* given vector */
 <h3>Skraćeni oblik vektorskih elipsoidnih koordinata</h3>
 
 <p>
-Prigovor koordinatnom sustavu koji smo izabrali očit je i jednostavan: ako za 
+Prigovor koordinatnom sustavu koji smo izabrali očit je i jednostavan: ako za
 numerički opis položaja točke trebamo tri umjesto samo dva broja, povećat ćemo
 u jednakom omjeru količinu računalne memorije, koja je potrebna za prikaz nekog
 odredjenog skupa prostornih objekata. Rješenje je medjutim jednostavno, a nudi
 ga činjenica da je zbroj kvadrata komponenata normaliziranog vektora ravan
 jedinici. Vadjenje drugog korjena na digitalnim je procesorima operacija
-tek nešto malo "skuplja" od dijeljenja (vremenski najskuplje od četri osnovne 
-algebarske operacije), a neusporedivo brža od izvodjenja tigonometrijskih 
-vrijednosti iz njihovih kuteva. Zato je svrsishodno kao koordinate točke zadržati 
-samo dvije od tri vektorske komponente normale, a onu treću, kada je potrebna za 
-izvođenje računanja, izvesti iz druge dvije. Taj će postupak biti donekle sličan 
-izvođenju trigonometrijskih vrijednosti pri početku računanja sa kutnom 
-mjerom, ali sa tom razlikom, da je od takvog izvođenja neusporedivo brži. 
-Jasno je takodjer i koju od tri komponente treba "odbaciti" kada točku pohranjujemo: 
-onu, čija će promjena u nekom odredjenom iznosu imati najmanji utjecaj na 
-položaj točke, dakle onu, koja ima najveću apslutnou vrijednost. Koordinatna slika 
-takvog "skraćenog" vektorskog oblika normale u cilindričnoj projekciji vidi se na 
-slici 8, a u ortografskoj projekciji na slici 9. Ta su dva prikaza uključena samo 
-radi boljeg poimanja skraćenog oblika vektorskih elipsoidnih koordinata: linije 
-diskontinuiteta tog sustava nemaju utjecaja na računanja, jer se ona vrše u punom, 
-"tro-komponentnom" koordinatnom obliku.  
+tek nešto malo "skuplja" od dijeljenja (vremenski najskuplje od četri osnovne
+algebarske operacije), a neusporedivo brža od izvodjenja tigonometrijskih
+vrijednosti iz njihovih kuteva. Zato je svrsishodno kao koordinate točke zadržati
+samo dvije od tri vektorske komponente normale, a onu treću, kada je potrebna za
+izvođenje računanja, izvesti iz druge dvije. Taj će postupak biti donekle sličan
+izvođenju trigonometrijskih vrijednosti pri početku računanja sa kutnom
+mjerom, ali sa tom razlikom, da je od takvog izvođenja neusporedivo brži.
+Jasno je takodjer i koju od tri komponente treba "odbaciti" kada točku pohranjujemo:
+onu, čija će promjena u nekom odredjenom iznosu imati najmanji utjecaj na
+položaj točke, dakle onu, koja ima najveću apslutnou vrijednost. Koordinatna slika
+takvog "skraćenog" vektorskog oblika normale u cilindričnoj projekciji vidi se na
+slici 8, a u ortografskoj projekciji na slici 9. Ta su dva prikaza uključena samo
+radi boljeg poimanja skraćenog oblika vektorskih elipsoidnih koordinata: linije
+diskontinuiteta tog sustava nemaju utjecaja na računanja, jer se ona vrše u punom,
+"tro-komponentnom" koordinatnom obliku.
 </p>
 
-<p><center><img src="eksc0801_8.png" 
+<p><center><img src="eksc0801_8.png"
 alt="Koordinatna slika skraćenog vectorskog oblika normale, cilindrična projekcija"
 border=1></center></p>
 <p><center>Slika 8.</center></p>
@@ -404,16 +410,16 @@ border=1></center></p>
 
 <p>
 Elemente skraćenog oblika vektorskih koordinata moguće je pohraniti u memoriji
-sa različitom širinom zapisa, pa prema tome i sa različitom rezolucijom na 
+sa različitom širinom zapisa, pa prema tome i sa različitom rezolucijom na
 zemljinoj površini. Ako, naprimjer, pohranimo svaki od dva broja sa onoliko znamenki
-koliko ih je moguće (uz potrebu da se zapiše i to koji je od tri broja ispušten i 
+koliko ih je moguće (uz potrebu da se zapiše i to koji je od tri broja ispušten i
 kojeg je on bio predznaka) pohraniti u 32-bitnom cjelobrojniku, zapisom točke u
-64 bita postići ćemo prostornu rezoluciju od oko 15 milimetara u prirodi. Takav, 
-vrlo kompaktan oblik zapisa koordinata točkaka neće dostajati za podatke geodetskih 
-mreža ili detalja koji je određen terestičkom izmjerom visoke točnosti, ali će biti 
-više nego dostatan za objekte kojima su koordinate određene, naprimjer, GPS-om 
-(uključujući i diferencijalni GPS), fotogrametrijskim metodama ili daljinskim 
-opažanjima. Primjer programskog koda dviju C funkcija, koje pretvaraju, u oba 
+64 bita postići ćemo prostornu rezoluciju od oko 15 milimetara u prirodi. Takav,
+vrlo kompaktan oblik zapisa koordinata točkaka neće dostajati za podatke geodetskih
+mreža ili detalja koji je određen terestičkom izmjerom visoke točnosti, ali će biti
+više nego dostatan za objekte kojima su koordinate određene, naprimjer, GPS-om
+(uključujući i diferencijalni GPS), fotogrametrijskim metodama ili daljinskim
+opažanjima. Primjer programskog koda dviju C funkcija, koje pretvaraju, u oba
 smjera, elemente normale u takav zapis, slijedi:
 </p>
 
@@ -434,7 +440,7 @@ smjera, elemente normale u takav zapis, slijedi:
 /* return "concise" form, by dropping the component with the greatest        */
 /* numerical value, scaling the magnitude of the other two so that they      */
 /* will fit into a 32-bit integer each. Use the most-significant bits to     */
-/* encode the order (i,j or k) and the sign of the dropped third component.  */  
+/* encode the order (i,j or k) and the sign of the dropped third component.  */
 void gp_DircosToCdc64(const struct sDircos *vct, /* given vector coordinates */
                       struct cdc64 *cdc) {        /* returned "concise" form */
    double adi, adj, adk;
@@ -479,8 +485,8 @@ void gp_DircosToCdc64(const struct sDircos *vct, /* given vector coordinates */
 /* Given concise form of spherical or spheroidal coordinates, return their   */
 /* full vector form, suitable for computations. This funcitin is the inverse */
 /* of gp_DircosToCdc64().                                                    */
-void gp_Cdc64ToDircos(const struct cdc64 *cdc,         /* given concise form */ 
-                      struct sDircos *vct) {  /* returned vector coordinates */ 
+void gp_Cdc64ToDircos(const struct cdc64 *cdc,         /* given concise form */
+                      struct sDircos *vct) {  /* returned vector coordinates */
    double du, dv, dw;
 /* ------------------------------------------------------------------------- */
    du = RSTR_DBL(cdc->u);
@@ -530,24 +536,23 @@ void gp_Cdc64ToDircos(const struct cdc64 *cdc,         /* given concise form */
 </pre>
 
 <p>
-Zamjena klasičnih geodetskih računanja, koja uptrebljavaju kutnu mjeru 
+Zamjena klasičnih geodetskih računanja, koja uptrebljavaju kutnu mjeru
 geografskih koordinata, sa njihovim inačicama koje upotrebljavaju vektorski
-oblik normale na elipsoid nadasve je interesantno područje računske geodezije, 
+oblik normale na elipsoid nadasve je interesantno područje računske geodezije,
 ali prelazi granice ovog članka. Spomenuti ćemo samo, za usporedbu, da je
-većina klasičnih računanja zasnovana na nekom postulatu diferencijalne 
+većina klasičnih računanja zasnovana na nekom postulatu diferencijalne
 geometrije na elipsoidnoj površini, koji se onda razvojem u red po rastućim
-potencijama elipsoidnog eksentriciteta dovodi do numeričkog rješenja sa 
+potencijama elipsoidnog eksentriciteta dovodi do numeričkog rješenja sa
 točnošču primjerenom problemu koji se rješava. Kada se pak računa sa normalama
-u vektorskom obliku, namjesto razvoja u redove primjerenije je koristiti 
+u vektorskom obliku, namjesto razvoja u redove primjerenije je koristiti
 iterativne algoritme, koji, u svojem najčešćem obliku, u programskoj petlji
-naizmjence variraju u malim iznosima položaj normale u točki u kojoj je ona 
+naizmjence variraju u malim iznosima položaj normale u točki u kojoj je ona
 najbliža koordinatnom ishodištu, i onoga na elipsidnoj površini, a iteracija
 se zaustavlja kada su geometrijski uvjeti koji definiraju problem zadovoljeni
-- i opet - sa onakvom točnošću koja je primjerena problemu koji se rješava. 
-No dok smo si u slučaju klasičnih računanja kriterij točnosti morali odabrati 
-već pri razvoju programa, u slučaju iterativnih algoritama možemo tu odluku 
-odgoditi sve do trenutka izvođenja programa, kada je mnogo lakše odrediti 
-svakom pojedinm problemu primjerenu ravnotežu između potrebne točnosti i 
-vremena kojeg će provedba računa zahtijevati.       
+- i opet - sa onakvom točnošću koja je primjerena problemu koji se rješava.
+No dok smo si u slučaju klasičnih računanja kriterij točnosti morali odabrati
+već pri razvoju programa, u slučaju iterativnih algoritama možemo tu odluku
+odgoditi sve do trenutka izvođenja programa, kada je mnogo lakše odrediti
+svakom pojedinm problemu primjerenu ravnotežu između potrebne točnosti i
+vremena kojeg će provedba računa zahtijevati.
 </p>
-
